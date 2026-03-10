@@ -275,6 +275,8 @@ body {
   transition: opacity 0.15s, transform 0.15s;
 }
 .map-preview-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.map-preview-btn { min-height: 44px; }
+.map-preview-btn { min-height: 44px; }
 
 /* map-onboarding removed */
 
@@ -348,6 +350,38 @@ body {
   transition: background 0.15s, color 0.15s;
 }
 #modal-close:hover { background: #1e2d42; color: #e8edf5; }
+
+/* ── MODAL TOPBAR MOBILE ── */
+@media (max-width: 600px) {
+  #modal-topbar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px 14px 0;
+    gap: 6px;
+  }
+  #modal-logo {
+    flex: 1;
+    font-size: 13px;
+  }
+  #modal-counter {
+    display: none;
+  }
+  #modal-close {
+    flex-shrink: 0;
+  }
+  #modal-filters {
+    order: 3;
+    width: 100%;
+    padding-bottom: 10px;
+    gap: 6px;
+  }
+  .filter-btn {
+    font-size: 9px !important;
+    padding: 6px 10px !important;
+    min-height: 32px;
+    flex-shrink: 0;
+  }
+}
 
 /* ── HOW IT WORKS ── */
 #how {
@@ -714,8 +748,6 @@ footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32p
 .nav-links a:hover { color: #e8edf5; }
 
 
-@media (max-width: 900px) {  }
-@media (max-width: 480px) { nav { padding: 0 16px; }   }
 
 /* ── NAV ── */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; background: rgba(9,16,31,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(42,61,92,0.6); }
@@ -1511,30 +1543,20 @@ revealEls.forEach(el => observer.observe(el));
   </div>
 </footer>
 
-<style>
-/* ── UNIVERSAL MOBILE PATCH ── injected ── */
-html { overflow-x: hidden; }
-body { overflow-x: hidden; }
-@media (max-width: 480px) {
-  nav { padding: 0 16px !important; }
-  
-  
-  
-}
-</style>
 
 
 <style>
 @media (max-width: 900px) {
   #hero { grid-template-columns: 1fr; gap: 40px; padding: 96px 24px 64px; }
-  .hero-vis-wrap, #map-wrap { display: none; }
-  .pipeline { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .pipeline { grid-template-columns: 1fr; gap: 24px; }
   .deliverables, .who-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 640px) {
   #hero { padding: 80px 20px 48px; }
+  .hero-copy { padding: 48px 20px 32px; }
   .hero-headline { font-size: clamp(28px, 8vw, 42px) !important; }
   .hero-sub { font-size: 15px; }
+  .hero-stats { margin-top: 40px; }
   .pipeline { grid-template-columns: 1fr 1fr; gap: 10px; }
   .pipeline-step { padding: 14px 12px; }
   .deliverables, .who-grid { grid-template-columns: 1fr; }
@@ -1548,14 +1570,6 @@ body { overflow-x: hidden; }
 </style>
 
 
-<style>
-@media (max-width: 400px) {
-  
-}
-@media (max-width: 480px) {
-  
-}
-</style>
 
 <style>
 /* Mobile map modal adjustments */
