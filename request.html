@@ -400,7 +400,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
     </div>
 
     <div style="margin-top:20px;">
-      <p style="font-size:12px;color:var(--muted);line-height:1.6;">Or email Andrew directly at <a href="/cdn-cgi/l/email-protection#4b2a252f392e3c0b282426263e25223f32272a29652a3b3b" style="color:#c8f0d0;text-decoration:none;"><span class="__cf_email__" data-cfemail="274649435542506744484a4a52494e535e4b464509465757">[email&#160;protected]</span></a></p>
+      <p style="font-size:12px;color:var(--muted);line-height:1.6;">Or email Andrew directly at <a href="mailto:andrew@communitylab.app" style="color:#c8f0d0;text-decoration:none;">andrew@communitylab.app</a></p>
     </div>
   </div>
 
@@ -418,7 +418,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
       <div class="confirm-item"><div class="confirm-item-mark">03</div><div>We run the public data pipeline alongside the questionnaire responses. 4–5 weeks from instrument distribution.</div></div>
       <div class="confirm-item"><div class="confirm-item-mark">04</div><div>You receive the full Snapshot — stall identification, stack analysis, structural resemblances, leverage hypotheses. With explicit confidence levels throughout.</div></div>
     </div>
-    <p class="confirm-note" style="text-align:center;">Questions in the meantime? <a href="/cdn-cgi/l/email-protection#04656a6076617344676b6969716a6d707d6865662a657474"><span class="__cf_email__" data-cfemail="83e2ede7f1e6f4c3e0eceeeef6edeaf7faefe2e1ade2f3f3">[email&#160;protected]</span></a></p>
+    <p class="confirm-note" style="text-align:center;">Questions in the meantime? <a href="mailto:andrew@communitylab.app" style="color:#c8f0d0;text-decoration:none;">andrew@communitylab.app</a></p>
   </div>
 
   <!-- CONFIRMATION: FULL / UNSURE -->
@@ -435,14 +435,14 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
       <div class="confirm-item"><div class="confirm-item-mark">03</div><div>Andrew scopes the engagement and gives you a clear timeline and price. No obligation at this stage.</div></div>
       <div class="confirm-item"><div class="confirm-item-mark">04</div><div>If it's the right fit, you'll receive a proposal within a few days of the call.</div></div>
     </div>
-    <p class="confirm-note" style="text-align:center;">Can't wait? Email directly: <a href="/cdn-cgi/l/email-protection#076669637562704764686a6a72696e737e6b666529667777"><span class="__cf_email__" data-cfemail="dfbeb1bbadbaa89fbcb0b2b2aab1b6aba6b3bebdf1beafaf">[email&#160;protected]</span></a></p>
+    <p class="confirm-note" style="text-align:center;">Can't wait? Email directly: <a href="mailto:andrew@communitylab.app" style="color:#c8f0d0;text-decoration:none;">andrew@communitylab.app</a></p>
   </div>
 
 </div>
 
 <div class="footer-pad"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
@@ -472,12 +472,11 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
         <a href="about.html">About</a>
         <a href="data.html">Diagnostic Data</a>
         <a href="request.html">Request a Diagnostic</a>
-        <a href="/cdn-cgi/l/email-protection#3859565c4a5d4f785b5755554d56514c4154595a16594848"><span class="__cf_email__" data-cfemail="87e6e9e3f5e2f0c7e4e8eaeaf2e9eef3feebe6e5a9e6f7f7">[email&#160;protected]</span></a>
+        <a href="mailto:andrew@communitylab.app" style="color:#8ba3c1;text-decoration:none;">andrew@communitylab.app</a>
       </div>
     </div>
   </div>
   <div class="footer-base">
-    <span class="fo
     <span class="footer-copy">© 2026 ClusterOS · Community Lab</span>
     <span class="footer-copy">Built in Edinburgh</span>
   </div>
@@ -509,6 +508,177 @@ body { overflow-x: hidden; }
 </style>
 
 <script>
+// ── FORM STATE ──────────────────────────────────────────────
+var currentStep = 1;
+var selectedEngagement = null;
+
+// ── STEP NAVIGATION ─────────────────────────────────────────
+function goToStep(step) {
+  // Hide all steps
+  document.querySelectorAll('.form-step').forEach(function(s) {
+    s.classList.remove('active');
+  });
+
+  // Show target step
+  var target = null;
+  if (step === 1) target = document.getElementById('step-1');
+  if (step === 2) target = document.getElementById('step-2');
+  if (step === 3) target = document.getElementById('step-3');
+  if (target) target.classList.add('active');
+
+  currentStep = step;
+  updateStepIndicator(step);
+
+  // Update step 3 context strip
+  if (step === 3) updateContextStrip();
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateStepIndicator(step) {
+  for (var i = 0; i < 3; i++) {
+    var dot = document.getElementById('dot-' + i);
+    if (!dot) continue;
+    dot.classList.remove('active', 'done');
+    if (i + 1 < step) dot.classList.add('done');
+    if (i + 1 === step) dot.classList.add('active');
+  }
+  var label = document.getElementById('step-label');
+  if (label) label.textContent = 'Step ' + step + ' of 3';
+}
+
+// ── OPTION SELECTION ────────────────────────────────────────
+function selectOption(type) {
+  selectedEngagement = type;
+
+  // Clear all selections
+  document.querySelectorAll('.option').forEach(function(o) {
+    o.classList.remove('selected', 'selected-amber');
+  });
+
+  // Apply selection style
+  var el = document.getElementById('opt-' + type);
+  if (el) {
+    if (type === 'snapshot') {
+      el.classList.add('selected-amber');
+    } else {
+      el.classList.add('selected');
+    }
+  }
+
+  // Enable continue button
+  var btn = document.getElementById('step2-next');
+  if (btn) btn.disabled = false;
+}
+
+// ── CONTEXT STRIP ───────────────────────────────────────────
+function updateContextStrip() {
+  var strip = document.getElementById('context-strip');
+  var text = document.getElementById('context-text');
+  if (!strip || !text) return;
+
+  if (selectedEngagement === 'snapshot') {
+    strip.style.display = 'flex';
+    text.innerHTML = '<strong>Cluster Snapshot selected — £5k, fixed fee.</strong> 4–5 weeks from instrument distribution. No working sessions required.';
+    var btn = document.getElementById('step3-submit');
+    if (btn) btn.textContent = 'Request Snapshot →';
+  } else if (selectedEngagement === 'full') {
+    strip.style.display = 'flex';
+    text.innerHTML = '<strong>Collaborative Diagnostic selected.</strong> Andrew will arrange a 30-minute scoping call to calibrate the engagement before proposing a price.';
+    var btn = document.getElementById('step3-submit');
+    if (btn) btn.textContent = 'Request scoping call →';
+  } else if (selectedEngagement === 'unsure') {
+    strip.style.display = 'flex';
+    text.innerHTML = 'Andrew will review your cluster and suggest the right starting point — no obligation at this stage.';
+    var btn = document.getElementById('step3-submit');
+    if (btn) btn.textContent = 'Send request →';
+  } else {
+    strip.style.display = 'none';
+  }
+}
+
+// ── FIELD VALIDATION ────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+
+  // Step 1: enable continue when cluster name has input
+  var clusterField = document.getElementById('cluster-name');
+  var step1btn = document.getElementById('step1-next');
+  if (clusterField && step1btn) {
+    clusterField.addEventListener('input', function() {
+      step1btn.disabled = this.value.trim().length < 2;
+    });
+  }
+
+  // Step 3: enable submit when name + email filled
+  var fields3 = ['first-name', 'last-name', 'email'];
+  fields3.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('input', checkStep3);
+  });
+});
+
+function checkStep3() {
+  var first = document.getElementById('first-name');
+  var last = document.getElementById('last-name');
+  var email = document.getElementById('email');
+  var btn = document.getElementById('step3-submit');
+  if (!first || !last || !email || !btn) return;
+
+  var emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+  btn.disabled = !(first.value.trim() && last.value.trim() && emailValid);
+}
+
+// ── FORM SUBMISSION ─────────────────────────────────────────
+function submitForm() {
+  var clusterName = document.getElementById('cluster-name').value.trim();
+  var orgName = document.getElementById('org-name').value.trim();
+  var firstName = document.getElementById('first-name').value.trim();
+  var lastName = document.getElementById('last-name').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var message = document.getElementById('message').value.trim();
+
+  var engagementLabel = {
+    snapshot: 'Cluster Snapshot (£5k fixed fee)',
+    full: 'Collaborative Diagnostic (scoped)',
+    unsure: 'Not sure yet — needs scoping conversation'
+  }[selectedEngagement] || 'Not specified';
+
+  var subject = 'ClusterOS Diagnostic Request — ' + clusterName;
+
+  var body = [
+    'Name: ' + firstName + ' ' + lastName,
+    'Email: ' + email,
+    'Organisation: ' + (orgName || 'Not provided'),
+    '',
+    'Cluster: ' + clusterName,
+    'Engagement type: ' + engagementLabel,
+    '',
+    'Additional notes:',
+    message || 'None provided'
+  ].join('\n');
+
+  // Open mailto
+  window.location.href = 'mailto:andrew@communitylab.app'
+    + '?subject=' + encodeURIComponent(subject)
+    + '&body=' + encodeURIComponent(body);
+
+  // Show confirmation screen
+  document.querySelectorAll('.form-step').forEach(function(s) {
+    s.classList.remove('active');
+  });
+
+  var confirmId = (selectedEngagement === 'snapshot') ? 'confirm-snapshot' : 'confirm-full';
+  var confirmEl = document.getElementById(confirmId);
+  if (confirmEl) confirmEl.classList.add('active');
+
+  // Hide step indicator
+  var indicator = document.getElementById('step-indicator');
+  if (indicator) indicator.style.display = 'none';
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── NAV DROPDOWN ────────────────────────────────────────────
 // Nav dropdown - click to open, click outside to close
 document.querySelectorAll('.nav-dropdown').forEach(function(dropdown) {
   var toggle = dropdown.querySelector('.nav-dropdown-toggle');
