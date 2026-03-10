@@ -211,21 +211,143 @@ body {
   display: block;
 }
 
-/* Right: map */
+/* ── RIGHT: MAP PREVIEW ── */
 .hero-map {
   position: relative;
   overflow: hidden;
   border-left: 1px solid #1e2d42;
 }
+.map-preview-wrap {
+  position: absolute;
+  inset: 0;
+  background: #060c18;
+}
+#map-preview-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.map-preview-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 40px;
+  background: linear-gradient(to top, rgba(6,12,24,0.85) 0%, transparent 60%);
+}
+.map-preview-stats {
+  text-align: center;
+  margin-bottom: 16px;
+}
+.map-preview-count {
+  font-family: 'Instrument Serif', serif;
+  font-size: 36px;
+  color: #c8f0d0;
+  display: block;
+  line-height: 1;
+}
+.map-preview-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 9px;
+  color: #7a9bb5;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 4px;
+}
+.map-preview-btn {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #09101f;
+  background: #c8f0d0;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.map-preview-btn:hover { opacity: 0.88; transform: translateY(-1px); }
 
 /* map-onboarding removed */
 
-/* Map legend bar - now hidden (using inner map legend instead) */
-#map-legend-bar {
-  display: none;
+/* ── MAP MODAL ── */
+#map-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #060c18;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+#map-modal.open {
+  opacity: 1;
+  pointer-events: all;
 }
 
-/* zoom controls handled in map CSS block below */
+/* Modal top bar */
+#modal-topbar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 48px;
+  padding: 0 20px;
+  background: rgba(6,12,24,0.95);
+  border-bottom: 1px solid rgba(30,45,66,0.8);
+  flex-shrink: 0;
+  z-index: 10;
+}
+#modal-logo {
+  font-family: 'Instrument Serif', serif;
+  font-size: 15px;
+  color: #e8edf5;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+#modal-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+#modal-counter {
+  font-family: 'Geist Mono', monospace;
+  font-size: 9px;
+  color: #7a9bb5;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+#modal-counter span { color: #c8f0d0; font-weight: 600; }
+#modal-filters {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+#modal-filters::-webkit-scrollbar { display: none; }
+#modal-close {
+  width: 30px;
+  height: 30px;
+  background: rgba(30,45,66,0.5);
+  border: 1px solid rgba(42,61,92,0.5);
+  border-radius: 50%;
+  color: #8ba3c1;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+#modal-close:hover { background: #1e2d42; color: #e8edf5; }
 
 /* ── HOW IT WORKS ── */
 #how {
@@ -619,34 +741,69 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 
 <style>
 /* Homepage map overrides */
-.hero-map { position: relative; }
-.hero-map #map-wrap {
-  position: absolute !important;
-  top: 0; left: 0; right: 0; bottom: 0;
-  width: 100% !important;
-  height: 100% !important;
+/* map-wrap is now inside the modal, not the hero */
+/* ── MAP MODAL INNER LAYOUT ── */
+#map-wrap {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: #060c18;
 }
-/* HUD visible */
-/* Adjust zoom controls - move to right side, middle height */
-.hero-map #zoom-controls {
-  bottom: 50% !important;
-  top: auto !important;
-  right: 12px !important;
-  transform: translateY(50%);
+
+/* Filters in modal topbar */
+.filter-btn {
+  background: transparent;
+  padding: 4px 10px;
+  border-radius: 3px;
+  border: 1px solid rgba(42,61,92,0.5);
+  font-family: 'Geist Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #5a7a9a;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
 }
-/* Filters and legend live inside map-wrap topbar/bottom strip - no overrides needed */
-.hero-map #filters { position:static; } /* filters now inside #map-topbar */
-/* Panel z-index fix for homepage context */
+.filter-btn:hover { border-color: #7a9bb5; color: #c4cdd9; }
+.filter-btn.active { border-color: #c8f0d0; color: #09101f; background: #c8f0d0; font-weight: 700; }
+.filter-btn[data-filter="all"].active { border-color: rgba(42,61,92,0.8); color: #c4cdd9; background: rgba(42,61,92,0.5); font-weight: 400; }
+
+/* Legend bottom strip */
+#legend {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 16px;
+  height: 36px;
+  background: rgba(6,12,24,0.85);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(30,45,66,0.5);
+}
+.legend-item { display: flex; align-items: center; gap: 6px; font-family: 'Geist Mono', monospace; font-size: 8px; color: #7a9bb5; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
+.legend-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.legend-dot.emerging { background: #7dd3c8; }
+.legend-dot.growing { background: #c8f0d0; }
+.legend-dot.mature { background: #f5d97a; }
+.legend-dot.transitioning { background: #f08080; }
+.legend-hint { margin-left: auto; font-family: 'Geist Mono', monospace; font-size: 8px; color: #3a5a7a; letter-spacing: 0.06em; }
+
+/* Zoom controls */
+#zoom-controls { position: absolute; bottom: 44px; right: 14px; z-index: 20; display: flex; flex-direction: column; gap: 6px; }
+.zoom-btn { width: 42px; height: 42px; background: rgba(6,12,24,0.92); backdrop-filter: blur(12px); border: 1px solid rgba(42,61,92,0.6); border-radius: 6px; color: #8ba3c1; font-size: 20px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: monospace; transition: border-color 0.15s, color 0.15s; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+.zoom-btn:hover { border-color: #c8f0d0; color: #e8edf5; }
+#zoom-level { font-family: 'Geist Mono', monospace; font-size: 7px; color: #7a9bb5; letter-spacing: 0.06em; text-align: center; padding: 2px 0; }
+
+/* Panel z-index */
 .hero-map #panel { z-index: 500; }
 .hero-map #tooltip { z-index: 600; }
-/* Zoom controls - above legend strip */
-.hero-map #zoom-controls {
-  bottom: 44px !important;
-  right: 12px !important;
-  top: auto !important;
-  transform: none !important;
-}
 </style>
+  <!-- World map rendering -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 </head>
 <body>
 <div id="page-wrap" style="background:#09101f;color:#e8edf5;min-height:100vh">
@@ -720,7 +877,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
   <!-- Right: map preview -->
   <div class="hero-map" id="hero-map-container">
     <div class="map-preview-wrap" id="map-preview-wrap">
+      <!-- Static mini dots preview - no JS needed -->
       <canvas id="map-preview-canvas"></canvas>
+      <!-- Overlay CTA -->
       <div class="map-preview-overlay">
         <div class="map-preview-stats">
           <span class="map-preview-count">75</span>
@@ -775,6 +934,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 
     <!-- Viewport for pan/zoom -->
     <div id="map-viewport" style="position:absolute;inset:0;transform-origin:0 0;will-change:transform">
+      <!-- World map canvas — rendered by D3 + TopoJSON -->
+      <canvas id="world-canvas" style="pointer-events:none;position:absolute;top:0;left:0;width:100%;height:100%;display:block"></canvas>
+      <!-- Invisible SVG for pin positioning reference only -->
       <svg id="world-svg" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid meet"
         xmlns="http://www.w3.org/2000/svg"
         style="pointer-events:none;position:absolute;top:0;left:0;width:100%;height:100%;opacity:0">
@@ -810,6 +972,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 
   </div>
 </div>
+
 
 <!-- HOW IT WORKS -->
 <section id="how">
@@ -1010,10 +1173,10 @@ revealEls.forEach(el => observer.observe(el));
 /* ── MAP CONTAINER ── */
 #map-wrap{position:relative;width:100%;height:100vh;overflow:hidden;background:radial-gradient(ellipse at 35% 40%, #0c1525 0%, #080e1a 100%);cursor:grab}
 #map-wrap.dragging{cursor:grabbing}
-#zoom-controls{position:absolute;bottom:24px;right:24px;z-index:20;display:flex;flex-direction:column;gap:4px}
-.zoom-btn{width:30px;height:30px;background:rgba(9,16,31,0.85);backdrop-filter:blur(12px);border:1px solid rgba(42,61,92,0.5);border-radius:4px;color:#8ba3c1;font-size:16px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:monospace;transition:border-color 0.15s,color 0.15s}
-.zoom-btn:hover{border-color:#c8f0d0;color:#e8edf5}
-#zoom-level{font-family:Geist Mono,monospace;font-size:8px;color:#7a9bb5;letter-spacing:.06em;text-align:center;padding:2px 0}
+#zoom-controls{position:absolute;bottom:24px;right:24px;z-index:20;display:flex;flex-direction:column;gap:6px}
+.zoom-btn{width:42px;height:42px;background:rgba(9,16,31,0.92);backdrop-filter:blur(12px);border:1px solid rgba(42,61,92,0.6);border-radius:6px;color:#8ba3c1;font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:monospace;transition:border-color 0.15s,color 0.15s,background 0.15s;box-shadow:0 2px 8px rgba(0,0,0,0.4)}
+.zoom-btn:hover{border-color:#c8f0d0;color:#e8edf5;background:rgba(14,26,48,0.95)}
+#zoom-level{font-family:Geist Mono,monospace;font-size:9px;color:#7a9bb5;letter-spacing:.06em;text-align:center;padding:3px 0}
 
 /* SVG world map */
 #world-svg{position:absolute;inset:0;width:100%;height:100%}
@@ -1146,62 +1309,6 @@ revealEls.forEach(el => observer.observe(el));
 
 /* ── HUD (removed - no longer used) ── */
 
-/* ── MAP TOP BAR ── */
-#map-topbar{
-  position:absolute;top:0;left:0;right:0;z-index:20;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 14px;height:44px;
-  background:rgba(9,16,31,0.75);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(42,61,92,0.4);
-}
-#map-counter{
-  font-family:'Geist Mono',monospace;font-size:9px;
-  color:#7a9bb5;letter-spacing:0.08em;white-space:nowrap;flex-shrink:0;
-}
-#map-counter span{color:#c8f0d0;font-weight:600}
-
-/* ── FILTER BAR (inside topbar) ── */
-#filters{
-  display:flex;gap:4px;overflow-x:auto;
-  scrollbar-width:none;justify-content:flex-end;
-}
-#filters::-webkit-scrollbar{display:none}
-.filter-btn{
-  background:transparent;
-  padding:4px 10px;border-radius:3px;
-  border:1px solid rgba(42,61,92,0.5);
-  font-family:'Geist Mono',monospace;font-size:8px;
-  letter-spacing:0.1em;text-transform:uppercase;
-  color:#5a7a9a;cursor:pointer;white-space:nowrap;
-  transition:border-color 0.15s,color 0.15s,background 0.15s;
-}
-.filter-btn:hover{border-color:#7a9bb5;color:#c4cdd9}
-.filter-btn.active{border-color:#c8f0d0;color:#09101f;background:#c8f0d0;font-weight:700}
-.filter-btn[data-filter="all"].active{border-color:rgba(42,61,92,0.8);color:#c4cdd9;background:rgba(42,61,92,0.5);font-weight:400}
-
-/* ── LEGEND — horizontal strip at bottom ── */
-#legend{
-  position:absolute;bottom:0;left:0;right:0;z-index:20;
-  display:flex;align-items:center;gap:20px;
-  padding:0 16px;height:36px;
-  background:rgba(9,16,31,0.75);
-  backdrop-filter:blur(10px);
-  border-top:1px solid rgba(42,61,92,0.4);
-}
-.legend-item{display:flex;align-items:center;gap:6px;font-family:'Geist Mono',monospace;font-size:8px;color:#7a9bb5;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap}
-.legend-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.legend-dot.emerging{background:#7dd3c8}
-.legend-dot.growing{background:#c8f0d0}
-.legend-dot.mature{background:#f5d97a}
-.legend-dot.transitioning{background:#f08080}
-
-/* ── ZOOM CONTROLS ── */
-#zoom-controls{position:absolute;bottom:52px;right:14px;z-index:20;display:flex;flex-direction:column;gap:3px}
-.zoom-btn{width:28px;height:28px;background:rgba(9,16,31,0.85);backdrop-filter:blur(12px);border:1px solid rgba(42,61,92,0.5);border-radius:3px;color:#8ba3c1;font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:monospace;transition:border-color 0.15s,color 0.15s}
-.zoom-btn:hover{border-color:#c8f0d0;color:#e8edf5}
-#zoom-level{font-family:'Geist Mono',monospace;font-size:7px;color:#7a9bb5;letter-spacing:0.06em;text-align:center;padding:2px 0}
-
 /* ── TOOLTIP ── */
 #tooltip{
   position:absolute;z-index:30;pointer-events:none;
@@ -1316,7 +1423,7 @@ revealEls.forEach(el => observer.observe(el));
     flex-direction: row;
     gap: 4px;
   }
-  .zoom-btn { width: 34px; height: 34px; font-size: 18px; }
+  .zoom-btn { width: 46px; height: 46px; font-size: 22px; }
   #zoom-level { display: none; }
 
   /* SVG pins: tap targets via pointer-events area */
@@ -1451,158 +1558,21 @@ body { overflow-x: hidden; }
 </style>
 
 <style>
-/* ── MAP MOBILE ENHANCEMENTS ── */
+/* Mobile map modal adjustments */
 @media (max-width: 900px) {
-  #map-wrap { height: 55vw; min-height: 240px; max-height: 420px; }
-  #hud { padding: 8px 12px; gap: 8px; }
-  .hud-logo { font-size: 12px; }
-  .hud-counter { font-size: 10px; }
-  #filters { gap: 5px; padding: 8px 10px; top: 8px; right: 8px; }
-  .filter-btn { font-size: 8px; padding: 4px 8px; }
-  #legend { bottom: 8px; left: 8px; gap: 8px; padding: 6px 8px; font-size: 9px; }
-  .legend-dot { width: 6px; height: 6px; }
   #panel { width: 100%; top: auto; bottom: 0; right: 0; left: 0; height: 65%; border-left: none; border-top: 1px solid #1e2d42; border-radius: 16px 16px 0 0; transform: translateY(100%); }
   #panel.open { transform: translateY(0); }
-  #zoom-controls { bottom: 12px; right: 12px; }
+  #zoom-controls { bottom: 44px; right: 12px; }
+  #modal-topbar { flex-wrap: wrap; height: auto; padding: 8px 12px; gap: 8px; }
+  #modal-logo { font-size: 13px; }
+  .filter-btn { font-size: 7px; padding: 3px 7px; }
+  .legend-hint { display: none; }
 }
 @media (max-width: 640px) {
-  #map-wrap { height: 65vw; min-height: 220px; }
-  #filters { display: none; }
+  #modal-filters .filter-btn[data-filter="Scotland"],
+  #modal-filters .filter-btn[data-filter="Orlando"] { display: none; }
   #panel { height: 70%; }
-  .panel-header { padding: 20px 20px 14px; }
-  .panel-body { padding: 0 20px; }
 }
-
-/* ── MAP PREVIEW (hero) ── */
-.hero-map {
-  position: relative;
-  overflow: hidden;
-  border-left: 1px solid #1e2d42;
-}
-.map-preview-wrap {
-  position: absolute;
-  inset: 0;
-  background: #060c18;
-  cursor: pointer;
-}
-#map-preview-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-.map-preview-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  padding-bottom: 40px;
-  background: linear-gradient(to top, rgba(6,12,24,0.85) 0%, transparent 60%);
-  pointer-events: none;
-}
-.map-preview-stats { text-align: center; margin-bottom: 16px; }
-.map-preview-count {
-  font-family: 'Instrument Serif', serif;
-  font-size: 36px;
-  color: #c8f0d0;
-  display: block;
-  line-height: 1;
-}
-.map-preview-label {
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px;
-  color: #7a9bb5;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  display: block;
-  margin-top: 4px;
-}
-.map-preview-btn {
-  display: inline-flex;
-  align-items: center;
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #09101f;
-  background: #c8f0d0;
-  border: none;
-  border-radius: 3px;
-  padding: 10px 20px;
-  cursor: pointer;
-  pointer-events: all;
-  transition: opacity 0.15s, transform 0.15s;
-}
-.map-preview-btn:hover { opacity: 0.88; transform: translateY(-1px); }
-
-/* ── MAP MODAL ── */
-#map-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: #060c18;
-  display: flex;
-  flex-direction: column;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-}
-#map-modal.open {
-  opacity: 1;
-  pointer-events: all;
-}
-#modal-topbar {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  height: 48px;
-  padding: 0 20px;
-  background: rgba(6,12,24,0.95);
-  border-bottom: 1px solid rgba(30,45,66,0.8);
-  flex-shrink: 0;
-  z-index: 10;
-}
-#modal-logo {
-  font-family: 'Instrument Serif', serif;
-  font-size: 15px;
-  color: #e8edf5;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-#modal-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
-#modal-counter {
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px;
-  color: #7a9bb5;
-  letter-spacing: 0.08em;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-#modal-counter span { color: #c8f0d0; font-weight: 600; }
-#modal-filters {
-  display: flex;
-  gap: 4px;
-  flex: 1;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-#modal-filters::-webkit-scrollbar { display: none; }
-#modal-close {
-  width: 30px; height: 30px;
-  background: rgba(30,45,66,0.5);
-  border: 1px solid rgba(42,61,92,0.5);
-  border-radius: 50%;
-  color: #8ba3c1;
-  font-size: 13px;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  transition: background 0.15s, color 0.15s;
-}
-#modal-close:hover { background: #1e2d42; color: #e8edf5; }
 </style>
 
 </div><!-- /page-wrap -->
@@ -1622,10 +1592,10 @@ window.addEventListener('resize', renderPins);
 
 // ── COORDINATE → PIXEL ──
 // Equirectangular projection
-// Map: 1440×810, lon -180→180, lat 90→-90
+// Map: 1440×720, lon -180→180, lat 90→-90
 function project(lat, lng) {
   const x = ((lng + 180) / 360) * 1440;
-  const y = ((90 - lat) / 180) * 810;
+  const y = ((90 - lat) / 180) * 720;
   return { x, y };
 }
 
@@ -1634,7 +1604,7 @@ function project(lat, lng) {
 function toPos(x, y) {
   const cw = mapWrapEl.clientWidth  || window.innerWidth;
   const ch = mapWrapEl.clientHeight || window.innerHeight;
-  const svgAspect = 1440 / 810;
+  const svgAspect = 1440 / 720;
   const cAspect = cw / ch;
   let rw, rh, ox, oy;
   if (cAspect > svgAspect) {
@@ -1646,7 +1616,7 @@ function toPos(x, y) {
   }
   return {
     left: (ox + x / 1440 * rw) + 'px',
-    top:  (oy + y / 810  * rh) + 'px'
+    top:  (oy + y / 720  * rh) + 'px'
   };
 }
 function toPercent(x, y) { return toPos(x, y); }
@@ -1766,7 +1736,7 @@ function getSvgRef() {
   
   if (cw === 0 || ch === 0) return null;
   
-  const svgAspect = 1440 / 810;
+  const svgAspect = 1440 / 720;
   const cAspect = cw / ch;
   let rw, rh, ox, oy;
   if (cAspect > svgAspect) {
@@ -1783,7 +1753,7 @@ function svgToScreen(svgX, svgY) {
   const { rw, rh, ox, oy } = ref;
   // Base position (untransformed, zoom=1, pan=0)
   const bx = ox + svgX / 1440 * rw;
-  const by = oy + svgY / 810  * rh;
+  const by = oy + svgY / 720  * rh;
   // Apply transform manually (mirrors the CSS transform on map-viewport)
   return {
     left: (bx * zoom + panX) + 'px',
@@ -1797,7 +1767,7 @@ function getPinScale() {
   const cw = mapWrapEl.clientWidth;
   const ch = mapWrapEl.clientHeight;
   if (!cw || !ch) return 1;
-  const svgAspect = 1440 / 810;
+  const svgAspect = 1440 / 720;
   const cAspect = cw / ch;
   const rw = cAspect > svgAspect ? ch * svgAspect : cw;
   // SVG renders at rw pixels wide for 1440 SVG units
@@ -1894,11 +1864,11 @@ function renderPins() {
         // Convert SVG coords to screen coords for zoomAt
         const ps2 = getPinScale();
         const cw2 = mapWrapEl.clientWidth, ch2 = mapWrapEl.clientHeight;
-        const rw2 = (cw2/ch2 > 1440/810) ? ch2*(1440/810) : cw2;
-        const rh2 = rw2 * (810/1440);
+        const rw2 = (cw2/ch2 > 1440/720) ? ch2*(1440/720) : cw2;
+        const rh2 = rw2 * (720/1440);
         const ox2 = (cw2-rw2)/2, oy2 = (ch2-rh2)/2;
         const bx = ox2 + node.cx/1440*rw2;
-        const by = oy2 + node.cy/810*rh2;
+        const by = oy2 + node.cy/720*rh2;
         zoomAt(bx * zoom + panX, by * zoom + panY, 2.5);
       };
       g.addEventListener('click', doZoom);
@@ -2122,7 +2092,7 @@ let isPanning = false, startX = 0, startY = 0;
 const MIN_ZOOM = 0.35, MAX_ZOOM = 8;
 let lastRenderZoom = 1;
 
-// ── FILTER BUTTONS ──
+// ── FILTER BUTTONS ── (wired to currentFilter)
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -2137,6 +2107,7 @@ const mapModal = document.getElementById('map-modal');
 document.getElementById('open-map-btn').addEventListener('click', () => {
   mapModal.classList.add('open');
   document.body.style.overflow = 'hidden';
+  // Render pins after modal is visible and has dimensions
   requestAnimationFrame(() => requestAnimationFrame(() => {
     zoom = window.innerWidth < 768 ? 0.5 : 0.72;
     panX = 0; panY = 0;
@@ -2152,53 +2123,7 @@ function closeModal() {
   closePanel();
 }
 
-// ── PREVIEW CANVAS — static dot map in hero ──
-(function renderPreview() {
-  const canvas = document.getElementById('map-preview-canvas');
-  if (!canvas) return;
-  function draw() {
-    const W = canvas.offsetWidth, H = canvas.offsetHeight;
-    if (W === 0) { requestAnimationFrame(draw); return; }
-    canvas.width = W; canvas.height = H;
-    const ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#060c18';
-    ctx.fillRect(0, 0, W, H);
-    const stageColors = { emerging: '#7dd3c8', growing: '#c8f0d0', mature: '#f5d97a', transitioning: '#f08080' };
-    CLUSTERS.forEach(c => {
-      const px = ((c.lng + 180) / 360) * W;
-      const py = ((90 - c.lat) / 180) * H;
-      const color = stageColors[c._lifecycle_stage] || '#7dd3c8';
-      ctx.beginPath();
-      ctx.arc(px, py, 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = color;
-      ctx.globalAlpha = 0.8;
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(px, py, 5, 0, Math.PI * 2);
-      const grad = ctx.createRadialGradient(px, py, 0, px, py, 5);
-      grad.addColorStop(0, color + '40');
-      grad.addColorStop(1, 'transparent');
-      ctx.fillStyle = grad;
-      ctx.globalAlpha = 0.6;
-      ctx.fill();
-    });
-    ctx.globalAlpha = 1;
-  }
-  requestAnimationFrame(draw);
-  window.addEventListener('resize', draw);
-})();
-
-function tryRenderPins(attempts) {
-  const w = mapWrapEl.clientWidth, h = mapWrapEl.clientHeight;
-  if (w > 0 && h > 0) { renderPins(); }
-  else if (attempts > 0) { setTimeout(() => tryRenderPins(attempts - 1), 80); }
-}
-
-// ── INIT ──
-// (pins render on modal open via tryRenderPins)
-
 function repositionPins() {
-  // Update scale on existing SVG pin groups (positions are fixed in SVG space)
   const ps = getPinScale();
   pinsEl.querySelectorAll('g[data-svgx]').forEach(g => {
     const x = g.dataset.svgx, y = g.dataset.svgy;
@@ -2209,7 +2134,6 @@ function repositionPins() {
 function applyTransform() {
   viewport.style.transform = `translate(${panX}px, ${panY}px) scale(${zoom})`;
   document.getElementById('zoom-level').textContent = Math.round(zoom*100) + '%';
-  // Re-cluster when zoom crosses thresholds
   const THRESHOLDS = [0.8, 1.2, 1.8, 2.5, 4.0];
   const crossed = THRESHOLDS.some(t => (lastRenderZoom < t) !== (zoom < t));
   if (crossed) { lastRenderZoom = zoom; renderPins(); }
@@ -2218,20 +2142,19 @@ function applyTransform() {
 
 function clampPan() {
   const W = mapWrapEl.offsetWidth, H = mapWrapEl.offsetHeight;
-  // Map is 1440x810 in SVG units. At zoom level, its rendered size is 1440*zoom x 810*zoom
-  // But it fills the container via preserveAspectRatio, so effective size = container size * zoom
-  // Allow panning up to half the container width/height so map edge is always visible
-  const maxPanX = W * 0.2;
-  const minPanX = -W * zoom * 0.2;
-  const maxPanY = H * 0.15;
-  const minPanY = -H * zoom * 0.15;
+  const margin = 80;
+  // Allow panning to reveal full map content at any zoom level
+  const maxPanX =  margin;
+  const minPanX = -(W * zoom - W + margin);
+  const maxPanY =  margin;
+  const minPanY = -(H * zoom - H + margin);
   panX = Math.max(minPanX, Math.min(maxPanX, panX));
   panY = Math.max(minPanY, Math.min(maxPanY, panY));
 }
 
-// Mouse drag - desktop only
+// Mouse drag
 mapWrapEl.addEventListener('mousedown', e => {
-  if (e.target.closest('.pin, #modal-filters, #modal-topbar, #legend, #zoom-controls, #panel')) return;
+  if (e.target.closest('.pin, #modal-filters, #legend, #zoom-controls, #panel, #modal-topbar')) return;
   isPanning = true;
   startX = e.clientX - panX;
   startY = e.clientY - panY;
@@ -2246,10 +2169,9 @@ window.addEventListener('mousemove', e => {
 });
 window.addEventListener('mouseup', () => { isPanning = false; mapWrapEl.classList.remove('dragging'); });
 
-// Touch - disabled on mobile (too easy to pan off-screen on small viewport)
+// Touch
 let lastTouchDist = null;
 mapWrapEl.addEventListener('touchstart', e => {
-  if (window.innerWidth < 768) return; // static on mobile
   if (panel.classList.contains('open')) { isPanning = false; return; }
   if (e.touches.length === 1) {
     isPanning = true;
@@ -2264,7 +2186,6 @@ mapWrapEl.addEventListener('touchstart', e => {
   }
 }, { passive: true });
 mapWrapEl.addEventListener('touchmove', e => {
-  if (window.innerWidth < 768) return; // static on mobile
   if (panel.classList.contains('open')) return;
   if (e.touches.length === 1 && isPanning) {
     panX = e.touches[0].clientX - startX;
@@ -2285,7 +2206,7 @@ mapWrapEl.addEventListener('touchmove', e => {
 }, { passive: true });
 mapWrapEl.addEventListener('touchend', () => { isPanning = false; lastTouchDist = null; });
 
-// Scroll wheel zoom
+// Scroll zoom
 mapWrapEl.addEventListener('wheel', e => {
   e.preventDefault();
   const factor = e.deltaY < 0 ? 1.12 : 0.89;
@@ -2303,7 +2224,7 @@ function zoomAt(cx, cy, factor) {
   applyTransform();
 }
 
-// Buttons
+// Zoom buttons
 document.getElementById('zoom-in').addEventListener('click', () => {
   const cx = mapWrapEl.offsetWidth/2, cy = mapWrapEl.offsetHeight/2;
   zoomAt(cx, cy, 1.4);
@@ -2313,12 +2234,176 @@ document.getElementById('zoom-out').addEventListener('click', () => {
   zoomAt(cx, cy, 1/1.4);
 });
 document.getElementById('zoom-reset').addEventListener('click', () => {
-  panX = 0; panY = 0; zoom = 1;
+  panX = 0; panY = 0;
+  zoom = window.innerWidth < 768 ? 0.5 : 0.72;
   applyTransform();
 });
 
-// Zoom and pin rendering happen on modal open — nothing to auto-boot here.
+// ── PREVIEW CANVAS — D3 world map + cluster dots ──
+(function initPreview() {
+  const canvas = document.getElementById('map-preview-canvas');
+  if (!canvas) return;
 
+  const stageColors = { emerging: '#7dd3c8', growing: '#c8f0d0', mature: '#f5d97a', transitioning: '#f08080' };
+
+  function drawPreview(world) {
+    function render() {
+      const W = canvas.offsetWidth, H = canvas.offsetHeight;
+      if (!W || !H) { requestAnimationFrame(render); return; }
+      canvas.width  = W * (window.devicePixelRatio || 1);
+      canvas.height = H * (window.devicePixelRatio || 1);
+      const ctx = canvas.getContext('2d');
+      ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+
+      // Ocean
+      const grad = ctx.createRadialGradient(W*0.3,H*0.35,0,W*0.3,H*0.35,W*0.9);
+      grad.addColorStop(0,'#0d1b2e'); grad.addColorStop(1,'#060c18');
+      ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
+
+      // Single projection used for BOTH land and dots
+      const proj = d3.geoEquirectangular().scale(W/(2*Math.PI)).translate([W/2,H/2]);
+
+      if (world) {
+        const path = d3.geoPath(proj, ctx);
+        const land = topojson.feature(world, world.objects.land);
+        ctx.beginPath(); path(land);
+        ctx.fillStyle = '#162840'; ctx.fill();
+      }
+
+      // Cluster dots — projected with same D3 proj so they sit on land correctly
+      CLUSTERS.forEach(c => {
+        const [px, py] = proj([c.lng, c.lat]);
+        const color = stageColors[c._lifecycle_stage] || '#7dd3c8';
+        const g = ctx.createRadialGradient(px,py,0,px,py,6);
+        g.addColorStop(0, color+'60'); g.addColorStop(1,'transparent');
+        ctx.beginPath(); ctx.arc(px,py,6,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
+        ctx.beginPath(); ctx.arc(px,py,2.2,0,Math.PI*2);
+        ctx.fillStyle=color; ctx.globalAlpha=0.9; ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+    }
+    render();
+    window.addEventListener('resize', render);
+  }
+
+  function tryLoadPreview() {
+    if (typeof d3 === 'undefined' || typeof topojson === 'undefined') {
+      setTimeout(tryLoadPreview, 100); return;
+    }
+    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+      .then(r => r.json())
+      .then(drawPreview)
+      .catch(() => drawPreview(null));
+  }
+  tryLoadPreview();
+})();
+
+
+function tryRenderPins(attempts) {
+  const w = mapWrapEl.clientWidth;
+  const h = mapWrapEl.clientHeight;
+  if (w > 0 && h > 0) {
+    renderPins();
+  } else if (attempts > 0) {
+    setTimeout(() => tryRenderPins(attempts - 1), 80);
+  }
+}
+
+// ── D3 WORLD MAP CANVAS RENDERER ──
+(function initWorldMap() {
+  const canvas = document.getElementById('world-canvas');
+  if (!canvas) return;
+
+  function drawMap(world) {
+    const W = canvas.offsetWidth || canvas.parentElement.offsetWidth;
+    const H = canvas.offsetHeight || canvas.parentElement.offsetHeight;
+    if (!W || !H) { setTimeout(() => drawMap(world), 100); return; }
+
+    canvas.width  = W * window.devicePixelRatio;
+    canvas.height = H * window.devicePixelRatio;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+    // Equirectangular projection scaled to canvas
+    const projection = d3.geoEquirectangular()
+      .scale(W / (2 * Math.PI))
+      .translate([W / 2, H / 2]);
+    const path = d3.geoPath(projection, ctx);
+
+    // Ocean gradient
+    const grad = ctx.createRadialGradient(W * 0.3, H * 0.35, 0, W * 0.3, H * 0.35, W * 0.9);
+    grad.addColorStop(0, '#0d1b2e');
+    grad.addColorStop(1, '#060c18');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    // Graticule (subtle grid)
+    const graticule = d3.geoGraticule().step([30, 30]);
+    ctx.beginPath();
+    path(graticule());
+    ctx.strokeStyle = '#0c1e35';
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+
+    // Equator (slightly brighter)
+    ctx.beginPath();
+    path(d3.geoGraticule().step([360, 180])());
+    ctx.beginPath();
+    path({ type: 'LineString', coordinates: [[-180, 0], [180, 0]] });
+    ctx.strokeStyle = '#0f2840';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Land
+    const land = topojson.feature(world, world.objects.land);
+    ctx.beginPath();
+    path(land);
+    ctx.fillStyle = '#162840';
+    ctx.fill();
+    ctx.strokeStyle = '#0d1f35';
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+
+    // Country borders
+    const countries = topojson.mesh(world, world.objects.countries, (a, b) => a !== b);
+    ctx.beginPath();
+    path(countries);
+    ctx.strokeStyle = '#1a3050';
+    ctx.lineWidth = 0.4;
+    ctx.stroke();
+
+    // Antarctica ice hint
+    ctx.fillStyle = '#0f1e32';
+    ctx.globalAlpha = 0.6;
+    ctx.fillRect(0, H * 0.91, W, H * 0.09);
+    ctx.globalAlpha = 1;
+  }
+
+  function tryLoad() {
+    if (typeof d3 === 'undefined' || typeof topojson === 'undefined') {
+      setTimeout(tryLoad, 100);
+      return;
+    }
+    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+      .then(r => r.json())
+      .then(world => {
+        drawMap(world);
+        window.addEventListener('resize', () => drawMap(world));
+      })
+      .catch(() => {
+        // Fallback: plain dark ocean if network unavailable
+        const c = document.getElementById('world-canvas');
+        if (!c) return;
+        const W = c.offsetWidth, H = c.offsetHeight;
+        c.width = W; c.height = H;
+        const ctx = c.getContext('2d');
+        const grad = ctx.createRadialGradient(W*0.3,H*0.35,0,W*0.3,H*0.35,W*0.9);
+        grad.addColorStop(0,'#0d1b2e'); grad.addColorStop(1,'#060c18');
+        ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
+      });
+  }
+  tryLoad();
+})();
 </script>
 <script>
 // Nav dropdown - click to open, click outside to close
