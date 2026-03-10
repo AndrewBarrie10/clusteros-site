@@ -103,6 +103,7 @@
   --mono:    'Geist Mono', monospace;
 }
 html { scroll-behavior: smooth; background: #09101f; color: #e8edf5; }
+html, body { overflow-x: hidden; }
 body { background: var(--bg); color: #e8edf5; font-family: 'Geist', sans-serif; font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
 
@@ -131,7 +132,7 @@ body { background: var(--bg); color: #e8edf5; font-family: 'Geist', sans-serif; 
 /* SNAPSHOT CARD */
 .snapshot { max-width: 640px; margin: 0 auto; padding: 56px 24px 0; }
 .snap-card { border-radius: 10px; border: 1px solid rgba(245,217,122,0.35); background: linear-gradient(135deg, rgba(245,217,122,0.05) 0%, rgba(245,217,122,0.02) 100%); overflow: hidden; }
-.snap-head { padding: 22px 24px 18px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; border-bottom: 1px solid rgba(245,217,122,0.15); }
+.snap-head { padding: 22px 24px 18px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; border-bottom: 1px solid rgba(245,217,122,0.15); flex-wrap: wrap; }
 .snap-head-left { display: flex; align-items: flex-start; gap: 16px; flex: 1; }
 .snap-tier { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; padding: 4px 8px; border-radius: 2px; flex-shrink: 0; margin-top: 3px; background: rgba(245,217,122,0.1); border: 1px solid rgba(245,217,122,0.3); color: #f5d97a; }
 .snap-title { font-family: 'Instrument Serif', serif; font-size: 22px; color: #e8edf5; line-height: 1.15; margin-bottom: 4px; }
@@ -237,7 +238,7 @@ body { background: var(--bg); color: #e8edf5; font-family: 'Geist', sans-serif; 
 .faq-list { display: flex; flex-direction: column; gap: 0; margin-top: 20px; }
 .faq-item { border-top: 1px solid var(--border); }
 .faq-item:last-child { border-bottom: 1px solid var(--border); }
-.faq-q { padding: 16px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.faq-q { padding: 16px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 44px; }
 .faq-q-text { font-size: 14px; color: #e8edf5; font-weight: 400; line-height: 1.4; }
 .faq-chevron { font-size: 10px; color: var(--muted); transition: transform 0.2s; flex-shrink: 0; }
 .faq-item.open .faq-chevron { transform: rotate(180deg); }
@@ -305,8 +306,6 @@ footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32p
 .nav-links a:hover { color: #e8edf5; }
 
 
-@media (max-width: 900px) {  }
-@media (max-width: 480px) { nav { padding: 0 16px; }   }
 
 /* ── NAV ── */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; background: rgba(9,16,31,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(42,61,92,0.6); }
@@ -709,31 +708,24 @@ function renderFaqs() {
   </div>
 </footer>
 
-<style>
-/* ── UNIVERSAL MOBILE PATCH ── injected ── */
-html { overflow-x: hidden; }
-body { overflow-x: hidden; }
-@media (max-width: 480px) {
-  nav { padding: 0 16px !important; }
-  
-  
-  
-}
-</style>
+
 
 
 <style>
 @media (max-width: 900px) {
-  .snap-body, .phase-body, .pricing-grid { grid-template-columns: 1fr !important; }
+  /* 520px breakpoints handle snap-body and phase-body column collapsing */
+  .pricing-grid { grid-template-columns: 1fr !important; }
 }
 @media (max-width: 640px) {
   .hero { padding: 80px 20px 48px !important; }
   .hero-h { font-size: clamp(28px, 8vw, 42px) !important; }
   section, .section { padding: 48px 20px !important; }
-  .snap-card, .phase-card { padding: 24px 20px; }
   .price-tag { font-size: 28px; }
   .cta-box { padding: 32px 20px; }
   .comparison-table { display: block; overflow-x: auto; }
+  .deliverable { margin: 0; border-radius: 0; }
+  .snapshot, .phases, .required, .why, .faq, .cta-section { padding-left: 16px; padding-right: 16px; }
+  .snap-col, .phase-col { padding: 14px 14px; }
 }
 </style>
 
