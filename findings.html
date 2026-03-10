@@ -126,18 +126,20 @@ body { background: var(--bg); color: #e8edf5; font-family: 'Geist', sans-serif; 
 .sec-p { font-size: 15px; color: var(--dim); line-height: 1.72; margin-bottom: 32px; }
 .sec-p strong { color: #e8edf5; font-weight: 400; }
 
-/* ── GEOGRAPHY DOTS ── */
+/* ── GEOGRAPHY MAP ── */
 .geo-wrap { margin-bottom: 48px; }
 .geo-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
-/* SVG world dots map */
-.world-map { width: 100%; position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-.world-map svg { width: 100%; height: auto; display: block; }
-.map-dot { fill: #f5d97a; }
-.map-dot.pulse { animation: pulse 2.5s ease-in-out infinite; }
-@keyframes pulse {
-  0%, 100% { opacity: 1; r: 4; }
-  50% { opacity: 0.5; r: 6; }
+.world-map-canvas-wrap {
+  position: relative; width: 100%; aspect-ratio: 16/7;
+  background: #060c18; border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden; margin-bottom: 16px;
 }
+#findings-world-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+#findings-pins-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.fpin-label { font-family: 'Geist Mono', monospace; font-size: 9px; fill: #c2cfe0; pointer-events: none; }
+.fmap-legend { position: absolute; bottom: 12px; left: 16px; display: flex; gap: 14px; align-items: center; }
+.fmap-legend-item { display: flex; gap: 6px; align-items: center; font-family: 'Geist Mono', monospace; font-size: 9px; color: #7a95b0; }
+.fmap-legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 .map-tip { font-family: 'Geist Mono', monospace; font-size: 8px; fill: var(--muted); }
 
 .geo-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
@@ -302,6 +304,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 @media (max-width: 900px) { .nav-links { display: none; } }
 @media (max-width: 480px) { nav { padding: 0 16px; } .nav-logo { font-size: 15px; } .nav-cta { font-size: 10px; padding: 6px 12px; } }
 </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 </head>
 <body>
 <nav>
@@ -375,81 +379,19 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 
   <div class="geo-wrap">
     <div class="geo-label">Geographies represented</div>
-    <!-- Simplified SVG dot map — approximate mercator positions -->
-    <div class="world-map">
-      <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
-        <!-- Minimal continent outlines (approximate) -->
-        <rect width="800" height="400" fill="#0d1829"/>
-        <!-- Grid lines -->
-        <line x1="0" y1="200" x2="800" y2="200" stroke="#1e2f45" stroke-width="0.5"/>
-        <line x1="400" y1="0" x2="400" y2="400" stroke="#1e2f45" stroke-width="0.5"/>
-
-        <!-- Rough continent shapes as simplified paths -->
-        <!-- North America -->
-        <path d="M 90 80 L 180 70 L 220 100 L 230 160 L 200 200 L 160 210 L 130 190 L 100 150 Z" fill="#1a2840" stroke="#2a3f5a" stroke-width="0.8"/>
-        <!-- South America -->
-        <path d="M 180 220 L 220 210 L 240 260 L 230 320 L 200 350 L 170 320 L 160 270 Z" fill="#1a2840" stroke="#2a3f5a" stroke-width="0.8"/>
-        <!-- Europe -->
-        <path d="M 350 80 L 420 70 L 440 100 L 430 130 L 400 140 L 370 130 L 345 110 Z" fill="#1a2840" stroke="#2a3f5a" stroke-width="0.8"/>
-        <!-- Africa -->
-        <path d="M 370 150 L 420 140 L 450 170 L 450 270 L 420 310 L 390 310 L 360 270 L 350 200 Z" fill="#1a2840" stroke="#2a3f5a" stroke-width="0.8"/>
-        <!-- Middle East blob -->
-        <path d="M 440 130 L 490 120 L 510 150 L 500 180 L 460 180 L 440 160 Z" fill="#1a2840" stroke="#2a3f5a" stroke-width="0.8"/>
-        <!-- Asia -->
-        <path d="M 490 60 L 650 50 L 680 100 L 670 160 L 620 180 L 560 170 L 510 150 L 490 120 Z" fill="#1a2840" stroke="#2a3f5a" stroke-width="0.8"/>
-        <!-- Southeast Asia -->
-        <path d="M 600 180 L 660 170 L 680 210 L 660 240 L 630 240 L 600 220 Z" fill="#1a2840" stroke="#2a3f5a" stroke-width="0.8"/>
-        <!-- Australia -->
-        <path d="M 620 270 L 700 260 L 720 300 L 710 340 L 670 350 L 630 330 L 610 300 Z" fill="#1a2840" stroke="#2a3f5a" stroke-width="0.8"/>
-
-        <!-- DIAGNOSTIC DOTS -->
-        <!-- Belfast UK -->
-        <circle class="map-dot pulse" cx="358" cy="88" r="5"/>
-        <text class="map-tip" x="364" y="85">Belfast</text>
-
-        <!-- Cheltenham UK -->
-        <circle class="map-dot" cx="364" cy="93" r="4"/>
-
-        <!-- Cambridge UK -->
-        <circle class="map-dot" cx="372" cy="90" r="4"/>
-        <text class="map-tip" x="377" y="88">Cambridge</text>
-
-        <!-- Tel Aviv -->
-        <circle class="map-dot pulse" cx="462" cy="138" r="5"/>
-        <text class="map-tip" x="468" y="135">Tel Aviv</text>
-
-        <!-- Singapore -->
-        <circle class="map-dot pulse" cx="632" cy="212" r="5"/>
-        <text class="map-tip" x="638" y="209">Singapore</text>
-
-        <!-- Basque Country Spain -->
-        <circle class="map-dot" cx="356" cy="108" r="4"/>
-        <text class="map-tip" x="330" y="118">Basque</text>
-
-        <!-- San Francisco -->
-        <circle class="map-dot pulse" cx="108" cy="138" r="5"/>
-        <text class="map-tip" x="68" y="135">San Francisco</text>
-
-        <!-- Orlando -->
-        <circle class="map-dot" cx="178" cy="158" r="4"/>
-        <text class="map-tip" x="182" y="155">Orlando</text>
-
-        <!-- Eindhoven (resemblance) -->
-        <circle class="map-dot" cx="390" cy="88" r="3" fill-opacity="0.4"/>
-
-        <!-- Adelaide / Bengaluru (resemblance) -->
-        <circle class="map-dot" cx="660" cy="320" r="3" fill-opacity="0.4"/>
-        <circle class="map-dot" cx="568" cy="168" r="3" fill-opacity="0.4"/>
-
-        <!-- Bordeaux -->
-        <circle class="map-dot" cx="352" cy="110" r="3" fill-opacity="0.4"/>
-
-        <!-- Legend -->
-        <circle cx="30" cy="370" r="4" fill="#f5d97a"/>
-        <text x="40" y="374" font-family="Geist Mono, monospace" font-size="9" fill="#7a95b0">Full diagnostic</text>
-        <circle cx="150" cy="370" r="3" fill="#f5d97a" fill-opacity="0.4"/>
-        <text x="160" y="374" font-family="Geist Mono, monospace" font-size="9" fill="#7a95b0">Structural resemblance</text>
-      </svg>
+    <div class="world-map-canvas-wrap" id="findings-map-wrap">
+      <canvas id="findings-world-canvas"></canvas>
+      <svg id="findings-pins-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="fmap-legend">
+        <div class="fmap-legend-item">
+          <div class="fmap-legend-dot" style="background:#f5d97a;box-shadow:0 0 6px rgba(245,217,122,0.5)"></div>
+          Full diagnostic
+        </div>
+        <div class="fmap-legend-item">
+          <div class="fmap-legend-dot" style="background:rgba(245,217,122,0.35);border:1px solid rgba(245,217,122,0.4)"></div>
+          Structural resemblance
+        </div>
+      </div>
     </div>
 
     <div class="geo-tags">
@@ -873,5 +815,187 @@ document.addEventListener('click', function() {
   document.querySelectorAll('.nav-dropdown-toggle').forEach(function(t) { t.classList.remove('active'); });
 });
 </script>
+
+<script>
+// ── FINDINGS PAGE — D3 WORLD MAP ──
+(function() {
+  var DIAG_CLUSTERS = [
+    { name:'Belfast', lat:54.5973, lng:-5.9301, full:true },
+    { name:'Tel Aviv', lat:32.0853, lng:34.7818, full:true },
+    { name:'Cheltenham', lat:51.8994, lng:-2.0783, full:true },
+    { name:'Singapore', lat:1.3521, lng:103.8198, full:true },
+    { name:'San Francisco', lat:37.7749, lng:-122.4194, full:true },
+    { name:'Basque Country', lat:43.263, lng:-2.935, full:true },
+    { name:'Cambridge', lat:52.2053, lng:0.1218, full:true },
+    { name:'Orlando', lat:28.5383, lng:-81.3792, full:true },
+    // resemblances
+    { name:'Eindhoven', lat:51.4416, lng:5.4697, full:false },
+    { name:'Adelaide', lat:-34.9285, lng:138.6007, full:false },
+    { name:'Bengaluru', lat:12.9716, lng:77.5946, full:false },
+    { name:'Bordeaux', lat:44.8378, lng:-0.5792, full:false },
+    { name:'Glasgow', lat:55.8642, lng:-4.2518, full:false },
+    { name:'Edinburgh', lat:55.9533, lng:-3.1883, full:false },
+    { name:'Melbourne', lat:-37.8136, lng:144.9631, full:false },
+    { name:'Copenhagen', lat:55.6761, lng:12.5683, full:false },
+    { name:'Toulouse', lat:43.6047, lng:1.4442, full:false },
+    { name:'Abu Dhabi', lat:24.4539, lng:54.3773, full:false },
+    { name:'Houston', lat:29.7604, lng:-95.3698, full:false },
+    { name:'Manchester', lat:53.4808, lng:-2.2426, full:false },
+    { name:'Tsukuba', lat:36.0835, lng:140.0764, full:false },
+    { name:'Harwell', lat:51.5711, lng:-1.3138, full:false },
+    { name:'Auckland', lat:-36.8509, lng:174.7645, full:false }
+  ];
+
+  var wrap = document.getElementById('findings-map-wrap');
+  var canvas = document.getElementById('findings-world-canvas');
+  var svg = document.getElementById('findings-pins-svg');
+  if (!wrap || !canvas || !svg) return;
+
+  function project(lat, lng, W, H) {
+    // Equirectangular: same as D3 geoEquirectangular with default params
+    var scale = W / (2 * Math.PI);
+    var tx = W / 2, ty = H / 2;
+    var x = tx + scale * (lng * Math.PI / 180);
+    var y = ty - scale * (lat * Math.PI / 180);
+    return { x: x, y: y };
+  }
+
+  var worldData = null;
+
+  function drawMap() {
+    var rect = wrap.getBoundingClientRect();
+    var W = rect.width || wrap.offsetWidth;
+    var H = rect.height || wrap.offsetHeight;
+    if (!W || !H) { setTimeout(drawMap, 100); return; }
+
+    var dpr = window.devicePixelRatio || 1;
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width  = W + 'px';
+    canvas.style.height = H + 'px';
+    var ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    // Ocean
+    var grad = ctx.createRadialGradient(W*0.3,H*0.35,0, W*0.3,H*0.35,W*0.9);
+    grad.addColorStop(0,'#0d1b2e'); grad.addColorStop(1,'#060c18');
+    ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
+
+    if (worldData && typeof d3 !== 'undefined' && typeof topojson !== 'undefined') {
+      var proj = d3.geoEquirectangular().scale(W/(2*Math.PI)).translate([W/2,H/2]);
+      var path = d3.geoPath(proj, ctx);
+
+      // Graticule
+      var grat = d3.geoGraticule().step([30,30]);
+      ctx.beginPath(); path(grat());
+      ctx.strokeStyle = '#0c1e35'; ctx.lineWidth = 0.5; ctx.stroke();
+
+      // Equator
+      ctx.beginPath(); path({ type:'LineString', coordinates:[[-180,0],[180,0]] });
+      ctx.strokeStyle = '#0f2840'; ctx.lineWidth = 1; ctx.stroke();
+
+      // Land
+      var land = topojson.feature(worldData, worldData.objects.land);
+      ctx.beginPath(); path(land);
+      ctx.fillStyle = '#162840'; ctx.fill();
+      ctx.strokeStyle = '#0d1f35'; ctx.lineWidth = 0.5; ctx.stroke();
+
+      // Borders
+      var borders = topojson.mesh(worldData, worldData.objects.countries, function(a,b){return a!==b;});
+      ctx.beginPath(); path(borders);
+      ctx.strokeStyle = '#1a3050'; ctx.lineWidth = 0.4; ctx.stroke();
+
+      // Antarctica strip
+      ctx.fillStyle = '#0f1e32'; ctx.globalAlpha = 0.6;
+      ctx.fillRect(0, H*0.91, W, H*0.09); ctx.globalAlpha = 1;
+
+      renderPins(proj, W, H);
+    } else {
+      renderPinsSimple(W, H);
+    }
+  }
+
+  function renderPins(proj, W, H) {
+    // Clear SVG
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
+    DIAG_CLUSTERS.forEach(function(c) {
+      var pt = proj([c.lng, c.lat]);
+      var x = pt[0], y = pt[1];
+      addPin(x, y, c.name, c.full);
+    });
+  }
+
+  function renderPinsSimple(W, H) {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
+    DIAG_CLUSTERS.forEach(function(c) {
+      var p = project(c.lat, c.lng, W, H);
+      addPin(p.x, p.y, c.name, c.full);
+    });
+  }
+
+  function addPin(x, y, name, full) {
+    var ns = 'http://www.w3.org/2000/svg';
+    var g = document.createElementNS(ns, 'g');
+
+    if (full) {
+      // Outer glow ring
+      var ring = document.createElementNS(ns, 'circle');
+      ring.setAttribute('cx', x); ring.setAttribute('cy', y);
+      ring.setAttribute('r', '8'); ring.setAttribute('fill', 'rgba(245,217,122,0.12)');
+      g.appendChild(ring);
+    }
+
+    var dot = document.createElementNS(ns, 'circle');
+    dot.setAttribute('cx', x); dot.setAttribute('cy', y);
+    dot.setAttribute('r', full ? '4.5' : '3');
+    dot.setAttribute('fill', full ? '#f5d97a' : 'rgba(245,217,122,0.35)');
+    dot.setAttribute('stroke', full ? 'rgba(245,217,122,0.6)' : 'rgba(245,217,122,0.3)');
+    dot.setAttribute('stroke-width', '0.8');
+    if (full) dot.style.filter = 'drop-shadow(0 0 4px rgba(245,217,122,0.6))';
+    g.appendChild(dot);
+
+    // Label (only for full diagnostic clusters)
+    if (full) {
+      var text = document.createElementNS(ns, 'text');
+      text.setAttribute('x', x + 7); text.setAttribute('y', y + 3);
+      text.setAttribute('class', 'fpin-label');
+      text.setAttribute('fill', '#c2cfe0');
+      text.textContent = name;
+      g.appendChild(text);
+    }
+
+    svg.appendChild(g);
+  }
+
+  function tryLoad() {
+    if (typeof d3 === 'undefined' || typeof topojson === 'undefined') {
+      setTimeout(tryLoad, 100); return;
+    }
+    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+      .then(function(r) { return r.json(); })
+      .then(function(w) {
+        worldData = w;
+        drawMap();
+        window.addEventListener('resize', drawMap);
+      })
+      .catch(function() {
+        drawMap(); // fallback: plain ocean + pins
+        window.addEventListener('resize', drawMap);
+      });
+  }
+
+  // Wait for layout
+  if (document.readyState === 'complete') {
+    setTimeout(tryLoad, 50);
+  } else {
+    window.addEventListener('load', function() { setTimeout(tryLoad, 50); });
+  }
+})();
+</script>
+
 </body>
 </html>
