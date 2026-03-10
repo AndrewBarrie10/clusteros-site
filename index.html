@@ -2317,25 +2317,7 @@ document.getElementById('zoom-reset').addEventListener('click', () => {
   applyTransform();
 });
 
-// Initial zoom set on modal open; nothing to auto-init here
-if (false) { // placeholder
-  zoom = 0.72; panX = 0; panY = 0;
-} else {
-  zoom = 0.62; panX = 0; panY = 0;
-}
-applyTransform();
-
-// Render pins — defer until map has real dimensions
-function tryRenderPins(attempts) {
-  const w = mapWrapEl.clientWidth;
-  const h = mapWrapEl.clientHeight;
-  if (w > 0 && h > 0) {
-    renderPins();
-  } else if (attempts > 0) {
-    setTimeout(() => tryRenderPins(attempts - 1), 80);
-  }
-}
-requestAnimationFrame(() => requestAnimationFrame(() => tryRenderPins(10)));
+// Zoom and pin rendering happen on modal open — nothing to auto-boot here.
 
 </script>
 <script>
