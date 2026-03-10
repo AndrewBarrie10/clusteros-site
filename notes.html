@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#09101f;color:#e8edf5">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab Notes — ClusterOS</title>
+  <meta name="description" content="Short, specific pieces on how regional innovation clusters stall, what stabilisation stacks look like, and where leverage exists. Written from 75+ diagnostic runs across 8 countries.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://clusteros.io/notes">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lab Notes — ClusterOS">
+  <meta property="og:description" content="Short, citeable pieces on cluster stalls, stabilisation stacks, and leverage. Written from 75+ diagnostic runs.">
+  <meta property="og:url" content="https://clusteros.io/notes">
+  <meta property="og:site_name" content="ClusterOS">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "ClusterOS Lab Notes",
+    "description": "Short, specific pieces on how regional innovation clusters stall, what stabilisation stacks look like, and where leverage exists. Written from 75+ diagnostic runs across 8 countries.",
+    "url": "https://clusteros.io/notes",
+    "author": {"@type": "Person", "name": "Andrew Barrie"},
+    "publisher": {"@type": "Organization", "name": "ClusterOS", "url": "https://clusteros.io"}
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #09101f; --ink-2: #0f1a2e;
+      --slate: #2a3d5c; --slate-2: #3d5478; --slate-3: #5a7299;
+      --chalk: #e8edf5; --chalk-2: #c4cdd9; --chalk-3: #8ba3c1;
+      --signal: #c8f0d0; --signal-dark: #1a6640;
+      --amber: #f5d97a; --crimson: #f08080; --teal: #7dd3c8;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'Geist', system-ui, sans-serif;
+      --mono: 'Geist Mono', monospace;
+    }
+    html { scroll-behavior: smooth; background: #09101f; color: #e8edf5; }
+    body { background: #09101f; color: #e8edf5; font-family: var(--sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; margin: 0; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; background: rgba(9,16,31,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(42,61,92,0.5); }
+    .nav-logo { font-family: var(--sans); font-weight: 400; font-size: 15px; color: #e8edf5; text-decoration: none; }
+    .nav-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+    .nav-back { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color 0.2s; }
+    .nav-back:hover { color: #e8edf5; }
+    .nav-cta { font-size: 12px; font-weight: 500; letter-spacing: 0.04em; padding: 7px 16px; border-radius: 4px; background: #c8f0d0; color: #1a6640; text-decoration: none; transition: opacity 0.2s; }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* HERO */
+    .hero { max-width: 960px; margin: 0 auto; padding: 120px 32px 64px; border-bottom: 1px solid #1e2d42; }
+    .hero-tag { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #c8f0d0; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .hero-tag::before { content: ''; display: block; width: 24px; height: 1px; background: #c8f0d0; }
+    .hero h1 { font-family: 'Instrument Serif', serif; font-size: clamp(36px, 5vw, 58px); line-height: 1.1; letter-spacing: -0.02em; color: #e8edf5; margin: 0 0 20px; }
+    .hero h1 em { font-style: italic; color: #f5d97a; }
+    .hero-sub { font-size: 18px; color: #c4cdd9; max-width: 560px; line-height: 1.6; margin: 0 0 32px; }
+    .hero-meta { font-family: 'Geist Mono', monospace; font-size: 11px; color: #8ba3c1; display: flex; gap: 24px; flex-wrap: wrap; }
+
+    /* CONTENT WRAP */
+    .content-wrap { max-width: 960px; margin: 0 auto; padding: 64px 32px 100px; }
+
+    /* FILTER TABS */
+    .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 48px; }
+    .filter-tab { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; border-radius: 4px; border: 1px solid #1e2d42; color: #8ba3c1; cursor: pointer; transition: all 0.2s; background: none; }
+    .filter-tab:hover { border-color: #2a3a52; color: #e8edf5; }
+    .filter-tab.active { background: #c8f0d0; color: #1a6640; border-color: #c8f0d0; }
+
+    /* SECTION LABEL */
+    .section-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #7a9bb5; margin: 52px 0 24px; display: flex; align-items: center; gap: 12px; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: #1e2d42; }
+
+    /* NOTE GRID */
+    .notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: #1e2d42; border: 1px solid #1e2d42; border-radius: 8px; overflow: hidden; }
+    .note-card { background: #09101f; padding: 28px; text-decoration: none; transition: background 0.2s; display: block; }
+    .note-card:hover { background: #0f1829; }
+    .note-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .note-tag { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 8px; border-radius: 3px; flex-shrink: 0; }
+    .note-tag.stall { background: rgba(200,240,208,0.1); color: #c8f0d0; border: 1px solid rgba(200,240,208,0.2); }
+    .note-tag.stack { background: rgba(245,217,122,0.1); color: #f5d97a; border: 1px solid rgba(245,217,122,0.2); }
+    .note-tag.leverage { background: rgba(125,211,200,0.1); color: #7dd3c8; border: 1px solid rgba(125,211,200,0.2); }
+    .note-tag.coming { background: rgba(42,61,92,0.3); color: #7a9bb5; border: 1px solid #1e2d42; }
+    .note-freq { font-family: 'Geist Mono', monospace; font-size: 11px; color: #8ba3c1; }
+    .note-title { font-family: 'Instrument Serif', serif; font-size: 20px; color: #e8edf5; line-height: 1.2; margin: 0 0 10px; letter-spacing: -0.01em; }
+    .note-title em { font-style: italic; color: #8ba3c1; }
+    .note-deck { font-size: 13px; color: #8ba3c1; line-height: 1.5; margin: 0; }
+    .note-card.coming-soon { opacity: 0.4; pointer-events: none; }
+    .note-card.coming-soon .note-title { color: #8ba3c1; }
+
+    /* ABOUT STRIP */
+    .about-strip { margin: 64px 0 0; padding: 36px 40px; background: #0f1829; border: 1px solid #1e2d42; border-radius: 8px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; }
+    .about-strip p { font-size: 15px; color: #c4cdd9; margin: 0; line-height: 1.6; }
+    .about-strip p strong { color: #e8edf5; }
+    .about-strip a { display: inline-block; padding: 10px 24px; background: #c8f0d0; color: #1a6640; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; border-radius: 4px; text-decoration: none; transition: opacity 0.2s; white-space: nowrap; }
+    .about-strip a:hover { opacity: 0.85; }
+
+    footer { border-top: 1px solid #1e2d42; padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-top: 80px; }
+    .footer-logo { font-family: var(--sans); font-weight: 400; font-size: 14px; color: #8ba3c1; text-decoration: none; }
+    .footer-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: #e8edf5; }
+    .footer-copy { font-size: 12px; color: #7a9bb5; }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .hero { padding: 100px 20px 48px; }
+      .content-wrap { padding: 48px 20px 80px; }
+      .notes-grid { grid-template-columns: 1fr; }
+      .about-strip { grid-template-columns: 1fr; gap: 20px; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  
+/* ── SITE FOOTER ─────────────────────────────────────────────────── */
+footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32px; }
+.footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; margin-bottom: 40px; }
+.footer-brand { display: flex; flex-direction: column; gap: 12px; }
+.footer-logo { font-family: 'Geist', system-ui, sans-serif; font-weight: 400; font-size: 15px; color: #e8edf5; text-decoration: none; }
+.footer-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+.footer-tagline { font-size: 13px; color: #8ba3c1; line-height: 1.5; margin: 0; }
+.footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.footer-col { display: flex; flex-direction: column; gap: 8px; }
+.footer-col-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #7a9bb5; margin-bottom: 4px; }
+.footer-col a { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color .2s; line-height: 1.4; }
+.footer-col a:hover { color: #e8edf5; }
+.footer-base { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; padding-top: 24px; border-top: 1px solid #2a3a52; flex-wrap: wrap; gap: 8px; }
+.footer-copy { font-size: 12px; color: #7a9bb5; }
+@media (max-width: 640px) {
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .footer-nav { grid-template-columns: 1fr 1fr; }
+}
+
+  </style>
+
+<style>
+/* ── FILTER BAR ── */
+.filter-bar { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
+.filter-pill {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 4px;
+  border: 1px solid var(--slate, #1e2d42);
+  background: transparent;
+  color: #8ba3c1;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.filter-pill:hover { border-color: #8ba3c1; color: #e8edf5; }
+.filter-pill.active { background: #c8f0d0; border-color: #c8f0d0; color: var(--ink, #09101f); }
+
+/* Hidden cards */
+.note-card.hidden { display: none; }
+
+/* Section label hidden when all its cards are hidden */
+.section-block.hidden { display: none; }
+</style>
+<style>
+/* ── PREVIEW SANDBOX BG FIX ── */
+html, body, .page, section, main, article, header,
+.container, .container-narrow, .container-wide,
+.section-inner, .section-wrap, .page-wrap,
+nav, footer { background-color: #09101f !important; }
+section { color: #e8edf5 !important; }
+h1, h2, h3, h4, p, li, span, div { color: inherit; }
+</style>
+</head>
+<body style="background:#09101f;color:#e8edf5">
+<nav>
+  <a href="index.html" class="nav-logo">Cluster<span>OS</span></a>
+  <a href="index.html" class="nav-back">← Home</a>
+  <a href="request.html" class="nav-cta">Request a Diagnostic</a>
+</nav>
+
+
+
+<div class="hero">
+  <div class="hero-tag">Lab Notes · Andrew Barrie</div>
+  <h1>Why effort fails to<br><em>compound</em></h1>
+  <p class="hero-sub">Short pieces on how regional innovation clusters stall, what stabilisation stacks look like, and where leverage actually exists. Written from 75+ diagnostic runs across 8 countries.</p>
+  <div class="hero-meta">
+    <span>13 notes</span>
+    <span>All published</span>
+    <span>Updated March 2026</span>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <div class="filter-bar">
+    <button class="filter-pill active" data-filter="all">All</button>
+    <button class="filter-pill" data-filter="stall">Stalls</button>
+    <button class="filter-pill" data-filter="stack">Stacks</button>
+    <button class="filter-pill" data-filter="leverage">Leverage</button>
+  </div>
+
+  <div class="section-label">Stall Series · Nine ways a cluster stops compounding</div>
+
+  <div class="notes-grid">
+    <a href="ln-01-coordinating.html" class="note-card" data-type="stall">
+      <div class="note-card-header">
+        <span class="note-tag stall"<span class="note-tag stall">S2 · Stall</span>
+        <span class="note-freq">97%</span>
+      </div>
+      <div class="note-title">Coordinating <em>Instead of</em> Deciding</div>
+      <p class="note-deck">The working group that meets quarterly for four years. No one is obstructing. What no one asks is what has stopped happening because this meeting works so well.</p>
+    </a>
+
+    <a href="ln-02-narrating.html" class="note-card" data-type="stall">
+      <div class="note-card-header">
+        <span class="note-tag stall"<span class="note-tag stall">S7 · Stall</span>
+        <span class="note-freq">91%</span>
+      </div>
+      <div class="note-title">Narrating <em>Instead of</em> Testing</div>
+      <p class="note-deck">Strategy documents that restore confidence without exposing anything. The system grows articulate without becoming decisive.</p>
+    </a>
+
+    <a href="ln-03-activity.html" class="note-card" data-type="stall">
+      <div class="note-card-header">
+        <span class="note-tag stall"<span class="note-tag stall">S8 · Stall</span>
+        <span class="note-freq">88%</span>
+      </div>
+      <div class="note-title">Scaling Activity <em>Instead of</em> Throughput</div>
+      <p class="note-deck">The accelerator that can't tell you its 24-month survival rate. What can be counted expands. What compounds is harder to trace.</p>
+    </a>
+
+    <a href="ln-04-reproving.html" class="note-card" data-type="stall">
+      <div class="note-card-header">
+        <span class="note-tag stall"<span class="note-tag stall">S1 · Stall</span>
+        <span class="note-freq">—</span>
+      </div>
+      <div class="note-title">Re-proving <em>Instead of</em> Narrowing</div>
+      <p class="note-deck">Every pathway shows promise. No pathway becomes dominant. The system remains option-rich long after there is enough evidence to commit.</p>
+    </a>
+
+    <a href="ln-05-incumbents.html" class="note-card" data-type="stall">
+      <div class="note-card-header">
+        <span class="note-tag stall"<span class="note-tag stall">S6 · Stall</span>
+        <span class="note-freq">—</span>
+      </div>
+      <div class="note-title">Stabilising <em>Around</em> Incumbents</div>
+      <p class="note-deck">How continuity selects on behalf of the system. New ideas are assessed by whether they complement the existing trajectory. Alternatives exist — but take longer to become inevitable.</p>
+    </a>
+
+    <a href="ln-06-mediating.html" class="note-card" data-type="stall">
+      <div class="note-card-header">
+        <span class="note-tag stall"<span class="note-tag stall">S5 · Stall</span>
+        <span class="note-freq">—</span>
+      </div>
+      <div class="note-title">Mediating <em>Instead of</em> Coupling</div>
+      <p class="note-deck">Why your connectors may be preventing connection. Intermediaries smooth interaction — while the direct coupling that creates compounding relationships remains limited.</p>
+    </a>
+
+    <a href="ln-07-forgiving.html" class="note-card" data-type="stall">
+      <div class="note-card-header">
+        <span class="note-tag stall"<span class="note-tag stall">S3 · Stall</span>
+        <span class="note-freq">—</span>
+      </div>
+      <div class="note-title">Forgiving <em>Instead of</em> Redesigning</div>
+      <p class="note-deck">When accommodation becomes the design. Underperforming actors are preserved. Relationships are maintained. The system continues — in the same shape.</p>
+    </a>
+
+    <a href="ln-08-extracting.html" class="note-card" data-type="stall">
+      <div class="note-card-header">
+        <span class="note-tag stall"<span class="note-tag stall">S4 · Stall</span>
+        <span class="note-freq">—</span>
+      </div>
+      <div class="note-title">Extracting <em>Without</em> Reinvesting</div>
+      <p class="note-deck">Talent, capital, and credibility flows out. Individual success is celebrated. Alumni networks exist. Nothing systematically channels value back.</p>
+    </a>
+
+    <a href="ln-09-permission.html" class="note-card" data-type="stall">
+      <div class="note-card-header">
+        <span class="note-tag stall"<span class="note-tag stall">S9 · Stall</span>
+        <span class="note-freq">—</span>
+      </div>
+      <div class="note-title">Waiting <em>for</em> Permission</div>
+      <p class="note-deck">Initiative deferred to endorsement. The cluster organisation identifies an opportunity, then waits for ministerial sign-off. By the time it arrives, the window has closed.</p>
+    </a>
+  </div>
+
+  <div class="section-label">Stack Series · When stalls reinforce each other</div>
+
+  <div class="notes-grid">
+    <a href="ln-10-narrative-activity-stack.html" class="note-card" data-type="stack">
+      <div class="note-card-header">
+        <span class="note-tag stack"<span class="note-tag stack">S7 + S8 · Stack</span>
+      </div>
+      <div class="note-title">The Narrative <em>×</em> Activity Stack</div>
+      <p class="note-deck">The most common stack across all diagnostics. Narrative makes activity legible. Activity supplies narrative with fresh material. Neither requires outcomes to sustain the loop.</p>
+    </a>
+
+    <a href="ln-11-validation-deadlock.html" class="note-card" data-type="stack">
+      <div class="note-card-header">
+        <span class="note-tag stack"<span class="note-tag stack">S1 + S2 · Stack</span>
+      </div>
+      <div class="note-title">The Validation Deadlock</div>
+      <p class="note-deck">Re-proving and coordinating reinforce each other. The system stays option-rich indefinitely. There is always more to validate, and always a forum in which to discuss it.</p>
+    </a>
+  </div>
+
+  <div class="section-label">Leverage & Method</div>
+
+  <div class="notes-grid">
+    <a href="ln-12-leverage.html" class="note-card" data-type="leverage">
+      <div class="note-card-header">
+        <span class="note-tag leverage"<span class="note-tag leverage">Leverage</span>
+      </div>
+      <div class="note-title">What Leverage Actually Looks Like</div>
+      <p class="note-deck">Large interventions fail because the stack absorbs them. Leverage is not a bigger push. It is a small withdrawal of protection.</p>
+    </a>
+
+    <a href="ln-13-diagnosis.html" class="note-card" data-type="leverage">
+      <div class="note-card-header">
+        <span class="note-tag leverage"<span class="note-tag leverage">Method</span>
+      </div>
+      <div class="note-title">Why Your Diagnosis Keeps Failing</div>
+      <p class="note-deck">The framework that becomes what it criticises. It is possible to read this and recognise your ecosystem perfectly — and then commission a working group to discuss the findings.</p>
+    </a>
+  </div>
+
+  <div class="about-strip">
+    <p>These notes are written from 75+ diagnostic runs across cyber security, advanced manufacturing, space technology, life sciences, and regional innovation ecosystems. <strong>Andrew Barrie</strong> is co-founder of Barrie & Hibbert (acquired by Moody's Analytics, 2011) and founder of ClusterOS.</p>
+    <a href="about.html">About ClusterOS →</a>
+  </div>
+
+</div>
+
+
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Cluster<span>OS</span></a>
+      <p class="footer-tagline">Regional economies need infrastructure.<br>Not more strategy.</p>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <div class="footer-col-label">Product</div>
+        <a href="substrate.html">The Substrate</a>
+        <a href="diagnostic.html">The Diagnostic</a>
+        <a href="leverage.html">Leverage</a>
+        <a href="findings.html">Findings</a>
+        <a href="pricing.html">Pricing</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Lab Notes</div>
+        <a href="notes.html">All Notes</a>
+        <a href="ln-01-coordinating.html">S2 · Coordinating</a>
+        <a href="ln-02-narrating.html">S7 · Narrating</a>
+        <a href="ln-10-narrative-activity-stack.html">Narrative × Activity</a>
+        <a href="ln-12-leverage.html">What Leverage Looks Like</a>
+        <a href="ln-13-diagnosis.html">Why Diagnosis Fails</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Company</div>
+        <a href="about.html">About</a>
+        <a href="data.html">Diagnostic Data</a>
+        <a href="request.html">Request a Diagnostic</a>
+        <a href="/cdn-cgi/l/email-protection#20414e4452455760434f4d4d554e4954594c41420e415050"><span class="__cf_email__" data-cfemail="13727d7761766453707c7e7e667d7a676a7f72713d726363">[email&#160;protected]</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-base">
+    <span class="foo
+    <span class="footer-copy">© 2026 ClusterOS · Community Lab</span>
+    <span class="footer-copy">Built in Edinburgh</span>
+  </div>
+</footer>
+
+<style>
+/* ── UNIVERSAL MOBILE PATCH ── injected ── */
+html { overflow-x: hidden; }
+body { overflow-x: hidden; }
+@media (max-width: 480px) {
+  nav { padding: 0 16px !important; }
+  .nav-back { font-size: 11px; }
+  .nav-cta { font-size: 11px; padding: 6px 14px !important; }
+  .nav-logo { font-size: 15px !important; }
+}
+</style>
+
+
+<style>
+@media (max-width: 640px) {
+  .hero { padding: 80px 20px 48px !important; }
+  .content-wrap { padding: 40px 20px 80px; }
+  .filter-bar { flex-wrap: wrap; gap: 8px; }
+  .filter-pill { font-size: 11px; padding: 5px 12px; }
+  .notes-grid { grid-template-columns: 1fr !important; }
+  .about-strip { grid-template-columns: 1fr !important; }
+  .note-card { padding: 20px 16px; }
+}
+</style>
+
+
+<style>
+/* ── NAV-BACK MOBILE FIX ── */
+@media (max-width: 400px) {
+  .nav-back { display: none; }
+}
+@media (max-width: 480px) {
+  .nav-back { font-size: 10px; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+</style>
+
+<script>
+(function() {
+  const pills = document.querySelectorAll('.filter-pill');
+  const cards = document.querySelectorAll('.note-card[data-type]');
+
+  // Wrap each section-label + following notes-grid in a section-block div
+  // so we can hide empty sections
+  document.querySelectorAll('.section-label').forEach(label => {
+    const block = document.createElement('div');
+    block.className = 'section-block';
+    label.parentNode.insertBefore(block, label);
+    block.appendChild(label);
+    let next = block.nextSibling;
+    while (next && !(next.classList && next.classList.contains('section-label')) && 
+           !(next.classList && next.classList.contains('about-strip'))) {
+      const after = next.nextSibling;
+      block.appendChild(next);
+      next = after;
+    }
+  });
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const filter = pill.dataset.filter;
+
+      cards.forEach(card => {
+        if (filter === 'all' || card.dataset.type === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      // Hide section blocks where all cards are hidden
+      document.querySelectorAll('.section-block').forEach(block => {
+        const visible = block.querySelectorAll('.note-card:not(.hidden)');
+        block.classList.toggle('hidden', visible.length === 0);
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

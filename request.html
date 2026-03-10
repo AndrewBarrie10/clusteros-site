@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#09101f;color:#e8edf5">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request a Diagnostic — ClusterOS</title>
+  <!-- SEO & AIO -->
+  <meta name="description" content="Request a ClusterOS diagnostic for your innovation cluster. Three questions to identify the right starting point — Cluster Snapshot (£5k) or Collaborative Diagnostic. Routed directly to Andrew Barrie.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://clusteros.io/request">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Request a Diagnostic — ClusterOS">
+  <meta property="og:description" content="Request a ClusterOS diagnostic for your innovation cluster. Three questions to identify the right starting point — Cluster Snapshot (£5k) or Collaborative Diagnostic. Routed directly to Andrew Barrie.">
+  <meta property="og:url" content="https://clusteros.io/request">
+  <meta property="og:site_name" content="ClusterOS">
+  <meta property="og:image" content="https://clusteros.io/og-image.png">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Request a Diagnostic — ClusterOS">
+  <meta name="twitter:description" content="Request a ClusterOS diagnostic for your innovation cluster. Three questions to identify the right starting point — Cluster Snapshot (£5k) or Collaborative Diagnostic. Routed directly to Andrew Barrie.">
+  <meta name="twitter:image" content="https://clusteros.io/og-image.png">
+  <!-- Schema.org structured data -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ClusterOS",
+    "url": "https://clusteros.io",
+    "description": "ClusterOS is a cognitive operating system for regional economies. It diagnoses why innovation clusters stall, identifies stabilisation stacks, and gives stewards specific leverage points that shift regimes.",
+    "founder": {
+      "@type": "Person",
+      "name": "Andrew Barrie",
+      "email": "andrew@communitylab.app",
+      "sameAs": "https://www.communitylab.app"
+    },
+    "foundingLocation": {
+      "@type": "Place",
+      "name": "Edinburgh, Scotland"
+    },
+    "sameAs": ["https://clusteros.io"]
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Request a Diagnostic — ClusterOS",
+    "url": "https://clusteros.io/request",
+    "description": "Request a ClusterOS diagnostic for your innovation cluster. Three questions to identify the right starting point — Cluster Snapshot (£5k) or Collaborative Diagnostic. Routed directly to Andrew Barrie.",
+    "isPartOf": {"@type": "WebSite", "url": "https://clusteros.io", "name": "ClusterOS"}
+  }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:      #09101f;
+  --surface: #111c2e;
+  --surface2:#0e1728;
+  --border:  #1e2f45;
+  --border2: #2a3f5a;
+  --chalk:   #e8edf5;
+  --dim:     #c2cfe0;
+  --muted:   #7a95b0;
+  --signal:  #c8f0d0;
+  --amber:   #f5d97a;
+  --crimson: #f08080;
+  --teal:    #7dd3c8;
+  --serif:   'Instrument Serif', serif;
+  --mono:    'Geist Mono', monospace;
+}
+html { scroll-behavior: smooth; background: #09101f; color: #e8edf5; }
+body { background: var(--bg); color: #e8edf5; font-family: 'Geist', sans-serif; font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 52px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: rgba(9,16,31,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.logo { font-family: 'Instrument Serif', serif; font-size: 17px; text-decoration: none; color: #e8edf5; }
+.logo span { font-family: 'Geist Mono', monospace; font-weight: 700; color: #c8f0d0; font-size: 15px; }
+.nav-back { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: var(--muted); text-decoration: none; }
+.nav-back:hover { color: #e8edf5; }
+
+/* LAYOUT */
+.page { padding: 92px 24px 80px; max-width: 560px; margin: 0 auto; }
+
+/* HERO */
+.hero-tag { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+.hero-h { font-family: 'Instrument Serif', serif; font-size: clamp(32px, 5vw, 48px); line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 16px; }
+.hero-h em { font-style: italic; color: #c8f0d0; }
+.hero-p { font-size: 15px; color: var(--dim); line-height: 1.72; margin-bottom: 48px; }
+
+/* FORM STEPS */
+.form-step { display: none; }
+.form-step.active { display: block; }
+
+/* STEP INDICATOR */
+.step-indicator { display: flex; align-items: center; gap: 8px; margin-bottom: 40px; }
+.step-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border2); transition: background 0.3s; }
+.step-dot.done { background: #c8f0d0; }
+.step-dot.active { background: #c8f0d0; box-shadow: 0 0 0 3px rgba(200,240,208,0.15); }
+.step-label { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-left: 4px; }
+
+/* QUESTION */
+.q-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+.q-title { font-family: 'Instrument Serif', serif; font-size: clamp(22px, 3.5vw, 30px); line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 8px; }
+.q-title em { font-style: italic; color: #c8f0d0; }
+.q-sub { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 28px; }
+
+/* TEXT INPUT */
+.field { width: 100%; background: var(--surface); border: 1px solid var(--border2); border-radius: 6px; padding: 14px 16px; font-family: 'Geist', sans-serif; font-size: 15px; font-weight: 300; color: #e8edf5; outline: none; transition: border-color 0.2s; }
+.field::placeholder { color: var(--muted); }
+.field:focus { border-color: rgba(200,240,208,0.4); }
+.field-hint { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 8px; letter-spacing: 0.04em; }
+
+/* OPTION CARDS */
+.options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+.option { border: 1px solid var(--border2); border-radius: 8px; padding: 16px 20px; cursor: pointer; transition: all 0.18s; background: var(--surface); position: relative; }
+.option:hover { border-color: rgba(200,240,208,0.3); background: rgba(200,240,208,0.03); }
+.option.selected { border-color: #c8f0d0; background: rgba(200,240,208,0.05); }
+.option.selected-amber { border-color: #f5d97a; background: rgba(245,217,122,0.05); }
+.option-header { display: flex; align-items: flex-start; gap: 12px; }
+.option-radio { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--border2); flex-shrink: 0; margin-top: 3px; transition: all 0.18s; position: relative; }
+.option.selected .option-radio { border-color: #c8f0d0; background: #c8f0d0; }
+.option.selected .option-radio::after { content: ''; position: absolute; top: 3px; left: 3px; width: 6px; height: 6px; border-radius: 50%; background: var(--bg); }
+.option.selected-amber .option-radio { border-color: #f5d97a; background: #f5d97a; }
+.option.selected-amber .option-radio::after { content: ''; position: absolute; top: 3px; left: 3px; width: 6px; height: 6px; border-radius: 50%; background: var(--bg); }
+.option-title { font-size: 15px; color: #e8edf5; font-weight: 400; line-height: 1.3; }
+.option-title strong { font-weight: 500; }
+.option-badge { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 2px; margin-left: 8px; vertical-align: middle; }
+.badge-signal { background: rgba(200,240,208,0.12); border: 1px solid rgba(200,240,208,0.2); color: #c8f0d0; }
+.badge-amber { background: rgba(245,217,122,0.12); border: 1px solid rgba(245,217,122,0.2); color: #f5d97a; }
+.option-desc { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: 6px; margin-left: 28px; }
+
+/* CONTACT FIELDS */
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+@media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
+.field-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.field-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+
+/* BUTTONS */
+.btn-row { display: flex; gap: 12px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
+.btn-primary { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 28px; border-radius: 4px; background: #c8f0d0; color: var(--bg); border: none; cursor: pointer; transition: opacity 0.18s, transform 0.18s; }
+.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.btn-primary.amber { background: #f5d97a; }
+.btn-back { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: var(--muted); background: none; border: none; cursor: pointer; padding: 0; transition: color 0.18s; }
+.btn-back:hover { color: #e8edf5; }
+.btn-back::before { content: '← '; }
+
+/* DIVIDER */
+.form-divider { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+
+/* CONTEXT STRIP */
+.context-strip { border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; margin-bottom: 32px; display: flex; gap: 14px; align-items: flex-start; }
+.context-icon { font-family: 'Geist Mono', monospace; font-size: 16px; color: var(--border2); flex-shrink: 0; padding-top: 1px; }
+.context-text { font-size: 12px; color: var(--muted); line-height: 1.65; }
+.context-text strong { color: var(--dim); font-weight: 400; }
+
+/* CONFIRMATION */
+.confirm-wrap { text-align: center; padding: 40px 0 20px; }
+.confirm-icon { font-size: 40px; margin-bottom: 24px; }
+.confirm-h { font-family: 'Instrument Serif', serif; font-size: clamp(28px, 4vw, 40px); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 16px; }
+.confirm-h em { font-style: italic; color: #c8f0d0; }
+.confirm-p { font-size: 15px; color: var(--dim); line-height: 1.72; max-width: 440px; margin: 0 auto 32px; }
+.confirm-box { border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; text-align: left; margin-bottom: 24px; }
+.confirm-box-title { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.confirm-item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; font-size: 13px; color: var(--dim); line-height: 1.5; }
+.confirm-item:last-child { margin-bottom: 0; }
+.confirm-item-mark { color: #c8f0d0; font-family: 'Geist Mono', monospace; font-size: 11px; flex-shrink: 0; padding-top: 1px; }
+.confirm-note { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.04em; }
+.confirm-note a { color: #c8f0d0; text-decoration: none; }
+
+/* ANIMATE IN */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.form-step.active { animation: fadeUp 0.35s ease forwards; }
+
+/* FOOTER PAD */
+.footer-pad { height: 60px; }
+
+/* ── SITE FOOTER ─────────────────────────────────────────────────── */
+footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32px; }
+.footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; margin-bottom: 40px; }
+.footer-brand { display: flex; flex-direction: column; gap: 12px; }
+.footer-logo { font-family: 'Geist', system-ui, sans-serif; font-weight: 400; font-size: 15px; color: #e8edf5; text-decoration: none; }
+.footer-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+.footer-tagline { font-size: 13px; color: #8ba3c1; line-height: 1.5; margin: 0; }
+.footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.footer-col { display: flex; flex-direction: column; gap: 8px; }
+.footer-col-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #7a9bb5; margin-bottom: 4px; }
+.footer-col a { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color .2s; line-height: 1.4; }
+.footer-col a:hover { color: #e8edf5; }
+.footer-base { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; padding-top: 24px; border-top: 1px solid #2a3a52; flex-wrap: wrap; gap: 8px; }
+.footer-copy { font-size: 12px; color: #7a9bb5; }
+@media (max-width: 640px) {
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .footer-nav { grid-template-columns: 1fr 1fr; }
+}
+
+  
+/* ── NAV ──────────────────────────────────────────────────────────── */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; background: rgba(9,16,31,0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid rgba(42,61,92,0.5); }
+.nav-logo { font-family: 'Geist', system-ui, sans-serif; font-weight: 400; font-size: 15px; color: #e8edf5; text-decoration: none; letter-spacing: -.01em; }
+.nav-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+.nav-back { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color .2s; }
+.nav-back:hover { color: #e8edf5; }
+.nav-cta { font-size: 12px; font-weight: 500; letter-spacing: .04em; padding: 7px 16px; border-radius: 4px; background: #c8f0d0; color: var(--signal-dark, #1a6640); text-decoration: none; white-space: nowrap; transition: opacity .2s; }
+.nav-cta:hover { opacity: .85; }
+@media (max-width: 480px) { nav { padding: 0 16px; } .nav-back { display: none; } }
+
+</style>
+<style>
+/* ── PREVIEW SANDBOX BG FIX ── */
+html, body, .page, section, main, article, header,
+.container, .container-narrow, .container-wide,
+.section-inner, .section-wrap, .page-wrap,
+nav, footer { background-color: #09101f !important; }
+section { color: #e8edf5 !important; }
+h1, h2, h3, h4, p, li, span, div { color: inherit; }
+</style>
+</head>
+<body style="background:#09101f;color:#e8edf5">
+<nav>
+  <a href="index.html" class="nav-logo">Cluster<span>OS</span></a>
+  <a href="index.html" class="nav-back">← Home</a>
+  <a href="request.html" class="nav-cta">Request a Diagnostic</a>
+</nav>
+
+
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero-tag">Get started</div>
+  <h1 class="hero-h">Request a<br><em>Diagnostic</em>.</h1>
+  <p class="hero-p">Three questions. Two minutes. We'll route you to the right starting point — a Cluster Snapshot or a scoping conversation with Andrew.</p>
+
+  <!-- STEP INDICATOR -->
+  <div class="step-indicator" id="step-indicator">
+    <div class="step-dot active" id="dot-0"></div>
+    <div class="step-dot" id="dot-1"></div>
+    <div class="step-dot" id="dot-2"></div>
+    <span class="step-label" id="step-label">Step 1 of 3</span>
+  </div>
+
+  <!-- STEP 1: CLUSTER -->
+  <div class="form-step active" id="step-1">
+    <div class="q-label">Question 01</div>
+    <h2 class="q-title">Which cluster are<br>you <em>asking about</em>?</h2>
+    <p class="q-sub">Sector, geography, and a short description. This calibrates the diagnostic before it runs.</p>
+
+    <div class="field-group">
+      <label class="field-label">Cluster name or description</label>
+      <input type="text" class="field" id="cluster-name" placeholder="e.g. Edinburgh FinTech, Orlando SpaceTech, Basque Country Advanced Manufacturing" />
+      <div class="field-hint">Be as specific or as broad as feels right. We'll refine boundaries together.</div>
+    </div>
+
+    <div class="field-group" style="margin-top:16px;">
+      <label class="field-label">Organisation (optional)</label>
+      <input type="text" class="field" id="org-name" placeholder="Your organisation or programme name" />
+    </div>
+
+    <div class="btn-row" style="margin-top:24px;">
+      <button class="btn-primary" id="step1-next" onclick="goToStep(2)" disabled>Continue →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: ENGAGEMENT TYPE -->
+  <div class="form-step" id="step-2">
+    <div class="q-label">Question 02</div>
+    <h2 class="q-title">What kind of<br>engagement <em>fits</em>?</h2>
+    <p class="q-sub">This tells us how to route your request and what to prepare.</p>
+
+    <div class="options" id="engagement-options">
+
+      <div class="option" id="opt-snapshot" onclick="selectOption('snapshot')">
+        <div class="option-header">
+          <div class="option-radio"></div>
+          <div>
+            <div class="option-title">
+              <strong>Cluster Snapshot</strong>
+              <span class="option-badge badge-amber">£5k · Fixed fee</span>
+            </div>
+            <div class="option-desc">Public data pipeline + actor questionnaire. 4–5 weeks, no working sessions. You distribute the instrument, we run the analysis. Stall identification, stack analysis, structural resemblances.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="option" id="opt-full" onclick="selectOption('full')">
+        <div class="option-header">
+          <div class="option-radio"></div>
+          <div>
+            <div class="option-title">
+              <strong>Collaborative Diagnostic</strong>
+              <span class="option-badge badge-signal">Scoped conversation</span>
+            </div>
+            <div class="option-desc">Your data + working sessions + anchor interviews. Higher confidence, board-ready output. Priced after a scoping call — typically 4–6 weeks.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="option" id="opt-unsure" onclick="selectOption('unsure')">
+        <div class="option-header">
+          <div class="option-radio"></div>
+          <div>
+            <div class="option-title"><strong>Not sure yet</strong></div>
+            <div class="option-desc">Tell us where you are and what the board is asking for. Andrew will suggest the right starting point.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-primary" id="step2-next" onclick="goToStep(3)" disabled>Continue →</button>
+      <button class="btn-back" onclick="goToStep(1)">Back</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: CONTACT -->
+  <div class="form-step" id="step-3">
+    <div class="q-label">Question 03</div>
+    <h2 class="q-title" id="step3-title">Last thing —<br><em>who are you</em>?</h2>
+    <p class="q-sub" id="step3-sub">We'll confirm your request and tell you exactly what happens next.</p>
+
+    <div class="context-strip" id="context-strip" style="display:none;">
+      <div class="context-icon">◎</div>
+      <div class="context-text" id="context-text"></div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group">
+        <label class="field-label">First name</label>
+        <input type="text" class="field" id="first-name" placeholder="First name" />
+      </div>
+      <div class="field-group">
+        <label class="field-label">Last name</label>
+        <input type="text" class="field" id="last-name" placeholder="Last name" />
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Email address</label>
+      <input type="email" class="field" id="email" placeholder="you@organisation.com" />
+    </div>
+
+    <div class="field-group" id="message-group">
+      <label class="field-label" id="message-label">Anything else we should know?</label>
+      <textarea class="field" id="message" rows="3" style="resize:vertical;min-height:80px;" placeholder="What the board is asking for, where you're stuck, what you've already tried — anything useful."></textarea>
+    </div>
+
+    <div class="btn-row" style="margin-top:8px;">
+      <button class="btn-primary" id="step3-submit" onclick="submitForm()" disabled>Send request</button>
+      <button class="btn-back" onclick="goToStep(2)">Back</button>
+    </div>
+
+    <div style="margin-top:20px;">
+      <p style="font-size:12px;color:var(--muted);line-height:1.6;">Or email Andrew directly at <a href="/cdn-cgi/l/email-protection#4b2a252f392e3c0b282426263e25223f32272a29652a3b3b" style="color:#c8f0d0;text-decoration:none;"><span class="__cf_email__" data-cfemail="274649435542506744484a4a52494e535e4b464509465757">[email&#160;protected]</span></a></p>
+    </div>
+  </div>
+
+  <!-- CONFIRMATION: SNAPSHOT -->
+  <div class="form-step" id="confirm-snapshot">
+    <div class="confirm-wrap">
+      <div class="confirm-icon">✦</div>
+      <h2 class="confirm-h">Snapshot<br><em>requested</em>.</h2>
+      <p class="confirm-p">Andrew will be in touch within one working day to confirm your Cluster Snapshot and send the next steps.</p>
+    </div>
+    <div class="confirm-box">
+      <div class="confirm-box-title">What happens next</div>
+      <div class="confirm-item"><div class="confirm-item-mark">01</div><div>Andrew confirms your cluster scope and sends the ClusterOS Diagnostic Instrument — the actor questionnaire you'll distribute across your cluster.</div></div>
+      <div class="confirm-item"><div class="confirm-item-mark">02</div><div>You distribute the questionnaire to founders, anchors, researchers, and stewards. Responses come back to us directly.</div></div>
+      <div class="confirm-item"><div class="confirm-item-mark">03</div><div>We run the public data pipeline alongside the questionnaire responses. 4–5 weeks from instrument distribution.</div></div>
+      <div class="confirm-item"><div class="confirm-item-mark">04</div><div>You receive the full Snapshot — stall identification, stack analysis, structural resemblances, leverage hypotheses. With explicit confidence levels throughout.</div></div>
+    </div>
+    <p class="confirm-note" style="text-align:center;">Questions in the meantime? <a href="/cdn-cgi/l/email-protection#04656a6076617344676b6969716a6d707d6865662a657474"><span class="__cf_email__" data-cfemail="83e2ede7f1e6f4c3e0eceeeef6edeaf7faefe2e1ade2f3f3">[email&#160;protected]</span></a></p>
+  </div>
+
+  <!-- CONFIRMATION: FULL / UNSURE -->
+  <div class="form-step" id="confirm-full">
+    <div class="confirm-wrap">
+      <div class="confirm-icon">✦</div>
+      <h2 class="confirm-h">Request<br><em>received</em>.</h2>
+      <p class="confirm-p" id="confirm-full-p">Andrew will be in touch within one working day to arrange a scoping conversation.</p>
+    </div>
+    <div class="confirm-box">
+      <div class="confirm-box-title">What happens next</div>
+      <div class="confirm-item"><div class="confirm-item-mark">01</div><div>Andrew reviews your request and reaches out to arrange a 30-minute scoping call.</div></div>
+      <div class="confirm-item"><div class="confirm-item-mark">02</div><div>The scoping call covers what you see, what you don't, and what the board is asking for. This calibrates the diagnostic before it runs.</div></div>
+      <div class="confirm-item"><div class="confirm-item-mark">03</div><div>Andrew scopes the engagement and gives you a clear timeline and price. No obligation at this stage.</div></div>
+      <div class="confirm-item"><div class="confirm-item-mark">04</div><div>If it's the right fit, you'll receive a proposal within a few days of the call.</div></div>
+    </div>
+    <p class="confirm-note" style="text-align:center;">Can't wait? Email directly: <a href="/cdn-cgi/l/email-protection#076669637562704764686a6a72696e737e6b666529667777"><span class="__cf_email__" data-cfemail="dfbeb1bbadbaa89fbcb0b2b2aab1b6aba6b3bebdf1beafaf">[email&#160;protected]</span></a></p>
+  </div>
+
+</div>
+
+<div class="footer-pad"></div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Cluster<span>OS</span></a>
+      <p class="footer-tagline">Regional economies need infrastructure.<br>Not more strategy.</p>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <div class="footer-col-label">Product</div>
+        <a href="substrate.html">The Substrate</a>
+        <a href="diagnostic.html">The Diagnostic</a>
+        <a href="leverage.html">Leverage</a>
+        <a href="findings.html">Findings</a>
+        <a href="pricing.html">Pricing</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Lab Notes</div>
+        <a href="notes.html">All Notes</a>
+        <a href="ln-01-coordinating.html">S2 · Coordinating</a>
+        <a href="ln-02-narrating.html">S7 · Narrating</a>
+        <a href="ln-10-narrative-activity-stack.html">Narrative × Activity</a>
+        <a href="ln-12-leverage.html">What Leverage Looks Like</a>
+        <a href="ln-13-diagnosis.html">Why Diagnosis Fails</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Company</div>
+        <a href="about.html">About</a>
+        <a href="data.html">Diagnostic Data</a>
+        <a href="request.html">Request a Diagnostic</a>
+        <a href="/cdn-cgi/l/email-protection#3859565c4a5d4f785b5755554d56514c4154595a16594848"><span class="__cf_email__" data-cfemail="87e6e9e3f5e2f0c7e4e8eaeaf2e9eef3feebe6e5a9e6f7f7">[email&#160;protected]</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-base">
+    <span class="fo
+    <span class="footer-copy">© 2026 ClusterOS · Community Lab</span>
+    <span class="footer-copy">Built in Edinburgh</span>
+  </div>
+</footer>
+
+<style>
+/* ── UNIVERSAL MOBILE PATCH ── injected ── */
+html { overflow-x: hidden; }
+body { overflow-x: hidden; }
+@media (max-width: 480px) {
+  nav { padding: 0 16px !important; }
+  .nav-back { font-size: 11px; }
+  .nav-cta { font-size: 11px; padding: 6px 14px !important; }
+  .nav-logo { font-size: 15px !important; }
+}
+</style>
+
+
+<style>
+@media (max-width: 640px) {
+  .hero { padding: 80px 20px 48px !important; }
+  .hero-h { font-size: clamp(28px, 8vw, 42px) !important; }
+  .form-wrap, .request-wrap { padding: 0 20px 80px; }
+  .step-indicators { flex-wrap: wrap; gap: 8px; }
+  .engagement-grid, .option-grid { grid-template-columns: 1fr !important; }
+  .btn-row { flex-direction: column; gap: 12px; }
+  .btn-row button { width: 100%; }
+}
+</style>
+
+</body>
+</html>

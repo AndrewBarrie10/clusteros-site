@@ -1,0 +1,752 @@
+[
+  {
+    "cluster_name": "Abu Dhabi HELM Life Sciences",
+    "geography": "Abu Dhabi UAE",
+    "sector": "Life Sciences",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "university",
+    "evidence_count": 53,
+    "lat": 24.4539,
+    "lng": 54.3773
+  },
+  {
+    "cluster_name": "Adelaide Space Technology",
+    "geography": "Adelaide South Australia",
+    "sector": "Space Technology",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "university",
+    "evidence_count": 62,
+    "lat": -34.9285,
+    "lng": 138.6007
+  },
+  {
+    "cluster_name": "Australia Canberra Cyber Security",
+    "geography": "Canberra Australia",
+    "sector": "Cyber Security",
+    "lifecycle_stage": "growing",
+    "anchor_type": "government",
+    "evidence_count": 53,
+    "lat": -35.2809,
+    "lng": 149.13
+  },
+  {
+    "cluster_name": "Basel Life Sciences",
+    "geography": "Basel Switzerland",
+    "sector": "Life Sciences",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 65,
+    "lat": 47.5596,
+    "lng": 7.5886
+  },
+  {
+    "cluster_name": "Basque Country Innovation Ecosystem",
+    "geography": "Bilbao Spain",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "mature",
+    "anchor_type": "government",
+    "evidence_count": 68,
+    "lat": 43.2627,
+    "lng": -2.9253
+  },
+  {
+    "cluster_name": "Belfast Cyber Security",
+    "geography": "Belfast Northern Ireland",
+    "sector": "Cyber Security",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 54,
+    "lat": 54.5973,
+    "lng": -5.9301
+  },
+  {
+    "cluster_name": "Bengaluru Space Technology",
+    "geography": "Bengaluru India",
+    "sector": "Space Technology",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 72,
+    "lat": 12.9716,
+    "lng": 77.5946
+  },
+  {
+    "cluster_name": "Birmingham Alabama Innovation Ecosystem",
+    "geography": "Birmingham AL USA",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "university",
+    "evidence_count": 61,
+    "lat": 33.5186,
+    "lng": -86.8104
+  },
+  {
+    "cluster_name": "Bordeaux Metropolitan Innovation Ecosystem",
+    "geography": "Bordeaux France",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "growing",
+    "anchor_type": "government",
+    "evidence_count": 60,
+    "lat": 44.8378,
+    "lng": -0.5792
+  },
+  {
+    "cluster_name": "Boston-Cambridge Life Sciences",
+    "geography": "Boston MA USA",
+    "sector": "Life Sciences",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 82,
+    "lat": 42.3601,
+    "lng": -71.0589
+  },
+  {
+    "cluster_name": "Buffalo Niagara Innovation Ecosystem",
+    "geography": "Buffalo NY USA",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "university",
+    "evidence_count": 63,
+    "lat": 42.8864,
+    "lng": -78.8784
+  },
+  {
+    "cluster_name": "Busan Innovation Ecosystem",
+    "geography": "Busan South Korea",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "government",
+    "evidence_count": 54,
+    "lat": 35.1796,
+    "lng": 129.0756
+  },
+  {
+    "cluster_name": "Cambridge UK Life Sciences",
+    "geography": "Cambridge UK",
+    "sector": "Life Sciences",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 62,
+    "lat": 52.2053,
+    "lng": 0.1218
+  },
+  {
+    "cluster_name": "Cape Canaveral Space Coast",
+    "geography": "Cape Canaveral FL USA",
+    "sector": "Space Technology",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 50,
+    "lat": 28.3922,
+    "lng": -80.6077
+  },
+  {
+    "cluster_name": "Chattanooga Regional Innovation Ecosystem",
+    "geography": "Chattanooga TN USA",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "government",
+    "evidence_count": 71,
+    "lat": 35.0456,
+    "lng": -85.3097
+  },
+  {
+    "cluster_name": "Cheltenham Cyber Security",
+    "geography": "Cheltenham UK",
+    "sector": "Cyber Security",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 54,
+    "lat": 51.9008,
+    "lng": -2.0785
+  },
+  {
+    "cluster_name": "Colorado Springs Space Technology",
+    "geography": "Colorado Springs CO USA",
+    "sector": "Space Technology",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 60,
+    "lat": 38.8339,
+    "lng": -104.8214
+  },
+  {
+    "cluster_name": "Copenhagen-Medicon Valley Life Sciences",
+    "geography": "Copenhagen Denmark",
+    "sector": "Life Sciences",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 83,
+    "lat": 55.6761,
+    "lng": 12.5683
+  },
+  {
+    "cluster_name": "Eindhoven Brainport Innovation Ecosystem",
+    "geography": "Eindhoven Netherlands",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "mature",
+    "anchor_type": "corporate",
+    "evidence_count": 72,
+    "lat": 51.4416,
+    "lng": 5.4697
+  },
+  {
+    "cluster_name": "Estonia Cyber Security",
+    "geography": "Tallinn Estonia",
+    "sector": "Cyber Security",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 55,
+    "lat": 59.437,
+    "lng": 24.7536
+  },
+  {
+    "cluster_name": "Glasgow City Region Innovation Ecosystem",
+    "geography": "Glasgow Scotland UK",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 69,
+    "lat": 55.8642,
+    "lng": -4.2518
+  },
+  {
+    "cluster_name": "Glasgow FinTech",
+    "geography": "Glasgow Scotland UK",
+    "sector": "FinTech",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "university",
+    "evidence_count": 62,
+    "lat": 55.8642,
+    "lng": -4.2518
+  },
+  {
+    "cluster_name": "Glasgow Health and Life Sciences",
+    "geography": "Glasgow Scotland UK",
+    "sector": "Health and Life Sciences",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 72,
+    "lat": 55.8642,
+    "lng": -4.2518
+  },
+  {
+    "cluster_name": "Greater Manchester Innovation Ecosystem",
+    "geography": "Manchester UK",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "growing",
+    "anchor_type": "government",
+    "evidence_count": 76,
+    "lat": 53.4808,
+    "lng": -2.2426
+  },
+  {
+    "cluster_name": "Harwell Space Technology",
+    "geography": "Harwell Oxfordshire UK",
+    "sector": "Space Technology",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 55,
+    "lat": 51.5707,
+    "lng": -1.3096
+  },
+  {
+    "cluster_name": "Houston Space Technology",
+    "geography": "Houston TX USA",
+    "sector": "Space Technology",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 56,
+    "lat": 29.7604,
+    "lng": -95.3698
+  },
+  {
+    "cluster_name": "Hyderabad Genome Valley Life Sciences",
+    "geography": "Hyderabad India",
+    "sector": "Life Sciences",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 50,
+    "lat": 17.385,
+    "lng": 78.4867
+  },
+  {
+    "cluster_name": "Los Angeles Space Technology",
+    "geography": "Los Angeles CA USA",
+    "sector": "Space Technology",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 54,
+    "lat": 34.0522,
+    "lng": -118.2437
+  },
+  {
+    "cluster_name": "Madison Regional Innovation Ecosystem",
+    "geography": "Madison WI USA",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 60,
+    "lat": 43.0731,
+    "lng": -89.4012
+  },
+  {
+    "cluster_name": "Medellin Innovation Ecosystem",
+    "geography": "Medellin Colombia",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "growing",
+    "anchor_type": "government",
+    "evidence_count": 63,
+    "lat": 6.2442,
+    "lng": -75.5812
+  },
+  {
+    "cluster_name": "Melbourne Life Sciences",
+    "geography": "Melbourne Australia",
+    "sector": "Life Sciences",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 65,
+    "lat": -37.8136,
+    "lng": 144.9631
+  },
+  {
+    "cluster_name": "Nashville Regional Innovation Ecosystem",
+    "geography": "Nashville TN USA",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "growing",
+    "anchor_type": "corporate",
+    "evidence_count": 65,
+    "lat": 36.1627,
+    "lng": -86.7816
+  },
+  {
+    "cluster_name": "New Zealand Space Technology",
+    "geography": "Mahia Peninsula New Zealand",
+    "sector": "Space Technology",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 64,
+    "lat": -39.1548,
+    "lng": 177.915
+  },
+  {
+    "cluster_name": "Orlando Advanced Manufacturing",
+    "geography": "Orlando FL USA",
+    "sector": "Advanced Manufacturing",
+    "lifecycle_stage": "mature",
+    "anchor_type": "corporate",
+    "evidence_count": 58,
+    "lat": 28.5383,
+    "lng": -81.3792
+  },
+  {
+    "cluster_name": "Orlando AgTech",
+    "geography": "Orlando FL USA",
+    "sector": "AgTech",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "university",
+    "evidence_count": 54,
+    "lat": 28.5383,
+    "lng": -81.3792
+  },
+  {
+    "cluster_name": "Orlando Aviation and Aerospace",
+    "geography": "Orlando FL USA",
+    "sector": "Aviation and Aerospace",
+    "lifecycle_stage": "mature",
+    "anchor_type": "corporate",
+    "evidence_count": 55,
+    "lat": 28.5383,
+    "lng": -81.3792
+  },
+  {
+    "cluster_name": "Orlando Cybersecurity",
+    "geography": "Orlando FL USA",
+    "sector": "Cybersecurity",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "military",
+    "evidence_count": 56,
+    "lat": 28.5383,
+    "lng": -81.3792
+  },
+  {
+    "cluster_name": "Orlando Digital Media",
+    "geography": "Orlando FL USA",
+    "sector": "Digital Media",
+    "lifecycle_stage": "mature",
+    "anchor_type": "corporate",
+    "evidence_count": 58,
+    "lat": 28.5383,
+    "lng": -81.3792
+  },
+  {
+    "cluster_name": "Orlando MedTech",
+    "geography": "Orlando FL USA",
+    "sector": "MedTech",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "university",
+    "evidence_count": 57,
+    "lat": 28.5383,
+    "lng": -81.3792
+  },
+  {
+    "cluster_name": "Orlando Photonics and Optics",
+    "geography": "Orlando FL USA",
+    "sector": "Photonics",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "university",
+    "evidence_count": 58,
+    "lat": 28.5383,
+    "lng": -81.3792
+  },
+  {
+    "cluster_name": "Orlando Simulation and Training",
+    "geography": "Orlando FL USA",
+    "sector": "Simulation and Training",
+    "lifecycle_stage": "mature",
+    "anchor_type": "military",
+    "evidence_count": 61,
+    "lat": 28.5383,
+    "lng": -81.3792
+  },
+  {
+    "cluster_name": "Orlando SpaceTech",
+    "geography": "Orlando FL USA",
+    "sector": "Space Technology",
+    "lifecycle_stage": "mature",
+    "anchor_type": "government",
+    "evidence_count": 57,
+    "lat": 28.5383,
+    "lng": -81.3792
+  },
+  {
+    "cluster_name": "Orlando Tourism Technology",
+    "geography": "Orlando FL USA",
+    "sector": "Tourism Technology",
+    "lifecycle_stage": "mature",
+    "anchor_type": "corporate",
+    "evidence_count": 68,
+    "lat": 28.5383,
+    "lng": -81.3792
+  },
+  {
+    "cluster_name": "Pittsburgh Regional Innovation Ecosystem",
+    "geography": "Pittsburgh PA USA",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 75,
+    "lat": 40.4406,
+    "lng": -79.9959
+  },
+  {
+    "cluster_name": "Porto Innovation Ecosystem",
+    "geography": "Porto Portugal",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "university",
+    "evidence_count": 59,
+    "lat": 41.1579,
+    "lng": -8.6291
+  },
+  {
+    "cluster_name": "Quebec City Innovation Ecosystem",
+    "geography": "Quebec City Canada",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 57,
+    "lat": 46.8139,
+    "lng": -71.208
+  },
+  {
+    "cluster_name": "Research Triangle Innovation Ecosystem",
+    "geography": "Raleigh-Durham NC USA",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 76,
+    "lat": 35.994,
+    "lng": -78.8986
+  },
+  {
+    "cluster_name": "Research Triangle Life Sciences",
+    "geography": "Raleigh-Durham-Chapel Hill NC",
+    "sector": "Life Sciences",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 62,
+    "lat": 35.994,
+    "lng": -78.8986
+  },
+  {
+    "cluster_name": "San Francisco Bay Area Cyber Security",
+    "geography": "San Francisco Bay Area CA",
+    "sector": "Cyber Security",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 74,
+    "lat": 37.7749,
+    "lng": -122.4194
+  },
+  {
+    "cluster_name": "San Francisco Bay Area Life Sciences",
+    "geography": "San Francisco Bay Area CA",
+    "sector": "Life Sciences",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 55,
+    "lat": 37.7749,
+    "lng": -122.4194
+  },
+  {
+    "cluster_name": "Scotland Advanced Manufacturing",
+    "geography": "Renfrewshire Glasgow and Central Belt Scotland",
+    "sector": "Advanced Manufacturing",
+    "lifecycle_stage": "growing",
+    "anchor_type": "government",
+    "evidence_count": 72,
+    "lat": 55.85,
+    "lng": -4.25
+  },
+  {
+    "cluster_name": "Scotland Creative Industries",
+    "geography": "Glasgow Edinburgh Dundee Scotland",
+    "sector": "Creative Industries",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 69,
+    "lat": 55.9533,
+    "lng": -3.1883
+  },
+  {
+    "cluster_name": "Scotland Cyber Security",
+    "geography": "Edinburgh-Glasgow Scotland",
+    "sector": "Cyber Security",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 55,
+    "lat": 55.9533,
+    "lng": -3.1883
+  },
+  {
+    "cluster_name": "Scotland Data and AI",
+    "geography": "Edinburgh and Central Belt Scotland",
+    "sector": "Data and AI",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 65,
+    "lat": 55.9533,
+    "lng": -3.1883
+  },
+  {
+    "cluster_name": "Scotland Energy Transition",
+    "geography": "Aberdeen and North East Scotland",
+    "sector": "Energy Transition",
+    "lifecycle_stage": "transitioning",
+    "anchor_type": "corporate",
+    "evidence_count": 63,
+    "lat": 57.1497,
+    "lng": -2.0943
+  },
+  {
+    "cluster_name": "Scotland FinTech",
+    "geography": "Edinburgh and Central Belt Scotland",
+    "sector": "FinTech",
+    "lifecycle_stage": "mature",
+    "anchor_type": "corporate",
+    "evidence_count": 61,
+    "lat": 55.9533,
+    "lng": -3.1883
+  },
+  {
+    "cluster_name": "Scotland Food and Drink",
+    "geography": "Scotland UK",
+    "sector": "Food and Drink",
+    "lifecycle_stage": "mature",
+    "anchor_type": "corporate",
+    "evidence_count": 69,
+    "lat": 56.4907,
+    "lng": -4.2026
+  },
+  {
+    "cluster_name": "Scotland Health Tech",
+    "geography": "Edinburgh Glasgow and Dundee Scotland",
+    "sector": "Health Tech",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 69,
+    "lat": 55.9533,
+    "lng": -3.1883
+  },
+  {
+    "cluster_name": "Scotland Life Sciences",
+    "geography": "Edinburgh Dundee and Glasgow Scotland",
+    "sector": "Life Sciences",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 71,
+    "lat": 55.9533,
+    "lng": -3.1883
+  },
+  {
+    "cluster_name": "Scotland Quantum and Photonics",
+    "geography": "Glasgow and Central Belt Scotland",
+    "sector": "Quantum and Photonics",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "university",
+    "evidence_count": 57,
+    "lat": 55.8642,
+    "lng": -4.2518
+  },
+  {
+    "cluster_name": "Scotland SpaceTech",
+    "geography": "Scotland UK",
+    "sector": "Space Technology",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "government",
+    "evidence_count": 62,
+    "lat": 56.4907,
+    "lng": -4.2026
+  },
+  {
+    "cluster_name": "Scotland Tourism and Hospitality Tech",
+    "geography": "Scotland UK",
+    "sector": "Tourism and Hospitality Tech",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "government",
+    "evidence_count": 66,
+    "lat": 56.4907,
+    "lng": -4.2026
+  },
+  {
+    "cluster_name": "Singapore Biopolis Life Sciences",
+    "geography": "Singapore",
+    "sector": "Life Sciences",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 63,
+    "lat": 1.3521,
+    "lng": 103.8198
+  },
+  {
+    "cluster_name": "Singapore Cyber Security",
+    "geography": "Singapore",
+    "sector": "Cyber Security",
+    "lifecycle_stage": "growing",
+    "anchor_type": "government",
+    "evidence_count": 74,
+    "lat": 1.3521,
+    "lng": 103.8198
+  },
+  {
+    "cluster_name": "Tel Aviv Cyber Security",
+    "geography": "Tel Aviv Israel",
+    "sector": "Cyber Security",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 70,
+    "lat": 32.0853,
+    "lng": 34.7818
+  },
+  {
+    "cluster_name": "The Hague Cyber Security",
+    "geography": "The Hague Netherlands",
+    "sector": "Cyber Security",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 52,
+    "lat": 52.0705,
+    "lng": 4.3007
+  },
+  {
+    "cluster_name": "Toulouse Space Technology",
+    "geography": "Toulouse France",
+    "sector": "Space Technology",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 60,
+    "lat": 43.6047,
+    "lng": 1.4442
+  },
+  {
+    "cluster_name": "Tsukuba Space Technology",
+    "geography": "Tsukuba Japan",
+    "sector": "Space Technology",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 55,
+    "lat": 36.0856,
+    "lng": 140.1115
+  },
+  {
+    "cluster_name": "Tulsa Regional Innovation Ecosystem",
+    "geography": "Tulsa OK USA",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "mixed",
+    "evidence_count": 56,
+    "lat": 36.154,
+    "lng": -95.9928
+  },
+  {
+    "cluster_name": "UAE Cyber Security",
+    "geography": "Abu Dhabi Dubai UAE",
+    "sector": "Cyber Security",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "university",
+    "evidence_count": 63,
+    "lat": 24.4539,
+    "lng": 54.3773
+  },
+  {
+    "cluster_name": "UAE Space Technology",
+    "geography": "Abu Dhabi UAE",
+    "sector": "Space Technology",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "university",
+    "evidence_count": 57,
+    "lat": 24.4539,
+    "lng": 54.3773
+  },
+  {
+    "cluster_name": "Washington DC Cyber Security",
+    "geography": "Washington DC USA",
+    "sector": "Cyber Security",
+    "lifecycle_stage": "mature",
+    "anchor_type": "university",
+    "evidence_count": 68,
+    "lat": 38.9072,
+    "lng": -77.0369
+  },
+  {
+    "cluster_name": "West Midlands Innovation Ecosystem",
+    "geography": "Birmingham UK",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "growing",
+    "anchor_type": "government",
+    "evidence_count": 86,
+    "lat": 52.4862,
+    "lng": -1.8904
+  },
+  {
+    "cluster_name": "Wichita Regional Innovation Ecosystem",
+    "geography": "Wichita KS USA",
+    "sector": "Regional Economic Development",
+    "lifecycle_stage": "emerging",
+    "anchor_type": "corporate",
+    "evidence_count": 59,
+    "lat": 37.6872,
+    "lng": -97.3301
+  },
+  {
+    "cluster_name": "Zurich-Zug MedTech",
+    "geography": "Zurich and Zug Switzerland",
+    "sector": "MedTech",
+    "lifecycle_stage": "growing",
+    "anchor_type": "university",
+    "evidence_count": 66,
+    "lat": 47.3769,
+    "lng": 8.5417
+  }
+]

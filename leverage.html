@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#09101f;color:#e8edf5">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leverage — ClusterOS</title>
+  <!-- SEO & AIO -->
+  <meta name="description" content="Large interventions fail because stabilisation stacks absorb them. ClusterOS identifies the specific leverage points — small withdrawals of protection — that shift cluster regimes without triggering stack compensation.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://clusteros.io/leverage">
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Leverage — ClusterOS">
+  <meta property="og:description" content="Large interventions fail because stabilisation stacks absorb them. ClusterOS identifies the specific leverage points — small withdrawals of protection — that shift cluster regimes without triggering stack compensation.">
+  <meta property="og:url" content="https://clusteros.io/leverage">
+  <meta property="og:site_name" content="ClusterOS">
+  <meta property="og:image" content="https://clusteros.io/og-image.png">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Leverage — ClusterOS">
+  <meta name="twitter:description" content="Large interventions fail because stabilisation stacks absorb them. ClusterOS identifies the specific leverage points — small withdrawals of protection — that shift cluster regimes without triggering stack compensation.">
+  <meta name="twitter:image" content="https://clusteros.io/og-image.png">
+  <!-- Schema.org structured data -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ClusterOS",
+    "url": "https://clusteros.io",
+    "description": "ClusterOS is a cognitive operating system for regional economies. It diagnoses why innovation clusters stall, identifies stabilisation stacks, and gives stewards specific leverage points that shift regimes.",
+    "founder": {
+      "@type": "Person",
+      "name": "Andrew Barrie",
+      "email": "andrew@communitylab.app",
+      "sameAs": "https://www.communitylab.app"
+    },
+    "foundingLocation": {
+      "@type": "Place",
+      "name": "Edinburgh, Scotland"
+    },
+    "sameAs": ["https://clusteros.io"]
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Leverage — ClusterOS",
+    "url": "https://clusteros.io/leverage",
+    "description": "Large interventions fail because stabilisation stacks absorb them. ClusterOS identifies the specific leverage points — small withdrawals of protection — that shift cluster regimes without triggering stack compensation.",
+    "isPartOf": {"@type": "WebSite", "url": "https://clusteros.io", "name": "ClusterOS"}
+  }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:      #09101f;
+  --surface: #111c2e;
+  --border:  #1e2f45;
+  --border2: #2a3f5a;
+  --chalk:   #e8edf5;
+  --dim:     #c2cfe0;
+  --muted:   #7a95b0;
+  --signal:  #c8f0d0;
+  --amber:   #f5d97a;
+  --crimson: #f08080;
+  --teal:    #7dd3c8;
+  --serif:   'Instrument Serif', serif;
+  --mono:    'Geist Mono', monospace;
+}
+html { scroll-behavior: smooth; background: #09101f; color: #e8edf5; }
+body { background: var(--bg); color: #e8edf5; font-family: 'Geist', sans-serif; font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 52px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: rgba(9,16,31,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.logo { font-family: 'Instrument Serif', serif; font-size: 17px; text-decoration: none; color: #e8edf5; }
+.logo span { font-family: 'Geist Mono', monospace; font-weight: 700; color: #c8f0d0; font-size: 15px; }
+.nav-r { display: flex; align-items: center; gap: 20px; }
+.nav-link { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+.nav-link:hover { color: #e8edf5; }
+.nav-btn { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; padding: 7px 14px; border-radius: 3px; background: #c8f0d0; color: var(--bg); text-decoration: none; }
+
+/* HERO */
+.hero { padding: 96px 24px 64px; max-width: 640px; margin: 0 auto; text-align: center; }
+.hero-tag { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+.hero-h { font-family: 'Instrument Serif', serif; font-size: clamp(36px, 6vw, 58px); line-height: 1.06; letter-spacing: -0.02em; margin-bottom: 20px; }
+.hero-h em { font-style: italic; color: #c8f0d0; }
+.hero-p { font-size: 16px; color: var(--dim); line-height: 1.72; margin-bottom: 36px; }
+.hero-p strong { color: #e8edf5; font-weight: 500; }
+
+/* Pipeline position strip */
+.pipeline-strip { display: flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; max-width: 480px; margin: 0 auto; }
+.ps { flex: 1; padding: 12px 10px; border-right: 1px solid var(--border); text-align: center; }
+.ps:last-child { border-right: none; }
+.ps-num { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 3px; }
+.ps-label { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; }
+.ps.done { background: rgba(200,240,208,0.04); }
+.ps.done .ps-num, .ps.done .ps-label { color: rgba(200,240,208,0.4); }
+.ps.now { background: var(--surface); }
+.ps.now .ps-num { color: #c8f0d0; }
+.ps.now .ps-label { color: #c8f0d0; }
+
+/* FRAMING SECTION */
+.frame { max-width: 640px; margin: 0 auto; padding: 48px 24px 40px; }
+.frame-rule { width: 100%; height: 1px; background: var(--border); margin-bottom: 40px; }
+
+.frame-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 28px; }
+@media (max-width: 500px) { .frame-grid { grid-template-columns: 1fr; } }
+.frame-card { padding: 16px 18px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); }
+.frame-card-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.frame-card.bad .frame-card-label { color: #f08080; }
+.frame-card.good .frame-card-label { color: #c8f0d0; }
+.frame-card-text { font-size: 13px; color: var(--dim); line-height: 1.6; }
+
+/* MOVES SECTION */
+.moves { max-width: 640px; margin: 0 auto; padding: 0 24px 40px; }
+.moves-heading { padding: 8px 0 24px; }
+.moves-h { font-family: 'Instrument Serif', serif; font-size: 26px; color: #e8edf5; line-height: 1.2; margin-bottom: 8px; }
+.moves-h em { font-style: italic; color: #c8f0d0; }
+.moves-sub { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+/* Move card — same accordion mechanic as stalls */
+.move { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; overflow: hidden; transition: border-color 0.15s; }
+.move:hover { border-color: var(--border2); }
+.move.open { border-color: var(--border2); }
+
+.move-row { display: flex; align-items: stretch; cursor: pointer; background: none; width: 100%; border: none; text-align: left; color: inherit; padding: 0; }
+.move-row:focus { outline: none; }
+
+/* Number strip */
+.move-num { width: 52px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--border); font-family: 'Geist Mono', monospace; font-size: 20px; font-weight: 700; color: var(--border2); transition: color 0.15s; }
+.move.open .move-num { color: #c8f0d0; }
+
+.move-main { flex: 1; padding: 16px 16px; min-width: 0; }
+.move-name { font-family: 'Instrument Serif', serif; font-size: 17px; color: #e8edf5; line-height: 1.25; margin-bottom: 4px; }
+.move-sub { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+.move-chevron { width: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted); transition: transform 0.2s; }
+.move.open .move-chevron { transform: rotate(180deg); }
+
+/* Move detail */
+.move-detail { display: none; border-top: 1px solid var(--border); }
+.move.open .move-detail { display: block; }
+.move-inner { padding: 20px 20px 20px 20px; }
+
+.what-it-does { margin-bottom: 16px; }
+.what-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #c8f0d0; margin-bottom: 8px; }
+.what-text { font-size: 14px; color: var(--dim); line-height: 1.7; }
+.what-text strong { color: #e8edf5; font-weight: 400; }
+
+/* Example block */
+.example-block { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 16px; }
+.ex-head { padding: 10px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+.ex-dot { width: 6px; height: 6px; border-radius: 50%; background: #f5d97a; flex-shrink: 0; }
+.ex-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #f5d97a; }
+.ex-region { font-family: 'Geist Mono', monospace; font-size: 9px; color: var(--muted); margin-left: auto; }
+.ex-body { padding: 14px 14px; }
+.ex-scene { font-size: 13px; color: var(--muted); line-height: 1.6; font-style: italic; margin-bottom: 10px; border-left: 2px solid var(--border2); padding-left: 12px; }
+.ex-move { font-size: 13px; color: var(--dim); line-height: 1.65; }
+.ex-move strong { color: #e8edf5; font-weight: 400; }
+.ex-effect { margin-top: 10px; padding: 10px 12px; background: rgba(200,240,208,0.04); border: 1px solid rgba(200,240,208,0.1); border-radius: 4px; font-size: 12px; color: #c8f0d0; line-height: 1.6; }
+.ex-effect::before { content: 'Effect: '; font-weight: 600; }
+
+/* Targets stalls */
+.targets { margin-bottom: 4px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.target-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+.target-tag { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 2px; background: rgba(245,217,122,0.08); border: 1px solid rgba(245,217,122,0.2); color: #f5d97a; letter-spacing: 0.08em; }
+
+/* Important caveat */
+.caveat { max-width: 640px; margin: 0 auto; padding: 0 24px 48px; }
+.caveat-box { padding: 20px 22px; border: 1px solid var(--border2); border-radius: 6px; background: rgba(255,255,255,0.02); }
+.caveat-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.caveat-text { font-size: 14px; color: var(--dim); line-height: 1.7; }
+.caveat-text strong { color: #e8edf5; font-weight: 400; }
+
+/* WHERE LEVERAGE DOESN'T EXIST */
+.limits { max-width: 640px; margin: 0 auto; padding: 0 24px 48px; }
+.limits-h { font-family: 'Instrument Serif', serif; font-size: 22px; color: #e8edf5; margin-bottom: 12px; }
+.limits-h em { font-style: italic; color: #f08080; }
+.limits-body { font-size: 14px; color: var(--dim); line-height: 1.7; margin-bottom: 16px; }
+.limits-body strong { color: #e8edf5; font-weight: 400; }
+.limits-list { display: flex; flex-direction: column; gap: 8px; }
+.limits-item { display: flex; gap: 12px; font-size: 13px; color: var(--muted); line-height: 1.6; }
+.limits-item::before { content: '—'; color: var(--border2); flex-shrink: 0; }
+
+/* PIPELINE NARRATIVE */
+.pipeline-full { max-width: 640px; margin: 0 auto; padding: 0 24px 48px; }
+.pipeline-h { font-family: 'Instrument Serif', serif; font-size: 22px; color: #e8edf5; margin-bottom: 20px; }
+.pipeline-h em { font-style: italic; color: #c8f0d0; }
+.pipeline-steps { display: flex; flex-direction: column; gap: 0; }
+.pip { display: flex; gap: 16px; padding: 14px 0; border-top: 1px solid var(--border); align-items: flex-start; }
+.pip:last-child { border-bottom: 1px solid var(--border); }
+.pip-num { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; color: var(--border2); width: 24px; flex-shrink: 0; padding-top: 2px; }
+.pip-body { flex: 1; }
+.pip-name { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 3px; }
+.pip-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+.pip.done .pip-num { color: rgba(200,240,208,0.3); }
+.pip.done .pip-name { color: rgba(200,240,208,0.4); }
+.pip.now .pip-num { color: #c8f0d0; }
+.pip.now .pip-name { color: #c8f0d0; }
+.pip.now .pip-desc { color: var(--dim); }
+
+/* CTA */
+.cta { padding: 72px 24px 80px; max-width: 580px; margin: 0 auto; text-align: center; }
+.cta-h { font-family: 'Instrument Serif', serif; font-size: clamp(28px, 5vw, 42px); line-height: 1.1; color: #e8edf5; margin-bottom: 16px; }
+.cta-h em { font-style: italic; color: #c8f0d0; }
+.cta-p { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+.cta-btn { display: inline-block; font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 28px; border-radius: 3px; background: #c8f0d0; color: var(--bg); text-decoration: none; }
+.cta-note { font-family: 'Geist Mono', monospace; font-size: 9px; color: var(--muted); margin-top: 14px; letter-spacing: 0.06em; }
+
+hr { border: none; border-top: 1px solid var(--border); }
+
+/* Reveal */
+.rev { opacity: 1 ; transform: none; transition: opacity 0.5s ease, transform 0.5s ease; }
+.rev.in { opacity: 1; transform: none; }
+.d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; }
+
+/* ── SITE FOOTER ─────────────────────────────────────────────────── */
+footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32px; }
+.footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; margin-bottom: 40px; }
+.footer-brand { display: flex; flex-direction: column; gap: 12px; }
+.footer-logo { font-family: 'Geist', system-ui, sans-serif; font-weight: 400; font-size: 15px; color: #e8edf5; text-decoration: none; }
+.footer-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+.footer-tagline { font-size: 13px; color: #8ba3c1; line-height: 1.5; margin: 0; }
+.footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.footer-col { display: flex; flex-direction: column; gap: 8px; }
+.footer-col-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #7a9bb5; margin-bottom: 4px; }
+.footer-col a { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color .2s; line-height: 1.4; }
+.footer-col a:hover { color: #e8edf5; }
+.footer-base { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; padding-top: 24px; border-top: 1px solid #2a3a52; flex-wrap: wrap; gap: 8px; }
+.footer-copy { font-size: 12px; color: #7a9bb5; }
+@media (max-width: 640px) {
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .footer-nav { grid-template-columns: 1fr 1fr; }
+}
+
+  
+/* ── NAV ──────────────────────────────────────────────────────────── */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; background: rgba(9,16,31,0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid rgba(42,61,92,0.5); }
+.nav-logo { font-family: 'Geist', system-ui, sans-serif; font-weight: 400; font-size: 15px; color: #e8edf5; text-decoration: none; letter-spacing: -.01em; }
+.nav-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+.nav-back { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color .2s; }
+.nav-back:hover { color: #e8edf5; }
+.nav-cta { font-size: 12px; font-weight: 500; letter-spacing: .04em; padding: 7px 16px; border-radius: 4px; background: #c8f0d0; color: var(--signal-dark, #1a6640); text-decoration: none; white-space: nowrap; transition: opacity .2s; }
+.nav-cta:hover { opacity: .85; }
+@media (max-width: 480px) { nav { padding: 0 16px; } .nav-back { display: none; } }
+
+</style>
+<style>
+/* ── PREVIEW SANDBOX BG FIX ── */
+html, body, .page, section, main, article, header,
+.container, .container-narrow, .container-wide,
+.section-inner, .section-wrap, .page-wrap,
+nav, footer { background-color: #09101f !important; }
+section { color: #e8edf5 !important; }
+h1, h2, h3, h4, p, li, span, div { color: inherit; }
+</style>
+</head>
+<body style="background:#09101f;color:#e8edf5">
+<nav>
+  <a href="index.html" class="nav-logo">Cluster<span>OS</span></a>
+  <a href="diagnostic.html" class="nav-back">← Diagnostic</a>
+  <a href="request.html" class="nav-cta">Request a Diagnostic</a>
+</nav>
+
+
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag rev">Stage 5 · Leverage</div>
+  <h1 class="hero-h rev d1">The system doesn't need fixing.<br><em>It needs exposure.</em></h1>
+  <p class="hero-p rev d2">Large interventions fail because the stack absorbs them. The coordination body processes the intervention. The narrative explains why it didn't change anything. The activity metrics still look fine. <strong>Leverage is not a bigger push. It is a small withdrawal of protection.</strong></p>
+  <div class="pipeline-strip rev d3">
+    <div class="ps done"><div class="ps-num">01</div><div class="ps-label">Evidence</div></div>
+    <div class="ps done"><div class="ps-num">02</div><div class="ps-label">Patterns</div></div>
+    <div class="ps done"><div class="ps-num">03</div><div class="ps-label">Stalls</div></div>
+    <div class="ps done"><div class="ps-num">04</div><div class="ps-label">Stacks</div></div>
+    <div class="ps now"><div class="ps-num">05</div><div class="ps-label">Leverage</div></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- FRAMING -->
+<div class="frame">
+  <p style="font-size:15px;color:var(--dim);line-height:1.75;margin-bottom:20px">A stack persists because it is <strong style="color:#e8edf5;font-weight:400">structurally defended</strong>. Removing a single stall often exposes actors to risks they did not choose to bear. The stack compensates. The intervention is absorbed. Nothing changes.</p>
+  <p style="font-size:15px;color:var(--dim);line-height:1.75;margin-bottom:28px">Leverage means changing the <strong style="color:#e8edf5;font-weight:400">operating conditions</strong> of the system — not the actors' values, not the institutional structure, not the strategy. Small moves that make it slightly harder for the system to continue stabilising around the same equilibrium.</p>
+
+  <div class="frame-grid">
+    <div class="frame-card bad">
+      <div class="frame-card-label">What doesn't work</div>
+      <div class="frame-card-text">Large reform programmes. Structural reorganisations. New strategies. Mandating behaviour change. Targeting a single stall without addressing the stack. More activity in response to low throughput.</div>
+    </div>
+    <div class="frame-card good">
+      <div class="frame-card-label">What does</div>
+      <div class="frame-card-text">Small withdrawals of protection. Making outcomes harder to ignore. Timing pressure that forces decisions. Restoring contrast where narrative has flattened difference. Pausing amplification until evidence appears.</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- THE 4 MOVES -->
+<div class="moves">
+  <div class="moves-heading">
+    <h2 class="moves-h">Four repeatable <em>leverage moves</em></h2>
+    <p class="moves-sub">These are not prescriptions. They are patterns that appear across ecosystems where stewards have successfully shifted regimes. Each is a hypothesis for testing in your specific context.</p>
+  </div>
+
+  <div id="moves-list"></div>
+</div>
+
+<hr>
+
+<!-- CAVEAT -->
+<div class="caveat">
+  <div class="caveat-box">
+    <div class="caveat-label">On epistemic honesty</div>
+    <div class="caveat-text">The ClusterOS diagnostic is <strong>rigorous about what it knows, what it infers, and what remains uncertain</strong>. Leverage hypotheses are not prescriptions. They are testable perturbations with defined success metrics and explicit confidence levels. Where demand-side behaviour and reinvestment flows are weakly visible, the correct steward move is not intervention — it is <strong>observation: improving visibility before attempting change</strong>. Knowing where leverage does not yet exist is part of responsible stewardship.</div>
+  </div>
+</div>
+
+<!-- WHERE LEVERAGE DOESN'T EXIST -->
+<div class="limits">
+  <h3 class="limits-h">Where <em>not</em> to intervene</h3>
+  <p class="limits-body">Leverage does not exist in every part of a system. Where these conditions hold, the correct move is to improve visibility — not to act.</p>
+  <div class="limits-list">
+    <div class="limits-item">Demand-side behaviour is unobservable. If you cannot see whether actors are actually making decisions or blocking them, you cannot target that behaviour.</div>
+    <div class="limits-item">Power asymmetries are extreme. Where incumbents or institutions shape the rules, modest exposure may not shift the equilibrium. Change may require external shock or political intervention.</div>
+    <div class="limits-item">The Y-side is weakly confirmed. If you can observe X but cannot verify the absence of Y, the stall claim is provisional. Intervening on a provisional claim risks disrupting something that may not be a stall.</div>
+    <div class="limits-item">The stack is still forming. Early coordination is scaffolding, not stabilisation. The lens requires patience — applied too quickly, it misreads necessary infrastructure as inertia.</div>
+  </div>
+</div>
+
+<hr>
+
+<!-- CTA -->
+<div class="cta" id="cta">
+  <h2 class="cta-h rev">Your stack has a <em>leverage point</em>.</h2>
+  <p class="cta-p rev d1">The diagnostic identifies which stalls are operating in your ecosystem, names the stack they form, and generates testable leverage hypotheses specific to that configuration — with confidence levels, cascade predictions, and observable success metrics. Not a strategy. A starting point.</p>
+  <a href="request.html" class="cta-btn rev d2">Request a diagnostic</a>
+  <div class="cta-note rev d3">Testable leverage hypotheses · Calibrated to your specific stack</div>
+</div>
+
+<script>
+const MOVES = [
+  {
+    num: '01',
+    name: 'Make outcomes harder to ignore',
+    sub: 'Force high-status artefacts to surface downstream effects alongside participation',
+    what: 'In many ecosystems, <strong>activity is public while outcomes are private, lagged, or diffuse</strong>. A leverage move is to force one flagship programme, report, or funding cycle to surface downstream effects alongside participation and visibility. This does not guarantee improvement. It prevents indefinite continuation without learning.',
+    targets: ['S7 Narrating', 'S8 Scaling Activity', 'S3 Forgiving'],
+    examples: [
+      {
+        region: 'Innovation fund',
+        scene: 'An innovation fund publishes annual reports highlighting number of startups funded, events convened, and partnerships formed.',
+        move: 'A steward requires the next report to also include repeat revenue rates, follow-on funding conversion, and survival at 24 months. The fund resists: "Market conditions vary. These metrics don\'t capture early-stage value." The steward does not argue. The requirement stands.',
+        effect: 'It does not dictate performance. It removes the ability to rely solely on activity as a proxy for success.',
+      },
+      {
+        region: 'Orlando diagnostic',
+        scene: 'Multiple clusters showing abundant early-stage support alongside weak evidence of growth-stage outcomes. Activity metrics looking strong across the board.',
+        move: 'Replace activity metrics — companies supported, events held — with throughput metrics: companies reaching $10M revenue, Series B raised locally, jobs in scaled companies. ClusterOS makes the conversion gap visible and trackable in real time.',
+        effect: 'Activity metrics create pressure to scale activity. Throughput metrics create pressure to improve conversion.',
+      },
+    ],
+  },
+  {
+    num: '02',
+    name: 'Introduce timing pressure',
+    sub: 'Time-bound coordination structures and require explicit renewal criteria',
+    what: 'Stacks persist because <strong>renewal is safer than removal</strong>. A leverage move is to time-bound a coordination structure, require explicit renewal criteria, or place a real sunset on a programme. This forces a decision without dictating the answer. In many systems, timing pressure produces more learning than strategy ever does.',
+    targets: ['S2 Coordinating', 'S3 Forgiving', 'S9 Waiting'],
+    examples: [
+      {
+        region: 'Regional working group',
+        scene: 'A multi-stakeholder working group has met quarterly for four years. Its mandate is "to align priorities and ensure coordination."',
+        move: 'A steward announces: "This group will sunset in 12 months unless it can demonstrate that its continuation is earning more than its opportunity cost." The group protests: "Alignment takes time. Relationships are fragile." The steward does not debate. The clock starts.',
+        effect: 'It does not mandate a specific outcome. It removes the option of continuing indefinitely without having to prove value.',
+      },
+      {
+        region: 'Programme renewal',
+        scene: 'An accelerator programme renews automatically each funding cycle. KPIs are renegotiated rather than evaluated against the original model.',
+        move: 'Set a genuine sunset: the programme continues if it can show that its model is producing different outcomes than the baseline — not just more activity. Require a specific conversion metric, not a redefined one.',
+        effect: 'Forces a decision about whether the model works, rather than whether the programme is valued.',
+      },
+    ],
+  },
+  {
+    num: '03',
+    name: 'Restore contrast',
+    sub: 'Reintroduce comparison where narrative has flattened difference',
+    what: 'Narrative regimes reduce discrimination — they aggregate success, explain away variance, and prevent one pathway from being judged better than another. <strong>A leverage move is to reintroduce contrast</strong>: programme-level outcomes rather than aggregated totals, external benchmarks that cannot be explained away, independent pathways tracked alongside incumbent-integrated ones.',
+    targets: ['S7 Narrating', 'S6 Stabilising', 'S1 Re-proving'],
+    examples: [
+      {
+        region: 'Ecosystem reporting',
+        scene: 'An ecosystem reports aggregate success: "Our startups have raised £50M and created 200 jobs." The number looks reasonable and the narrative is positive.',
+        move: 'A steward asks: "How much of that came from the accelerator versus the corporate partnership programme? How do our numbers compare to similar-sized ecosystems?" The response: "Comparison would be misleading." The steward does not argue. The next report includes programme-level data and external benchmarks.',
+        effect: 'It does not prescribe which programme should win. It prevents the system from avoiding comparison by aggregating everything into a single success story.',
+      },
+      {
+        region: 'Orlando / Incumbent tracks',
+        scene: 'Innovation activity in multiple clusters routes primarily through incumbent anchor organisations. Independent pathways exist but are not tracked separately.',
+        move: 'Track outcomes for incumbent-integrated routes alongside independent ones — without asserting which should dominate. Identify spillovers from incumbents that could be commercialised independently. Make the comparison visible.',
+        effect: 'Reveals whether the incumbent orbit is producing different outcomes than independent paths. Creates evidence for or against the stabilisation claim.',
+      },
+    ],
+  },
+  {
+    num: '04',
+    name: 'Withdraw narrative cover selectively',
+    sub: 'Pause amplification in one domain until behavioural evidence appears',
+    what: 'In systems where explanation absorbs scrutiny, <strong>restraint can be leverage</strong>. A leverage move is to pause narrative amplification in one bounded domain until behavioural evidence appears. This tests whether belief or reality is doing the work. It does not condemn the claim — it suspends endorsement until the claim can be demonstrated.',
+    targets: ['S7 Narrating', 'S2 Coordinating', 'S8 Scaling Activity'],
+    examples: [
+      {
+        region: 'Sector positioning',
+        scene: 'A sector strategy claims the region is becoming a "global leader" in a specific technology. Evidence: early-stage activity, strong research, growing interest.',
+        move: 'A steward says: "I will not reference this claim publicly until we can show repeat commercial adoption or inbound investment driven by this positioning." The strategy team protests. The restraint holds.',
+        effect: 'Tests whether the positioning is producing outcomes or simply being repeated. If real, evidence will appear. If not, the narrative was doing work that reality was not.',
+      },
+      {
+        region: 'Programme success stories',
+        scene: 'A cluster organisation routinely amplifies success stories from its programmes — case studies, press releases, social media. Outcomes look strong from the outside.',
+        move: 'Require that success stories include the metric that mattered most to the company — not the metric that looks best for the programme. Pause amplification for any programme where conversion data is unavailable.',
+        effect: 'Shifts the selection criterion for what gets amplified from "reflects well on us" to "demonstrates what the programme actually produces".',
+      },
+    ],
+  },
+];
+
+function renderMoves() {
+  const list = document.getElementById('moves-list');
+  list.innerHTML = MOVES.map((m, i) => `
+    <div class="move" id="move-${i}">
+      <button class="move-row" onclick="toggleMove(${i})">
+        <div class="move-num">${m.num}</div>
+        <div class="move-main">
+          <div class="move-name">${m.name}</div>
+          <div class="move-sub">${m.sub}</div>
+        </div>
+        <div class="move-chevron">▾</div>
+      </button>
+      <div class="move-detail">
+        <div class="move-inner">
+
+          <div class="what-it-does">
+            <div class="what-label">The logic</div>
+            <div class="what-text">${m.what}</div>
+          </div>
+
+          <div class="targets">
+            <span class="target-label">Targets stalls:</span>
+            ${m.targets.map(t => `<span class="target-tag">${t}</span>`).join('')}
+          </div>
+
+          <div style="margin-top:16px">
+            <div class="what-label" style="margin-bottom:12px">In practice</div>
+            ${m.examples.map(ex => `
+              <div class="example-block" style="margin-bottom:10px">
+                <div class="ex-head">
+                  <div class="ex-dot"></div>
+                  <div class="ex-label">Example</div>
+                  <div class="ex-region">${ex.region}</div>
+                </div>
+                <div class="ex-body">
+                  <div class="ex-scene">${ex.scene}</div>
+                  <div class="ex-move">${ex.move}</div>
+                  <div class="ex-effect">${ex.effect}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+let openMove = null;
+function toggleMove(i) {
+  const el = document.getElementById('move-' + i);
+  if (openMove === i) {
+    el.classList.remove('open');
+    openMove = null;
+  } else {
+    if (openMove !== null) document.getElementById('move-' + openMove).classList.remove('open');
+    el.classList.add('open');
+    openMove = i;
+  }
+}
+
+// Reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.rev').forEach(el => obs.observe(el));
+
+renderMoves();
+</script>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Cluster<span>OS</span></a>
+      <p class="footer-tagline">Regional economies need infrastructure.<br>Not more strategy.</p>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <div class="footer-col-label">Product</div>
+        <a href="substrate.html">The Substrate</a>
+        <a href="diagnostic.html">The Diagnostic</a>
+        <a href="leverage.html">Leverage</a>
+        <a href="findings.html">Findings</a>
+        <a href="pricing.html">Pricing</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Lab Notes</div>
+        <a href="notes.html">All Notes</a>
+        <a href="ln-01-coordinating.html">S2 · Coordinating</a>
+        <a href="ln-02-narrating.html">S7 · Narrating</a>
+        <a href="ln-10-narrative-activity-stack.html">Narrative × Activity</a>
+        <a href="ln-12-leverage.html">What Leverage Looks Like</a>
+        <a href="ln-13-diagnosis.html">Why Diagnosis Fails</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Company</div>
+        <a href="about.html">About</a>
+        <a href="data.html">Diagnostic Data</a>
+        <a href="request.html">Request a Diagnostic</a>
+        <a href="/cdn-cgi/l/email-protection#1978777d6b7c6e597a7674746c77706d6075787b37786969"><span class="__cf_email__" data-cfemail="365758524453417655595b5b43585f424f5a575418574646">[email&#160;protected]</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-base">
+    <span class="foo
+    <span class="footer-copy">© 2026 ClusterOS · Community Lab</span>
+    <span class="footer-copy">Built in Edinburgh</span>
+  </div>
+</footer>
+
+<style>
+/* ── UNIVERSAL MOBILE PATCH ── injected ── */
+html { overflow-x: hidden; }
+body { overflow-x: hidden; }
+@media (max-width: 480px) {
+  nav { padding: 0 16px !important; }
+  .nav-back { font-size: 11px; }
+  .nav-cta { font-size: 11px; padding: 6px 14px !important; }
+  .nav-logo { font-size: 15px !important; }
+}
+</style>
+
+
+<style>
+@media (max-width: 900px) {
+  .frame-grid { grid-template-columns: 1fr !important; }
+  .leverage-vis, .frame-vis { display: none; }
+}
+@media (max-width: 640px) {
+  .hero { padding: 80px 20px 48px !important; }
+  .hero-h { font-size: clamp(28px, 8vw, 42px) !important; }
+  section, .section { padding: 56px 20px !important; }
+  .scenario-grid, .outcomes-grid, .lever-grid { grid-template-columns: 1fr !important; }
+  .lever-card { padding: 20px 16px; }
+}
+</style>
+
+</body>
+</html>

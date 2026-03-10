@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#09101f;color:#e8edf5">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Summary Analysis — Orlando Innovation Ecosystem · ClusterOS</title>
+<meta name="description" content="A ClusterOS diagnostic summary: 10 clusters, 582 evidence items, three cross-cluster patterns, two behavioural stacks, and a prioritised leverage hypothesis for the Orlando Innovation Ecosystem.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:      #09101f;
+  --surface: #111c2e;
+  --border:  #1e2f45;
+  --border2: #2a3f5a;
+  --chalk:   #e8edf5;
+  --dim:     #c2cfe0;
+  --muted:   #7a95b0;
+  --signal:  #c8f0d0;
+  --amber:   #f5d97a;
+  --crimson: #f08080;
+  --teal:    #7dd3c8;
+  --serif:   'Instrument Serif', serif;
+  --mono:    'Geist Mono', monospace;
+}
+html { scroll-behavior: smooth; background: #09101f; color: #e8edf5; }
+body { background: #09101f; color: #e8edf5; font-family: 'Geist', sans-serif; font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+/* ── NAV ── */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 60px; background: rgba(9,16,31,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid #1e2f45; }
+.nav-logo { font-family: 'Instrument Serif', serif; font-size: 18px; color: #e8edf5; text-decoration: none; letter-spacing: -0.02em; }
+.nav-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+.nav-back { font-family: 'Geist Mono', monospace; font-size: 11px; color: #7a95b0; text-decoration: none; letter-spacing: .06em; text-transform: uppercase; }
+.nav-back:hover { color: #e8edf5; }
+.nav-cta { font-family: 'Geist Mono', monospace; font-size: 11px; color: #09101f; background: #c8f0d0; padding: 7px 16px; border-radius: 4px; text-decoration: none; letter-spacing: .06em; text-transform: uppercase; }
+
+/* ── LAYOUT ── */
+.page { padding-top: 60px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+.container-narrow { max-width: 760px; margin: 0 auto; padding: 0 40px; }
+
+/* ── HERO ── */
+.summary-hero { padding: 80px 0 60px; border-bottom: 1px solid #1e2f45; }
+.hero-label { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #c8f0d0; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+.hero-label::before { content: ''; display: block; width: 24px; height: 1px; background: #c8f0d0; }
+.summary-title { font-family: 'Instrument Serif', serif; font-size: clamp(36px, 5vw, 60px); line-height: 1.1; color: #e8edf5; margin-bottom: 16px; }
+.summary-title em { color: #c8f0d0; font-style: italic; }
+.summary-subtitle { font-size: 18px; color: #7a95b0; font-weight: 300; max-width: 600px; margin-bottom: 40px; line-height: 1.6; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
+.meta-pill { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; padding: 5px 12px; border-radius: 3px; border: 1px solid #1e2f45; color: #7a95b0; }
+.meta-pill.highlight { border-color: #2a4a3a; color: #c8f0d0; background: rgba(200,240,208,0.06); }
+
+.summary-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #1e2f45; border: 1px solid #1e2f45; border-radius: 6px; overflow: hidden; margin-top: 48px; }
+.stat-cell { background: #09101f; padding: 24px; }
+.stat-num { font-family: 'Instrument Serif', serif; font-size: 40px; color: #e8edf5; line-height: 1; margin-bottom: 6px; }
+.stat-label { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: #7a95b0; }
+
+/* ── SECTION ── */
+section { padding: 72px 0; border-bottom: 1px solid #1e2f45; }
+section:last-of-type { border-bottom: none; }
+.section-label { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #c8f0d0; margin-bottom: 12px; }
+.section-headline { font-family: 'Instrument Serif', serif; font-size: clamp(26px, 3.5vw, 38px); color: #e8edf5; line-height: 1.2; margin-bottom: 16px; }
+.section-body { font-size: 16px; color: #7a95b0; line-height: 1.75; max-width: 680px; }
+.section-body + .section-body { margin-top: 16px; }
+
+/* ── PATTERNS ── */
+.patterns-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #1e2f45; border: 1px solid #1e2f45; border-radius: 6px; overflow: hidden; margin-top: 40px; }
+.pattern-card { background: #09101f; padding: 32px; }
+.pattern-num { font-family: 'Geist Mono', monospace; font-size: 10px; color: #c8f0d0; letter-spacing: .1em; margin-bottom: 12px; }
+.pattern-name { font-family: 'Instrument Serif', serif; font-size: 20px; color: #e8edf5; margin-bottom: 12px; line-height: 1.2; }
+.pattern-desc { font-size: 14px; color: #7a95b0; line-height: 1.65; }
+.pattern-clusters { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 5px; }
+.pattern-cluster-tag { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: .07em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; background: #111c2e; border: 1px solid #1e2f45; color: #7a95b0; }
+
+/* ── CLUSTER TABLE ── */
+.cluster-table { width: 100%; border-collapse: collapse; margin-top: 40px; }
+.cluster-table th { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: #7a95b0; padding: 10px 16px; text-align: left; border-bottom: 1px solid #1e2f45; }
+.cluster-table td { padding: 14px 16px; border-bottom: 1px solid #111c2e; font-size: 14px; color: #c2cfe0; vertical-align: top; }
+.cluster-table tr:hover td { background: #0d1826; }
+.cluster-name { font-weight: 400; color: #e8edf5; }
+.cluster-evidence { font-family: 'Geist Mono', monospace; font-size: 12px; color: #7a95b0; }
+.stall-tag { display: inline-block; font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: .06em; padding: 2px 7px; border-radius: 2px; margin: 2px 2px 2px 0; }
+.stall-low { background: rgba(122,149,176,0.12); border: 1px solid rgba(122,149,176,0.25); color: #7a95b0; }
+.stall-med { background: rgba(245,217,122,0.1); border: 1px solid rgba(245,217,122,0.25); color: #f5d97a; }
+.stall-high { background: rgba(240,128,128,0.1); border: 1px solid rgba(240,128,128,0.25); color: #f08080; }
+
+/* ── STACKS ── */
+.stacks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+.stack-card { background: #111c2e; border: 1px solid #1e2f45; border-radius: 6px; padding: 32px; }
+.stack-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+.stack-num { font-family: 'Geist Mono', monospace; font-size: 10px; color: #c8f0d0; letter-spacing: .1em; white-space: nowrap; padding-top: 4px; }
+.stack-name { font-family: 'Instrument Serif', serif; font-size: 22px; color: #e8edf5; line-height: 1.2; }
+.stack-stalls { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.stack-body { font-size: 14px; color: #7a95b0; line-height: 1.65; }
+.stack-mechanism { margin-top: 16px; padding: 14px; background: #0d1826; border-radius: 4px; font-size: 13px; color: #7a95b0; font-family: 'Geist Mono', monospace; line-height: 1.7; letter-spacing: .02em; }
+.stack-mechanism span { color: #c8f0d0; }
+.stack-clusters { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 5px; }
+
+/* ── LEVERAGE ── */
+.leverage-block { background: #111c2e; border: 1px solid #1e2f45; border-radius: 6px; overflow: hidden; margin-top: 40px; }
+.leverage-header { padding: 32px; border-bottom: 1px solid #1e2f45; }
+.leverage-priority { font-family: 'Geist Mono', monospace; font-size: 10px; color: #c8f0d0; letter-spacing: .1em; margin-bottom: 12px; }
+.leverage-name { font-family: 'Instrument Serif', serif; font-size: 28px; color: #e8edf5; margin-bottom: 12px; }
+.leverage-desc { font-size: 15px; color: #7a95b0; line-height: 1.7; max-width: 640px; }
+.leverage-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #1e2f45; }
+.leverage-meta-cell { background: #111c2e; padding: 20px 24px; }
+.leverage-meta-label { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: #7a95b0; margin-bottom: 6px; }
+.leverage-meta-val { font-size: 14px; color: #e8edf5; }
+.leverage-steps { padding: 32px; }
+.leverage-steps-label { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #7a95b0; margin-bottom: 20px; }
+.leverage-step { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid #1e2f45; align-items: flex-start; }
+.leverage-step:last-child { border-bottom: none; }
+.step-idx { font-family: 'Geist Mono', monospace; font-size: 11px; color: #c8f0d0; min-width: 24px; padding-top: 2px; }
+.step-text { font-size: 14px; color: #c2cfe0; line-height: 1.6; }
+.step-text strong { color: #e8edf5; font-weight: 400; }
+
+/* ── NEXT STEPS CTA ── */
+.next-steps { background: #111c2e; border: 1px solid #1e2f45; border-radius: 6px; padding: 48px; margin-top: 40px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+.next-steps-body { }
+.next-steps-label { font-family: 'Geist Mono', monospace; font-size: 10px; color: #c8f0d0; letter-spacing: .1em; margin-bottom: 12px; }
+.next-steps-headline { font-family: 'Instrument Serif', serif; font-size: 26px; color: #e8edf5; margin-bottom: 12px; line-height: 1.3; }
+.next-steps-desc { font-size: 14px; color: #7a95b0; line-height: 1.7; max-width: 480px; }
+.next-steps-actions { display: flex; flex-direction: column; gap: 10px; min-width: 200px; }
+.btn-primary { display: inline-block; background: #c8f0d0; color: #09101f; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 12px 24px; border-radius: 4px; text-decoration: none; text-align: center; }
+.btn-secondary { display: inline-block; border: 1px solid #1e2f45; color: #7a95b0; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 11px 24px; border-radius: 4px; text-decoration: none; text-align: center; }
+.btn-secondary:hover { border-color: #2a3f5a; color: #e8edf5; }
+
+/* ── CONFIDENCE NOTE ── */
+.confidence-note { background: rgba(245,217,122,0.06); border: 1px solid rgba(245,217,122,0.18); border-radius: 4px; padding: 16px 20px; margin-top: 24px; font-size: 13px; color: #c2cfe0; line-height: 1.65; }
+.confidence-note strong { color: #f5d97a; font-weight: 400; }
+
+/* ── FOOTER ── */
+footer { padding: 48px 40px; border-top: 1px solid #1e2f45; }
+.footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand { }
+.footer-logo { font-family: 'Instrument Serif', serif; font-size: 16px; color: #7a95b0; text-decoration: none; }
+.footer-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: rgba(200,240,208,0.6); }
+.footer-tagline { font-size: 13px; color: #4a6480; margin-top: 8px; line-height: 1.5; }
+.footer-col-label { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #7a95b0; margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 13px; color: #4a6480; text-decoration: none; margin-bottom: 8px; }
+.footer-col a:hover { color: #7a95b0; }
+.footer-base { max-width: 1100px; margin: 0 auto; padding-top: 24px; border-top: 1px solid #1e2f45; display: flex; justify-content: space-between; }
+.footer-copy { font-size: 11px; color: #7a95b0; opacity: 0.5; font-family: 'Geist Mono', monospace; }
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  .summary-stats { grid-template-columns: 1fr 1fr; }
+  .patterns-grid { grid-template-columns: 1fr; }
+  .stacks-grid { grid-template-columns: 1fr; }
+  .leverage-meta { grid-template-columns: 1fr 1fr; }
+  .next-steps { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  nav { padding: 0 20px; }
+  .container, .container-narrow { padding: 0 20px; }
+  .summary-hero { padding: 60px 0 40px; }
+  .summary-stats { grid-template-columns: 1fr 1fr; }
+  .leverage-meta { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; }
+  footer { padding: 40px 20px; }
+  .cluster-table { display: block; overflow-x: auto; }
+}
+</style>
+<style>
+/* ── PREVIEW SANDBOX BG FIX ── */
+html, body, .page, section, main, article, header,
+.container, .container-narrow, .container-wide,
+.section-inner, .section-wrap, .page-wrap,
+nav, footer { background-color: #09101f !important; }
+section { color: #e8edf5 !important; }
+h1, h2, h3, h4, p, li, span, div { color: inherit; }
+</style>
+</head>
+<body style="background:#09101f;color:#e8edf5">
+<nav>
+  <a href="index.html" class="nav-logo">Cluster<span>OS</span></a>
+  <a href="findings.html" class="nav-back">← Findings</a>
+  <a href="request.html" class="nav-cta">Request a Diagnostic</a>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="summary-hero">
+    <div class="container">
+      <div class="hero-label">Summary Analysis</div>
+      <h1 class="summary-title">Orlando Innovation<br><em>Ecosystem Diagnostic</em></h1>
+      <p class="summary-subtitle">An evidence-based assessment of 10 innovation clusters using the ClusterOS 5-stage diagnostic pipeline. Cross-cluster patterns, behavioural stacks, and a prioritised leverage hypothesis.</p>
+      <div class="meta-row">
+        <span class="meta-pill highlight">582 evidence items</span>
+        <span class="meta-pill highlight">10 clusters</span>
+        <span class="meta-pill highlight">3 cross-cluster patterns</span>
+        <span class="meta-pill highlight">2 behavioural stacks</span>
+        <span class="meta-pill">February 2026</span>
+        <span class="meta-pill">Public evidence only</span>
+        <span class="meta-pill">Pre-engagement briefing</span>
+      </div>
+      <div class="summary-stats">
+        <div class="stat-cell">
+          <div class="stat-num">10</div>
+          <div class="stat-label">Clusters assessed</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">582</div>
+          <div class="stat-label">Evidence items</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">9</div>
+          <div class="stat-label">Stall types screened</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">1</div>
+          <div class="stat-label">Primary leverage point</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT WE DID -->
+  <section>
+    <div class="container-narrow">
+      <div class="section-label">Method</div>
+      <h2 class="section-headline">What the diagnostic does — and doesn't do</h2>
+      <p class="section-body">
+        We ran the Orlando innovation ecosystem through the ClusterOS diagnostic pipeline — a 5-stage analytical framework (Evidence → Patterns → Stalls → Stacks → Leverage) grounded in Complex Adaptive Systems principles. Each cluster was assessed independently through all five stages. Cross-cluster patterns were then synthesised at the ecosystem level.
+      </p>
+      <p class="section-body" style="margin-top:16px">
+        The diagnostic identifies behavioural patterns — where actors are interacting, where they are not, and where the system has stabilised around locally rational behaviours that prevent compounding. These stabilisations are called stalls. When stalls reinforce each other, they form stacks.
+      </p>
+      <p class="section-body" style="margin-top:16px">
+        What this diagnostic does not do: it does not score or rank clusters. It does not assign health ratings. Judgements about priority and intervention belong to the steward.
+      </p>
+      <div class="confidence-note" style="margin-top:24px">
+        <strong>Confidence note.</strong> This analysis is based on 582 publicly available evidence items. Stall confidence levels are predominantly LOW, reflecting the limitation of public evidence alone. Steward-held data — programme records, internal reporting, stakeholder perspectives — would move most stalls from LOW to MEDIUM or HIGH confidence and sharpen the intervention design significantly.
+      </div>
+    </div>
+  </section>
+
+  <!-- THREE PATTERNS -->
+  <section>
+    <div class="container">
+      <div class="section-label">Cross-cluster findings</div>
+      <h2 class="section-headline">Three patterns appeared independently<br>across multiple clusters</h2>
+      <p class="section-body">These are structural dynamics of the Orlando ecosystem — not features of individual clusters. Each pattern was identified independently in cluster-level analysis and then confirmed at ecosystem level.</p>
+      <div class="patterns-grid">
+        <div class="pattern-card">
+          <div class="pattern-num">PATTERN 01</div>
+          <div class="pattern-name">Coordination as Stabilisation</div>
+          <div class="pattern-desc">All 10 clusters exhibit some form of the Coordinating stall — partnership announcements, steering committees, and multi-stakeholder frameworks that create alignment without forcing exclusionary decisions. Coordination becomes a stall when it substitutes for decisions that carry real consequences.</div>
+          <div class="pattern-clusters">
+            <span class="pattern-cluster-tag">SpaceTech</span>
+            <span class="pattern-cluster-tag">Simulation</span>
+            <span class="pattern-cluster-tag">Photonics</span>
+            <span class="pattern-cluster-tag">Tourism Tech</span>
+            <span class="pattern-cluster-tag">All 10</span>
+          </div>
+        </div>
+        <div class="pattern-card">
+          <div class="pattern-num">PATTERN 02</div>
+          <div class="pattern-name">Scale-Up Capital Gap</div>
+          <div class="pattern-desc">Multiple clusters show abundant early-stage support alongside weak evidence of growth-stage capital. The pattern is consistent: companies that reach Series A/B relocate to other cities. The ecosystem has responded by creating more early-stage programmes rather than addressing the retention constraint.</div>
+          <div class="pattern-clusters">
+            <span class="pattern-cluster-tag">MedTech</span>
+            <span class="pattern-cluster-tag">Cybersecurity</span>
+            <span class="pattern-cluster-tag">Digital Media</span>
+            <span class="pattern-cluster-tag">+ 7 others</span>
+          </div>
+        </div>
+        <div class="pattern-card">
+          <div class="pattern-num">PATTERN 03</div>
+          <div class="pattern-name">Incumbent Anchor Concentration</div>
+          <div class="pattern-desc">Federal anchors dominate SpaceTech, Aviation, Simulation, and Cybersecurity. Theme park operators dominate Tourism Technology and Digital Media. In each case, the anchor creates capability and demand but concentrates innovation pathways around its own requirements. Activity outside the anchor's orbit is weakly developed.</div>
+          <div class="pattern-clusters">
+            <span class="pattern-cluster-tag">SpaceTech</span>
+            <span class="pattern-cluster-tag">Aviation</span>
+            <span class="pattern-cluster-tag">Tourism Tech</span>
+            <span class="pattern-cluster-tag">Cybersecurity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLUSTER TABLE -->
+  <section>
+    <div class="container">
+      <div class="section-label">Cluster-by-cluster</div>
+      <h2 class="section-headline">Dominant stalls by cluster</h2>
+      <p class="section-body">Each cluster was assessed independently through the full pipeline. The table shows dominant stalls, evidence count, and structural comparison with a comparable cluster diagnosed elsewhere in the ClusterOS database.</p>
+      <div class="confidence-note" style="margin-top:24px">
+        <strong>Confidence levels:</strong> LOW = X-side observable, Y-side (what it substitutes for) difficult to verify from public data alone. MEDIUM = both sides observable with reasonable confidence.
+      </div>
+      <table class="cluster-table">
+        <thead>
+          <tr>
+            <th>Cluster</th>
+            <th>Evidence</th>
+            <th>Dominant stalls</th>
+            <th>Structural resemblance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cluster-name">SpaceTech</td>
+            <td class="cluster-evidence">57</td>
+            <td><span class="stall-tag stall-low">S2 Coordinating</span><span class="stall-tag stall-low">S5 Mediating</span><span class="stall-tag stall-low">S6 Stabilising</span></td>
+            <td style="font-size:13px;color:#7a95b0">Adelaide Space Technology — validation-coordination stabilisation with government space agency presence around established facilities.</td>
+          </tr>
+          <tr>
+            <td class="cluster-name">Simulation &amp; Training</td>
+            <td class="cluster-evidence">61</td>
+            <td><span class="stall-tag stall-low">S2 Coordinating</span><span class="stall-tag stall-low">S5 Mediating</span><span class="stall-tag stall-low">S6 Stabilising</span></td>
+            <td style="font-size:13px;color:#7a95b0">Bengaluru Space Technology — government anchor providing legitimacy for coordination without autonomous infrastructure development.</td>
+          </tr>
+          <tr>
+            <td class="cluster-name">Tourism Technology</td>
+            <td class="cluster-evidence">68</td>
+            <td><span class="stall-tag stall-med">S2 Coordinating</span><span class="stall-tag stall-med">S6 Stabilising</span><span class="stall-tag stall-med">S8 Scaling</span></td>
+            <td style="font-size:13px;color:#7a95b0">Bordeaux Metropolitan — coordination-activity stabilisation where large incumbents maintain proprietary strategies while participating in workforce development.</td>
+          </tr>
+          <tr>
+            <td class="cluster-name">MedTech</td>
+            <td class="cluster-evidence">62</td>
+            <td><span class="stall-tag stall-low">S2 Coordinating</span><span class="stall-tag stall-med">S5 Mediating</span><span class="stall-tag stall-low">S8 Scaling</span></td>
+            <td style="font-size:13px;color:#7a95b0">Scottish Life Sciences — research-mediation stabilisation where UCF clinical infrastructure anchors coordination without generating commercial throughput.</td>
+          </tr>
+          <tr>
+            <td class="cluster-name">Photonics &amp; Optics</td>
+            <td class="cluster-evidence">58</td>
+            <td><span class="stall-tag stall-low">S2 Coordinating</span><span class="stall-tag stall-med">S5 Mediating</span><span class="stall-tag stall-low">S7 Narrating</span></td>
+            <td style="font-size:13px;color:#7a95b0">Colorado Springs Space Technology — coordination-mediation with formal cluster organisations alongside defence contractors and university research anchors.</td>
+          </tr>
+          <tr>
+            <td class="cluster-name">Digital Media</td>
+            <td class="cluster-evidence">60</td>
+            <td><span class="stall-tag stall-med">S2 Coordinating</span><span class="stall-tag stall-med">S6 Stabilising</span><span class="stall-tag stall-low">S8 Scaling</span></td>
+            <td style="font-size:13px;color:#7a95b0">Vancouver Digital Media — incumbent anchor concentration (studios) enabling talent development but limiting independent product development.</td>
+          </tr>
+          <tr>
+            <td class="cluster-name">Aviation &amp; Aerospace</td>
+            <td class="cluster-evidence">64</td>
+            <td><span class="stall-tag stall-low">S2 Coordinating</span><span class="stall-tag stall-low">S5 Mediating</span><span class="stall-tag stall-low">S6 Stabilising</span></td>
+            <td style="font-size:13px;color:#7a95b0">Toulouse Aerospace — federal anchor lock-in with derivative commercial activity from defence capabilities.</td>
+          </tr>
+          <tr>
+            <td class="cluster-name">Advanced Manufacturing</td>
+            <td class="cluster-evidence">58</td>
+            <td><span class="stall-tag stall-low">S2 Coordinating</span><span class="stall-tag stall-med">S5 Mediating</span></td>
+            <td style="font-size:13px;color:#7a95b0">Eindhoven Brainport — coordination-intermediary stabilisation enabling multi-stakeholder alignment around large technology corporations.</td>
+          </tr>
+          <tr>
+            <td class="cluster-name">Cybersecurity</td>
+            <td class="cluster-evidence">56</td>
+            <td><span class="stall-tag stall-low">S2 Coordinating</span><span class="stall-tag stall-med">S5 Mediating</span><span class="stall-tag stall-med">S6 Stabilising</span></td>
+            <td style="font-size:13px;color:#7a95b0">Cheltenham Cyber Security — validation-coordination stabilisation around government anchors with grant cycles and partnership announcements substituting for commercial development.</td>
+          </tr>
+          <tr>
+            <td class="cluster-name">AgTech</td>
+            <td class="cluster-evidence">54</td>
+            <td><span class="stall-tag stall-low">S2 Coordinating</span><span class="stall-tag stall-low">S6 Stabilising</span><span class="stall-tag stall-low">S8 Scaling</span></td>
+            <td style="font-size:13px;color:#7a95b0">Adelaide Space Technology — research-coordination stabilisation where broad institutional research generates coordination demands preserving incumbent structures.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- STACKS -->
+  <section>
+    <div class="container">
+      <div class="section-label">Behavioural stacks</div>
+      <h2 class="section-headline">Two stacks explain why the system resists change</h2>
+      <p class="section-body">Stalls are informative individually. Stacks — mutually reinforcing combinations — explain why interventions targeting a single stall are likely to fail: the other stalls compensate.</p>
+      <div class="stacks-grid">
+        <div class="stack-card">
+          <div class="stack-header">
+            <div class="stack-num">STACK 01</div>
+            <div class="stack-name">Coordination–Mediation Stabilisation</div>
+          </div>
+          <div class="stack-stalls">
+            <span class="stall-tag stall-low">S2 Coordinating</span>
+            <span class="stall-tag stall-med">S5 Mediating</span>
+          </div>
+          <p class="stack-body">Coordination bodies create alignment → intermediaries broker all connections → direct actor-to-actor coupling remains weakly developed → more coordination is needed to maintain relationships → more intermediaries are needed. The system stabilises around mediated relationships rather than developing direct coupling between actors.</p>
+          <div class="stack-mechanism"><span>Confidence:</span> LOW–MEDIUM &nbsp;·&nbsp; <span>Clusters affected:</span> Simulation, SpaceTech, Cybersecurity, MedTech, Photonics</div>
+          <div class="stack-clusters" style="margin-top:12px">
+            <span class="pattern-cluster-tag">5 of 10 clusters</span>
+          </div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-header">
+            <div class="stack-num">STACK 02</div>
+            <div class="stack-name">Incumbent Anchor Lock-In</div>
+          </div>
+          <div class="stack-stacks">
+            <span class="stall-tag stall-med">S6 Stabilising</span>
+            <span class="stall-tag stall-low">S2 Coordinating</span>
+          </div>
+          <p class="stack-body" style="margin-top:12px">Incumbent anchors (federal, theme park) concentrate innovation pathways → coordination mechanisms emerge to maintain anchor relationships → actors outside the anchor's orbit remain weakly developed → the anchor's requirements define what counts as innovation in the cluster. The system cannot scale what falls outside the anchor's procurement logic.</p>
+          <div class="stack-mechanism"><span>Confidence:</span> MEDIUM &nbsp;·&nbsp; <span>Clusters affected:</span> Tourism Technology, Digital Media, Cybersecurity, Simulation</div>
+          <div class="stack-clusters" style="margin-top:12px">
+            <span class="pattern-cluster-tag">4 of 10 clusters</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEVERAGE -->
+  <section>
+    <div class="container">
+      <div class="section-label">Leverage hypothesis</div>
+      <h2 class="section-headline">One primary recommendation</h2>
+      <p class="section-body">The diagnostic produces a single prioritised recommendation — what to do first, with whom, and what it unlocks. Secondary recommendations are ordered by dependency on the primary.</p>
+      <div class="leverage-block">
+        <div class="leverage-header">
+          <div class="leverage-priority">PRIMARY LEVERAGE POINT</div>
+          <div class="leverage-name">Throughput Metrics Transparency</div>
+          <p class="leverage-desc">Replace activity metrics (events held, members enrolled, partnerships signed) with throughput metrics visible to all actors: founder-to-customer conversion rates, research-to-commercial engagement ratios, capital retention by stage. Make what the ecosystem is not doing as visible as what it is doing. This targets Stack 02 directly — incumbent anchor lock-in persists partly because the ecosystem has no shared measure of what it's losing.</p>
+        </div>
+        <div class="leverage-meta">
+          <div class="leverage-meta-cell">
+            <div class="leverage-meta-label">Target stacks</div>
+            <div class="leverage-meta-val">Stack 02 primary · Stack 01 secondary</div>
+          </div>
+          <div class="leverage-meta-cell">
+            <div class="leverage-meta-label">Timeline</div>
+            <div class="leverage-meta-val">Immediate · &lt; 3 months to implement</div>
+          </div>
+          <div class="leverage-meta-cell">
+            <div class="leverage-meta-label">Cost</div>
+            <div class="leverage-meta-val">Low · &lt; $100K · No new infrastructure</div>
+          </div>
+        </div>
+        <div class="leverage-steps">
+          <div class="leverage-steps-label">Implementation pathway</div>
+          <div class="leverage-step">
+            <div class="step-idx">01</div>
+            <div class="step-text"><strong>Define throughput metrics with the steward.</strong> Identify the 3–5 conversion points that matter most in Orlando's context — founder-to-anchor meeting, research-to-pilot, capital-at-Series-A. These should reflect what the ecosystem is trying to produce, not what is easy to count.</div>
+          </div>
+          <div class="leverage-step">
+            <div class="step-idx">02</div>
+            <div class="step-text"><strong>Build baseline from existing data.</strong> OEP programme records, UCF commercialisation data, and Florida Venture Forum reporting already contain proxy measures. The initial baseline does not need to be perfect — it needs to be shared.</div>
+          </div>
+          <div class="leverage-step">
+            <div class="step-idx">03</div>
+            <div class="step-text"><strong>Publish the throughput dashboard.</strong> Make it visible to all actors — not just the board. Founders, anchors, and researchers change behaviour when they can see what the system is producing and where it is losing them.</div>
+          </div>
+          <div class="leverage-step">
+            <div class="step-idx">04</div>
+            <div class="step-text"><strong>Use diagnostic findings to anchor the board conversation.</strong> The capital gap, the anchor concentration pattern, and the scale-up export regime are now evidenced — not anecdotal. The dashboard gives the board something to act on rather than commission further analysis of.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Secondary recommendations -->
+      <div style="margin-top:32px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+        <div style="background:#111c2e;border:1px solid #1e2f45;border-radius:6px;padding:24px">
+          <div style="font-family:'Geist Mono',monospace;font-size:10px;color:#7a95b0;letter-spacing:.08em;margin-bottom:8px">SECONDARY · 01</div>
+          <div style="font-family:'Instrument Serif',serif;font-size:18px;color:#e8edf5;margin-bottom:10px">Patient Growth Capital Fund</div>
+          <div style="font-size:13px;color:#7a95b0;line-height:1.65">Address the scale-up gap directly. A dedicated $150–250M fund oriented toward Series A/B retention — not seed — would target the structural cause of the capital pattern identified across all 10 clusters.</div>
+          <div style="margin-top:12px;font-family:'Geist Mono',monospace;font-size:10px;color:#7a95b0">18–24 months · $150–250M</div>
+        </div>
+        <div style="background:#111c2e;border:1px solid #1e2f45;border-radius:6px;padding:24px">
+          <div style="font-family:'Geist Mono',monospace;font-size:10px;color:#7a95b0;letter-spacing:.08em;margin-bottom:8px">SECONDARY · 02</div>
+          <div style="font-family:'Instrument Serif',serif;font-size:18px;color:#e8edf5;margin-bottom:10px">Federal–Commercial Bridge</div>
+          <div style="font-size:13px;color:#7a95b0;line-height:1.65">Create structured pathways from federal procurement to commercial product development. Targets Stack 01 — the coordination-mediation loop that keeps simulation, SpaceTech, and cybersecurity activity derivative of federal requirements.</div>
+          <div style="margin-top:12px;font-family:'Geist Mono',monospace;font-size:10px;color:#7a95b0">2–3 years · Anchor partnership required</div>
+        </div>
+        <div style="background:#111c2e;border:1px solid #1e2f45;border-radius:6px;padding:24px">
+          <div style="font-family:'Geist Mono',monospace;font-size:10px;color:#7a95b0;letter-spacing:.08em;margin-bottom:8px">SECONDARY · 03</div>
+          <div style="font-family:'Instrument Serif',serif;font-size:18px;color:#e8edf5;margin-bottom:10px">Tourism Innovation Extraction</div>
+          <div style="font-size:13px;color:#7a95b0;line-height:1.65">Build pathways for technology developed inside theme park operations to become exportable products. The tourism cluster has the highest evidence count and highest stall confidence — it also has the most scalable technology being built anywhere in Orlando.</div>
+          <div style="margin-top:12px;font-family:'Geist Mono',monospace;font-size:10px;color:#7a95b0">12–18 months · Disney/Universal engagement</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEXT STEPS -->
+  <section style="border-bottom:none">
+    <div class="container">
+      <div class="section-label">From here</div>
+      <h2 class="section-headline">What a full engagement would change</h2>
+      <p class="section-body">This diagnostic is based entirely on public evidence. Steward-held data — programme records, internal reporting, stakeholder perspectives — would move stall confidence from LOW to MEDIUM or HIGH, confirm or revise the patterns identified, and produce significantly sharper intervention design.</p>
+      <div class="next-steps">
+        <div class="next-steps-body">
+          <div class="next-steps-label">Phase 01 · Collaborative Diagnostic</div>
+          <div class="next-steps-headline">Four weeks. Your data.<br>Higher-confidence findings.</div>
+          <p class="next-steps-desc">We combine ClusterOS's diagnostic pipeline with your programme data, stakeholder insights, and institutional knowledge. The output is a full canonical diagnostic — stall identification, stack analysis, leverage hypotheses — built on combined evidence. Board-ready from day one.</p>
+        </div>
+        <div class="next-steps-actions">
+          <a href="request.html" class="btn-primary">Request a diagnostic →</a>
+          <a href="pricing.html" class="btn-secondary">View pricing</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page -->
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Cluster<span>OS</span></a>
+      <p class="footer-tagline">Regional economies need infrastructure.<br>Not more strategy.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-label">Product</div>
+      <a href="substrate.html">The Substrate</a>
+      <a href="diagnostic.html">The Diagnostic</a>
+      <a href="leverage.html">Leverage</a>
+      <a href="findings.html">Findings</a>
+      <a href="pricing.html">Pricing</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-label">Company</div>
+      <a href="about.html">About</a>
+      <a href="data.html">Diagnostic Data</a>
+      <a href="notes.html">Lab Notes</a>
+      <a href="request.html">Request a Diagnostic</a>
+      <a href="/cdn-cgi/l/email-protection#73121d1701160433101c1e1e061d1a070a1f12115d120303"><span class="__cf_email__" data-cfemail="04656a6076617344676b6969716a6d707d6865662a657474">[email&#160;protected]</span></a>
+    </div>
+  </div>
+  <div class="footer-base">
+    <span class="foot

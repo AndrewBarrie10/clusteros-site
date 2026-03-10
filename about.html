@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#09101f;color:#e8edf5">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — ClusterOS</title>
+  <!-- SEO & AIO -->
+  <meta name="description" content="ClusterOS was built by Andrew Barrie, co-founder of Barrie & Hibbert (acquired by Moody's Analytics 2011). The same intellectual move that made financial system behaviour legible — applied to regional economies.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://clusteros.io/about">
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="About ClusterOS — Andrew Barrie, Community Lab, Edinburgh">
+  <meta property="og:description" content="ClusterOS was built by Andrew Barrie, co-founder of Barrie & Hibbert (acquired by Moody's Analytics 2011). The same intellectual move that made financial system behaviour legible — applied to regional economies.">
+  <meta property="og:url" content="https://clusteros.io/about">
+  <meta property="og:site_name" content="ClusterOS">
+  <meta property="og:image" content="https://clusteros.io/og-image.png">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About ClusterOS — Andrew Barrie, Community Lab, Edinburgh">
+  <meta name="twitter:description" content="ClusterOS was built by Andrew Barrie, co-founder of Barrie & Hibbert (acquired by Moody's Analytics 2011). The same intellectual move that made financial system behaviour legible — applied to regional economies.">
+  <meta name="twitter:image" content="https://clusteros.io/og-image.png">
+  <!-- Schema.org structured data -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ClusterOS",
+    "url": "https://clusteros.io",
+    "description": "ClusterOS is a cognitive operating system for regional economies. It diagnoses why innovation clusters stall, identifies stabilisation stacks, and gives stewards specific leverage points that shift regimes.",
+    "founder": {
+      "@type": "Person",
+      "name": "Andrew Barrie",
+      "email": "andrew@communitylab.app",
+      "sameAs": "https://www.communitylab.app"
+    },
+    "foundingLocation": {
+      "@type": "Place",
+      "name": "Edinburgh, Scotland"
+    },
+    "sameAs": ["https://clusteros.io"]
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About ClusterOS — Andrew Barrie, Community Lab, Edinburgh",
+    "url": "https://clusteros.io/about",
+    "description": "ClusterOS was built by Andrew Barrie, co-founder of Barrie & Hibbert (acquired by Moody's Analytics 2011). The same intellectual move that made financial system behaviour legible — applied to regional economies.",
+    "isPartOf": {"@type": "WebSite", "url": "https://clusteros.io", "name": "ClusterOS"}
+  }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:      #09101f;
+  --surface: #111c2e;
+  --border:  #1e2f45;
+  --border2: #2a3f5a;
+  --chalk:   #e8edf5;
+  --dim:     #c2cfe0;
+  --muted:   #7a95b0;
+  --signal:  #c8f0d0;
+  --amber:   #f5d97a;
+  --crimson: #f08080;
+  --teal:    #7dd3c8;
+  --serif:   'Instrument Serif', serif;
+  --mono:    'Geist Mono', monospace;
+}
+html { scroll-behavior: smooth; background: #09101f; color: #e8edf5; }
+body { background: var(--bg); color: #e8edf5; font-family: 'Geist', sans-serif; font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 52px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: rgba(9,16,31,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.logo { font-family: 'Instrument Serif', serif; font-size: 17px; text-decoration: none; color: #e8edf5; }
+.logo span { font-family: 'Geist Mono', monospace; font-weight: 700; color: #c8f0d0; font-size: 15px; }
+.nav-r { display: flex; align-items: center; gap: 20px; }
+.nav-link { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: var(--muted); text-decoration: none; }
+.nav-link:hover { color: #e8edf5; }
+.nav-btn { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; padding: 7px 14px; border-radius: 3px; background: #c8f0d0; color: var(--bg); text-decoration: none; }
+
+/* COMMON */
+.wrap { max-width: 640px; margin: 0 auto; padding: 0 24px; }
+hr { border: none; border-top: 1px solid var(--border); }
+p { font-size: 15px; color: var(--dim); line-height: 1.75; }
+p strong { color: #e8edf5; font-weight: 400; }
+p + p { margin-top: 16px; }
+
+/* HERO */
+.hero { padding: 100px 24px 64px; max-width: 640px; margin: 0 auto; }
+.hero-tag { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+.hero-h { font-family: 'Instrument Serif', serif; font-size: clamp(36px, 6vw, 56px); line-height: 1.06; letter-spacing: -0.02em; margin-bottom: 24px; }
+.hero-h em { font-style: italic; color: #c8f0d0; }
+
+/* SECTION */
+.section { padding: 56px 24px; max-width: 640px; margin: 0 auto; }
+.sec-tag { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.sec-tag::before { content: ''; width: 16px; height: 1px; background: var(--muted); }
+.sec-h { font-family: 'Instrument Serif', serif; font-size: clamp(24px, 3.5vw, 34px); line-height: 1.1; color: #e8edf5; margin-bottom: 20px; }
+.sec-h em { font-style: italic; color: #f5d97a; }
+
+/* LINEAGE TIMELINE */
+.timeline { margin: 32px 0; display: flex; flex-direction: column; gap: 0; }
+.tl-item { display: flex; gap: 20px; padding: 20px 0; border-top: 1px solid var(--border); align-items: flex-start; }
+.tl-item:last-child { border-bottom: 1px solid var(--border); }
+.tl-year { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 700; color: #f5d97a; width: 40px; flex-shrink: 0; padding-top: 2px; letter-spacing: 0.06em; }
+.tl-body { flex: 1; }
+.tl-h { font-size: 14px; color: #e8edf5; font-weight: 400; margin-bottom: 4px; line-height: 1.4; }
+.tl-p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* PARALLEL INSIGHT */
+.parallel { margin: 28px 0; display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: stretch; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+@media (max-width: 500px) {
+  .parallel { grid-template-columns: 1fr; }
+  .parallel-div { display: none; }
+  .parallel-b { border-top: 1px solid var(--border); }
+}
+.parallel-a, .parallel-b { padding: 20px 20px; }
+.parallel-a { background: rgba(125,211,200,0.03); }
+.parallel-b { background: rgba(200,240,208,0.03); }
+.parallel-div { width: 1px; background: var(--border); }
+.par-era { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 8px; }
+.parallel-a .par-era { color: #7dd3c8; }
+.parallel-b .par-era { color: #c8f0d0; }
+.par-co { font-family: 'Instrument Serif', serif; font-size: 16px; color: #e8edf5; margin-bottom: 8px; line-height: 1.2; }
+.par-what { font-size: 13px; color: var(--dim); line-height: 1.6; }
+.parallel-bridge { grid-column: 1 / -1; padding: 12px 20px; border-top: 1px solid var(--border); background: var(--surface); text-align: center; }
+@media (max-width: 500px) { .parallel-bridge { grid-column: 1; } }
+.bridge-text { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: #f5d97a; text-transform: uppercase; }
+
+/* PULLQUOTE */
+.pullquote { margin: 28px 0; padding: 22px 24px; border-left: 3px solid #f5d97a; background: rgba(245,217,122,0.04); border-radius: 0 6px 6px 0; }
+.pullquote p { font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(17px, 2.5vw, 20px); color: #e8edf5; line-height: 1.55; }
+.pullquote p + p { margin-top: 12px; }
+
+/* PROFILE CARD */
+.profile { margin: 32px 0; padding: 24px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); display: flex; gap: 20px; align-items: flex-start; }
+@media (max-width: 480px) { .profile { flex-direction: column; } }
+.profile-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--border2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Instrument Serif', serif; font-size: 22px; color: #e8edf5; border: 1px solid var(--border2); }
+.profile-body { flex: 1; }
+.profile-name { font-family: 'Instrument Serif', serif; font-size: 20px; color: #e8edf5; margin-bottom: 2px; }
+.profile-title { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: #c8f0d0; margin-bottom: 10px; }
+.profile-bio { font-size: 13px; color: var(--dim); line-height: 1.7; }
+.profile-bio strong { color: #e8edf5; font-weight: 400; }
+.profile-links { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.profile-link { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 10px; border: 1px solid var(--border2); border-radius: 2px; color: var(--muted); text-decoration: none; transition: border-color 0.12s, color 0.12s; }
+.profile-link:hover { border-color: #e8edf5; color: #e8edf5; }
+
+/* COMMUNITY LAB SECTION */
+.cl-card { margin: 28px 0; padding: 22px 24px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+.cl-logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.cl-logo-mark { width: 32px; height: 32px; border-radius: 6px; background: #c8f0d0; display: flex; align-items: center; justify-content: center; font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 700; color: var(--bg); flex-shrink: 0; }
+.cl-logo-name { font-family: 'Instrument Serif', serif; font-size: 18px; color: #e8edf5; }
+.cl-logo-tag { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
+.cl-body { font-size: 13px; color: var(--dim); line-height: 1.7; }
+.cl-body strong { color: #e8edf5; font-weight: 400; }
+.cl-link { display: inline-flex; align-items: center; gap: 6px; font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: #c8f0d0; text-decoration: none; margin-top: 12px; }
+.cl-link:hover { opacity: 0.8; }
+.cl-link::after { content: '↗'; font-size: 11px; }
+
+/* VALUES */
+.values { display: flex; flex-direction: column; gap: 8px; margin: 24px 0; }
+.value { display: flex; gap: 14px; padding: 14px 18px; border: 1px solid var(--border); border-radius: 6px; align-items: flex-start; }
+.value-num { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; color: var(--border2); width: 20px; flex-shrink: 0; padding-top: 3px; }
+.value-body { flex: 1; }
+.value-h { font-size: 14px; color: #e8edf5; font-weight: 400; margin-bottom: 4px; }
+.value-p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* CTA */
+.cta { padding: 64px 24px 80px; max-width: 560px; margin: 0 auto; text-align: center; border-top: 1px solid var(--border); }
+.cta-h { font-family: 'Instrument Serif', serif; font-size: clamp(26px, 4vw, 36px); line-height: 1.1; color: #e8edf5; margin-bottom: 14px; }
+.cta-h em { font-style: italic; color: #c8f0d0; }
+.cta-p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+.cta-btn { display: inline-block; font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 28px; border-radius: 3px; background: #c8f0d0; color: var(--bg); text-decoration: none; }
+.cta-or { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--muted); margin: 14px 0 0; }
+
+/* Reveal */
+.rev { opacity: 1 ; transform: none; transition: opacity 0.5s ease, transform 0.5s ease; }
+.rev.in { opacity: 1; transform: none; }
+.d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; }
+
+/* ── SITE FOOTER ─────────────────────────────────────────────────── */
+footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32px; }
+.footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; margin-bottom: 40px; }
+.footer-brand { display: flex; flex-direction: column; gap: 12px; }
+.footer-logo { font-family: 'Geist', system-ui, sans-serif; font-weight: 400; font-size: 15px; color: #e8edf5; text-decoration: none; }
+.footer-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+.footer-tagline { font-size: 13px; color: #8ba3c1; line-height: 1.5; margin: 0; }
+.footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.footer-col { display: flex; flex-direction: column; gap: 8px; }
+.footer-col-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #7a9bb5; margin-bottom: 4px; }
+.footer-col a { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color .2s; line-height: 1.4; }
+.footer-col a:hover { color: #e8edf5; }
+.footer-base { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; padding-top: 24px; border-top: 1px solid #2a3a52; flex-wrap: wrap; gap: 8px; }
+.footer-copy { font-size: 12px; color: #7a9bb5; }
+@media (max-width: 640px) {
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .footer-nav { grid-template-columns: 1fr 1fr; }
+}
+
+  
+/* ── NAV ──────────────────────────────────────────────────────────── */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; background: rgba(9,16,31,0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid rgba(42,61,92,0.5); }
+.nav-logo { font-family: 'Geist', system-ui, sans-serif; font-weight: 400; font-size: 15px; color: #e8edf5; text-decoration: none; letter-spacing: -.01em; }
+.nav-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+.nav-back { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color .2s; }
+.nav-back:hover { color: #e8edf5; }
+.nav-cta { font-size: 12px; font-weight: 500; letter-spacing: .04em; padding: 7px 16px; border-radius: 4px; background: #c8f0d0; color: var(--signal-dark, #1a6640); text-decoration: none; white-space: nowrap; transition: opacity .2s; }
+.nav-cta:hover { opacity: .85; }
+@media (max-width: 480px) { nav { padding: 0 16px; } .nav-back { display: none; } }
+
+</style>
+<style>
+/* ── PREVIEW SANDBOX BG FIX ── */
+html, body, .page, section, main, article, header,
+.container, .container-narrow, .container-wide,
+.section-inner, .section-wrap, .page-wrap,
+nav, footer { background-color: #09101f !important; }
+section { color: #e8edf5 !important; }
+h1, h2, h3, h4, p, li, span, div { color: inherit; }
+</style>
+</head>
+<body style="background:#09101f;color:#e8edf5">
+<nav>
+  <a href="index.html" class="nav-logo">Cluster<span>OS</span></a>
+  <a href="index.html" class="nav-back">← Home</a>
+  <a href="request.html" class="nav-cta">Request a Diagnostic</a>
+</nav>
+
+
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag rev">About</div>
+  <h1 class="hero-h rev d1">We've built this kind of<br>infrastructure <em>before</em>.</h1>
+  <p class="rev d2">In a different domain. For a different kind of complex system. The intellectual move is the same: take a system whose behaviour is hard to see, build rigorous models to make that behaviour legible, and give the institutions that govern it something they can actually act on.</p>
+</div>
+
+<hr>
+
+<!-- THE PARALLEL -->
+<div class="section">
+  <div class="sec-tag">The background</div>
+  <h2 class="sec-h">From financial risk to<br><em>regional economies</em></h2>
+
+  <p>In 1995, Andrew Barrie and John Hibbert started as consultants helping financial institutions manage market risk. The problem they were solving: <strong>complex financial systems produce behaviours — regime switches, correlated failures, tail risks — that are invisible to the institutions responsible for governing them.</strong> Standard tools were inadequate. New models were needed.</p>
+  <p>Over sixteen years, Barrie & Hibbert built those models. Stochastic scenario generators. Regime-switching equity models. Full-yield-curve frameworks for actuarial use. Economic scenario generators used by insurers, pension funds, and asset managers across four continents. In 2011, Moody's Analytics acquired the company for $77.6M.</p>
+
+  <div class="parallel">
+    <div class="parallel-a">
+      <div class="par-era">1995 – 2011</div>
+      <div class="par-co">Barrie & Hibbert</div>
+      <div class="par-what">Built stochastic risk models to make hidden financial system behaviour visible and governable — for insurers, pension funds, and asset managers operating at institutional scale.</div>
+    </div>
+    <div class="parallel-div"></div>
+    <div class="parallel-b">
+      <div class="par-era">2024 – present</div>
+      <div class="par-co">ClusterOS</div>
+      <div class="par-what">Builds diagnostic models to make hidden ecosystem behaviour visible and governable — for regional stewards, economic partnerships, and development agencies operating at system scale.</div>
+    </div>
+    <div class="parallel-bridge">
+      <div class="bridge-text">Same intellectual move. Different complex system.</div>
+    </div>
+  </div>
+
+  <p>The parallel is not superficial. Barrie & Hibbert's core insight was that financial institutions were making consequential decisions about systems they did not understand well enough — because the models they were using were inadequate for the complexity they faced. The same is true of regional economies. <strong>The stewards of innovation ecosystems are making consequential decisions — about programmes, funding, strategy — based on activity metrics that do not capture what the system is actually doing.</strong></p>
+
+  <div class="pullquote">
+    <p>"Coordination should be carried by infrastructure, not by people. When coordination is infrastructural, collaboration becomes repeatable, pathways become routable, and complexity becomes manageable rather than fragile."</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- TIMELINE -->
+<div class="section">
+  <div class="sec-tag">Timeline</div>
+  <h2 class="sec-h">How we got here</h2>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">1995</div>
+      <div class="tl-body">
+        <div class="tl-h">Barrie & Hibbert founded in Edinburgh</div>
+        <div class="tl-p">Andrew Barrie and John Hibbert begin as financial risk consultants, developing stochastic models for insurers and pension funds. The core problem: institutions governing complex systems without adequate tools to understand what those systems are doing.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2003</div>
+      <div class="tl-body">
+        <div class="tl-h">First standalone Economic Scenario Generator launched</div>
+        <div class="tl-p">The ESG becomes the flagship product — infrastructure that lets institutions model how uncertainty in financial markets can cascade into business outcomes. Offices open in London, then Hong Kong, then New York. Over 100 staff.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2011</div>
+      <div class="tl-body">
+        <div class="tl-h">Acquired by Moody's Analytics</div>
+        <div class="tl-p">Barrie & Hibbert is acquired for $77.6M. The platform becomes part of Moody's Analytics suite for the global insurance and pension sectors. The acquisition validates the core thesis: institutions need rigorous diagnostic infrastructure, and will pay for it.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2020</div>
+      <div class="tl-body">
+        <div class="tl-h">Community Lab founded in Edinburgh</div>
+        <div class="tl-p">Andrew Barrie founds Community Lab — digital infrastructure for ecosystem building. The platform serves innovators, changemakers, and ecosystem builders: networks, clustering, coordination tooling. Trusted by organisations including the Scottish Government and PwC.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2024</div>
+      <div class="tl-body">
+        <div class="tl-h">ClusterOS diagnostic pipeline goes live</div>
+        <div class="tl-p">The AI-powered 5-stage diagnostic pipeline is deployed. Full canonical diagnostics completed across cyber security clusters in Belfast, Tel Aviv, Cheltenham, Singapore, and San Francisco; advanced manufacturing in the Basque Country; the Cambridge tech ecosystem; and ten Orlando innovation clusters.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2025</div>
+      <div class="tl-body">
+        <div class="tl-h">75 diagnostics completed across 8+ countries</div>
+        <div class="tl-p">The pattern database reaches 75 completed diagnostics. The actor journeys, steward dashboard, and evidence ingestor are all live. Structural resemblances identified across ecosystems in Europe, the Middle East, Southeast Asia, Australasia, and North America.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- FOUNDER -->
+<div class="section">
+  <div class="sec-tag">The founder</div>
+  <h2 class="sec-h">Andrew Barrie</h2>
+
+  <div class="profile">
+    <div class="profile-avatar">AB</div>
+    <div class="profile-body">
+      <div class="profile-name">Andrew Barrie</div>
+      <div class="profile-title">Founder · Community Lab · Edinburgh</div>
+      <div class="profile-bio">
+        <strong>Andrew co-founded Barrie & Hibbert in Edinburgh in 1995</strong>, building it into a global leader in financial risk modelling software with offices across four continents and over 100 staff, before its acquisition by Moody's Analytics in 2011. He subsequently chaired Cornelian Asset Managers and has led youth employment initiatives in North Edinburgh.
+        <br><br>
+        He founded Community Lab to apply the same infrastructure-first thinking to a different kind of complex system — regional economies. ClusterOS is the diagnostic layer: the same intellectual framework that made financial system risk legible, applied to the behavioural dynamics of innovation ecosystems.
+        <br><br>
+        The approach is consistent across both domains: <strong>build rigorous models, maintain epistemic honesty about what the data shows, and give institutions that govern at scale something they can actually act on.</strong>
+      </div>
+      <div class="profile-links">
+        <a href="https://www.communitylab.app" class="profile-link" target="_blank">Community Lab ↗</a>
+        <a href="/cdn-cgi/l/email-protection#bbdad5dfc9deccfbd8d4d6d6ced5d2cfc2d7dad995dacbcb" class="profile-link"><span class="__cf_email__" data-cfemail="12737c7660776552717d7f7f677c7b666b7e73703c736262">[email&#160;protected]</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- COMMUNITY LAB -->
+<div class="section">
+  <div class="sec-tag">The organisation</div>
+  <h2 class="sec-h">Community Lab</h2>
+
+  <p>ClusterOS is built by Community Lab — a digital infrastructure company based in Edinburgh. Community Lab builds sovereign, federated infrastructure for ecosystem builders: the platform layer that allows networks to organise, scale, and coordinate without losing autonomy.</p>
+  <p>ClusterOS is the diagnostic intelligence layer that sits above the platform — identifying what the ecosystem is doing, why it is doing it, and where the leverage points are. The two products are architecturally distinct but intellectually continuous: both are premised on the idea that <strong>coordination should be carried by infrastructure, not by people</strong>.</p>
+
+  <div class="cl-card">
+    <div class="cl-logo-row">
+      <div class="cl-logo-mark">CL</div>
+      <div>
+        <div class="cl-logo-name">Community Lab</div>
+        <div class="cl-logo-tag">Digital Infrastructure for Ecosystem Building</div>
+      </div>
+    </div>
+    <div class="cl-body">
+      Community Lab provides sovereign infrastructure for networks to anchor. Governed environments to start initiatives, scale connectivity, build momentum, and drive growth. Trusted by organisations including the <strong>Scottish Government</strong>, PwC, and innovation networks across the UK. Based in Edinburgh.
+    </div>
+    <a href="https://www.communitylab.app" class="cl-link" target="_blank">communitylab.app</a>
+  </div>
+</div>
+
+<hr>
+
+<!-- WHAT WE BELIEVE -->
+<div class="section">
+  <div class="sec-tag">What we believe</div>
+  <h2 class="sec-h">The principles behind<br><em>the framework</em></h2>
+
+  <div class="values">
+    <div class="value">
+      <div class="value-num">01</div>
+      <div class="value-body">
+        <div class="value-h">Stalls are not failures</div>
+        <div class="value-p">Every behaviour we diagnose is locally rational. Actors are not making mistakes. They are responding sensibly to the incentives and information they face. The question is never "why aren't they trying harder?" It is "what has the system structured them to do?"</div>
+      </div>
+    </div>
+    <div class="value">
+      <div class="value-num">02</div>
+      <div class="value-body">
+        <div class="value-h">Epistemic honesty is not optional</div>
+        <div class="value-p">Every diagnostic output carries a confidence level. Where the X-side is observable but the Y-side is not, we say so. Where public evidence is insufficient, we say so. Institutions that govern at scale need to know what we know, what we infer, and what we cannot yet see. Flattening that uncertainty is not helpful. It is dangerous.</div>
+      </div>
+    </div>
+    <div class="value">
+      <div class="value-num">03</div>
+      <div class="value-body">
+        <div class="value-h">Leverage is small, not large</div>
+        <div class="value-p">Complex adaptive systems do not respond to large interventions the way linear systems do. The stack absorbs them. Leverage means small perturbations that shift the operating conditions — withdrawals of protection, not new programmes. We design for this from the start.</div>
+      </div>
+    </div>
+    <div class="value">
+      <div class="value-num">04</div>
+      <div class="value-body">
+        <div class="value-h">Infrastructure over strategy</div>
+        <div class="value-p">Strategies are documents. Infrastructure is what the system runs on. ClusterOS does not produce strategies. It produces the diagnostic intelligence that makes better decisions possible — continuously, not once every three years.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta" id="cta">
+  <h2 class="cta-h">Built in Edinburgh.<br><em>Running everywhere.</em></h2>
+  <p class="cta-p">The diagnostic pipeline is live. 75 completed runs. If you steward a regional economy and want to understand what it is actually doing — get in touch.</p>
+  <a href="request.html" class="cta-btn">Request a diagnostic</a>
+  <div class="cta-or">or email <a href="/cdn-cgi/l/email-protection#5a3b343e283f2d1a393537372f34332e23363b38743b2a2a" style="color:#c8f0d0;text-decoration:none"><span class="__cf_email__" data-cfemail="375659534552407754585a5a42595e434e5b565519564747">[email&#160;protected]</span></a></div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Cluster<span>OS</span></a>
+      <p class="footer-tagline">Regional economies need infrastructure.<br>Not more strategy.</p>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <div class="footer-col-label">Product</div>
+        <a href="substrate.html">The Substrate</a>
+        <a href="diagnostic.html">The Diagnostic</a>
+        <a href="leverage.html">Leverage</a>
+        <a href="findings.html">Findings</a>
+        <a href="pricing.html">Pricing</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Lab Notes</div>
+        <a href="notes.html">All Notes</a>
+        <a href="ln-01-coordinating.html">S2 · Coordinating</a>
+        <a href="ln-02-narrating.html">S7 · Narrating</a>
+        <a href="ln-10-narrative-activity-stack.html">Narrative × Activity</a>
+        <a href="ln-12-leverage.html">What Leverage Looks Like</a>
+        <a href="ln-13-diagnosis.html">Why Diagnosis Fails</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Company</div>
+        <a href="about.html">About</a>
+        <a href="data.html">Diagnostic Data</a>
+        <a href="request.html">Request a Diagnostic</a>
+        <a href="/cdn-cgi/l/email-protection#10717e7462756750737f7d7d657e7964697c71723e716060"><span class="__cf_email__" data-cfemail="4e2f202a3c2b390e2d2123233b20273a37222f2c602f3e3e">[email&#160;protected]</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-base">
+    <span class="fo
+    <span class="footer-copy">© 2026 ClusterOS · Community Lab</span>
+    <span class="footer-copy">Built in Edinburgh</span>
+  </div>
+</footer>
+
+<style>
+/* ── UNIVERSAL MOBILE PATCH ── injected ── */
+html { overflow-x: hidden; }
+body { overflow-x: hidden; }
+@media (max-width: 480px) {
+  nav { padding: 0 16px !important; }
+  .nav-back { font-size: 11px; }
+  .nav-cta { font-size: 11px; padding: 6px 14px !important; }
+  .nav-logo { font-size: 15px !important; }
+}
+</style>
+
+
+<style>
+@media (max-width: 900px) {
+  .timeline-grid, .about-grid, .two-col, .split-col { grid-template-columns: 1fr !important; }
+  .about-vis { display: none; }
+}
+@media (max-width: 640px) {
+  .hero { padding: 80px 20px 48px !important; }
+  .hero-h { font-size: clamp(28px, 8vw, 42px) !important; }
+  .section, .wrap { padding: 48px 20px !important; }
+  .timeline-item { padding-left: 20px; }
+  .profile { gap: 16px; }
+}
+</style>
+
+</body>
+</html>

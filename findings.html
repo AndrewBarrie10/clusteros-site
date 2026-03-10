@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#09101f;color:#e8edf5">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What 75 Diagnostics Found — ClusterOS</title>
+  <!-- SEO & AIO -->
+  <meta name="description" content="Aggregate findings from 75 cluster diagnostics across cyber security, life sciences, space technology, advanced manufacturing, and regional innovation ecosystems. The same 3 stalls appear in almost every ecosystem.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://clusteros.io/findings">
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="What 75 Diagnostics Found — ClusterOS">
+  <meta property="og:description" content="Aggregate findings from 75 cluster diagnostics across cyber security, life sciences, space technology, advanced manufacturing, and regional innovation ecosystems. The same 3 stalls appear in almost every ecosystem.">
+  <meta property="og:url" content="https://clusteros.io/findings">
+  <meta property="og:site_name" content="ClusterOS">
+  <meta property="og:image" content="https://clusteros.io/og-image.png">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="What 75 Diagnostics Found — ClusterOS">
+  <meta name="twitter:description" content="Aggregate findings from 75 cluster diagnostics across cyber security, life sciences, space technology, advanced manufacturing, and regional innovation ecosystems. The same 3 stalls appear in almost every ecosystem.">
+  <meta name="twitter:image" content="https://clusteros.io/og-image.png">
+  <!-- Schema.org structured data -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ClusterOS",
+    "url": "https://clusteros.io",
+    "description": "ClusterOS is a cognitive operating system for regional economies. It diagnoses why innovation clusters stall, identifies stabilisation stacks, and gives stewards specific leverage points that shift regimes.",
+    "founder": {
+      "@type": "Person",
+      "name": "Andrew Barrie",
+      "email": "andrew@communitylab.app",
+      "sameAs": "https://www.communitylab.app"
+    },
+    "foundingLocation": {
+      "@type": "Place",
+      "name": "Edinburgh, Scotland"
+    },
+    "sameAs": ["https://clusteros.io"]
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+  "name": "ClusterOS Diagnostic Database",
+  "description": "Aggregate findings from 75 completed cluster diagnostics across North America, Europe, the Middle East, Southeast Asia, and Australasia. Covers 9 canonical stall types, stabilisation stacks, and leverage patterns across cyber security, life sciences, space technology, advanced manufacturing, and regional innovation ecosystems.",
+  "url": "https://clusteros.io/findings",
+  "creator": {
+    "@type": "Organization",
+    "name": "ClusterOS",
+    "url": "https://clusteros.io"
+  },
+  "spatialCoverage": "Global",
+  "temporalCoverage": "2024/2026",
+  "variableMeasured": [
+    "Stall frequency", "Stack configuration", "Leverage hypothesis", "Lifecycle stage", "Anchor type"
+  ],
+  "license": "https://clusteros.io/terms"
+
+  }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:      #09101f;
+  --surface: #111c2e;
+  --border:  #1e2f45;
+  --border2: #2a3f5a;
+  --chalk:   #e8edf5;
+  --dim:     #c2cfe0;
+  --muted:   #7a95b0;
+  --signal:  #c8f0d0;
+  --amber:   #f5d97a;
+  --crimson: #f08080;
+  --teal:    #7dd3c8;
+  --serif:   'Instrument Serif', serif;
+  --mono:    'Geist Mono', monospace;
+}
+html { scroll-behavior: smooth; background: #09101f; color: #e8edf5; }
+body { background: var(--bg); color: #e8edf5; font-family: 'Geist', sans-serif; font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 52px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: rgba(9,16,31,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.logo { font-family: 'Instrument Serif', serif; font-size: 17px; text-decoration: none; color: #e8edf5; }
+.logo span { font-family: 'Geist Mono', monospace; font-weight: 700; color: #c8f0d0; font-size: 15px; }
+.nav-r { display: flex; align-items: center; gap: 20px; }
+.nav-link { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: var(--muted); text-decoration: none; }
+.nav-link:hover { color: #e8edf5; }
+.nav-btn { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; padding: 7px 14px; border-radius: 3px; background: #c8f0d0; color: var(--bg); text-decoration: none; }
+
+/* HERO */
+.hero { padding: 100px 24px 56px; max-width: 680px; margin: 0 auto; }
+.hero-tag { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+.hero-h { font-family: 'Instrument Serif', serif; font-size: clamp(36px, 6vw, 60px); line-height: 1.04; letter-spacing: -0.02em; margin-bottom: 24px; }
+.hero-h em { font-style: italic; color: #f5d97a; }
+.hero-p { font-size: 16px; color: var(--dim); line-height: 1.72; max-width: 580px; }
+.hero-p strong { color: #e8edf5; font-weight: 500; }
+
+/* BIG NUMBERS */
+.numbers { padding: 56px 24px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.numbers-inner { max-width: 680px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+@media (max-width: 600px) { .numbers-inner { grid-template-columns: repeat(2, 1fr); } }
+.num-item { padding: 20px 16px; border-right: 1px solid var(--border); text-align: center; }
+.num-item:last-child { border-right: none; }
+@media (max-width: 600px) {
+  .num-item:nth-child(2) { border-right: none; }
+  .num-item:nth-child(3) { border-top: 1px solid var(--border); }
+  .num-item:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
+}
+.num-val { font-family: 'Instrument Serif', serif; font-size: clamp(36px, 5vw, 52px); color: #e8edf5; line-height: 1; margin-bottom: 6px; letter-spacing: -0.02em; }
+.num-val span { color: #f5d97a; }
+.num-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); line-height: 1.4; }
+
+/* SECTION WRAPPER */
+.section { max-width: 680px; margin: 0 auto; padding: 64px 24px; }
+.section + .section { padding-top: 0; }
+
+.sec-tag { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.sec-tag::before { content: ''; width: 16px; height: 1px; background: var(--muted); }
+.sec-h { font-family: 'Instrument Serif', serif; font-size: clamp(26px, 4vw, 38px); line-height: 1.1; color: #e8edf5; margin-bottom: 14px; }
+.sec-h em { font-style: italic; color: #f5d97a; }
+.sec-p { font-size: 15px; color: var(--dim); line-height: 1.72; margin-bottom: 32px; }
+.sec-p strong { color: #e8edf5; font-weight: 400; }
+
+/* ── GEOGRAPHY DOTS ── */
+.geo-wrap { margin-bottom: 48px; }
+.geo-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+/* SVG world dots map */
+.world-map { width: 100%; position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.world-map svg { width: 100%; height: auto; display: block; }
+.map-dot { fill: #f5d97a; }
+.map-dot.pulse { animation: pulse 2.5s ease-in-out infinite; }
+@keyframes pulse {
+  0%, 100% { opacity: 1; r: 4; }
+  50% { opacity: 0.5; r: 6; }
+}
+.map-tip { font-family: 'Geist Mono', monospace; font-size: 8px; fill: var(--muted); }
+
+.geo-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.geo-tag { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 600; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 2px; border: 1px solid var(--border2); color: var(--muted); }
+.geo-tag.hi { border-color: rgba(245,217,122,0.3); color: #f5d97a; background: rgba(245,217,122,0.05); }
+
+/* ── STALL FREQUENCY ── */
+.freq-chart { display: flex; flex-direction: column; gap: 8px; margin-bottom: 40px; }
+.freq-row { display: flex; align-items: center; gap: 12px; }
+.freq-id { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; color: #f5d97a; width: 22px; flex-shrink: 0; }
+.freq-bar-wrap { flex: 1; position: relative; height: 28px; display: flex; align-items: center; }
+.freq-bar-bg { position: absolute; left: 0; top: 0; bottom: 0; right: 0; background: var(--surface); border-radius: 3px; border: 1px solid var(--border); }
+.freq-bar { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1); width: 0; }
+.freq-bar.s2 { background: linear-gradient(90deg, rgba(200,240,208,0.5), rgba(200,240,208,0.15)); }
+.freq-bar.s7 { background: linear-gradient(90deg, rgba(200,240,208,0.44), rgba(200,240,208,0.12)); }
+.freq-bar.s8 { background: linear-gradient(90deg, rgba(200,240,208,0.38), rgba(200,240,208,0.1)); }
+.freq-bar.s6 { background: linear-gradient(90deg, rgba(245,217,122,0.35), rgba(245,217,122,0.08)); }
+.freq-bar.s5 { background: linear-gradient(90deg, rgba(245,217,122,0.28), rgba(245,217,122,0.06)); }
+.freq-bar.s4 { background: linear-gradient(90deg, rgba(240,128,128,0.3), rgba(240,128,128,0.07)); }
+.freq-bar.s3 { background: linear-gradient(90deg, rgba(240,128,128,0.22), rgba(240,128,128,0.05)); }
+.freq-bar.s1 { background: linear-gradient(90deg, rgba(125,211,200,0.25), rgba(125,211,200,0.05)); }
+.freq-bar.s9 { background: linear-gradient(90deg, rgba(125,211,200,0.18), rgba(125,211,200,0.04)); }
+.freq-name { width: 200px; flex-shrink: 0; }
+.freq-name-text { font-size: 12px; color: var(--dim); line-height: 1.3; }
+.freq-name-sub { font-size: 10px; color: var(--muted); line-height: 1.2; margin-top: 1px; }
+.freq-pct { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 700; color: #e8edf5; width: 36px; text-align: right; flex-shrink: 0; position: absolute; right: 8px; z-index: 2; }
+
+@media (max-width: 560px) {
+  .freq-name { display: none; }
+  .freq-row { gap: 8px; }
+}
+
+.freq-note { font-size: 12px; color: var(--muted); line-height: 1.6; font-style: italic; padding: 12px 14px; border-left: 2px solid var(--border2); }
+
+/* ── KEY FINDING CALLOUTS ── */
+.findings { display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px; }
+.finding { padding: 20px 22px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); display: flex; gap: 18px; align-items: flex-start; }
+.finding-num { font-family: 'Instrument Serif', serif; font-size: 32px; color: var(--border2); line-height: 1; flex-shrink: 0; width: 36px; }
+.finding-body { flex: 1; }
+.finding-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #f5d97a; margin-bottom: 6px; }
+.finding-h { font-size: 15px; color: #e8edf5; line-height: 1.45; margin-bottom: 5px; font-weight: 400; }
+.finding-p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* ── STACKS TABLE ── */
+.stacks-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 40px; }
+.stack-row { padding: 16px 18px; border: 1px solid var(--border); border-radius: 6px; display: flex; gap: 16px; align-items: flex-start; cursor: pointer; transition: border-color 0.12s; }
+.stack-row:hover { border-color: var(--border2); }
+.stack-row.open { border-color: var(--border2); background: var(--surface); }
+.stack-ids { flex-shrink: 0; display: flex; gap: 4px; flex-wrap: wrap; width: 80px; }
+.stack-id { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; padding: 3px 6px; border-radius: 2px; background: rgba(245,217,122,0.08); border: 1px solid rgba(245,217,122,0.2); color: #f5d97a; }
+.stack-body { flex: 1; }
+.stack-name { font-family: 'Instrument Serif', serif; font-size: 16px; color: #e8edf5; margin-bottom: 3px; }
+.stack-freq { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.stack-freq.very-common { color: #c8f0d0; }
+.stack-freq.common { color: #f5d97a; }
+.stack-chevron { font-size: 10px; color: var(--muted); transition: transform 0.2s; flex-shrink: 0; }
+.stack-row.open .stack-chevron { transform: rotate(180deg); }
+.stack-detail { display: none; margin-top: 12px; }
+.stack-row.open .stack-detail { display: block; }
+.stack-detail-text { font-size: 13px; color: var(--dim); line-height: 1.7; }
+.stack-detail-text strong { color: #e8edf5; font-weight: 400; }
+.stack-geo { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 5px; }
+.stack-geo-tag { font-family: 'Geist Mono', monospace; font-size: 9px; padding: 3px 8px; border-radius: 2px; border: 1px solid var(--border2); color: var(--muted); }
+
+/* ── RESEMBLANCES ── */
+.resemblances { display: flex; flex-direction: column; gap: 8px; margin-bottom: 40px; }
+.res-pair { padding: 14px 18px; border: 1px solid var(--border); border-radius: 6px; display: flex; align-items: center; gap: 12px; }
+.res-node { flex: 1; text-align: center; }
+.res-node-region { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; color: #e8edf5; letter-spacing: 0.06em; }
+.res-node-sector { font-family: 'Geist Mono', monospace; font-size: 9px; color: var(--muted); margin-top: 2px; }
+.res-connector { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.res-line { width: 1px; height: 10px; background: var(--border2); }
+.res-pattern { font-family: 'Geist Mono', monospace; font-size: 8px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #f5d97a; white-space: nowrap; padding: 3px 8px; border: 1px solid rgba(245,217,122,0.2); border-radius: 2px; background: rgba(245,217,122,0.05); }
+.res-note { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--muted); text-align: center; width: 100%; margin-top: 16px; font-style: italic; }
+
+/* ── FINDING PULLQUOTE ── */
+.pullquote { margin: 32px 0; padding: 24px 24px; border-left: 3px solid #f5d97a; background: rgba(245,217,122,0.04); border-radius: 0 6px 6px 0; }
+.pullquote p { font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(17px, 2.5vw, 22px); color: #e8edf5; line-height: 1.55; }
+.pullquote-source { font-family: 'Geist Mono', monospace; font-size: 9px; color: var(--muted); margin-top: 10px; letter-spacing: 0.12em; }
+
+/* ── WHAT THIS MEANS ── */
+.means-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 40px; }
+@media (max-width: 500px) { .means-grid { grid-template-columns: 1fr; } }
+.means-card { padding: 18px 20px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); }
+.means-icon { font-size: 18px; margin-bottom: 10px; }
+.means-h { font-size: 14px; color: #e8edf5; margin-bottom: 6px; font-weight: 400; line-height: 1.3; }
+.means-p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* CTA */
+.cta { padding: 64px 24px 80px; max-width: 560px; margin: 0 auto; text-align: center; border-top: 1px solid var(--border); }
+.cta-h { font-family: 'Instrument Serif', serif; font-size: clamp(26px, 4vw, 38px); line-height: 1.1; color: #e8edf5; margin-bottom: 14px; }
+.cta-h em { font-style: italic; color: #c8f0d0; }
+.cta-p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+.cta-btn { display: inline-block; font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 28px; border-radius: 3px; background: #c8f0d0; color: var(--bg); text-decoration: none; }
+.cta-note { font-family: 'Geist Mono', monospace; font-size: 9px; color: var(--muted); margin-top: 12px; letter-spacing: 0.06em; }
+
+hr { border: none; border-top: 1px solid var(--border); }
+
+/* Animate in */
+.anim { opacity: 1 ; transform: none; transition: opacity 0.5s ease, transform 0.5s ease; }
+.anim.in { opacity: 1; transform: none; }
+.d1 { transition-delay: 0.08s; } .d2 { transition-delay: 0.16s; } .d3 { transition-delay: 0.24s; }
+
+/* ── SITE FOOTER ─────────────────────────────────────────────────── */
+footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32px; }
+.footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; margin-bottom: 40px; }
+.footer-brand { display: flex; flex-direction: column; gap: 12px; }
+.footer-logo { font-family: 'Geist', system-ui, sans-serif; font-weight: 400; font-size: 15px; color: #e8edf5; text-decoration: none; }
+.footer-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+.footer-tagline { font-size: 13px; color: #8ba3c1; line-height: 1.5; margin: 0; }
+.footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.footer-col { display: flex; flex-direction: column; gap: 8px; }
+.footer-col-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #7a9bb5; margin-bottom: 4px; }
+.footer-col a { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color .2s; line-height: 1.4; }
+.footer-col a:hover { color: #e8edf5; }
+.footer-base { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; padding-top: 24px; border-top: 1px solid #2a3a52; flex-wrap: wrap; gap: 8px; }
+.footer-copy { font-size: 12px; color: #7a9bb5; }
+@media (max-width: 640px) {
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .footer-nav { grid-template-columns: 1fr 1fr; }
+}
+
+  
+/* ── NAV ──────────────────────────────────────────────────────────── */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; background: rgba(9,16,31,0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid rgba(42,61,92,0.5); }
+.nav-logo { font-family: 'Geist', system-ui, sans-serif; font-weight: 400; font-size: 15px; color: #e8edf5; text-decoration: none; letter-spacing: -.01em; }
+.nav-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+.nav-back { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color .2s; }
+.nav-back:hover { color: #e8edf5; }
+.nav-cta { font-size: 12px; font-weight: 500; letter-spacing: .04em; padding: 7px 16px; border-radius: 4px; background: #c8f0d0; color: var(--signal-dark, #1a6640); text-decoration: none; white-space: nowrap; transition: opacity .2s; }
+.nav-cta:hover { opacity: .85; }
+@media (max-width: 480px) { nav { padding: 0 16px; } .nav-back { display: none; } }
+
+</style>
+<style>
+/* ── PREVIEW SANDBOX BG FIX ── */
+html, body, .page, section, main, article, header,
+.container, .container-narrow, .container-wide,
+.section-inner, .section-wrap, .page-wrap,
+nav, footer { background-color: #09101f !important; }
+section { color: #e8edf5 !important; }
+h1, h2, h3, h4, p, li, span, div { color: inherit; }
+</style>
+</head>
+<body style="background:#09101f;color:#e8edf5">
+<nav>
+  <a href="index.html" class="nav-logo">Cluster<span>OS</span></a>
+  <a href="diagnostic.html" class="nav-back">← Diagnostic</a>
+  <a href="request.html" class="nav-cta">Request a Diagnostic</a>
+</nav>
+
+
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag anim">Evidence · 75 Diagnostics</div>
+  <h1 class="hero-h anim d1">The same patterns.<br><em>Everywhere.</em></h1>
+  <p class="hero-p anim d2">We have run the ClusterOS diagnostic across 75 clusters — cyber security ecosystems in Belfast, Tel Aviv, Cheltenham, Singapore, and San Francisco; advanced manufacturing in the Basque Country; the Cambridge tech ecosystem; Orlando's ten innovation clusters; and more. <strong>The finding that surprised us most is not what each ecosystem is doing wrong. It is how consistently they do the same things.</strong></p>
+</div>
+
+<!-- NUMBERS -->
+<div class="numbers">
+  <div class="numbers-inner">
+    <div class="num-item anim">
+      <div class="num-val">75<span>+</span></div>
+      <div class="num-label">Clusters<br>diagnosed</div>
+    </div>
+    <div class="num-item anim d1">
+      <div class="num-val">8<span>+</span></div>
+      <div class="num-label">Countries<br>& regions</div>
+    </div>
+    <div class="num-item anim d2">
+      <div class="num-val">50<span>–</span>170</div>
+      <div class="num-label">Evidence items<br>per cluster</div>
+    </div>
+    <div class="num-item anim d3">
+      <div class="num-val">9</div>
+      <div class="num-label">Canonical<br>stall types</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- GEOGRAPHY -->
+<div class="section">
+  <div class="sec-tag">Coverage</div>
+  <h2 class="sec-h">Clusters diagnosed<br><em>across geographies</em></h2>
+  <p class="sec-p">Diagnostics completed across North America, Europe, the Middle East, Southeast Asia, and Australasia. Sectors include cyber security, advanced manufacturing, space technology, medtech, digital media, agtech, photonics, simulation & training, and regional innovation ecosystems.</p>
+
+  <div class="geo-wrap">
+    <div class="geo-label">Geographies represented</div>
+    <!-- Simplified SVG dot map — approximate mercator positions -->
+    <div class="world-map">
+      <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+        <!-- Minimal continent outlines (approximate) -->
+        <rect width="800" height="400" fill="#0d1829"/>
+        <!-- Grid lines -->
+        <line x1="0" y1="200" x2="800" y2="200" stroke="#1e2f45" stroke-width="0.5"/>
+        <line x1="400" y1="0" x2="400" y2="400" stroke="#1e2f45" stroke-width="0.5"/>
+
+        <!-- Rough continent shapes as simplified paths -->
+        <!-- North America -->
+        <path d="M 90 80 L 180 70 L 220 100 L 230 160 L 200 200 L 160 210 L 130 190 L 100 150 Z" fill="#1a2840" stroke="#2a3f5a" stroke-width="0.8"/>
+        <!-- South America -->
+        <path d="M 180 220 L 220 210 L 240 260 L 230 320 L 200 350 L 170 320 L 160 270 Z" fill="#1a2840" stroke="#2a3f5a" stroke-width="0.8"/>
+        <!-- Europe -->
+        <path d="M 350 80 L 420 70 L 440 100 L 430 130 L 400 140 L 370 130 L 345 110 Z" fill="#1a2840" stroke="#2a3f5a" stroke-width="0.8"/>
+        <!-- Africa -->
+        <path d="M 370 150 L 420 140 L 450 170 L 450 270 L 420 310 L 390 310 L 360 270 L 350 200 Z" fill="#1a2840" stroke="#2a3f5a" stroke-width="0.8"/>
+        <!-- Middle East blob -->
+        <path d="M 440 130 L 490 120 L 510 150 L 500 180 L 460 180 L 440 160 Z" fill="#1a2840" stroke="#2a3f5a" stroke-width="0.8"/>
+        <!-- Asia -->
+        <path d="M 490 60 L 650 50 L 680 100 L 670 160 L 620 180 L 560 170 L 510 150 L 490 120 Z" fill="#1a2840" stroke="#2a3f5a" stroke-width="0.8"/>
+        <!-- Southeast Asia -->
+        <path d="M 600 180 L 660 170 L 680 210 L 660 240 L 630 240 L 600 220 Z" fill="#1a2840" stroke="#2a3f5a" stroke-width="0.8"/>
+        <!-- Australia -->
+        <path d="M 620 270 L 700 260 L 720 300 L 710 340 L 670 350 L 630 330 L 610 300 Z" fill="#1a2840" stroke="#2a3f5a" stroke-width="0.8"/>
+
+        <!-- DIAGNOSTIC DOTS -->
+        <!-- Belfast UK -->
+        <circle class="map-dot pulse" cx="358" cy="88" r="5"/>
+        <text class="map-tip" x="364" y="85">Belfast</text>
+
+        <!-- Cheltenham UK -->
+        <circle class="map-dot" cx="364" cy="93" r="4"/>
+
+        <!-- Cambridge UK -->
+        <circle class="map-dot" cx="372" cy="90" r="4"/>
+        <text class="map-tip" x="377" y="88">Cambridge</text>
+
+        <!-- Tel Aviv -->
+        <circle class="map-dot pulse" cx="462" cy="138" r="5"/>
+        <text class="map-tip" x="468" y="135">Tel Aviv</text>
+
+        <!-- Singapore -->
+        <circle class="map-dot pulse" cx="632" cy="212" r="5"/>
+        <text class="map-tip" x="638" y="209">Singapore</text>
+
+        <!-- Basque Country Spain -->
+        <circle class="map-dot" cx="356" cy="108" r="4"/>
+        <text class="map-tip" x="330" y="118">Basque</text>
+
+        <!-- San Francisco -->
+        <circle class="map-dot pulse" cx="108" cy="138" r="5"/>
+        <text class="map-tip" x="68" y="135">San Francisco</text>
+
+        <!-- Orlando -->
+        <circle class="map-dot" cx="178" cy="158" r="4"/>
+        <text class="map-tip" x="182" y="155">Orlando</text>
+
+        <!-- Eindhoven (resemblance) -->
+        <circle class="map-dot" cx="390" cy="88" r="3" fill-opacity="0.4"/>
+
+        <!-- Adelaide / Bengaluru (resemblance) -->
+        <circle class="map-dot" cx="660" cy="320" r="3" fill-opacity="0.4"/>
+        <circle class="map-dot" cx="568" cy="168" r="3" fill-opacity="0.4"/>
+
+        <!-- Bordeaux -->
+        <circle class="map-dot" cx="352" cy="110" r="3" fill-opacity="0.4"/>
+
+        <!-- Legend -->
+        <circle cx="30" cy="370" r="4" fill="#f5d97a"/>
+        <text x="40" y="374" font-family="Geist Mono, monospace" font-size="9" fill="#7a95b0">Full diagnostic</text>
+        <circle cx="150" cy="370" r="3" fill="#f5d97a" fill-opacity="0.4"/>
+        <text x="160" y="374" font-family="Geist Mono, monospace" font-size="9" fill="#7a95b0">Structural resemblance</text>
+      </svg>
+    </div>
+
+    <div class="geo-tags">
+      <span class="geo-tag hi">Belfast</span>
+      <span class="geo-tag hi">Tel Aviv</span>
+      <span class="geo-tag hi">Cheltenham</span>
+      <span class="geo-tag hi">Singapore</span>
+      <span class="geo-tag hi">San Francisco</span>
+      <span class="geo-tag hi">Basque Country</span>
+      <span class="geo-tag hi">Cambridge</span>
+      <span class="geo-tag hi">Orlando</span>
+      <span class="geo-tag">+ structural resemblances across 15 further ecosystems</span>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- STALL FREQUENCY -->
+<div class="section">
+  <div class="sec-tag">Finding 1</div>
+  <h2 class="sec-h">Three stalls appear in<br><em>almost every ecosystem</em></h2>
+  <p class="sec-p">Across 75 diagnostics, we tracked which of the nine canonical stalls appeared in each cluster. The distribution is not even. Three stalls dominate — present across virtually every geography, sector, and maturity level we have encountered.</p>
+
+  <div class="freq-chart" id="freq-chart">
+    <!-- rendered by JS -->
+  </div>
+
+  <div class="freq-note">Frequency reflects appearance across completed diagnostics. Evidence confidence varies — stalls with high X-side observability (S2, S7, S8) show higher confidence than those requiring Y-side verification (S4, S1). Numbers indicate approximate proportion of diagnostics in which each stall was identified.</div>
+
+  <div class="pullquote">
+    <p>"Narrative × Activity is the most frequently identified stack across all 75 diagnostics. It appears in mature ecosystems and emerging ones. It appears in ecosystems with strong university anchors and in those with corporate anchors. Geography, sector, and maturity level do not predict its presence. Something else does."</p>
+    <div class="pullquote-source">ClusterOS Diagnostic Database · 75 completed runs</div>
+  </div>
+</div>
+
+<hr>
+
+<!-- KEY FINDINGS -->
+<div class="section">
+  <div class="sec-tag">Finding 2</div>
+  <h2 class="sec-h">Three patterns that<br><em>cut across everything</em></h2>
+  <p class="sec-p">These are not sector findings or regional findings. They are system-level patterns — dynamics that appear regardless of what a cluster makes, who funds it, or where it sits.</p>
+
+  <div class="findings">
+    <div class="finding anim">
+      <div class="finding-num">1</div>
+      <div class="finding-body">
+        <div class="finding-label">Universal</div>
+        <div class="finding-h">Coordination is the default response to pressure — in every context</div>
+        <div class="finding-p">S2 (Coordinating instead of deciding) appears in more diagnostics than any other stall. It appears in early-stage ecosystems trying to build momentum and in mature ecosystems that have been coordinating for decades. When pressure rises — from funders, from government, from competitive threat — the system's first response is to convene, align, and form a working group. In no ecosystem we have diagnosed has the coordination response been absent.</div>
+      </div>
+    </div>
+    <div class="finding anim d1">
+      <div class="finding-num">2</div>
+      <div class="finding-body">
+        <div class="finding-label">Near-universal</div>
+        <div class="finding-h">The growth-stage capital gap is structural, not accidental</div>
+        <div class="finding-p">Every ecosystem we have diagnosed has abundant early-stage support. Every ecosystem we have diagnosed has a documented gap at growth stage. Companies that reach Series A or B either relocate or fail to find follow-on capital locally. The system's response — in every case — has been to create more early-stage programmes rather than address the retention constraint. The hole is at the bottom of the funnel. The response is always to widen the top.</div>
+      </div>
+    </div>
+    <div class="finding anim d2">
+      <div class="finding-num">3</div>
+      <div class="finding-body">
+        <div class="finding-label">Cross-sector</div>
+        <div class="finding-h">Incumbent anchor concentration is the most broadly observed structural pattern</div>
+        <div class="finding-p">In cyber security, advanced manufacturing, simulation & training, tourism technology, and medtech — in Belfast, Singapore, Orlando, the Basque Country — the same structure appears: large incumbents define innovation pathways, coordination structures form around incumbent needs, new entrants optimise for incumbent partnership, and emergence outside the incumbent orbit remains weakly developed. The incumbents are different. The structure is the same.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- MOST COMMON STACKS -->
+<div class="section">
+  <div class="sec-tag">Finding 3</div>
+  <h2 class="sec-h">The stacks that appear<br><em>most often</em></h2>
+  <p class="sec-p">Individual stalls are informative. Stacks — mutually reinforcing combinations — are where the diagnostic produces its most actionable findings. These are the configurations we encounter most frequently.</p>
+
+  <div class="stacks-list" id="stacks-list">
+    <!-- rendered by JS -->
+  </div>
+</div>
+
+<hr>
+
+<!-- STRUCTURAL RESEMBLANCES -->
+<div class="section">
+  <div class="sec-tag">Finding 4</div>
+  <h2 class="sec-h">Ecosystems on different<br>continents show <em>identical structures</em></h2>
+  <p class="sec-p">The most surprising output of comparative diagnostics is structural resemblance — pairs of ecosystems in different countries, different sectors, different political contexts, that show almost identical behavioural configurations. The resemblance is not in what they produce. It is in how the system stabilises.</p>
+
+  <div class="resemblances" id="resemblances">
+    <!-- rendered by JS -->
+  </div>
+
+  <div class="pullquote">
+    <p>"Once the stabilisation logic becomes visible, similar patterns can be seen in many other ecosystems — sometimes with different labels, different justifications, and different political dynamics, but with remarkably similar behavioural structure. That recognition is where stewardship begins."</p>
+    <div class="pullquote-source">Ecosystem Stewardship — ClusterOS Research Framework</div>
+  </div>
+</div>
+
+<hr>
+
+<!-- WHAT THIS MEANS -->
+<div class="section">
+  <div class="sec-tag">Implication</div>
+  <h2 class="sec-h">What the data<br><em>means for your ecosystem</em></h2>
+  <p class="sec-p">Pattern consistency across 75 diagnostics has a practical implication: your ecosystem is more predictable than it looks. The diagnostic does not need to start from scratch. It applies a framework refined across dozens of ecosystems to identify which patterns are operating in yours — and where the specific leverage points are.</p>
+
+  <div class="means-grid">
+    <div class="means-card">
+      <div class="means-icon">◎</div>
+      <div class="means-h">Your stack is probably already named</div>
+      <div class="means-p">The most common configurations have been seen before, named, and analysed for leverage points. The diagnostic identifies which one is operating — quickly.</div>
+    </div>
+    <div class="means-card">
+      <div class="means-icon">≠</div>
+      <div class="means-h">The context is yours — the pattern is not unique</div>
+      <div class="means-p">The actors, politics, and history are specific to your region. The behavioural structure almost certainly is not. Structural resemblances tell you what has shifted regimes elsewhere.</div>
+    </div>
+    <div class="means-card">
+      <div class="means-icon">→</div>
+      <div class="means-h">Single interventions will keep failing</div>
+      <div class="means-p">If the pattern data is right, targeting one stall without addressing the stack will produce the same result it produces everywhere: the other stalls compensate.</div>
+    </div>
+    <div class="means-card">
+      <div class="means-icon">◌</div>
+      <div class="means-h">Small perturbations, not programmes</div>
+      <div class="means-p">The leverage hypotheses generated by the diagnostic are not new strategies. They are small withdrawals of protection, tested in ecosystems with comparable configurations.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta" id="cta">
+  <h2 class="cta-h">Your ecosystem is in here.<br><em>Let's find it.</em></h2>
+  <p class="cta-p">The diagnostic identifies your stalls, names your stack, and generates leverage hypotheses calibrated to your specific configuration — informed by every ecosystem we have diagnosed before it.</p>
+  <a href="request.html" class="cta-btn">Request a diagnostic</a>
+  <div class="cta-note">Testable leverage hypotheses · Informed by 75+ comparable ecosystems</div>
+</div>
+
+<script>
+// ── STALL FREQUENCY DATA ──────────────────────────────────────────────
+const FREQ = [
+  { id:'S2', name:'Coordinating instead of deciding', sub:'Building alignment rather than making choices', pct:97, cls:'s2' },
+  { id:'S7', name:'Narrating instead of testing',     sub:'Strategy documents substitute for proof',    pct:91, cls:'s7' },
+  { id:'S8', name:'Scaling activity instead of throughput', sub:'Event counts grow, conversion stays flat', pct:88, cls:'s8' },
+  { id:'S6', name:'Stabilising around incumbents',    sub:'Innovation pathways concentrate around large orgs', pct:76, cls:'s6' },
+  { id:'S5', name:'Mediating instead of coupling',    sub:'Intermediaries broker all connections',       pct:68, cls:'s5' },
+  { id:'S4', name:'Extracting without reinvesting',   sub:'Value leaves the ecosystem at growth stage',  pct:61, cls:'s4' },
+  { id:'S3', name:'Forgiving instead of redesigning', sub:'Continuing programmes despite evidence',      pct:54, cls:'s3' },
+  { id:'S1', name:'Re-proving instead of narrowing',  sub:'Validating options rather than committing',   pct:47, cls:'s1' },
+  { id:'S9', name:'Waiting for permission',           sub:'Grant-seeking substitutes for action',        pct:38, cls:'s9' },
+];
+
+function renderFreq() {
+  const chart = document.getElementById('freq-chart');
+  chart.innerHTML = FREQ.map(f => `
+    <div class="freq-row">
+      <div class="freq-id">${f.id}</div>
+      <div class="freq-bar-wrap">
+        <div class="freq-bar-bg"></div>
+        <div class="freq-bar ${f.cls}" data-pct="${f.pct}" style="width:0%"></div>
+        <div class="freq-pct">${f.pct}%</div>
+      </div>
+      <div class="freq-name">
+        <div class="freq-name-text">${f.name}</div>
+        <div class="freq-name-sub">${f.sub}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Animate bars when visible
+function animateBars() {
+  const bars = document.querySelectorAll('.freq-bar');
+  bars.forEach(bar => {
+    const pct = bar.dataset.pct;
+    bar.style.width = pct + '%';
+  });
+}
+
+// ── COMMON STACKS DATA ────────────────────────────────────────────────
+const COMMON_STACKS = [
+  {
+    ids: ['S7','S8'],
+    name: 'Narrative × Activity',
+    freq: 'Most common — present across all sectors and geographies',
+    freqCls: 'very-common',
+    detail: 'The ability to describe itself legitimises programme expansion. Programmes generate material for the next narrative cycle. <strong>Neither stall requires anyone to narrow, exclude, or expose themselves to market consequence.</strong> Appears in mature ecosystems and emerging ones alike. The most frequently identified stack across all 75 diagnostics.',
+    geos: ['Belfast','Cambridge','Singapore','Orlando','Basque Country','San Francisco'],
+  },
+  {
+    ids: ['S2','S5'],
+    name: 'Coordination × Mediation',
+    freq: 'Very common — especially in ecosystems with formal cluster organisations',
+    freqCls: 'very-common',
+    detail: 'Alignment mechanisms create demand for intermediaries. Intermediaries make alignment manageable. <strong>The system coheres without ever narrowing</strong> — and both stalls protect the roles that depend on them continuing. Especially prevalent in ecosystems with formal public-private cluster structures.',
+    geos: ['Belfast','Orlando (5 clusters)','Eindhoven resemblance','Bengaluru resemblance'],
+  },
+  {
+    ids: ['S6','S2'],
+    name: 'Incumbent Anchor Lock-In',
+    freq: 'Common — the most broadly observed structural pattern',
+    freqCls: 'common',
+    detail: 'Large incumbents define innovation pathways. Coordination structures form around incumbent needs. New entrants optimise for incumbent partnership. <strong>Emergence outside the incumbent orbit remains weakly developed.</strong> Found in defence, tourism, advanced manufacturing, and digital media clusters.',
+    geos: ['Orlando','Singapore','Basque Country','Bordeaux resemblance'],
+  },
+  {
+    ids: ['S8','S4'],
+    name: 'Activity-Extraction Regime',
+    freq: 'Common — especially in regions with strong university outputs',
+    freqCls: 'common',
+    detail: 'Programmes expand. Activity metrics grow. Value — talent, companies, IP — exits the ecosystem. More programmes are launched to compensate. <strong>Activity scales but throughput does not.</strong> Observable wherever early-stage activity is strong but growth-stage retention is weak.',
+    geos: ['Orlando (all 10 clusters)','Cambridge','Belfast','San Francisco'],
+  },
+  {
+    ids: ['S2','S7','S8'],
+    name: 'The Full Legitimacy Stack',
+    freq: 'Common — most prevalent in established, well-funded ecosystems',
+    freqCls: 'common',
+    detail: 'Coordination produces documents. Documents legitimate activity. Activity justifies continued coordination. <strong>Each stall absorbs the pressure the others expose.</strong> The most common triple-stall configuration. Particularly prevalent in ecosystems that have been operating for a decade or more with stable institutional funding.',
+    geos: ['Multiple UK ecosystems','Singapore','Multiple US metros'],
+  },
+];
+
+let openStack = null;
+function renderStacks() {
+  const list = document.getElementById('stacks-list');
+  list.innerHTML = COMMON_STACKS.map((s, i) => `
+    <div class="stack-row" id="sr-${i}" onclick="toggleStack(${i})">
+      <div class="stack-ids">${s.ids.map(id => `<span class="stack-id">${id}</span>`).join('')}</div>
+      <div class="stack-body">
+        <div class="stack-name">${s.name}</div>
+        <div class="stack-freq ${s.freqCls}">${s.freq}</div>
+        <div class="stack-detail">
+          <div class="stack-detail-text">${s.detail}</div>
+          <div class="stack-geo">${s.geos.map(g => `<span class="stack-geo-tag">${g}</span>`).join('')}</div>
+        </div>
+      </div>
+      <div class="stack-chevron">▾</div>
+    </div>
+  `).join('');
+}
+
+function toggleStack(i) {
+  const el = document.getElementById('sr-' + i);
+  if (openStack === i) { el.classList.remove('open'); openStack = null; }
+  else {
+    if (openStack !== null) document.getElementById('sr-' + openStack).classList.remove('open');
+    el.classList.add('open'); openStack = i;
+  }
+}
+
+// ── STRUCTURAL RESEMBLANCES ───────────────────────────────────────────
+const RESEMBLANCES = [
+  { a: { region: 'Orlando SpaceTech', sector: 'Space · Florida' }, b: { region: 'Adelaide Space Tech', sector: 'Space · Australia' }, pattern: 'Validation-Coordination' },
+  { a: { region: 'Orlando Simulation', sector: 'Defence Simulation · Florida' }, b: { region: 'Bengaluru Space', sector: 'Space · India' }, pattern: 'Government Anchor Legitimacy' },
+  { a: { region: 'Orlando Manufacturing', sector: 'Defence-Industrial · Florida' }, b: { region: 'Eindhoven Brainport', sector: 'Advanced Manufacturing · Netherlands' }, pattern: 'Coordination-Intermediary' },
+  { a: { region: 'Orlando MedTech', sector: 'Medical District · Florida' }, b: { region: 'Birmingham AL', sector: 'University Medical · Alabama' }, pattern: 'Partnership-Platform Stabilisation' },
+  { a: { region: 'Orlando Tourism Tech', sector: 'Experience Tech · Florida' }, b: { region: 'Bordeaux Metro', sector: 'Industrial Innovation · France' }, pattern: 'Coordination-Activity' },
+  { a: { region: 'Belfast Cyber', sector: 'Cyber Security · N. Ireland' }, b: { region: 'Cheltenham Cyber', sector: 'Cyber Security · England' }, pattern: 'Incumbent-Coordination' },
+];
+
+function renderResemblances() {
+  const el = document.getElementById('resemblances');
+  el.innerHTML = RESEMBLANCES.map(r => `
+    <div class="res-pair">
+      <div class="res-node">
+        <div class="res-node-region">${r.a.region}</div>
+        <div class="res-node-sector">${r.a.sector}</div>
+      </div>
+      <div class="res-connector">
+        <div class="res-line"></div>
+        <div class="res-pattern">${r.pattern}</div>
+        <div class="res-line"></div>
+      </div>
+      <div class="res-node">
+        <div class="res-node-region">${r.b.region}</div>
+        <div class="res-node-sector">${r.b.sector}</div>
+      </div>
+    </div>
+  `).join('') + `<div class="res-note">Structural resemblance means near-identical behavioural configuration — not identical sectors, actors, or outcomes</div>`;
+}
+
+// ── SCROLL REVEAL + BAR ANIMATION ────────────────────────────────────
+let barsAnimated = false;
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in');
+    // Trigger bar animation when chart is visible
+    if (e.target.id === 'freq-chart' && !barsAnimated) {
+      barsAnimated = true;
+      setTimeout(animateBars, 200);
+    }
+    obs.unobserve(e.target);
+  });
+}, { threshold: 0.1 });
+
+// ── INIT ──────────────────────────────────────────────────────────────
+renderFreq();
+renderStacks();
+renderResemblances();
+
+// Observe animated elements
+document.querySelectorAll('.anim, #freq-chart').forEach(el => obs.observe(el));
+</script>
+
+<section style="padding:48px 0;border-top:1px solid #1e2f45">
+  <div style="max-width:1100px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center">
+    <div>
+      <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#c8f0d0;margin-bottom:10px">Live example</div>
+      <div style="font-family:'Instrument Serif',serif;font-size:26px;color:#e8edf5;margin-bottom:10px">Orlando Innovation Ecosystem</div>
+      <p style="font-size:14px;color:#7a95b0;line-height:1.65;max-width:520px">10 clusters, 582 evidence items, three cross-cluster patterns, two behavioural stacks, and a prioritised leverage hypothesis. A full ClusterOS diagnostic summary — based on public evidence alone.</p>
+    </div>
+    <a href="summary.html" style="display:inline-block;background:#c8f0d0;color:#09101f;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:14px 28px;border-radius:4px;text-decoration:none;white-space:nowrap">View summary analysis →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Cluster<span>OS</span></a>
+      <p class="footer-tagline">Regional economies need infrastructure.<br>Not more strategy.</p>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <div class="footer-col-label">Product</div>
+        <a href="substrate.html">The Substrate</a>
+        <a href="diagnostic.html">The Diagnostic</a>
+        <a href="leverage.html">Leverage</a>
+        <a href="findings.html">Findings</a>
+        <a href="pricing.html">Pricing</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Lab Notes</div>
+        <a href="notes.html">All Notes</a>
+        <a href="ln-01-coordinating.html">S2 · Coordinating</a>
+        <a href="ln-02-narrating.html">S7 · Narrating</a>
+        <a href="ln-10-narrative-activity-stack.html">Narrative × Activity</a>
+        <a href="ln-12-leverage.html">What Leverage Looks Like</a>
+        <a href="ln-13-diagnosis.html">Why Diagnosis Fails</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Company</div>
+        <a href="about.html">About</a>
+        <a href="data.html">Diagnostic Data</a>
+        <a href="request.html">Request a Diagnostic</a>
+        <a href="/cdn-cgi/l/email-protection#f5949b91879082b5969a9898809b9c818c999497db948585"><span class="__cf_email__" data-cfemail="90f1fef4e2f5e7d0f3fffdfde5fef9e4e9fcf1f2bef1e0e0">[email&#160;protected]</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-base">
+    <span class="footer-copy">© 2026 ClusterOS · Community Lab</span>
+    <span class="footer-copy">Built in Edinburgh</span>
+  </div>
+
+
+<section style="padding: 40px 32px; max-width: 960px; margin: 0 auto;">
+  <div style="border: 1px solid #2a3a52; border-radius: 6px; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+    <div>
+      <div style="font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #c8f0d0; margin-bottom: 6px;">Structured Data</div>
+      <div style="font-size: 14px; color: #e8edf5;">All 75 diagnostic runs — cluster name, geography, sector, lifecycle stage, anchor type, and evidence count.</div>
+    </div>
+    <a href="data.html" style="font-size: 13px; font-weight: 500; color: var(--signal-dark, #1a6640); background: #c8f0d0; padd
+    <span class="footer-copy">© 2026 ClusterOS · Community Lab</span>
+    <span class="footer-copy">Built in Edinburgh</span>
+  </div>
+</footer>
+
+<style>
+/* ── UNIVERSAL MOBILE PATCH ── injected ── */
+html { overflow-x: hidden; }
+body { overflow-x: hidden; }
+@media (max-width: 480px) {
+  nav { padding: 0 16px !important; }
+  .nav-back { font-size: 11px; }
+  .nav-cta { font-size: 11px; padding: 6px 14px !important; }
+  .nav-logo { font-size: 15px !important; }
+}
+</style>
+
+
+<style>
+@media (max-width: 900px) {
+  .numbers-inner { grid-template-columns: repeat(2, 1fr) !important; }
+  .means-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 640px) {
+  .hero { padding: 80px 20px 48px !important; }
+  .hero-h { font-size: clamp(28px, 8vw, 42px) !important; }
+  .section { padding: 48px 20px !important; }
+  .filter-bar { flex-wrap: wrap; gap: 8px; }
+  .filter-pill { font-size: 11px; padding: 5px 12px; }
+  .cluster-row { flex-direction: column; gap: 8px; }
+  .data-callout { padding: 24px 20px; }
+}
+@media (max-width: 400px) {
+  .numbers-inner { grid-template-columns: 1fr !important; }
+}
+</style>
+
+</body>
+</html>

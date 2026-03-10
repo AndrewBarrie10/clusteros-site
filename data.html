@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#09101f;color:#e8edf5">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnostic Data — 75 Cluster Runs — ClusterOS</title>
+  <meta name="description" content="Structured data from 75 ClusterOS diagnostic runs across regional innovation clusters in 18 countries. Lifecycle stage, sector, anchor type, and evidence count for each cluster assessed.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://clusteros.io/data">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "ClusterOS Diagnostic Runs \u2014 75 Regional Innovation Cluster Assessments",
+  "description": "Results from 75 ClusterOS diagnostic runs across regional innovation clusters in 18 countries. Each run identifies active stabilisation stalls (S1\u2013S9), stack configurations, lifecycle stage, anchor type, and evidence count. Data covers cyber security, life sciences, space technology, advanced manufacturing, fintech, and regional innovation ecosystems. Diagnostic methodology from Ecosystem Stewardship (Barrie, 2024).",
+  "url": "https://clusteros.io/data",
+  "creator": {
+    "@type": "Organization",
+    "name": "ClusterOS",
+    "url": "https://clusteros.io"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Andrew Barrie"
+  },
+  "datePublished": "2026-03-09",
+  "license": "https://clusteros.io/terms",
+  "variableMeasured": [
+    {
+      "@type": "PropertyValue",
+      "name": "cluster_name",
+      "description": "Name of the regional innovation cluster"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "geography",
+      "description": "Geographic location of the cluster"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "sector",
+      "description": "Primary sector or technology domain"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "lifecycle_stage",
+      "description": "Cluster maturity stage: emerging, growing, mature, or transitioning"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "anchor_type",
+      "description": "Primary anchor institution type: university, government, corporate, military, or mixed"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "evidence_count",
+      "description": "Number of evidence items reviewed in the diagnostic run"
+    }
+  ],
+  "spatialCoverage": "Global \u2014 18 countries across North America, Europe, Asia-Pacific, Middle East, and South America",
+  "temporalCoverage": "2026-02/2026-03",
+  "keywords": [
+    "innovation clusters",
+    "regional innovation",
+    "cluster diagnostics",
+    "stabilisation stalls",
+    "ecosystem stewardship",
+    "cluster policy",
+    "life sciences clusters",
+    "cyber security clusters",
+    "space technology clusters"
+  ]
+}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#09101f;--slate:#2a3d5c;--slate-3:#5a7299;--chalk:#e8edf5;--chalk-2:#c4cdd9;--chalk-3:#8ba3c1;--signal:#c8f0d0;--signal-dark:#1a6640;--serif:'Instrument Serif',Georgia,serif;--sans:'Geist',system-ui,sans-serif;--mono:'Geist Mono',monospace}
+    body{background:#09101f;color:#e8edf5;font-family:var(--sans);font-weight:300;line-height:1.7;margin:0;padding:0}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:56px;background:rgba(9,16,31,0.95);border-bottom:1px solid rgba(42,61,92,0.5)}
+    .nav-logo{font-family:var(--sans);font-weight:400;font-size:15px;color:#e8edf5;text-decoration:none}.nav-logo span{font-family:'Geist Mono', monospace;font-weight:600;color:#c8f0d0}.nav-back{font-size:13px;color:#8ba3c1;text-decoration:none}.nav-back:hover{color:#e8edf5}.nav-cta{font-size:12px;font-weight:500;letter-spacing:.04em;padding:7px 16px;border-radius:4px;background:#c8f0d0;color:#1a6640;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:88px 32px 80px}
+    .page-header{margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid #1e2d42}
+    .page-tag{font-family:'Geist Mono', monospace;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#c8f0d0;margin-bottom:12px}
+    h1{font-size:28px;font-weight:400;color:#e8edf5;margin:0 0 12px;letter-spacing:-.01em}
+    .page-desc{font-size:14px;color:#8ba3c1;line-height:1.6;max-width:700px;margin:0 0 20px}
+    .stats{display:flex;gap:32px;flex-wrap:wrap}
+    .stat{font-family:'Geist Mono', monospace;font-size:11px;color:#8ba3c1}
+    .stat strong{color:#c8f0d0;font-size:16px;display:block;font-weight:700}
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    thead tr{border-bottom:1px solid #1e2d42}
+    th{font-family:'Geist Mono', monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#7a9bb5;padding:10px 12px;text-align:left}
+    td{padding:10px 12px;color:#c4cdd9;border-bottom:1px solid rgba(42,61,92,0.4)}
+    tr:hover td{background:rgba(42,61,92,0.15)}
+    td:first-child{color:#e8edf5;font-weight:400}
+    td:nth-child(4){font-family:'Geist Mono', monospace;font-size:11px}
+    td:nth-child(6){font-family:'Geist Mono', monospace;font-size:11px;color:#8ba3c1}
+    .badge{display:inline-block;padding:2px 8px;border-radius:3px;font-family:'Geist Mono', monospace;font-size:10px;font-weight:700;letter-spacing:.06em}
+    .badge.emerging{background:rgba(245,217,122,0.1);color:#f5d97a;border:1px solid rgba(245,217,122,0.2)}
+    .badge.growing{background:rgba(200,240,208,0.1);color:#c8f0d0;border:1px solid rgba(200,240,208,0.2)}
+    .badge.mature{background:rgba(125,211,200,0.1);color:#7dd3c8;border:1px solid rgba(125,211,200,0.2)}
+    .badge.transitioning{background:rgba(240,128,128,0.1);color:#f08080;border:1px solid rgba(240,128,128,0.2)}
+    .note{margin-top:40px;padding:20px 24px;background:rgba(42,61,92,0.15);border:1px solid #1e2d42;border-radius:6px;font-size:12px;color:#8ba3c1;line-height:1.6}
+    footer{border-top:1px solid #1e2d42;padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:60px}
+    .fl{font-family:var(--sans);font-weight:400;font-size:14px;color:#8ba3c1;text-decoration:none}.fl span{font-family:'Geist Mono', monospace;font-weight:600;color:#c8f0d0}.fcopy{font-size:12px;color:#7a9bb5}
+    @media(max-width:640px){nav{padding:0 20px}.wrap{padding:72px 16px 60px}table{display:block;overflow-x:auto}}
+  
+/* ── SITE FOOTER ─────────────────────────────────────────────────── */
+footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32px; }
+.footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; margin-bottom: 40px; }
+.footer-brand { display: flex; flex-direction: column; gap: 12px; }
+.footer-logo { font-family: 'Geist', system-ui, sans-serif; font-weight: 400; font-size: 15px; color: #e8edf5; text-decoration: none; }
+.footer-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+.footer-tagline { font-size: 13px; color: #8ba3c1; line-height: 1.5; margin: 0; }
+.footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.footer-col { display: flex; flex-direction: column; gap: 8px; }
+.footer-col-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #7a9bb5; margin-bottom: 4px; }
+.footer-col a { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color .2s; line-height: 1.4; }
+.footer-col a:hover { color: #e8edf5; }
+.footer-base { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; padding-top: 24px; border-top: 1px solid #2a3a52; flex-wrap: wrap; gap: 8px; }
+.footer-copy { font-size: 12px; color: #7a9bb5; }
+@media (max-width: 640px) {
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .footer-nav { grid-template-columns: 1fr 1fr; }
+}
+
+  </style>
+<style>
+/* ── PREVIEW SANDBOX BG FIX ── */
+html, body, .page, section, main, article, header,
+.container, .container-narrow, .container-wide,
+.section-inner, .section-wrap, .page-wrap,
+nav, footer { background-color: #09101f !important; }
+section { color: #e8edf5 !important; }
+h1, h2, h3, h4, p, li, span, div { color: inherit; }
+</style>
+</head>
+<body style="background:#09101f;color:#e8edf5">
+<nav>
+  <a href="index.html" class="nav-logo">Cluster<span>OS</span></a>
+  <a href="findings.html" class="nav-back">← Findings</a>
+  <a href="request.html" class="nav-cta">Request a Diagnostic</a>
+</nav>
+
+<div class="wrap">
+  <div class="page-header">
+    <div class="page-tag">ClusterOS · Diagnostic Data</div>
+    <h1>75 Cluster Diagnostic Runs — Structured Data</h1>
+    <p class="page-desc">Each row represents a completed ClusterOS diagnostic run. The diagnostic identifies active stabilisation stalls (S1–S9), stack configurations, lifecycle stage, and anchor type. Evidence count reflects the number of sources reviewed per run. Methodology from <em>Ecosystem Stewardship</em> (Barrie, 2024).</p>
+    <div class="stats">
+      <div class="stat"><strong>75</strong>clusters assessed</div>
+      <div class="stat"><strong>18</strong>countries</div>
+      <div class="stat"><strong>6</strong>sector domains</div>
+      <div class="stat"><strong>50–86</strong>evidence items per run</div>
+      <div class="stat"><strong>Feb–Mar 2026</strong>diagnostic period</div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Cluster</th>
+        <th>Geography</th>
+        <th>Sector</th>
+        <th>Stage</th>
+        <th>Anchor</th>
+        <th>Evidence</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td>Abu Dhabi HELM Life Sciences</td><td>Abu Dhabi UAE</td><td>Life Sciences</td><td>emerging</td><td>university</td><td>53</td></tr>
+<tr><td>Adelaide Space Technology</td><td>Adelaide South Australia</td><td>Space Technology</td><td>emerging</td><td>university</td><td>62</td></tr>
+<tr><td>Australia Canberra Cyber Security</td><td>Canberra Australia</td><td>Cyber Security</td><td>growing</td><td>government</td><td>53</td></tr>
+<tr><td>Basel Life Sciences</td><td>Basel Switzerland</td><td>Life Sciences</td><td>mature</td><td>university</td><td>65</td></tr>
+<tr><td>Basque Country Innovation Ecosystem</td><td>Bilbao Spain</td><td>Regional Economic Development</td><td>mature</td><td>government</td><td>68</td></tr>
+<tr><td>Belfast Cyber Security</td><td>Belfast Northern Ireland</td><td>Cyber Security</td><td>growing</td><td>university</td><td>54</td></tr>
+<tr><td>Bengaluru Space Technology</td><td>Bengaluru India</td><td>Space Technology</td><td>growing</td><td>university</td><td>72</td></tr>
+<tr><td>Birmingham Alabama Innovation Ecosystem</td><td>Birmingham AL USA</td><td>Regional Economic Development</td><td>emerging</td><td>university</td><td>61</td></tr>
+<tr><td>Bordeaux Metropolitan Innovation Ecosystem</td><td>Bordeaux France</td><td>Regional Economic Development</td><td>growing</td><td>government</td><td>60</td></tr>
+<tr><td>Boston-Cambridge Life Sciences</td><td>Boston MA USA</td><td>Life Sciences</td><td>mature</td><td>university</td><td>82</td></tr>
+<tr><td>Buffalo Niagara Innovation Ecosystem</td><td>Buffalo NY USA</td><td>Regional Economic Development</td><td>emerging</td><td>university</td><td>63</td></tr>
+<tr><td>Busan Innovation Ecosystem</td><td>Busan South Korea</td><td>Regional Economic Development</td><td>emerging</td><td>government</td><td>54</td></tr>
+<tr><td>Cambridge UK Life Sciences</td><td>Cambridge UK</td><td>Life Sciences</td><td>mature</td><td>university</td><td>62</td></tr>
+<tr><td>Cape Canaveral Space Coast</td><td>Cape Canaveral FL USA</td><td>Space Technology</td><td>mature</td><td>university</td><td>50</td></tr>
+<tr><td>Chattanooga Regional Innovation Ecosystem</td><td>Chattanooga TN USA</td><td>Regional Economic Development</td><td>emerging</td><td>government</td><td>71</td></tr>
+<tr><td>Cheltenham Cyber Security</td><td>Cheltenham UK</td><td>Cyber Security</td><td>mature</td><td>university</td><td>54</td></tr>
+<tr><td>Colorado Springs Space Technology</td><td>Colorado Springs CO USA</td><td>Space Technology</td><td>growing</td><td>university</td><td>60</td></tr>
+<tr><td>Copenhagen-Medicon Valley Life Sciences</td><td>Copenhagen Denmark</td><td>Life Sciences</td><td>mature</td><td>university</td><td>83</td></tr>
+<tr><td>Eindhoven Brainport Innovation Ecosystem</td><td>Eindhoven Netherlands</td><td>Regional Economic Development</td><td>mature</td><td>corporate</td><td>72</td></tr>
+<tr><td>Estonia Cyber Security</td><td>Tallinn Estonia</td><td>Cyber Security</td><td>growing</td><td>university</td><td>55</td></tr>
+<tr><td>Glasgow City Region Innovation Ecosystem</td><td>Glasgow Scotland UK</td><td>Regional Economic Development</td><td>growing</td><td>university</td><td>69</td></tr>
+<tr><td>Glasgow FinTech</td><td>Glasgow Scotland UK</td><td>FinTech</td><td>emerging</td><td>university</td><td>62</td></tr>
+<tr><td>Glasgow Health and Life Sciences</td><td>Glasgow Scotland UK</td><td>Health and Life Sciences</td><td>mature</td><td>university</td><td>72</td></tr>
+<tr><td>Greater Manchester Innovation Ecosystem</td><td>Manchester UK</td><td>Regional Economic Development</td><td>growing</td><td>government</td><td>76</td></tr>
+<tr><td>Harwell Space Technology</td><td>Harwell Oxfordshire UK</td><td>Space Technology</td><td>growing</td><td>university</td><td>55</td></tr>
+<tr><td>Houston Space Technology</td><td>Houston TX USA</td><td>Space Technology</td><td>mature</td><td>university</td><td>56</td></tr>
+<tr><td>Hyderabad Genome Valley Life Sciences</td><td>Hyderabad India</td><td>Life Sciences</td><td>growing</td><td>university</td><td>50</td></tr>
+<tr><td>Los Angeles Space Technology</td><td>Los Angeles CA USA</td><td>Space Technology</td><td>mature</td><td>university</td><td>54</td></tr>
+<tr><td>Madison Regional Innovation Ecosystem</td><td>Madison WI USA</td><td>Regional Economic Development</td><td>growing</td><td>university</td><td>60</td></tr>
+<tr><td>Medellin Innovation Ecosystem</td><td>Medellin Colombia</td><td>Regional Economic Development</td><td>growing</td><td>government</td><td>63</td></tr>
+<tr><td>Melbourne Life Sciences</td><td>Melbourne Australia</td><td>Life Sciences</td><td>growing</td><td>university</td><td>65</td></tr>
+<tr><td>Nashville Regional Innovation Ecosystem</td><td>Nashville TN USA</td><td>Regional Economic Development</td><td>growing</td><td>corporate</td><td>65</td></tr>
+<tr><td>New Zealand Space Technology</td><td>Mahia Peninsula New Zealand</td><td>Space Technology</td><td>growing</td><td>university</td><td>64</td></tr>
+<tr><td>Orlando Advanced Manufacturing</td><td>Orlando FL USA</td><td>Advanced Manufacturing</td><td>mature</td><td>corporate</td><td>58</td></tr>
+<tr><td>Orlando AgTech</td><td>Orlando FL USA</td><td>AgTech</td><td>emerging</td><td>university</td><td>54</td></tr>
+<tr><td>Orlando Aviation and Aerospace</td><td>Orlando FL USA</td><td>Aviation and Aerospace</td><td>mature</td><td>corporate</td><td>55</td></tr>
+<tr><td>Orlando Cybersecurity</td><td>Orlando FL USA</td><td>Cybersecurity</td><td>emerging</td><td>military</td><td>56</td></tr>
+<tr><td>Orlando Digital Media</td><td>Orlando FL USA</td><td>Digital Media</td><td>mature</td><td>corporate</td><td>58</td></tr>
+<tr><td>Orlando MedTech</td><td>Orlando FL USA</td><td>MedTech</td><td>emerging</td><td>university</td><td>57</td></tr>
+<tr><td>Orlando Photonics and Optics</td><td>Orlando FL USA</td><td>Photonics</td><td>emerging</td><td>university</td><td>58</td></tr>
+<tr><td>Orlando Simulation and Training</td><td>Orlando FL USA</td><td>Simulation and Training</td><td>mature</td><td>military</td><td>61</td></tr>
+<tr><td>Orlando SpaceTech</td><td>Orlando FL USA</td><td>Space Technology</td><td>mature</td><td>government</td><td>57</td></tr>
+<tr><td>Orlando Tourism Technology</td><td>Orlando FL USA</td><td>Tourism Technology</td><td>mature</td><td>corporate</td><td>68</td></tr>
+<tr><td>Pittsburgh Regional Innovation Ecosystem</td><td>Pittsburgh PA USA</td><td>Regional Economic Development</td><td>growing</td><td>university</td><td>75</td></tr>
+<tr><td>Porto Innovation Ecosystem</td><td>Porto Portugal</td><td>Regional Economic Development</td><td>emerging</td><td>university</td><td>59</td></tr>
+<tr><td>Quebec City Innovation Ecosystem</td><td>Quebec City Canada</td><td>Regional Economic Development</td><td>growing</td><td>university</td><td>57</td></tr>
+<tr><td>Research Triangle Innovation Ecosystem</td><td>Raleigh-Durham NC USA</td><td>Regional Economic Development</td><td>mature</td><td>university</td><td>76</td></tr>
+<tr><td>Research Triangle Life Sciences</td><td>Raleigh-Durham-Chapel Hill NC</td><td>Life Sciences</td><td>mature</td><td>university</td><td>62</td></tr>
+<tr><td>San Francisco Bay Area Cyber Security</td><td>San Francisco Bay Area CA</td><td>Cyber Security</td><td>mature</td><td>university</td><td>74</td></tr>
+<tr><td>San Francisco Bay Area Life Sciences</td><td>San Francisco Bay Area CA</td><td>Life Sciences</td><td>mature</td><td>university</td><td>55</td></tr>
+<tr><td>Scotland Advanced Manufacturing</td><td>Renfrewshire Glasgow and Central Belt Scotland</td><td>Advanced Manufacturing</td><td>growing</td><td>government</td><td>72</td></tr>
+<tr><td>Scotland Creative Industries</td><td>Glasgow Edinburgh Dundee Scotland</td><td>Creative Industries</td><td>growing</td><td>university</td><td>69</td></tr>
+<tr><td>Scotland Cyber Security</td><td>Edinburgh-Glasgow Scotland</td><td>Cyber Security</td><td>growing</td><td>university</td><td>55</td></tr>
+<tr><td>Scotland Data and AI</td><td>Edinburgh and Central Belt Scotland</td><td>Data and AI</td><td>growing</td><td>university</td><td>65</td></tr>
+<tr><td>Scotland Energy Transition</td><td>Aberdeen and North East Scotland</td><td>Energy Transition</td><td>transitioning</td><td>corporate</td><td>63</td></tr>
+<tr><td>Scotland FinTech</td><td>Edinburgh and Central Belt Scotland</td><td>FinTech</td><td>mature</td><td>corporate</td><td>61</td></tr>
+<tr><td>Scotland Food and Drink</td><td>Scotland UK</td><td>Food and Drink</td><td>mature</td><td>corporate</td><td>69</td></tr>
+<tr><td>Scotland Health Tech</td><td>Edinburgh Glasgow and Dundee Scotland</td><td>Health Tech</td><td>growing</td><td>university</td><td>69</td></tr>
+<tr><td>Scotland Life Sciences</td><td>Edinburgh Dundee and Glasgow Scotland</td><td>Life Sciences</td><td>mature</td><td>university</td><td>71</td></tr>
+<tr><td>Scotland Quantum and Photonics</td><td>Glasgow and Central Belt Scotland</td><td>Quantum and Photonics</td><td>emerging</td><td>university</td><td>57</td></tr>
+<tr><td>Scotland SpaceTech</td><td>Scotland UK</td><td>Space Technology</td><td>emerging</td><td>government</td><td>62</td></tr>
+<tr><td>Scotland Tourism and Hospitality Tech</td><td>Scotland UK</td><td>Tourism and Hospitality Tech</td><td>emerging</td><td>government</td><td>66</td></tr>
+<tr><td>Singapore Biopolis Life Sciences</td><td>Singapore</td><td>Life Sciences</td><td>mature</td><td>university</td><td>63</td></tr>
+<tr><td>Singapore Cyber Security</td><td>Singapore</td><td>Cyber Security</td><td>growing</td><td>government</td><td>74</td></tr>
+<tr><td>Tel Aviv Cyber Security</td><td>Tel Aviv Israel</td><td>Cyber Security</td><td>mature</td><td>university</td><td>70</td></tr>
+<tr><td>The Hague Cyber Security</td><td>The Hague Netherlands</td><td>Cyber Security</td><td>growing</td><td>university</td><td>52</td></tr>
+<tr><td>Toulouse Space Technology</td><td>Toulouse France</td><td>Space Technology</td><td>mature</td><td>university</td><td>60</td></tr>
+<tr><td>Tsukuba Space Technology</td><td>Tsukuba Japan</td><td>Space Technology</td><td>growing</td><td>university</td><td>55</td></tr>
+<tr><td>Tulsa Regional Innovation Ecosystem</td><td>Tulsa OK USA</td><td>Regional Economic Development</td><td>emerging</td><td>mixed</td><td>56</td></tr>
+<tr><td>UAE Cyber Security</td><td>Abu Dhabi Dubai UAE</td><td>Cyber Security</td><td>emerging</td><td>university</td><td>63</td></tr>
+<tr><td>UAE Space Technology</td><td>Abu Dhabi UAE</td><td>Space Technology</td><td>emerging</td><td>university</td><td>57</td></tr>
+<tr><td>Washington DC Cyber Security</td><td>Washington DC USA</td><td>Cyber Security</td><td>mature</td><td>university</td><td>68</td></tr>
+<tr><td>West Midlands Innovation Ecosystem</td><td>Birmingham UK</td><td>Regional Economic Development</td><td>growing</td><td>government</td><td>86</td></tr>
+<tr><td>Wichita Regional Innovation Ecosystem</td><td>Wichita KS USA</td><td>Regional Economic Development</td><td>emerging</td><td>corporate</td><td>59</td></tr>
+<tr><td>Zurich-Zug MedTech</td><td>Zurich and Zug Switzerland</td><td>MedTech</td><td>growing</td><td>university</td><td>66</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <strong>Data notes:</strong> Stall codes (S1–S9) and stack configurations are reported in individual diagnostic outputs, not reproduced here. Lifecycle stage definitions: <em>emerging</em> — pre-commercial concentration; <em>growing</em> — active scaling with unresolved stalls; <em>mature</em> — established with compounding or stagnation risk; <em>transitioning</em> — anchor-driven sector shift underway. Anchor type reflects the dominant institutional actor in the diagnostic period, not a permanent designation. Evidence count reflects documents, interviews, and data sources reviewed; it is not a quality or confidence score.
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Cluster<span>OS</span></a>
+      <p class="footer-tagline">Regional economies need infrastructure.<br>Not more strategy.</p>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <div class="footer-col-label">Product</div>
+        <a href="substrate.html">The Substrate</a>
+        <a href="diagnostic.html">The Diagnostic</a>
+        <a href="leverage.html">Leverage</a>
+        <a href="findings.html">Findings</a>
+        <a href="pricing.html">Pricing</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Lab Notes</div>
+        <a href="notes.html">All Notes</a>
+        <a href="ln-01-coordinating.html">S2 · Coordinating</a>
+        <a href="ln-02-narrating.html">S7 · Narrating</a>
+        <a href="ln-10-narrative-activity-stack.html">Narrative × Activity</a>
+        <a href="ln-12-leverage.html">What Leverage Looks Like</a>
+        <a href="ln-13-diagnosis.html">Why Diagnosis Fails</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Company</div>
+        <a href="about.html">About</a>
+        <a href="data.html">Diagnostic Data</a>
+        <a href="request.html">Request a Diagnostic</a>
+        <a href="/cdn-cgi/l/email-protection#f998979d8b9c8eb99a9694948c97908d8095989bd7988989"><span class="__cf_email__" data-cfemail="55343b3127302215363a3838203b3c212c3934377b342525">[email&#160;protected]</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-base">
+    <span class="fo
+    <span class="footer-copy">© 2026 ClusterOS · Community Lab</span>
+    <span class="footer-copy">Built in Edinburgh</span>
+  </div>
+</footer>
+
+<style>
+/* ── UNIVERSAL MOBILE PATCH ── injected ── */
+html { overflow-x: hidden; }
+body { overflow-x: hidden; }
+@media (max-width: 480px) {
+  nav { padding: 0 16px !important; }
+  .nav-back { font-size: 11px; }
+  .nav-cta { font-size: 11px; padding: 6px 14px !important; }
+  .nav-logo { font-size: 15px !important; }
+}
+</style>
+
+
+<style>
+@media (max-width: 900px) {
+  .data-layout { grid-template-columns: 1fr !important; }
+  .filter-sidebar { display: none; }
+}
+@media (max-width: 640px) {
+  .wrap { padding: 80px 16px 60px !important; }
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  th, td { white-space: nowrap; font-size: 12px; padding: 8px 10px; }
+  .stats-row { flex-wrap: wrap; gap: 8px; }
+  .stat-chip { font-size: 12px; }
+  .data-controls { flex-wrap: wrap; gap: 8px; }
+}
+</style>
+
+
+<style>
+/* ── NAV-BACK MOBILE FIX ── */
+@media (max-width: 400px) {
+  .nav-back { display: none; }
+}
+@media (max-width: 480px) {
+  .nav-back { font-size: 10px; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+</style>
+</body>
+</html>

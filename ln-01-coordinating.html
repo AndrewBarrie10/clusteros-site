@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#09101f;color:#e8edf5">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coordinating Instead of Deciding — ClusterOS Lab Notes</title>
+  <meta name="description" content="S2 appears in 97% of cluster diagnostics. Not because ecosystems are poorly led, but because coordination is a rational response to the pressure of governing a system you do not control.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://clusteros.io/notes/coordinating-instead-of-deciding">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Coordinating Instead of Deciding — ClusterOS Lab Notes">
+  <meta property="og:description" content="S2 appears in 97% of cluster diagnostics. Not because ecosystems are poorly led, but because coordination is a rational response to pressure.">
+  <meta property="og:url" content="https://clusteros.io/notes/coordinating-instead-of-deciding">
+  <meta property="og:site_name" content="ClusterOS">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Coordinating Instead of Deciding",
+    "description": "S2 appears in 97% of cluster diagnostics. Not because ecosystems are poorly led, but because coordination is a rational response to the pressure of governing a system you do not control.",
+    "author": {"@type": "Person", "name": "Andrew Barrie"},
+    "publisher": {"@type": "Organization", "name": "ClusterOS", "url": "https://clusteros.io"},
+    "url": "https://clusteros.io/notes/coordinating-instead-of-deciding",
+    "isPartOf": {"@type": "Blog", "name": "ClusterOS Lab Notes", "url": "https://clusteros.io/notes"}
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #09101f; --ink-2: #0f1a2e;
+      --slate: #2a3d5c; --slate-2: #3d5478; --slate-3: #5a7299;
+      --chalk: #e8edf5; --chalk-2: #c4cdd9; --chalk-3: #8ba3c1;
+      --signal: #c8f0d0; --signal-dark: #1a6640;
+      --amber: #f5d97a; --crimson: #f08080; --teal: #7dd3c8;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'Geist', system-ui, sans-serif;
+      --mono: 'Geist Mono', monospace;
+    }
+    html { scroll-behavior: smooth; background: #09101f; color: #e8edf5; }
+    body { background: #09101f; color: #e8edf5; font-family: var(--sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; margin: 0; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; background: rgba(9,16,31,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(42,61,92,0.5); }
+    .nav-logo { font-family: var(--sans); font-weight: 400; font-size: 15px; color: #e8edf5; text-decoration: none; }
+    .nav-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+    .nav-center { font-size: 13px; color: #8ba3c1; }
+    .nav-cta { font-size: 12px; font-weight: 500; letter-spacing: 0.04em; padding: 7px 16px; border-radius: 4px; background: #c8f0d0; color: #1a6640; text-decoration: none; transition: opacity 0.2s; }
+    .nav-cta:hover { opacity: 0.85; }
+    .article-wrap { max-width: 720px; margin: 0 auto; padding: 108px 32px 100px; }
+    .breadcrumb { font-family: 'Geist Mono', monospace; font-size: 11px; color: #7a9bb5; margin-bottom: 32px; display: flex; align-items: center; gap: 8px; }
+    .breadcrumb a { color: #8ba3c1; text-decoration: none; }
+    .breadcrumb a:hover { color: #e8edf5; }
+    .article-series { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #c8f0d0; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .article-series::before { content: ''; display: block; width: 24px; height: 1px; background: #c8f0d0; }
+    h1 { font-family: 'Instrument Serif', serif; font-size: clamp(32px, 5vw, 50px); line-height: 1.1; letter-spacing: -0.02em; color: #e8edf5; margin: 0 0 20px; }
+    h1 em { font-style: italic; color: #f5d97a; }
+    .deck { font-size: 18px; color: #c4cdd9; line-height: 1.6; font-weight: 300; margin: 0 0 28px; border-left: 2px solid #2a3a52; padding-left: 20px; }
+    .meta { font-family: 'Geist Mono', monospace; font-size: 11px; color: #8ba3c1; display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid #1e2d42; }
+    .freq-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 4px; background: rgba(200,240,208,0.07); border: 1px solid rgba(200,240,208,0.2); font-family: 'Geist Mono', monospace; font-size: 11px; color: #c8f0d0; margin: 0 0 40px; }
+    .freq-badge strong { font-weight: 700; font-size: 15px; }
+    h2 { font-family: 'Instrument Serif', serif; font-size: 26px; color: #e8edf5; margin: 52px 0 16px; letter-spacing: -0.01em; line-height: 1.2; }
+    p { margin: 0 0 22px; color: #c4cdd9; font-size: 16px; }
+    p strong { color: #e8edf5; font-weight: 500; }
+    .body-lead { font-size: 18px; color: #e8edf5; }
+    .pullquote { margin: 40px 0; padding: 28px 32px; border-left: 3px solid #f5d97a; background: rgba(245,217,122,0.04); border-radius: 0 6px 6px 0; }
+    .pullquote p { font-family: 'Instrument Serif', serif; font-size: 20px; color: #e8edf5; line-height: 1.5; margin: 0; font-style: italic; }
+    .pullquote cite { display: block; margin-top: 12px; font-family: 'Geist Mono', monospace; font-size: 10px; color: #8ba3c1; letter-spacing: 0.1em; font-style: normal; text-transform: uppercase; }
+
+    /* STALL DIAGRAM */
+    .diagram { margin: 40px 0; padding: 32px; background: #0f1829; border: 1px solid #1e2d42; border-radius: 8px; }
+    .diagram-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #7a9bb5; margin-bottom: 28px; }
+    .substitution { display: grid; grid-template-columns: 1fr 40px 1fr; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .sub-box { padding: 18px 20px; border-radius: 6px; }
+    .sub-box.x { background: rgba(200,240,208,0.06); border: 1px solid rgba(200,240,208,0.2); }
+    .sub-box.y { background: rgba(240,128,128,0.06); border: 1px solid rgba(240,128,128,0.2); }
+    .sub-tag { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+    .sub-tag.x { color: #c8f0d0; }
+    .sub-tag.y { color: #f08080; }
+    .sub-text { font-size: 14px; line-height: 1.4; }
+    .sub-text.x { color: #c8f0d0; }
+    .sub-text.y { color: #f08080; }
+    .sub-arrow { text-align: center; color: #7a9bb5; font-size: 22px; }
+    .diagram-note { font-size: 13px; color: #8ba3c1; border-top: 1px solid #1e2d42; padding-top: 16px; margin-top: 8px; }
+
+    /* PRESSURE → RESPONSE LOOP */
+    .loop-diagram { margin: 40px 0; }
+    .loop-svg-wrap { background: #0f1829; border: 1px solid #1e2d42; border-radius: 8px; padding: 32px; }
+
+    /* EPISTEMIC */
+    .epistemic { margin: 56px 0 0; padding: 24px 28px; background: rgba(42,61,92,0.15); border: 1px solid #1e2d42; border-radius: 6px; }
+    .epistemic-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #7a9bb5; margin-bottom: 12px; }
+    .epistemic p { font-size: 13px; color: #8ba3c1; margin: 0 0 8px; line-height: 1.6; }
+    .epistemic p:last-child { margin: 0; }
+
+    /* RELATED */
+    .related { margin: 56px 0 0; padding-top: 40px; border-top: 1px solid #1e2d42; }
+    .related-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #7a9bb5; margin-bottom: 20px; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .related-card { padding: 16px 20px; border-radius: 6px; border: 1px solid #1e2d42; text-decoration: none; transition: border-color 0.2s; display: block; }
+    .related-card:hover { border-color: #2a3a52; }
+    .related-card-tag { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #7a9bb5; margin-bottom: 6px; }
+    .related-card-title { font-size: 14px; color: #c4cdd9; line-height: 1.3; }
+
+    /* CTA */
+    .cta-strip { margin: 56px 0 0; padding: 36px 40px; background: #0f1829; border: 1px solid #1e2d42; border-radius: 8px; text-align: center; }
+    .cta-strip p { font-size: 15px; color: #c4cdd9; margin: 0 0 20px; }
+    .cta-strip a { display: inline-block; padding: 10px 24px; background: #c8f0d0; color: #1a6640; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; border-radius: 4px; text-decoration: none; transition: opacity 0.2s; }
+    .cta-strip a:hover { opacity: 0.85; }
+
+    footer { border-top: 1px solid #1e2d42; padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-top: 80px; }
+    .footer-logo { font-family: var(--sans); font-weight: 400; font-size: 14px; color: #8ba3c1; text-decoration: none; }
+    .footer-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: #e8edf5; }
+    .footer-copy { font-size: 12px; color: #7a9bb5; }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .article-wrap { padding: 88px 20px 80px; }
+      .substitution { grid-template-columns: 1fr; }
+      .sub-arrow { transform: rotate(90deg); margin: 8px auto; }
+      .pullquote { padding: 20px; }
+      footer { flex-direction: column; align-items: flex-start; }
+      .nav-center { display: none; }
+    }
+  
+/* ── SITE FOOTER ─────────────────────────────────────────────────── */
+footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32px; }
+.footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; margin-bottom: 40px; }
+.footer-brand { display: flex; flex-direction: column; gap: 12px; }
+.footer-logo { font-family: 'Geist', system-ui, sans-serif; font-weight: 400; font-size: 15px; color: #e8edf5; text-decoration: none; }
+.footer-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+.footer-tagline { font-size: 13px; color: #8ba3c1; line-height: 1.5; margin: 0; }
+.footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.footer-col { display: flex; flex-direction: column; gap: 8px; }
+.footer-col-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #7a9bb5; margin-bottom: 4px; }
+.footer-col a { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color .2s; line-height: 1.4; }
+.footer-col a:hover { color: #e8edf5; }
+.footer-base { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; padding-top: 24px; border-top: 1px solid #2a3a52; flex-wrap: wrap; gap: 8px; }
+.footer-copy { font-size: 12px; color: #7a9bb5; }
+@media (max-width: 640px) {
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .footer-nav { grid-template-columns: 1fr 1fr; }
+}
+
+  </style>
+<style>
+/* ── PREVIEW SANDBOX BG FIX ── */
+html, body, .page, section, main, article, header,
+.container, .container-narrow, .container-wide,
+.section-inner, .section-wrap, .page-wrap,
+nav, footer { background-color: #09101f !important; }
+section { color: #e8edf5 !important; }
+h1, h2, h3, h4, p, li, span, div { color: inherit; }
+</style>
+</head>
+<body style="background:#09101f;color:#e8edf5">
+<nav>
+  <a href="index.html" class="nav-logo">Cluster<span>OS</span></a>
+  <a href="notes.html" class="nav-back">← Lab Notes</a>
+  <a href="request.html" class="nav-cta">Request a Diagnostic</a>
+</nav>
+
+
+
+<div class="article-wrap">
+
+  <div class="breadcrumb">
+    <a href="index.html">Home</a> ›
+    <a href="notes.html">Lab Notes</a> ›
+    S2 · Coordinating Instead of Deciding
+  </div>
+
+  <div class="article-series">Lab Notes · Stall Series</div>
+
+  <h1>Coordinating <em>Instead of</em> Deciding</h1>
+
+  <p class="deck">S2 appears in 97% of cluster diagnostics. Not because ecosystems are poorly led, but because coordination is a rational response to the particular pressure of governing a system you do not control.</p>
+
+  <div class="meta">
+    <span>Andrew Barrie</span>
+    <span>March 2026</span>
+    <span>8 min read</span>
+  </div>
+
+  <div class="freq-badge">
+    <strong>97%</strong> frequency across 75+ diagnostics · Most common stall identified
+  </div>
+
+  <p class="body-lead">The meeting ends with a clear action item. The secretariat will circulate a summary and propose dates for the next session. Six months later, the same people are in the same room. The PowerPoint has a new date in the footer.</p>
+
+  <p>No one is obstructing. No one is incompetent. The coordination is genuine. What no one asks is the question that matters: <strong>what has stopped happening because this meeting works so well?</strong></p>
+
+  <p>This is what S2 looks like from the inside. It does not feel like a stall. It feels like governance.</p>
+
+  <h2>What the stall actually is</h2>
+
+  <p>A stall is a behavioural substitution — the system doing something observable instead of something harder. S2 is specific: when complexity increases, when pressure arrives, when decisions become politically uncomfortable, the system adds coordination mechanisms instead of making exclusionary choices.</p>
+
+  <div class="diagram">
+    <div class="diagram-label">S2 · Substitution pattern</div>
+    <div class="substitution">
+      <div class="sub-box x">
+        <div class="sub-tag x">X-side · What happens</div>
+        <div class="sub-text x">Forums, taskforces, working groups, alignment sessions, multi-stakeholder governance structures, updated terms of reference</div>
+      </div>
+      <div class="sub-arrow">→</div>
+      <div class="sub-box y">
+        <div class="sub-tag y">Y-side · What doesn't</div>
+        <div class="sub-text y">Exclusionary decisions. Choices that concentrate authority. Saying no to a stakeholder. Committing resources to fewer things.</div>
+      </div>
+    </div>
+    <div class="diagram-note">The stall is the substitution, not the coordination itself. Coordination becomes a stall when it reliably activates in response to pressure and reliably prevents decisions that carry consequence.</div>
+  </div>
+
+  <p>The distinction matters. Early coordination is often scaffolding — a necessary precondition for the system to function at all. The stall appears when coordination has become the default response to pressure rather than a deliberate choice. When the working group is convened not because alignment is needed, but because a decision is uncomfortable.</p>
+
+  <h2>Why it's rational</h2>
+
+  <p>Nobody chooses S2 the way they choose a strategy. It emerges because it works.</p>
+
+  <p>Consider what the coordinator faces. They are responsible for a system they do not control. Downstream impact is lagged, contested, and rarely attributable. Making an exclusionary decision — concentrating resources, saying no to an organisation, choosing between competing priorities — risks alienating stakeholders whose cooperation they still need. Coordination reduces that risk. It distributes decision-making until no single actor bears the political cost of the outcome.</p>
+
+  <div class="pullquote">
+    <p>Coordination reduces friction, so the system coordinates more. Each time it works, the response becomes more available — and more automatic.</p>
+    <cite>Ecosystem Stewardship · Chapter 4</cite>
+  </div>
+
+  <p>The problem is not that this logic is wrong. The problem is what it displaces. Every decision deferred to a working group is a decision that cannot narrow the system's options, concentrate its resources, or force learning from consequence. The system stays coherent — and stays the same.</p>
+
+  <h2>What the reinforcement loop looks like</h2>
+
+  <p>S2 rarely operates alone. Its most common partner is S7 — Narrating Instead of Testing. Narrative legitimises coordination (we are making progress) and coordination supplies narrative with fresh material (we are aligning around priorities). Together, they form the Governance Theatre stack: the system becomes excellent at demonstrating process while deferring any commitment that would force it to be held accountable for outcomes.</p>
+
+  <p>The second common pairing is S5 — Mediating Instead of Coupling. Intermediary organisations depend on coordination structures for their mandate and their budget. Coordination structures benefit from intermediaries who manage the complexity of direct actor engagement. Each makes the other more durable.</p>
+
+  <p>When these combinations appear, removing coordination without addressing the other stalls typically fails. The stack compensates. The intervention is absorbed.</p>
+
+  <h2>How to recognise it in your system</h2>
+
+  <p>The diagnostic signal for S2 is not the presence of coordination — it is the relationship between coordination and decision. Ask three questions:</p>
+
+  <p><strong>First:</strong> When did this coordination structure last produce a choice that something would stop? Not slow down, not be reviewed, but stop. If you cannot name one, the structure has become load-bearing without being productive.</p>
+
+  <p><strong>Second:</strong> What would happen if this forum stopped meeting? If the answer is "things would fragment" rather than "decisions would be taken differently," the forum is managing complexity rather than resolving it.</p>
+
+  <p><strong>Third:</strong> Who benefits from alignment never quite finishing? Coordination structures employ people. They justify institutional mandates. They create professional identities around ecosystem building. These are real interests. They are not bad faith. But they explain persistence that evidence alone would not justify.</p>
+
+  <h2>Where leverage exists — and where it doesn't</h2>
+
+  <p>The leverage move for S2 is not to stop coordinating. It is to time-bound coordination and require renewal criteria that are harder to meet than continued existence.</p>
+
+  <p>A working group that has met quarterly for four years with a mandate to "ensure alignment" should face a question: <em>what has this structure produced that would not have happened without it?</em> Not alignment. Not relationships. Specific decisions. Narrowed options. Concentrated resources. If the answer is thin, the structure is doing something other than what it claims.</p>
+
+  <p>Where leverage does not exist: early-stage ecosystems where coordination is genuinely building the preconditions for later decision-making. Applying this lens too early misreads necessary scaffolding as stabilisation. The test is temporal — is coordination producing narrowing over time, or reproducing itself?</p>
+
+  <div class="epistemic">
+    <div class="epistemic-label">Epistemic note</div>
+    <p>S2 has high X-side observability — the presence of coordination structures is visible in public records, programme documentation, and meeting outputs. Y-side confidence depends on being able to observe the absence of exclusionary decisions, which requires access to steward-held records or direct engagement.</p>
+    <p>The 97% frequency figure reflects appearance across completed diagnostics, not causal attribution. S2 being present does not mean coordination caused stagnation — it means the substitution pattern was observed. Claims about what the coordination is preventing require higher-confidence evidence of the Y-side.</p>
+    <p>The framework cannot always distinguish early-stage scaffolding from stabilising substitution without temporal data. Where coordination has been operating for less than two years, claims should be framed as tentative.</p>
+  </div>
+
+  <div class="related">
+    <div class="related-label">Related notes</div>
+    <div class="related-grid">
+      <a href="ln-02-narrating.html" class="related-card">
+        <div class="related-card-tag">S7 · Stall</div>
+        <div class="related-card-title">Narrating Instead of Testing</div>
+      </a>
+      <a href="ln-10-narrative-activity-stack.html" class="related-card">
+        <div class="related-card-tag">Stack</div>
+        <div class="related-card-title">The Narrative × Activity Stack</div>
+      </a>
+      <a href="ln-12-leverage.html" class="related-card">
+        <div class="related-card-tag">Leverage</div>
+        <div class="related-card-title">What Leverage Actually Looks Like</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="cta-strip">
+    <p>S2 appears in 97% of diagnostics. Find out whether it's operating in your cluster — and what it's paired with.</p>
+    <a href="request.html">Request a Diagnostic →</a>
+  </div>
+
+</div>
+
+
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Cluster<span>OS</span></a>
+      <p class="footer-tagline">Regional economies need infrastructure.<br>Not more strategy.</p>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <div class="footer-col-label">Product</div>
+        <a href="substrate.html">The Substrate</a>
+        <a href="diagnostic.html">The Diagnostic</a>
+        <a href="leverage.html">Leverage</a>
+        <a href="findings.html">Findings</a>
+        <a href="pricing.html">Pricing</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Lab Notes</div>
+        <a href="notes.html">All Notes</a>
+        <a href="ln-01-coordinating.html">S2 · Coordinating</a>
+        <a href="ln-02-narrating.html">S7 · Narrating</a>
+        <a href="ln-10-narrative-activity-stack.html">Narrative × Activity</a>
+        <a href="ln-12-leverage.html">What Leverage Looks Like</a>
+        <a href="ln-13-diagnosis.html">Why Diagnosis Fails</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Company</div>
+        <a href="about.html">About</a>
+        <a href="data.html">Diagnostic Data</a>
+        <a href="request.html">Request a Diagnostic</a>
+        <a href="/cdn-cgi/l/email-protection#3958575d4b5c4e795a5654544c57504d4055585b17584949"><span class="__cf_email__" data-cfemail="a5c4cbc1d7c0d2e5c6cac8c8d0cbccd1dcc9c4c78bc4d5d5">[email&#160;protected]</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-base">
+    <span class="foo
+    <span class="footer-copy">© 2026 ClusterOS · Community Lab</span>
+    <span class="footer-copy">Built in Edinburgh</span>
+  </div>
+</footer>
+
+<style>
+/* ── UNIVERSAL MOBILE PATCH ── injected ── */
+html { overflow-x: hidden; }
+body { overflow-x: hidden; }
+@media (max-width: 480px) {
+  nav { padding: 0 16px !important; }
+  .nav-back { font-size: 11px; }
+  .nav-cta { font-size: 11px; padding: 6px 14px !important; }
+  .nav-logo { font-size: 15px !important; }
+}
+</style>
+
+
+<style>
+@media (max-width: 900px) {
+  .substitution { grid-template-columns: 1fr !important; }
+  .sub-arrow { transform: rotate(90deg); margin: 8px auto; display: block; }
+  .related-grid { grid-template-columns: 1fr 1fr !important; }
+  .two-col-body, .article-layout { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 640px) {
+  nav { padding: 0 16px; }
+  .article-wrap, .body-wrap { padding: 80px 20px 80px !important; }
+  h1, .article-headline, .hero-h { font-size: clamp(24px, 7vw, 36px) !important; }
+  .lede, .article-lede { font-size: 16px !important; }
+  blockquote, .pull-quote { padding: 14px 16px 14px 18px; font-size: 17px; }
+  .evidence-grid, .stall-grid, .two-col { grid-template-columns: 1fr !important; }
+  .related-grid { grid-template-columns: 1fr !important; }
+  .tag-row { flex-wrap: wrap; gap: 6px; }
+  .section-h, h2 { font-size: clamp(18px, 5vw, 24px) !important; }
+  p { font-size: 15px; line-height: 1.65; }
+}
+</style>
+
+
+<style>
+/* ── NAV-BACK MOBILE FIX ── */
+@media (max-width: 400px) {
+  .nav-back { display: none; }
+}
+@media (max-width: 480px) {
+  .nav-back { font-size: 10px; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+</style>
+</body>
+</html>

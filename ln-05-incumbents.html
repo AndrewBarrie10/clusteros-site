@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#09101f;color:#e8edf5">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stabilising Around Incumbents — ClusterOS Lab Notes</title>
+  <meta name="description" content="S6: An innovation agency designs a new programme. The criteria, delivery model, and success metrics are shaped by what current grantees can absorb. Proposals that w…">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://clusteros.io/notes/stabilising-around-incumbents">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Stabilising Around Incumbents — ClusterOS Lab Notes">
+  <meta property="og:description" content="An innovation agency designs a new programme. The criteria, delivery model, and success metrics are shaped by what current grantees can absorb. Proposals that w…">
+  <meta property="og:url" content="https://clusteros.io/notes/stabilising-around-incumbents">
+  <meta property="og:site_name" content="ClusterOS">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Article","headline":"Stabilising Around Incumbents","description":"An innovation agency designs a new programme. The criteria, delivery model, and success metrics are shaped by what current grantees can absorb. Proposals that w…","author":{"@type":"Person","name":"Andrew Barrie"},"publisher":{"@type":"Organization","name":"ClusterOS","url":"https://clusteros.io"},"url":"https://clusteros.io/notes/stabilising-around-incumbents","isPartOf":{"@type":"Blog","name":"ClusterOS Lab Notes","url":"https://clusteros.io/notes"}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#09101f;--ink-2:#0f1a2e;--slate:#2a3d5c;--slate-2:#3d5478;--slate-3:#5a7299;--chalk:#e8edf5;--chalk-2:#c4cdd9;--chalk-3:#8ba3c1;--signal:#c8f0d0;--signal-dark:#1a6640;--amber:#f5d97a;--crimson:#f08080;--teal:#7dd3c8;--serif:'Instrument Serif',Georgia,serif;--sans:'Geist',system-ui,sans-serif;--mono:'Geist Mono',monospace}
+    html{scroll-behavior:smooth}body{background:#09101f;color:#e8edf5;font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden;margin:0}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:56px;background:rgba(9,16,31,0.88);backdrop-filter:blur(12px);border-bottom:1px solid rgba(42,61,92,0.5)}
+    .nav-logo{font-family:var(--sans);font-weight:400;font-size:15px;color:#e8edf5;text-decoration:none}.nav-logo span{font-family:'Geist Mono', monospace;font-weight:600;color:#c8f0d0}.nav-center{font-size:13px;color:#8ba3c1}.nav-cta{font-size:12px;font-weight:500;letter-spacing:.04em;padding:7px 16px;border-radius:4px;background:#c8f0d0;color:#1a6640;text-decoration:none;transition:opacity .2s}.nav-cta:hover{opacity:.85}
+    .wrap{max-width:720px;margin:0 auto;padding:108px 32px 100px}
+    .breadcrumb{font-family:'Geist Mono', monospace;font-size:11px;color:#7a9bb5;margin-bottom:32px;display:flex;align-items:center;gap:8px}.breadcrumb a{color:#8ba3c1;text-decoration:none}.breadcrumb a:hover{color:#e8edf5}
+    .series{font-family:'Geist Mono', monospace;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#c8f0d0;margin-bottom:20px;display:flex;align-items:center;gap:12px}.series::before{content:'';display:block;width:24px;height:1px;background:#c8f0d0}
+    h1{font-family:'Instrument Serif', serif;font-size:clamp(32px,5vw,50px);line-height:1.1;letter-spacing:-.02em;color:#e8edf5;margin:0 0 20px}h1 em{font-style:italic;color:#f5d97a}
+    .deck{font-size:18px;color:#c4cdd9;line-height:1.6;font-weight:300;margin:0 0 28px;border-left:2px solid #2a3a52;padding-left:20px}
+    .meta{font-family:'Geist Mono', monospace;font-size:11px;color:#8ba3c1;display:flex;gap:24px;flex-wrap:wrap;margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid #1e2d42}
+    h2{font-family:'Instrument Serif', serif;font-size:26px;color:#e8edf5;margin:52px 0 16px;letter-spacing:-.01em;line-height:1.2}
+    p{margin:0 0 22px;color:#c4cdd9;font-size:16px}p strong{color:#e8edf5;font-weight:500}.lead{font-size:18px;color:#e8edf5}
+    .pullquote{margin:40px 0;padding:28px 32px;border-left:3px solid #f5d97a;background:rgba(245,217,122,0.04);border-radius:0 6px 6px 0}.pullquote p{font-family:'Instrument Serif', serif;font-size:20px;color:#e8edf5;line-height:1.5;margin:0;font-style:italic}.pullquote cite{display:block;margin-top:12px;font-family:'Geist Mono', monospace;font-size:10px;color:#8ba3c1;letter-spacing:.1em;font-style:normal;text-transform:uppercase}
+    .diagram{margin:40px 0;padding:32px;background:#0f1829;border:1px solid #1e2d42;border-radius:8px}.diag-label{font-family:'Geist Mono', monospace;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#7a9bb5;margin-bottom:28px}
+    .sub{display:grid;grid-template-columns:1fr 40px 1fr;align-items:center;gap:16px;margin-bottom:24px}.box{padding:18px 20px;border-radius:6px}.box.x{background:rgba(200,240,208,0.06);border:1px solid rgba(200,240,208,0.2)}.box.y{background:rgba(240,128,128,0.06);border:1px solid rgba(240,128,128,0.2)}.tag{font-family:'Geist Mono', monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}.tag.x{color:#c8f0d0}.tag.y{color:#f08080}.txt{font-size:14px;line-height:1.4}.txt.x{color:#c8f0d0}.txt.y{color:#f08080}.arrow{text-align:center;color:#7a9bb5;font-size:22px}.diag-note{font-size:13px;color:#8ba3c1;border-top:1px solid #1e2d42;padding-top:16px;margin-top:8px}
+    .epistemic{margin:56px 0 0;padding:24px 28px;background:rgba(42,61,92,0.15);border:1px solid #1e2d42;border-radius:6px}.ep-label{font-family:'Geist Mono', monospace;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#7a9bb5;margin-bottom:12px}.epistemic p{font-size:13px;color:#8ba3c1;margin:0 0 8px;line-height:1.6}.epistemic p:last-child{margin:0}
+    .related{margin:56px 0 0;padding-top:40px;border-top:1px solid #1e2d42}.rel-label{font-family:'Geist Mono', monospace;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#7a9bb5;margin-bottom:20px}.rel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.rel-card{padding:16px 20px;border-radius:6px;border:1px solid #1e2d42;text-decoration:none;transition:border-color .2s;display:block}.rel-card:hover{border-color:#2a3a52}.rel-tag{font-family:'Geist Mono', monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#7a9bb5;margin-bottom:6px}.rel-title{font-size:14px;color:#c4cdd9;line-height:1.3}
+    .cta{margin:56px 0 0;padding:36px 40px;background:#0f1829;border:1px solid #1e2d42;border-radius:8px;text-align:center}.cta p{font-size:15px;color:#c4cdd9;margin:0 0 20px}.cta a{display:inline-block;padding:10px 24px;background:#c8f0d0;color:#1a6640;font-size:13px;font-weight:500;letter-spacing:.04em;border-radius:4px;text-decoration:none;transition:opacity .2s}.cta a:hover{opacity:.85}
+    footer{border-top:1px solid #1e2d42;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:80px}.fl{font-family:var(--sans);font-weight:400;font-size:14px;color:#8ba3c1;text-decoration:none}.fl span{font-family:'Geist Mono', monospace;font-weight:600;color:#c8f0d0}.flinks{display:flex;gap:24px}.flinks a{font-size:13px;color:#8ba3c1;text-decoration:none;transition:color .2s}.flinks a:hover{color:#e8edf5}.fcopy{font-size:12px;color:#7a9bb5}
+    @media(max-width:640px){nav{padding:0 20px}.wrap{padding:88px 20px 80px}.sub{grid-template-columns:1fr}.arrow{transform:rotate(90deg);margin:8px auto}.pullquote{padding:20px}footer{flex-direction:column;align-items:flex-start}.nav-center{display:none}}
+  
+/* ── SITE FOOTER ─────────────────────────────────────────────────── */
+footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32px; }
+.footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; margin-bottom: 40px; }
+.footer-brand { display: flex; flex-direction: column; gap: 12px; }
+.footer-logo { font-family: 'Geist', system-ui, sans-serif; font-weight: 400; font-size: 15px; color: #e8edf5; text-decoration: none; }
+.footer-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+.footer-tagline { font-size: 13px; color: #8ba3c1; line-height: 1.5; margin: 0; }
+.footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.footer-col { display: flex; flex-direction: column; gap: 8px; }
+.footer-col-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #7a9bb5; margin-bottom: 4px; }
+.footer-col a { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color .2s; line-height: 1.4; }
+.footer-col a:hover { color: #e8edf5; }
+.footer-base { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; padding-top: 24px; border-top: 1px solid #2a3a52; flex-wrap: wrap; gap: 8px; }
+.footer-copy { font-size: 12px; color: #7a9bb5; }
+@media (max-width: 640px) {
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .footer-nav { grid-template-columns: 1fr 1fr; }
+}
+
+  </style>
+<style>
+/* ── PREVIEW SANDBOX BG FIX ── */
+html, body, .page, section, main, article, header,
+.container, .container-narrow, .container-wide,
+.section-inner, .section-wrap, .page-wrap,
+nav, footer { background-color: #09101f !important; }
+section { color: #e8edf5 !important; }
+h1, h2, h3, h4, p, li, span, div { color: inherit; }
+</style>
+</head>
+<body style="background:#09101f;color:#e8edf5">
+<nav>
+  <a href="index.html" class="nav-logo">Cluster<span>OS</span></a>
+  <a href="notes.html" class="nav-back">← Lab Notes</a>
+  <a href="request.html" class="nav-cta">Request a Diagnostic</a>
+</nav>
+
+<div class="wrap">
+  <div class="breadcrumb"><a href="index.html">Home</a> › <a href="notes.html">Lab Notes</a> › S6 · Stabilising Around Incumbents</div>
+  <div class="series">Lab Notes · Stall Series</div>
+  <h1>Stabilising <em>Around</em> Incumbents</h1>
+  <p class="deck">An innovation agency designs a new programme. The criteria, delivery model, and success metrics are shaped by what current grantees can absorb. Proposals that would require institutional redesign are seen as high-risk. The programme expands, but the system's shape does not change.</p>
+  <div class="meta"><span>Andrew Barrie</span><span>March 2026</span><span>7 min read</span></div>
+  <p class="lead">Incumbents do not capture ecosystems through malice. They shape them through competence. When an established organisation is genuinely good at what it does, it becomes the natural reference point for what 'good' looks like — in funding criteria, in programme design, in definitions of success.</p>
+  <h2>What the stall actually is</h2>
+  <div class="diagram">
+    <div class="diag-label">S6 · Substitution pattern</div>
+    <div class="sub">
+      <div class="box x"><div class="tag x">X-side · What happens</div><div class="txt x">Resources, governance structures, and programme design flow toward established actors. Evaluation criteria are calibrated to what incumbents can absorb. New entrants are assessed against incumbent benchmarks.</div></div>
+      <div class="arrow">→</div>
+      <div class="box y"><div class="tag y">Y-side · What doesn't</div><div class="txt y">Novelty reshaping the system. Alternative trajectories competing on equal footing. Space for divergent paths to emerge without first proving compatibility with what already exists.</div></div>
+    </div>
+    <div class="diag-note">The stall is not the presence of incumbents — it is the relationship between incumbents and the system's selection logic. Where incumbents consistently shape what counts as viable, the system is selecting on their behalf.</div>
+  </div>
+  
+<h2>Why it is so hard to see from the inside</h2>
+<p>S6 is structurally invisible to the people most responsible for it. If you are the programme manager who designs funding criteria, you design for what works. What works is what your best current grantees are doing. The criteria are not biased toward incumbents — they reflect genuine evidence about what produces results. The bias is in what counts as evidence.</p>
+<p>The same logic applies to governance. Multi-stakeholder boards are typically composed of the organisations that have already demonstrated relevance. Their involvement is legitimate — they have standing, they have expertise, they have skin in the game. But their presence means that the system's direction is being set by people whose incentives are to preserve the conditions that made them relevant.</p>
+<div class="pullquote"><p>Established actors, programmes, and trajectories shape future options more strongly than new paths that would require the system to change shape.</p><cite>Ecosystem Stewardship · Chapter 4</cite></div>
+<p>Finland illustrates this precisely. Nokia's rise was not a failure of ecosystem governance — it was an extraordinary success. The region accumulated global competitive capability in mobile telecommunications. Talent concentrated, capital flowed, research aligned. The stack that formed — Continuity × Re-proving — was rational at every stage. It produced a world-class industrial system. It also meant that when Nokia's position collapsed, the ecosystem had not been building alternatives. The selection logic that had served the system well became the thing that made adaptation slow.</p>
+
+<h2>What S6 protects</h2>
+<p>The stall protects real things. Incumbents provide infrastructure that early-stage actors cannot — procurement relationships, technical standards, talent pipelines, supply chains. A system that destabilised its incumbent base in pursuit of novelty would be trading a working system for an uncertain one. That trade is not obviously correct, and the people responsible for the ecosystem are right to be cautious about it.</p>
+<p>What the stall displaces is the system's capacity to let contrast emerge. When all pathways are evaluated against the incumbent template, the contrast between what exists and what might exist is systematically reduced. Novel ventures adapt themselves to the incumbent orbit rather than competing with it. The system can absorb innovation — as long as it does not require the system to change shape.</p>
+
+<h2>Where leverage exists</h2>
+<p>The leverage move is not to challenge the incumbents. It is to introduce one evaluation process where incumbent-integrated and independent pathways are assessed separately, with their outcomes reported distinctly. Not competitively. Distinctly.</p>
+<p>The purpose is not to determine which is better. It is to make visible the difference between what the incumbent orbit produces and what independent pathways produce. In most S6 systems, this comparison has never been made explicit — because making it explicit would force a question about whether the criteria are calibrated to the system's future or its present.</p>
+
+  <div class="epistemic">
+    <div class="ep-label">Epistemic note</div>
+    <p>S6 has moderate observability. The presence of incumbent-oriented programme design is visible in funding criteria and governance composition. The displacement claim — that this prevents novelty from reshaping the system — requires evidence that alternative trajectories are systematically disadvantaged, which demands access to rejection data or comparative programme outcomes that are rarely public. Confidence increases when multiple consecutive funding cycles show the same organisations consistently advantaged, and when proposals from new entrants are documented as high-risk without clear technical justification.</p>
+  </div>
+  <div class="related">
+    <div class="rel-label">Related notes</div>
+    <div class="rel-grid"><a href="ln-04-reproving.html" class="rel-card"><div class="rel-tag">S1 · Stall</div><div class="rel-title">Re-proving Instead of Narrowing</div></a><a href="ln-11-validation-deadlock.html" class="rel-card"><div class="rel-tag">S1+S2 · Stack</div><div class="rel-title">The Validation Deadlock</div></a><a href="ln-12-leverage.html" class="rel-card"><div class="rel-tag">Leverage</div><div class="rel-title">What Leverage Actually Looks Like</div></a></div>
+  </div>
+  <div class="cta">
+    <p>The diagnostic identifies which stalls are operating in your cluster — and which stacks they form. That is where intervention design begins.</p>
+    <a href="request.html">Request a Diagnostic →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Cluster<span>OS</span></a>
+      <p class="footer-tagline">Regional economies need infrastructure.<br>Not more strategy.</p>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <div class="footer-col-label">Product</div>
+        <a href="substrate.html">The Substrate</a>
+        <a href="diagnostic.html">The Diagnostic</a>
+        <a href="leverage.html">Leverage</a>
+        <a href="findings.html">Findings</a>
+        <a href="pricing.html">Pricing</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Lab Notes</div>
+        <a href="notes.html">All Notes</a>
+        <a href="ln-01-coordinating.html">S2 · Coordinating</a>
+        <a href="ln-02-narrating.html">S7 · Narrating</a>
+        <a href="ln-10-narrative-activity-stack.html">Narrative × Activity</a>
+        <a href="ln-12-leverage.html">What Leverage Looks Like</a>
+        <a href="ln-13-diagnosis.html">Why Diagnosis Fails</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Company</div>
+        <a href="about.html">About</a>
+        <a href="data.html">Diagnostic Data</a>
+        <a href="request.html">Request a Diagnostic</a>
+        <a href="/cdn-cgi/l/email-protection#a1c0cfc5d3c4d6e1c2ceccccd4cfc8d5d8cdc0c38fc0d1d1"><span class="__cf_email__" data-cfemail="375659534552407754585a5a42595e434e5b565519564747">[email&#160;protected]</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-base">
+    <span class="fo
+    <span class="footer-copy">© 2026 ClusterOS · Community Lab</span>
+    <span class="footer-copy">Built in Edinburgh</span>
+  </div>
+</footer>
+
+<style>
+/* ── UNIVERSAL MOBILE PATCH ── injected ── */
+html { overflow-x: hidden; }
+body { overflow-x: hidden; }
+@media (max-width: 480px) {
+  nav { padding: 0 16px !important; }
+  .nav-back { font-size: 11px; }
+  .nav-cta { font-size: 11px; padding: 6px 14px !important; }
+  .nav-logo { font-size: 15px !important; }
+}
+</style>
+
+
+<style>
+@media (max-width: 900px) {
+  .substitution { grid-template-columns: 1fr !important; }
+  .sub-arrow { transform: rotate(90deg); margin: 8px auto; display: block; }
+  .related-grid { grid-template-columns: 1fr 1fr !important; }
+  .two-col-body, .article-layout { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 640px) {
+  nav { padding: 0 16px; }
+  .article-wrap, .body-wrap { padding: 80px 20px 80px !important; }
+  h1, .article-headline, .hero-h { font-size: clamp(24px, 7vw, 36px) !important; }
+  .lede, .article-lede { font-size: 16px !important; }
+  blockquote, .pull-quote { padding: 14px 16px 14px 18px; font-size: 17px; }
+  .evidence-grid, .stall-grid, .two-col { grid-template-columns: 1fr !important; }
+  .related-grid { grid-template-columns: 1fr !important; }
+  .tag-row { flex-wrap: wrap; gap: 6px; }
+  .section-h, h2 { font-size: clamp(18px, 5vw, 24px) !important; }
+  p { font-size: 15px; line-height: 1.65; }
+}
+</style>
+
+
+<style>
+/* ── NAV-BACK MOBILE FIX ── */
+@media (max-width: 400px) {
+  .nav-back { display: none; }
+}
+@media (max-width: 480px) {
+  .nav-back { font-size: 10px; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+</style>
+</body>
+</html>
