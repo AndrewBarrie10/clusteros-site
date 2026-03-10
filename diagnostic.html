@@ -136,7 +136,7 @@ body { background: #09101f; color: #e8edf5; font-family: 'Geist', sans-serif; fo
 
 /* HERO */
 #hero { min-height: 78vh; display: flex; align-items: center; padding-top: 56px; border-bottom: 1px solid #1e2d42; position: relative; overflow: hidden; }
-.hero-inner { max-width: 1200px; margin: 0 auto; padding: 80px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; width: 100%; }
+.hero-inner { max-width: 960px; margin: 0 auto; padding: 80px 64px; display: block; width: 100%; box-sizing: border-box; }
 .hero-headline { font-family: 'Instrument Serif', serif; font-size: clamp(42px, 4.5vw, 64px); line-height: 1.04; letter-spacing: -0.025em; color: #e8edf5; margin-bottom: 24px; }
 .hero-headline em { font-style: italic; color: #f08080; }
 .hero-body { font-size: 16px; color: #7a9bb5; line-height: 1.75; max-width: 500px; margin-bottom: 36px; }
@@ -148,12 +148,9 @@ body { background: #09101f; color: #e8edf5; font-family: 'Geist', sans-serif; fo
 .btn-ghost:hover { color: #e8edf5; }
 
 /* SUBSTRATE BRIDGE — animated signal that gets interrupted */
-.hero-vis { position: relative; height: 480px; display: flex; align-items: center; justify-content: center; }
-.bridge-svg { width: 100%; height: 100%; }
 
 /* Hero bg texture */
 #hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(30,45,66,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(30,45,66,0.18) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; }
-#hero::after { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: radial-gradient(ellipse at 70% 50%, rgba(240,128,128,0.06) 0%, transparent 65%); pointer-events: none; }
 
 /* INTRO BRIDGE SECTION */
 #bridge { padding: 80px 0; border-bottom: 1px solid #1e2d42; }
@@ -202,7 +199,7 @@ body { background: #09101f; color: #e8edf5; font-family: 'Geist', sans-serif; fo
 .stall-example { margin-top: 14px; padding: 12px 14px; background: rgba(245,217,122,0.05); border: 1px solid rgba(245,217,122,0.15); border-radius: 6px; }
 .stall-example-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #f5d97a; margin-bottom: 6px; }
 .stall-example-text { font-size: 11px; line-height: 1.6; color: #7a9bb5; }
-.stall-add-btn { margin-top: 14px; width: 100%; padding: 8px; background: transparent; border: 1px solid #1e2d42; border-radius: 4px; font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #7a9bb5; cursor: pointer; transition: all 0.15s; }
+.stall-add-btn { margin-top: 14px; width: 100%; padding: 10px 16px; min-height: 44px; background: transparent; border: 1px solid #1e2d42; border-radius: 4px; font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #7a9bb5; cursor: pointer; transition: all 0.15s; }
 .stall-add-btn:hover { border-color: #f5d97a; color: #f5d97a; background: rgba(245,217,122,0.05); }
 .stall-add-btn.added { border-color: #f5d97a; color: #f5d97a; background: rgba(245,217,122,0.08); }
 
@@ -211,6 +208,8 @@ body { background: #09101f; color: #e8edf5; font-family: 'Geist', sans-serif; fo
 .stacks-inner { max-width: 1200px; margin: 0 auto; padding: 0 64px; }
 .stacks-header { margin-bottom: 56px; }
 .stacks-layout { display: grid; grid-template-columns: 380px 1fr; gap: 40px; align-items: start; }
+.stack-result { order: 2; }
+.stack-tray { order: 1; }
 
 /* Stall tray (left) */
 .stack-tray { background: rgba(255,255,255,0.02); border: 1px solid #1e2d42; border-radius: 10px; overflow: hidden; }
@@ -316,8 +315,7 @@ body { background: #09101f; color: #e8edf5; font-family: 'Geist', sans-serif; fo
 .reveal-d4 { transition-delay: 0.4s; }
 
 @media (max-width: 1024px) {
-  .hero-inner, .bridge-inner, .stacks-layout { grid-template-columns: 1fr; }
-  .hero-vis { display: none; }
+  .hero-inner, .bridge-inner { grid-template-columns: 1fr; }
   .stalls-header { grid-template-columns: 1fr; }
   .stalls-grid { grid-template-columns: 1fr 1fr; }
   .known-stacks-grid { grid-template-columns: 1fr 1fr; }
@@ -434,116 +432,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
         <a href="#stacks" class="btn-ghost">Build a stack →</a>
       </div>
     </div>
-    <div class="hero-vis">
-      <div class="stall-loop-vis">
-        <svg viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px;display:block;margin:auto;height:480px">
-          <defs>
-            <filter id="glow-s"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-            <filter id="glow-sm"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-            <!-- Arrow markers -->
-            <marker id="arr-amber" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L8,3 z" fill="#f5d97a" opacity="0.7"/>
-            </marker>
-            <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L8,3 z" fill="#f08080" opacity="0.5"/>
-            </marker>
-            <radialGradient id="node-glow-1" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#f5d97a" stop-opacity="0.2"/>
-              <stop offset="100%" stop-color="#f5d97a" stop-opacity="0"/>
-            </radialGradient>
-            <radialGradient id="node-glow-2" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#f08080" stop-opacity="0.18"/>
-              <stop offset="100%" stop-color="#f08080" stop-opacity="0"/>
-            </radialGradient>
-            <radialGradient id="node-glow-3" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#c8f0d0" stop-opacity="0.18"/>
-              <stop offset="100%" stop-color="#c8f0d0" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
 
-          <!-- Background grid -->
-          <rect width="360" height="320" fill="none"/>
-          <line x1="0" y1="160" x2="360" y2="160" stroke="#0e1e30" stroke-width="1"/>
-          <line x1="180" y1="0" x2="180" y2="320" stroke="#0e1e30" stroke-width="1"/>
-
-          <!-- Title label -->
-          <text x="180" y="22" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7.5" fill="#3a5070" letter-spacing="0.12em">A STABILISATION STACK</text>
-
-          <!-- NODE 1: Re-proving (top, amber) — position 180,80 -->
-          <circle cx="180" cy="80" r="44" fill="url(#node-glow-1)"/>
-          <circle cx="180" cy="80" r="30" fill="#080e1a" stroke="#f5d97a" stroke-width="1.5"/>
-          <text x="180" y="76" text-anchor="middle" font-family="Geist Mono,monospace" font-size="8" fill="#f5d97a" font-weight="700">S1</text>
-          <text x="180" y="88" text-anchor="middle" font-family="'Geist',sans-serif" font-size="8.5" fill="#c8d8ea">Re-proving</text>
-
-          <!-- NODE 2: Coordinating (bottom-left, crimson) — position 82,230 -->
-          <circle cx="82" cy="230" r="44" fill="url(#node-glow-2)"/>
-          <circle cx="82" cy="230" r="30" fill="#080e1a" stroke="#f08080" stroke-width="1.5"/>
-          <text x="82" y="226" text-anchor="middle" font-family="Geist Mono,monospace" font-size="8" fill="#f08080" font-weight="700">S2</text>
-          <text x="82" y="238" text-anchor="middle" font-family="'Geist',sans-serif" font-size="8.5" fill="#c8d8ea">Coordinating</text>
-
-          <!-- NODE 3: Narrating (bottom-right, signal) — position 278,230 -->
-          <circle cx="278" cy="230" r="44" fill="url(#node-glow-3)"/>
-          <circle cx="278" cy="230" r="30" fill="#080e1a" stroke="#c8f0d0" stroke-width="1.5"/>
-          <text x="278" y="226" text-anchor="middle" font-family="Geist Mono,monospace" font-size="8" fill="#c8f0d0" font-weight="700">S7</text>
-          <text x="278" y="238" text-anchor="middle" font-family="'Geist',sans-serif" font-size="8.5" fill="#c8d8ea">Narrating</text>
-
-          <!-- Arrows between nodes (triangle, clockwise) -->
-          <!-- S1 → S2 (top to bottom-left) -->
-          <path d="M157,103 L105,207" stroke="#f5d97a" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr-amber)" fill="none"/>
-          <!-- S2 → S3 (bottom-left to bottom-right) -->
-          <path d="M113,230 L247,230" stroke="#f08080" stroke-width="1.5" stroke-opacity="0.4" marker-end="url(#arr-red)" fill="none"/>
-          <!-- S3 → S1 (bottom-right to top) -->
-          <path d="M256,207 L203,103" stroke="#c8f0d0" stroke-width="1.5" stroke-opacity="0.4" marker-end="url(#arr-amber)" fill="none"/>
-
-          <!-- Edge labels -->
-          <text x="118" y="162" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#7a9bb5" transform="rotate(-56,118,162)">options need</text>
-          <text x="122" y="170" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#7a9bb5" transform="rotate(-56,122,170)">alignment</text>
-          <text x="180" y="220" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#7a9bb5">process feeds story</text>
-          <text x="245" y="162" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#7a9bb5" transform="rotate(56,245,162)">story justifies</text>
-          <text x="241" y="170" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#7a9bb5" transform="rotate(56,241,170)">more validation</text>
-
-          <!-- Animated pulse on S1 node -->
-          <circle cx="180" cy="80" r="30" fill="none" stroke="#f5d97a" stroke-width="2">
-            <animate attributeName="r" values="30;42;30" dur="3s" repeatCount="indefinite"/>
-            <animate attributeName="stroke-opacity" values="0.5;0;0.5" dur="3s" repeatCount="indefinite"/>
-          </circle>
-
-          <!-- Animated dot travelling S1→S2 -->
-          <circle r="3.5" fill="#f5d97a" filter="url(#glow-sm)" opacity="0.9">
-            <animateMotion dur="2.4s" repeatCount="indefinite" begin="0s">
-              <mpath href="#path-1-2"/>
-            </animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.4s" repeatCount="indefinite"/>
-          </circle>
-          <!-- Animated dot travelling S2→S3 -->
-          <circle r="3.5" fill="#f08080" filter="url(#glow-sm)" opacity="0.9">
-            <animateMotion dur="2.4s" repeatCount="indefinite" begin="0.8s">
-              <mpath href="#path-2-3"/>
-            </animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.4s" repeatCount="indefinite" begin="0.8s"/>
-          </circle>
-          <!-- Animated dot travelling S3→S1 -->
-          <circle r="3.5" fill="#c8f0d0" filter="url(#glow-sm)" opacity="0.9">
-            <animateMotion dur="2.4s" repeatCount="indefinite" begin="1.6s">
-              <mpath href="#path-3-1"/>
-            </animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.4s" repeatCount="indefinite" begin="1.6s"/>
-          </circle>
-
-          <!-- Invisible paths for animation -->
-          <path id="path-1-2" d="M157,103 L105,207" fill="none"/>
-          <path id="path-2-3" d="M113,230 L247,230" fill="none"/>
-          <path id="path-3-1" d="M256,207 L203,103" fill="none"/>
-
-          <!-- Stack name label in centre -->
-          <text x="180" y="157" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#3a5070" letter-spacing="0.1em">THE VALIDATION</text>
-          <text x="180" y="168" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#3a5070" letter-spacing="0.1em">DEADLOCK</text>
-
-          <!-- Bottom label -->
-          <text x="180" y="300" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#2a3d5a" letter-spacing="0.1em">STALLS REINFORCE · STACK FORMS · SYSTEM STALLS</text>
-        </svg>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -609,6 +498,17 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
     </div>
 
     <div class="stacks-layout">
+      <!-- RESULT (shown first on mobile via CSS order) -->
+      <!-- RESULT -->
+      <div class="stack-result reveal reveal-d2" id="stack-result">
+        <div class="stack-empty-state" id="stack-empty">
+          <div class="stack-empty-icon">⬡</div>
+          <div class="stack-empty-text">Add at least 2 stalls to see<br>the stack analysis and reinforcement logic.</div>
+        </div>
+        <div id="stack-output" style="display:none"></div>
+      </div>
+
+      <!-- TRAY -->
       <!-- TRAY -->
       <div class="stack-tray reveal">
         <div class="stack-tray-head">
@@ -638,15 +538,6 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
         </div>
 
         <button class="stack-reset-btn" onclick="resetStack()">Clear stack</button>
-      </div>
-
-      <!-- RESULT -->
-      <div class="stack-result reveal reveal-d2" id="stack-result">
-        <div class="stack-empty-state" id="stack-empty">
-          <div class="stack-empty-icon">⬡</div>
-          <div class="stack-empty-text">Add at least 2 stalls to see<br>the stack analysis and reinforcement logic.</div>
-        </div>
-        <div id="stack-output" style="display:none"></div>
       </div>
     </div>
   </div>
@@ -1138,6 +1029,11 @@ function updateStack() {
 
   // Render result
   renderStackResult(filled);
+  // On mobile, scroll result into view
+  if (window.innerWidth <= 768 && filled.length >= 2) {
+    const result = document.getElementById('stack-result');
+    if (result) setTimeout(() => result.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }
 }
 
 function renderStackResult(filled) {
@@ -1338,8 +1234,12 @@ body { overflow-x: hidden; }
 <style>
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; }
-  .hero-vis { display: none; }
   .bridge-inner { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .stacks-layout { grid-template-columns: 1fr; }
+  .stack-result { order: 1; }
+  .stack-tray { order: 2; margin-top: 24px; }
 }
 @media (max-width: 640px) {
   nav { padding: 0 16px; }
@@ -1348,6 +1248,8 @@ body { overflow-x: hidden; }
   section { padding: 56px 20px; }
   .section-headline { font-size: clamp(22px, 6vw, 34px); }
   .stall-label-row { flex-wrap: wrap; }
+  .stack-output-name { font-size: 16px; margin-left: 0; display: block; margin-top: 6px; }
+  .stack-output-header { flex-wrap: wrap; }
 }
 </style>
 
