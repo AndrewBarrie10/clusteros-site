@@ -70,6 +70,7 @@
   --mono:    'Geist Mono', monospace;
 }
 html { scroll-behavior: smooth; background: #09101f; color: #e8edf5; }
+html, body { overflow-x: hidden; }
 body { background: var(--bg); color: #e8edf5; font-family: 'Geist', sans-serif; font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
 
@@ -102,7 +103,7 @@ p + p { margin-top: 16px; }
 
 /* LINEAGE TIMELINE */
 .timeline { margin: 32px 0; display: flex; flex-direction: column; gap: 0; }
-.tl-item { display: flex; gap: 20px; padding: 20px 0; border-top: 1px solid var(--border); align-items: flex-start; }
+.tl-item { display: flex; gap: 20px; padding: 20px 0; border-top: 1px solid var(--border); align-items: flex-start; min-height: 44px; }
 .tl-item:last-child { border-bottom: 1px solid var(--border); }
 .tl-year { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 700; color: #f5d97a; width: 40px; flex-shrink: 0; padding-top: 2px; letter-spacing: 0.06em; }
 .tl-body { flex: 1; }
@@ -144,7 +145,7 @@ p + p { margin-top: 16px; }
 .profile-bio { font-size: 13px; color: var(--dim); line-height: 1.7; }
 .profile-bio strong { color: #e8edf5; font-weight: 400; }
 .profile-links { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
-.profile-link { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 10px; border: 1px solid var(--border2); border-radius: 2px; color: var(--muted); text-decoration: none; transition: border-color 0.12s, color 0.12s; }
+.profile-link { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 12px; border: 1px solid var(--border2); border-radius: 2px; color: var(--muted); text-decoration: none; transition: border-color 0.12s, color 0.12s; min-height: 36px; display: inline-flex; align-items: center; }
 .profile-link:hover { border-color: #e8edf5; color: #e8edf5; }
 
 /* COMMUNITY LAB SECTION */
@@ -172,7 +173,7 @@ p + p { margin-top: 16px; }
 .cta-h { font-family: 'Instrument Serif', serif; font-size: clamp(26px, 4vw, 36px); line-height: 1.1; color: #e8edf5; margin-bottom: 14px; }
 .cta-h em { font-style: italic; color: #c8f0d0; }
 .cta-p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
-.cta-btn { display: inline-block; font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 28px; border-radius: 3px; background: #c8f0d0; color: var(--bg); text-decoration: none; }
+.cta-btn { display: inline-block; font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 28px; border-radius: 3px; background: #c8f0d0; color: var(--bg); text-decoration: none; min-height: 44px; }
 .cta-or { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--muted); margin: 14px 0 0; }
 
 /* Reveal */
@@ -219,8 +220,6 @@ footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32p
 .nav-links a:hover { color: #e8edf5; }
 
 
-@media (max-width: 900px) {  }
-@media (max-width: 480px) { nav { padding: 0 16px; }   }
 
 /* ── NAV ── */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; background: rgba(9,16,31,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(42,61,92,0.6); }
@@ -392,7 +391,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
       </div>
       <div class="profile-links">
         <a href="https://www.communitylab.app" class="profile-link" target="_blank">Community Lab ↗</a>
-        <a href="/cdn-cgi/l/email-protection#bbdad5dfc9deccfbd8d4d6d6ced5d2cfc2d7dad995dacbcb" class="profile-link"><span class="__cf_email__" data-cfemail="12737c7660776552717d7f7f677c7b666b7e73703c736262">[email&#160;protected]</span></a>
+        <a href="mailto:andrew@communitylab.app" class="profile-link">andrew@communitylab.app</a>
       </div>
     </div>
   </div>
@@ -467,7 +466,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
   <h2 class="cta-h">Built in Edinburgh.<br><em>Running everywhere.</em></h2>
   <p class="cta-p">The diagnostic pipeline is live. 75 completed runs. If you steward a regional economy and want to understand what it is actually doing — get in touch.</p>
   <a href="request.html" class="cta-btn">Request a diagnostic</a>
-  <div class="cta-or">or email <a href="/cdn-cgi/l/email-protection#5a3b343e283f2d1a393537372f34332e23363b38743b2a2a" style="color:#c8f0d0;text-decoration:none"><span class="__cf_email__" data-cfemail="375659534552407754585a5a42595e434e5b565519564747">[email&#160;protected]</span></a></div>
+  <div class="cta-or">or email <a href="mailto:andrew@communitylab.app" style="color:#c8f0d0;text-decoration:none">andrew@communitylab.app</a></div>
 </div>
 <footer>
   <div class="footer-inner">
@@ -498,7 +497,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
         <a href="about.html">About</a>
         <a href="data.html">Diagnostic Data</a>
         <a href="request.html">Request a Diagnostic</a>
-        <a href="/cdn-cgi/l/email-protection#10717e7462756750737f7d7d657e7964697c71723e716060"><span class="__cf_email__" data-cfemail="4e2f202a3c2b390e2d2123233b20273a37222f2c602f3e3e">[email&#160;protected]</span></a>
+        <a href="mailto:andrew@communitylab.app">andrew@communitylab.app</a>
       </div>
     </div>
   </div>
@@ -509,17 +508,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
   </div>
 </footer>
 
-<style>
-/* ── UNIVERSAL MOBILE PATCH ── injected ── */
-html { overflow-x: hidden; }
-body { overflow-x: hidden; }
-@media (max-width: 480px) {
-  nav { padding: 0 16px !important; }
-  
-  
-  
-}
-</style>
+
 
 
 <style>
@@ -530,9 +519,12 @@ body { overflow-x: hidden; }
 @media (max-width: 640px) {
   .hero { padding: 80px 20px 48px !important; }
   .hero-h { font-size: clamp(28px, 8vw, 42px) !important; }
-  .section, .wrap { padding: 48px 20px !important; }
-  .timeline-item { padding-left: 20px; }
+  .section { padding: 48px 16px !important; }
+  .wrap { padding: 0 16px !important; }
   .profile { gap: 16px; }
+  .tl-item { gap: 14px; }
+  .pullquote { padding: 18px 16px; }
+  .cta { padding: 48px 16px 64px; }
 }
 </style>
 
