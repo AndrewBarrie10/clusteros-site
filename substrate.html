@@ -510,14 +510,34 @@ footer { padding: 40px 64px; display: flex; align-items: center; justify-content
 /* -- MOBILE -- */
 @media (max-width: 900px) {
   nav { padding: 0 20px; }
-  
+
   .hero-copy { padding: 64px 24px; }
+  #hero { min-height: auto; }
   .section, #demo, #ripple, #accumulates, #cta { padding: 72px 24px; }
   .actor-picker { grid-template-columns: 1fr 1fr; }
   .demo-stage { grid-template-columns: 1fr; }
   .demo-output { min-height: 400px; }
   .accum-grid { grid-template-columns: 1fr; }
   footer { flex-direction: column; gap: 16px; text-align: center; }
+
+  /* Demo app: stack panels, cap height on right panel */
+  .window-body { grid-template-columns: 1fr; min-height: auto; }
+  .panel-left { min-height: 420px; }
+  .panel-right { min-height: 0; max-height: 480px; overflow-y: auto; border-top: 1px solid #eaecef; }
+  .switch-strip { flex-wrap: wrap; }
+}
+
+@media (max-width: 640px) {
+  .hero-copy { padding: 48px 20px 32px; }
+  #hero { min-height: auto; }
+  #demo, #ripple, #accumulates, #cta { padding: 56px 20px; }
+  .accum-col { padding: 28px 20px; }
+  .switch-btn { min-height: 36px; padding: 8px 12px; }
+
+  /* Ripple: fix node overflow on narrow screens */
+  .ripple-chain { padding-left: 20px; }
+  .ripple-node { left: -28px; margin-right: -10px; }
+  .ripple-step { gap: 16px; }
 }
 
 /* -- SWITCH BUTTONS -- */
@@ -545,8 +565,6 @@ footer { padding: 40px 64px; display: flex; align-items: center; justify-content
 .nav-links a:hover { color: #e8edf5; }
 
 
-@media (max-width: 900px) {  }
-@media (max-width: 480px) { nav { padding: 0 16px; }   }
 
 /* ── NAV ── */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; background: rgba(9,16,31,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(42,61,92,0.6); }
