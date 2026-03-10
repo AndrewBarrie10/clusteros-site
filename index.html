@@ -254,37 +254,9 @@ body {
   50% { opacity:0.5; transform:scale(1.4); }
 }
 
-/* Map legend bar */
+/* Map legend bar - now hidden (using inner map legend instead) */
 #map-legend-bar {
-  position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: rgba(9,16,31,0.8);
-  border: 1px solid #1e2d42;
-  border-radius: 20px;
-  padding: 6px 16px;
-  backdrop-filter: blur(8px);
-  white-space: nowrap;
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  color: #7a9bb5;
-  letter-spacing: 0.04em;
-}
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.legend-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  flex-shrink: 0;
+  display: none;
 }
 
 /* HUD visible in hero */
@@ -597,7 +569,19 @@ footer {
   .hero-copy { padding: 80px 28px 40px; }
   .hero-stats { grid-template-columns: repeat(3,1fr); }
   .hero-map { border-left: none; border-top: 1px solid #1e2d42; }
-  #map-legend-bar { font-size: 9px; gap: 10px; padding: 5px 12px; }
+  /* On mobile map: hide zoom controls, move legend to top-left small, filters to bottom */
+  .hero-map #zoom-controls { display: none !important; }
+  .hero-map #legend { bottom: 60px !important; left: 12px !important; padding: 7px 10px !important; gap: 5px !important; }
+  .hero-map .legend-item { font-size: 8px !important; }
+  .hero-map #hud { display: none; }
+  .hero-map #filters {
+    top: auto !important;
+    bottom: 12px !important;
+    right: auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    max-width: calc(100% - 120px);
+  }
   .pipeline { grid-template-columns: 1fr; gap: 24px; }
   .pipeline::before { display: none; }
   .deliverables { grid-template-columns: 1fr; }
@@ -688,16 +672,25 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
   height: 100% !important;
 }
 /* HUD visible */
-/* Adjust zoom controls for embedded context */
+/* Adjust zoom controls - move to right side, middle height */
 .hero-map #zoom-controls {
-  bottom: auto !important;
-  top: 52px !important;
-  right: 14px !important;
+  bottom: 50% !important;
+  top: auto !important;
+  right: 12px !important;
+  transform: translateY(50%);
 }
-/* Hide filter bar - not needed in hero */
-.hero-map #filters { display: none !important; }
-/* Legend hidden - using our legend bar instead */  
-.hero-map #legend { display: none !important; }
+/* Filters shown at top-right in hero map */
+.hero-map #filters {
+  top: 16px !important;
+  right: 16px !important;
+  bottom: auto !important;
+  left: auto !important;
+  transform: none !important;
+  max-width: 200px;
+  justify-content: flex-end;
+}
+/* Legend shown in map */
+.hero-map #legend { display: flex !important; }
 /* Panel z-index fix for homepage context */
 .hero-map #panel { z-index: 500; }
 .hero-map #tooltip { z-index: 600; }
@@ -778,14 +771,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
   <div class="hero-map" id="hero-map-container">
 
     <!-- Legend bar -->
-    <div id="map-legend-bar">
-      <span class="legend-item"><span class="legend-dot" style="background:#7dd3c8"></span>Emerging</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#c8f0d0"></span>Growing</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#f5d97a"></span>Mature</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#f08080"></span>Transitioning</span>
-      <span style="color:#2a3a52">·</span>
-      <span style="font-size:9px;color:#3d5470">tap a pin to explore</span>
-    </div>
+    <!-- legend now shown inside map-wrap -->
 
     <!-- Onboarding tooltip -->
     <div id="map-onboarding">
@@ -1283,35 +1269,36 @@ revealEls.forEach(el => observer.observe(el));
 
 /* ── LEGEND ── */
 #legend{
-  position:absolute;bottom:24px;left:24px;z-index:20;
-  background:rgba(9,16,31,0.85);backdrop-filter:blur(12px);
-  padding:14px 16px;border-radius:6px;
-  border:1px solid rgba(42,61,92,0.5);
-  display:flex;flex-direction:column;gap:8px;
+  position:absolute;bottom:16px;left:16px;z-index:20;
+  background:rgba(9,16,31,0.9);backdrop-filter:blur(12px);
+  padding:10px 14px;border-radius:6px;
+  border:1px solid rgba(42,61,92,0.6);
+  display:flex;flex-direction:column;gap:6px;
 }
-.legend-item{display:flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:9px;color:#8ba3c1;letter-spacing:0.06em}
-.legend-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0}
-.legend-dot.emerging{color:#7dd3c8}
-.legend-dot.growing{color:#c8f0d0}
-.legend-dot.mature{color:#f5d97a}
-.legend-dot.transitioning{color:#f08080}
+.legend-item{display:flex;align-items:center;gap:7px;font-family:'Geist Mono',monospace;font-size:9px;color:#8ba3c1;letter-spacing:0.06em;text-transform:uppercase}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.legend-dot.emerging{background:#7dd3c8}
+.legend-dot.growing{background:#c8f0d0}
+.legend-dot.mature{background:#f5d97a}
+.legend-dot.transitioning{background:#f08080}
 
 /* ── FILTER BAR ── */
 #filters{
-  position:absolute;top:24px;right:24px;z-index:20;
-  display:flex;gap:6px;
+  position:absolute;top:16px;right:16px;z-index:20;
+  display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;
 }
 .filter-btn{
   background:rgba(9,16,31,0.85);backdrop-filter:blur(12px);
-  padding:6px 12px;border-radius:4px;
+  padding:5px 11px;border-radius:3px;
   border:1px solid rgba(42,61,92,0.5);
-  font-family:'Geist Mono',monospace;font-size:9px;
-  letter-spacing:0.08em;text-transform:uppercase;
-  color:#8ba3c1;cursor:pointer;
-  transition:border-color 0.18s,color 0.18s;
+  font-family:'Geist Mono',monospace;font-size:8px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:#7a9bb5;cursor:pointer;
+  transition:border-color 0.18s,color 0.18s,background 0.18s;
 }
-.filter-btn:hover,.filter-btn.active{border-color:#c8f0d0;color:#c8f0d0}
-.filter-btn[data-filter="all"].active{border-color:#8ba3c1;color:#8ba3c1}
+.filter-btn:hover{border-color:#c8f0d0;color:#c8f0d0}
+.filter-btn.active{border-color:#c8f0d0;color:#09101f;background:#c8f0d0;font-weight:600}
+.filter-btn[data-filter="all"].active{border-color:#8ba3c1;color:#e8edf5;background:rgba(42,61,92,0.6)}
 
 /* ── TOOLTIP ── */
 #tooltip{
@@ -1331,25 +1318,25 @@ revealEls.forEach(el => observer.observe(el));
 
 /* ── MOBILE ── */
 @media (max-width: 768px) {
-  /* Filter bar: scrollable single row, tighter */
+  /* Filter bar: scrollable row at bottom on mobile */
   #filters {
     top: auto;
-    bottom: 72px;
+    bottom: 16px;
     right: auto;
-    left: 0;
-    right: 0;
-    padding: 0 12px;
-    gap: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    max-width: calc(100% - 24px);
     justify-content: flex-start;
   }
   #filters::-webkit-scrollbar { display: none; }
   .filter-btn {
     flex-shrink: 0;
-    padding: 8px 14px;
-    font-size: 10px;
+    padding: 6px 12px;
+    font-size: 9px;
     touch-action: manipulation;
   }
 
@@ -2129,13 +2116,18 @@ function applyTransform() {
 
 function clampPan() {
   const W = mapWrapEl.offsetWidth, H = mapWrapEl.offsetHeight;
-  const maxX = W * 0.6, minX = -W * zoom * 0.6;
-  const maxY = H * 0.4, minY = -H * zoom * 0.4;
-  panX = Math.max(minX, Math.min(maxX, panX));
-  panY = Math.max(minY, Math.min(maxY, panY));
+  // Map is 1440x810 in SVG units. At zoom level, its rendered size is 1440*zoom x 810*zoom
+  // But it fills the container via preserveAspectRatio, so effective size = container size * zoom
+  // Allow panning up to half the container width/height so map edge is always visible
+  const maxPanX = W * 0.2;
+  const minPanX = -W * zoom * 0.2;
+  const maxPanY = H * 0.15;
+  const minPanY = -H * zoom * 0.15;
+  panX = Math.max(minPanX, Math.min(maxPanX, panX));
+  panY = Math.max(minPanY, Math.min(maxPanY, panY));
 }
 
-// Mouse drag
+// Mouse drag - desktop only
 mapWrapEl.addEventListener('mousedown', e => {
   if (e.target.closest('.pin, #filters, #hud, #legend, #zoom-controls, #panel')) return;
   isPanning = true;
@@ -2152,9 +2144,10 @@ window.addEventListener('mousemove', e => {
 });
 window.addEventListener('mouseup', () => { isPanning = false; mapWrapEl.classList.remove('dragging'); });
 
-// Touch
+// Touch - disabled on mobile (too easy to pan off-screen on small viewport)
 let lastTouchDist = null;
 mapWrapEl.addEventListener('touchstart', e => {
+  if (window.innerWidth < 768) return; // static on mobile
   if (panel.classList.contains('open')) { isPanning = false; return; }
   if (e.touches.length === 1) {
     isPanning = true;
@@ -2169,7 +2162,8 @@ mapWrapEl.addEventListener('touchstart', e => {
   }
 }, { passive: true });
 mapWrapEl.addEventListener('touchmove', e => {
-  if (panel.classList.contains('open')) return; // panel open: don't pan map
+  if (window.innerWidth < 768) return; // static on mobile
+  if (panel.classList.contains('open')) return;
   if (e.touches.length === 1 && isPanning) {
     panX = e.touches[0].clientX - startX;
     panY = e.touches[0].clientY - startY;
@@ -2221,14 +2215,16 @@ document.getElementById('zoom-reset').addEventListener('click', () => {
   applyTransform();
 });
 
-// Mobile: start slightly zoomed out to see full map
-// Set initial zoom
-if (window.innerWidth >= 1200) {
-  zoom = 0.75; panX = 0; panY = 0;
-} else if (window.innerWidth >= 768) {
-  zoom = 0.6; panX = 0; panY = 0;
+// Mobile: disable pan, show full map. Desktop: sensible initial zoom
+if (window.innerWidth < 768) {
+  zoom = 0.55; panX = 0; panY = 0;
+  // Disable panning on mobile - the map is just a visual element
+  mapWrapEl.style.cursor = 'default';
+  mapWrapEl.removeEventListener('mousedown', null);
+} else if (window.innerWidth >= 1200) {
+  zoom = 0.72; panX = 0; panY = 0;
 } else {
-  zoom = 1.0; panX = 0; panY = 0;
+  zoom = 0.62; panX = 0; panY = 0;
 }
 applyTransform();
 
