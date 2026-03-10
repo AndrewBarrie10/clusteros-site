@@ -81,6 +81,7 @@
   --mono:    'Geist Mono', monospace;
 }
 html { scroll-behavior: smooth; background: #09101f; color: #e8edf5; }
+html, body { overflow-x: hidden; }
 body { background: var(--bg); color: #e8edf5; font-family: 'Geist', sans-serif; font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
 
@@ -182,7 +183,7 @@ body { background: var(--bg); color: #e8edf5; font-family: 'Geist', sans-serif; 
 
 /* ── STACKS TABLE ── */
 .stacks-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 40px; }
-.stack-row { padding: 16px 18px; border: 1px solid var(--border); border-radius: 6px; display: flex; gap: 16px; align-items: flex-start; cursor: pointer; transition: border-color 0.12s; }
+.stack-row { padding: 16px 18px; border: 1px solid var(--border); border-radius: 6px; display: flex; gap: 16px; align-items: flex-start; cursor: pointer; transition: border-color 0.12s; min-height: 56px; }
 .stack-row:hover { border-color: var(--border2); }
 .stack-row.open { border-color: var(--border2); background: var(--surface); }
 .stack-ids { flex-shrink: 0; display: flex; gap: 4px; flex-wrap: wrap; width: 80px; }
@@ -279,8 +280,6 @@ footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32p
 .nav-links a:hover { color: #e8edf5; }
 
 
-@media (max-width: 900px) {  }
-@media (max-width: 480px) { nav { padding: 0 16px; }   }
 
 /* ── NAV ── */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; background: rgba(9,16,31,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(42,61,92,0.6); }
@@ -824,17 +823,7 @@ document.querySelectorAll('.anim, #freq-chart').forEach(el => obs.observe(el));
   </div>
 </footer>
 
-<style>
-/* ── UNIVERSAL MOBILE PATCH ── injected ── */
-html { overflow-x: hidden; }
-body { overflow-x: hidden; }
-@media (max-width: 480px) {
-  nav { padding: 0 16px !important; }
-  
-  
-  
-}
-</style>
+
 
 
 <style>
@@ -853,6 +842,12 @@ body { overflow-x: hidden; }
 }
 @media (max-width: 400px) {
   .numbers-inner { grid-template-columns: 1fr !important; }
+  .res-pair { flex-direction: column; text-align: center; }
+  .res-connector { flex-direction: row; }
+  .res-line { width: 20px; height: 1px; }
+  .stack-ids { width: auto; }
+  .finding { gap: 10px; padding: 16px 14px; }
+  .finding-num { font-size: 24px; width: 28px; }
 }
 </style>
 
