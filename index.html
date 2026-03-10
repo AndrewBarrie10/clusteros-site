@@ -1238,6 +1238,19 @@ revealEls.forEach(el => observer.observe(el));
 }
 #panel.open{transform:translateX(0);transition:transform 0.35s cubic-bezier(0.16,1,0.3,1), visibility 0s linear 0s;visibility:visible}
 
+/* Panel body: fills remaining space, scrolls */
+#panel-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: 0;
+}
+#panel-body::-webkit-scrollbar { width: 4px; }
+#panel-body::-webkit-scrollbar-track { background: transparent; }
+#panel-body::-webkit-scrollbar-thumb { background: #1e2d42; border-radius: 2px; }
+
 .panel-header{
   padding:28px 28px 20px;
   border-bottom:1px solid #1e2d42;
@@ -1419,8 +1432,14 @@ revealEls.forEach(el => observer.observe(el));
     right: 14px;
     z-index: 5;
   }
-  /* Panel body is the scrollable region */
-  #panel .panel-
+  /* Panel body scrolls on mobile */
+  #panel-body {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding-bottom: env(safe-area-inset-bottom, 16px);
+  }
   /* Header compact */
   #panel-header {
     padding: 16px 16px 12px !important;
@@ -1462,7 +1481,6 @@ revealEls.forEach(el => observer.observe(el));
 
   /* Panel content padding */
   #panel-header { padding: 12px 16px 10px; }
-  #panel-
 }
 
 @media (max-width: 480px) {
@@ -1493,9 +1511,6 @@ revealEls.forEach(el => observer.observe(el));
     z-index: 2;
     float: right;
   }
-  /* panel scroll handled by panel-body, not panel itself */
-  /* Panel body needs bottom padding for safe area */
-  #panel-
   /* Tooltip hidden on mobile (use panel instead) */
   #tooltip { display: none !important; }
 }
@@ -1831,7 +1846,7 @@ function renderPins() {
 
       // Invisible hit area (larger tap target)
       const hit = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      hit.setAttribute('r', '16');
+      hit.setAttribute('r', '22');
       hit.setAttribute('fill', 'transparent');
       g.appendChild(hit);
 
@@ -1875,15 +1890,19 @@ function renderPins() {
       g.appendChild(txt);
 
       const doZoom = () => {
-        // Convert SVG coords to screen coords for zoomAt
-        const ps2 = getPinScale();
+        // Zoom to a level that guarantees unclustering (UNCLUSTER_ZOOM + buffer)
+        const TARGET_ZOOM = 2.2;
+        const factor = TARGET_ZOOM / zoom;
         const cw2 = mapWrapEl.clientWidth, ch2 = mapWrapEl.clientHeight;
         const rw2 = (cw2/ch2 > 1440/720) ? ch2*(1440/720) : cw2;
         const rh2 = rw2 * (720/1440);
         const ox2 = (cw2-rw2)/2, oy2 = (ch2-rh2)/2;
+        // Screen coords of cluster centre
         const bx = ox2 + node.cx/1440*rw2;
         const by = oy2 + node.cy/720*rh2;
-        zoomAt(bx * zoom + panX, by * zoom + panY, 2.5);
+        const screenX = bx * zoom + panX;
+        const screenY = by * zoom + panY;
+        zoomAt(screenX, screenY, factor);
       };
       g.addEventListener('click', doZoom);
       g.addEventListener('touchend', (e) => { e.stopPropagation(); doZoom(); }, { passive: true });
@@ -2123,7 +2142,7 @@ document.getElementById('open-map-btn').addEventListener('click', () => {
   document.body.style.overflow = 'hidden';
   // Render pins after modal is visible and has dimensions
   requestAnimationFrame(() => requestAnimationFrame(() => {
-    zoom = window.innerWidth < 768 ? 0.5 : 0.72;
+    zoom = window.innerWidth < 768 ? 0.65 : 0.72;
     panX = 0; panY = 0;
     applyTransform();
     tryRenderPins(10);
@@ -2249,7 +2268,7 @@ document.getElementById('zoom-out').addEventListener('click', () => {
 });
 document.getElementById('zoom-reset').addEventListener('click', () => {
   panX = 0; panY = 0;
-  zoom = window.innerWidth < 768 ? 0.5 : 0.72;
+  zoom = window.innerWidth < 768 ? 0.65 : 0.72;
   applyTransform();
 });
 
