@@ -610,15 +610,15 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
     <p class="cta-p">The Cluster Snapshot is the lowest-friction entry point — fixed fee, no working sessions, 3–4 weeks. Or get in touch directly and we'll work out which tier fits where you are.</p>
     <div class="cta-btns">
       <a href="request.html" class="btn-primary">Order a Snapshot</a>
-      <a href="/cdn-cgi/l/email-protection#ccada2a8bea9bb8cafa3a1a1b9a2a5b8b5a0adaee2adbcbc" class="btn-secondary">Talk to Andrew</a>
+      <a href="mailto:andrew@communitylab.app" class="btn-secondary">Talk to Andrew</a>
     </div>
-    <div class="cta-note"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ceafa0aabcabb98eada1a3a3bba0a7bab7a2aface0afbebe">[email&#160;protected]</a> · Community Lab · Edinburgh</div>
+    <div class="cta-note">andrew@communitylab.app · Community Lab · Edinburgh</div>
   </div>
 </div>
 
 <div class="footer-pad"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const FAQS = [
   {
     q: 'What does the Cluster Snapshot cost and what do I need to provide?',
@@ -669,6 +669,20 @@ function renderFaqs() {
       </div>
       <div class="faq-a">${f.a}</div>
     </div>
+  `).join('');
+}
+
+function toggleFaq(i) {
+  const item = document.getElementById('faq-' + i);
+  if (!item) return;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(el) { el.classList.remove('open'); });
+  if (!isOpen) item.classList.add('open');
+}
+
+document.addEventListener('DOMContentLoaded', function() { renderFaqs(); });
+</script>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
