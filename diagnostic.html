@@ -148,7 +148,7 @@ body { background: #09101f; color: #e8edf5; font-family: 'Geist', sans-serif; fo
 .btn-ghost:hover { color: #e8edf5; }
 
 /* SUBSTRATE BRIDGE — animated signal that gets interrupted */
-.hero-vis { position: relative; height: 340px; display: flex; align-items: center; justify-content: center; }
+.hero-vis { position: relative; height: 480px; display: flex; align-items: center; justify-content: center; }
 .bridge-svg { width: 100%; height: 100%; }
 
 /* Hero bg texture */
@@ -435,104 +435,114 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
       </div>
     </div>
     <div class="hero-vis">
-      <svg class="bridge-svg" viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <filter id="glow2"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          <filter id="glow3"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        </defs>
+      <div class="stall-loop-vis">
+        <svg viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px;display:block;margin:auto;height:480px">
+          <defs>
+            <filter id="glow-s"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <filter id="glow-sm"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <!-- Arrow markers -->
+            <marker id="arr-amber" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#f5d97a" opacity="0.7"/>
+            </marker>
+            <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#f08080" opacity="0.5"/>
+            </marker>
+            <radialGradient id="node-glow-1" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#f5d97a" stop-opacity="0.2"/>
+              <stop offset="100%" stop-color="#f5d97a" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="node-glow-2" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#f08080" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#f08080" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="node-glow-3" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#c8f0d0" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#c8f0d0" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
 
-        <!-- Grid background -->
-        <line x1="0" y1="80" x2="420" y2="80" stroke="#1a2a3e" stroke-width="1"/>
-        <line x1="0" y1="160" x2="420" y2="160" stroke="#1a2a3e" stroke-width="1"/>
-        <line x1="0" y1="240" x2="420" y2="240" stroke="#1a2a3e" stroke-width="1"/>
-        <line x1="105" y1="0" x2="105" y2="320" stroke="#1a2a3e" stroke-width="1"/>
-        <line x1="210" y1="0" x2="210" y2="320" stroke="#1a2a3e" stroke-width="1"/>
-        <line x1="315" y1="0" x2="315" y2="320" stroke="#1a2a3e" stroke-width="1"/>
+          <!-- Background grid -->
+          <rect width="360" height="320" fill="none"/>
+          <line x1="0" y1="160" x2="360" y2="160" stroke="#0e1e30" stroke-width="1"/>
+          <line x1="180" y1="0" x2="180" y2="320" stroke="#0e1e30" stroke-width="1"/>
 
-        <!-- LEFT SIDE: flowing signals (healthy) -->
-        <!-- Actor nodes left -->
-        <circle cx="38" cy="80" r="18" fill="#080e1a" stroke="#7dd3c8" stroke-width="1.5"/>
-        <text x="38" y="84" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#7dd3c8" font-weight="600">STW</text>
-        <circle cx="38" cy="160" r="18" fill="#080e1a" stroke="#c8f0d0" stroke-width="1.5"/>
-        <text x="38" y="164" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#c8f0d0" font-weight="600">CORP</text>
-        <circle cx="38" cy="240" r="18" fill="#080e1a" stroke="#f5d97a" stroke-width="1.5"/>
-        <text x="38" y="244" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#f5d97a" font-weight="600">FND</text>
+          <!-- Title label -->
+          <text x="180" y="22" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7.5" fill="#3a5070" letter-spacing="0.12em">A STABILISATION STACK</text>
 
-        <!-- Flowing signal lines left side -->
-        <line x1="56" y1="80" x2="155" y2="80" stroke="#1e3050" stroke-width="1"/>
-        <line x1="56" y1="160" x2="155" y2="160" stroke="#1e3050" stroke-width="1"/>
-        <line x1="56" y1="240" x2="155" y2="240" stroke="#1e3050" stroke-width="1"/>
-        <!-- Diagonal connections -->
-        <line x1="56" y1="80" x2="155" y2="160" stroke="#1a2a3e" stroke-width="0.8"/>
-        <line x1="56" y1="160" x2="155" y2="240" stroke="#1a2a3e" stroke-width="0.8"/>
+          <!-- NODE 1: Re-proving (top, amber) — position 180,80 -->
+          <circle cx="180" cy="80" r="44" fill="url(#node-glow-1)"/>
+          <circle cx="180" cy="80" r="30" fill="#080e1a" stroke="#f5d97a" stroke-width="1.5"/>
+          <text x="180" y="76" text-anchor="middle" font-family="Geist Mono,monospace" font-size="8" fill="#f5d97a" font-weight="700">S1</text>
+          <text x="180" y="88" text-anchor="middle" font-family="'Geist',sans-serif" font-size="8.5" fill="#c8d8ea">Re-proving</text>
 
-        <!-- ClusterOS core (left) -->
-        <circle cx="175" cy="160" r="30" fill="url(#coreGlow2)" stroke="none"/>
-        <circle cx="175" cy="160" r="22" fill="#080e1a" stroke="#c8f0d0" stroke-width="1.5" filter="url(#glow2)"/>
-        <text x="175" y="155" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#c8f0d0" font-weight="600">CLUSTER</text>
-        <text x="175" y="166" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#c8f0d0" font-weight="600">OS</text>
-        <defs>
-          <radialGradient id="coreGlow2" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#c8f0d0" stop-opacity="0.15"/>
-            <stop offset="100%" stop-color="#c8f0d0" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
+          <!-- NODE 2: Coordinating (bottom-left, crimson) — position 82,230 -->
+          <circle cx="82" cy="230" r="44" fill="url(#node-glow-2)"/>
+          <circle cx="82" cy="230" r="30" fill="#080e1a" stroke="#f08080" stroke-width="1.5"/>
+          <text x="82" y="226" text-anchor="middle" font-family="Geist Mono,monospace" font-size="8" fill="#f08080" font-weight="700">S2</text>
+          <text x="82" y="238" text-anchor="middle" font-family="'Geist',sans-serif" font-size="8.5" fill="#c8d8ea">Coordinating</text>
 
-        <!-- Healthy flowing dots (left side, animated) -->
-        <circle r="3" fill="#7dd3c8" filter="url(#glow3)">
-          <animateMotion dur="2.4s" repeatCount="indefinite" begin="0s"><mpath href="#fl-top"/></animateMotion>
-          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.4s" repeatCount="indefinite"/>
-        </circle>
-        <circle r="3" fill="#c8f0d0" filter="url(#glow3)">
-          <animateMotion dur="2.6s" repeatCount="indefinite" begin="0.8s"><mpath href="#fl-mid"/></animateMotion>
-          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.6s" repeatCount="indefinite" begin="0.8s"/>
-        </circle>
-        <circle r="3" fill="#f5d97a" filter="url(#glow3)">
-          <animateMotion dur="2.2s" repeatCount="indefinite" begin="0.4s"><mpath href="#fl-bot"/></animateMotion>
-          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.2s" repeatCount="indefinite" begin="0.4s"/>
-        </circle>
-        <path id="fl-top" d="M56,80 L153,80 L153,148" fill="none"/>
-        <path id="fl-mid" d="M56,160 L153,160" fill="none"/>
-        <path id="fl-bot" d="M56,240 L153,240 L153,172" fill="none"/>
+          <!-- NODE 3: Narrating (bottom-right, signal) — position 278,230 -->
+          <circle cx="278" cy="230" r="44" fill="url(#node-glow-3)"/>
+          <circle cx="278" cy="230" r="30" fill="#080e1a" stroke="#c8f0d0" stroke-width="1.5"/>
+          <text x="278" y="226" text-anchor="middle" font-family="Geist Mono,monospace" font-size="8" fill="#c8f0d0" font-weight="700">S7</text>
+          <text x="278" y="238" text-anchor="middle" font-family="'Geist',sans-serif" font-size="8.5" fill="#c8d8ea">Narrating</text>
 
-        <!-- BARRIER (centre) -->
-        <line x1="210" y1="20" x2="210" y2="300" stroke="#f08080" stroke-width="2" stroke-dasharray="6 4" opacity="0.7"/>
-        <rect x="188" y="136" width="44" height="48" rx="4" fill="#080e1a" stroke="#f08080" stroke-width="1.5"/>
-        <text x="210" y="155" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7.5" fill="#f08080" font-weight="700">STACK</text>
-        <text x="210" y="167" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7.5" fill="#f08080" font-weight="700">REGIME</text>
-        <text x="210" y="20" text-anchor="middle" font-family="Geist Mono,monospace" font-size="8" fill="#f08080" letter-spacing="0.1em" opacity="0.5">STALLS</text>
+          <!-- Arrows between nodes (triangle, clockwise) -->
+          <!-- S1 → S2 (top to bottom-left) -->
+          <path d="M157,103 L105,207" stroke="#f5d97a" stroke-width="1.5" stroke-opacity="0.5" marker-end="url(#arr-amber)" fill="none"/>
+          <!-- S2 → S3 (bottom-left to bottom-right) -->
+          <path d="M113,230 L247,230" stroke="#f08080" stroke-width="1.5" stroke-opacity="0.4" marker-end="url(#arr-red)" fill="none"/>
+          <!-- S3 → S1 (bottom-right to top) -->
+          <path d="M256,207 L203,103" stroke="#c8f0d0" stroke-width="1.5" stroke-opacity="0.4" marker-end="url(#arr-amber)" fill="none"/>
 
-        <!-- RIGHT SIDE: blocked/trapped signals -->
-        <line x1="232" y1="80" x2="290" y2="80" stroke="#1e3050" stroke-width="1"/>
-        <line x1="232" y1="160" x2="290" y2="160" stroke="#1e3050" stroke-width="1"/>
-        <line x1="232" y1="240" x2="290" y2="240" stroke="#1e3050" stroke-width="1"/>
+          <!-- Edge labels -->
+          <text x="118" y="162" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#7a9bb5" transform="rotate(-56,118,162)">options need</text>
+          <text x="122" y="170" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#7a9bb5" transform="rotate(-56,122,170)">alignment</text>
+          <text x="180" y="220" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#7a9bb5">process feeds story</text>
+          <text x="245" y="162" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#7a9bb5" transform="rotate(56,245,162)">story justifies</text>
+          <text x="241" y="170" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#7a9bb5" transform="rotate(56,241,170)">more validation</text>
 
-        <!-- Trapped dots (right side — circles, no progress) -->
-        <circle cx="255" cy="80" r="3.5" fill="#f08080" opacity="0.6" filter="url(#glow3)">
-          <animate attributeName="cx" values="237;262;237" dur="2.8s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2.8s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="265" cy="160" r="3" fill="#c8f0d0" opacity="0.4">
-          <animate attributeName="cx" values="240;268;240" dur="3.2s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.2;0.5;0.2" dur="3.2s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="250" cy="240" r="3" fill="#f5d97a" opacity="0.4">
-          <animate attributeName="cx" values="235;260;235" dur="2.5s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.2;0.45;0.2" dur="2.5s" repeatCount="indefinite"/>
-        </circle>
+          <!-- Animated pulse on S1 node -->
+          <circle cx="180" cy="80" r="30" fill="none" stroke="#f5d97a" stroke-width="2">
+            <animate attributeName="r" values="30;42;30" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="stroke-opacity" values="0.5;0;0.5" dur="3s" repeatCount="indefinite"/>
+          </circle>
 
-        <!-- Blocked actor nodes (right, faded) -->
-        <circle cx="318" cy="80" r="18" fill="#080e1a" stroke="#2a3a52" stroke-width="1.5"/>
-        <text x="318" y="84" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#3a4f6a" font-weight="600">STW</text>
-        <circle cx="318" cy="160" r="18" fill="#080e1a" stroke="#2a3a52" stroke-width="1.5"/>
-        <text x="318" y="164" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#3a4f6a" font-weight="600">CORP</text>
-        <circle cx="318" cy="240" r="18" fill="#080e1a" stroke="#2a3a52" stroke-width="1.5"/>
-        <text x="318" y="244" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#3a4f6a" font-weight="600">FND</text>
+          <!-- Animated dot travelling S1→S2 -->
+          <circle r="3.5" fill="#f5d97a" filter="url(#glow-sm)" opacity="0.9">
+            <animateMotion dur="2.4s" repeatCount="indefinite" begin="0s">
+              <mpath href="#path-1-2"/>
+            </animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.4s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Animated dot travelling S2→S3 -->
+          <circle r="3.5" fill="#f08080" filter="url(#glow-sm)" opacity="0.9">
+            <animateMotion dur="2.4s" repeatCount="indefinite" begin="0.8s">
+              <mpath href="#path-2-3"/>
+            </animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.4s" repeatCount="indefinite" begin="0.8s"/>
+          </circle>
+          <!-- Animated dot travelling S3→S1 -->
+          <circle r="3.5" fill="#c8f0d0" filter="url(#glow-sm)" opacity="0.9">
+            <animateMotion dur="2.4s" repeatCount="indefinite" begin="1.6s">
+              <mpath href="#path-3-1"/>
+            </animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="2.4s" repeatCount="indefinite" begin="1.6s"/>
+          </circle>
 
-        <!-- Labels -->
-        <text x="90" y="295" text-anchor="middle" font-family="Geist Mono,monospace" font-size="8" fill="#c8f0d0" opacity="0.5" letter-spacing="0.08em">FLOWING</text>
-        <text x="332" y="295" text-anchor="middle" font-family="Geist Mono,monospace" font-size="8" fill="#f08080" opacity="0.5" letter-spacing="0.08em">BLOCKED</text>
-      </svg>
+          <!-- Invisible paths for animation -->
+          <path id="path-1-2" d="M157,103 L105,207" fill="none"/>
+          <path id="path-2-3" d="M113,230 L247,230" fill="none"/>
+          <path id="path-3-1" d="M256,207 L203,103" fill="none"/>
+
+          <!-- Stack name label in centre -->
+          <text x="180" y="157" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#3a5070" letter-spacing="0.1em">THE VALIDATION</text>
+          <text x="180" y="168" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#3a5070" letter-spacing="0.1em">DEADLOCK</text>
+
+          <!-- Bottom label -->
+          <text x="180" y="300" text-anchor="middle" font-family="Geist Mono,monospace" font-size="7" fill="#2a3d5a" letter-spacing="0.1em">STALLS REINFORCE · STACK FORMS · SYSTEM STALLS</text>
+        </svg>
+      </div>
     </div>
   </div>
 </section>
@@ -868,7 +878,7 @@ const STACK_INTELLIGENCE = {
     absorbs: ['Hard outcome comparisons', 'Conversion rate scrutiny', 'Questions about what is actually compounding'],
     clusterType: 'This is a cluster that is excellent at demonstrating vitality while deferring learning that would collapse choice. Cambridge pre-2015. Many innovation districts today.',
   },
-  'S6+S4': {
+  'S4+S6': {
     name: 'Incumbent × Extraction',
     desc: 'Innovation pathways concentrate around large incumbents, which filter what the system can become. New entrants that can\'t attach to the incumbent orbit find that their value exits the ecosystem rather than reinvesting. <strong>The incumbents set the ceiling. Extraction keeps it low.</strong>',
     reinforcement: [
@@ -912,7 +922,7 @@ const STACK_INTELLIGENCE = {
     absorbs: ['Evidence of underperformance', 'Calls for structural change', 'Alternative models'],
     clusterType: 'This cluster has been running the same programmes for a decade. The metrics look reasonable. The underlying model has never been tested.',
   },
-  'S9+S2': {
+  'S2+S9': {
     name: 'The Permission Loop',
     desc: 'The cluster waits for external sanction. Coordination structures are built to manage the waiting. <strong>The act of coordinating provides productive cover for inaction — and inaction generates a need for more coordination to manage the pressure that builds.</strong>',
     reinforcement: [
@@ -936,7 +946,7 @@ const STACK_INTELLIGENCE = {
     absorbs: ['Commercial accountability', 'Performance scrutiny', 'Structural change pressure'],
     clusterType: 'This is the stack of a mature, well-resourced ecosystem that has been busy for a decade and is quietly wondering why the companies keep leaving.',
   },
-  'S6+S2+S5': {
+  'S2+S5+S6': {
     name: 'The Concentrated Authority Stack',
     desc: 'Incumbents anchor the system, intermediaries manage access to them, and coordination structures distribute the responsibility for that arrangement continuing. <strong>The stack does not require anyone to intend it. It is the emergent outcome of three rational responses to the same asymmetry of power.</strong>',
     reinforcement: [
