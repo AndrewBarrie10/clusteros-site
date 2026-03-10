@@ -257,10 +257,11 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 .nav-links > li > a,
 .nav-dropdown-toggle { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: #8ba3c1; padding: 6px 12px; border-radius: 4px; transition: color 0.2s, background 0.2s; cursor: pointer; white-space: nowrap; }
 .nav-links > li > a:hover,
-.nav-dropdown-toggle:hover { color: #e8edf5; background: rgba(255,255,255,0.06); }
+.nav-dropdown-toggle:hover,
+.nav-dropdown-toggle.active { color: #e8edf5; background: rgba(255,255,255,0.06); }
 .nav-dropdown { position: relative; }
 .nav-dropdown-menu { display: none; position: absolute; top: calc(100% + 8px); left: 0; background: #0f1c2e; border: 1px solid rgba(42,61,92,0.8); border-radius: 6px; padding: 6px; min-width: 200px; list-style: none; margin: 0; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
-.nav-dropdown:hover .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu.open { display: block; }
 .nav-dropdown-menu li a { display: block; font-family: 'Geist', system-ui, sans-serif; font-size: 13px; color: #8ba3c1; text-decoration: none; padding: 7px 12px; border-radius: 4px; transition: color 0.15s, background 0.15s; white-space: nowrap; }
 .nav-dropdown-menu li a:hover { color: #e8edf5; background: rgba(200,240,208,0.08); }
 .nav-dropdown-divider { height: 1px; background: rgba(42,61,92,0.6); margin: 4px 8px; }
@@ -605,5 +606,27 @@ body { overflow-x: hidden; }
 }
 </style>
 
+<script>
+// Nav dropdown - click to open, click outside to close
+document.querySelectorAll('.nav-dropdown').forEach(function(dropdown) {
+  var toggle = dropdown.querySelector('.nav-dropdown-toggle');
+  var menu = dropdown.querySelector('.nav-dropdown-menu');
+  toggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var isOpen = menu.style.display === 'block';
+    // Close all menus first
+    document.querySelectorAll('.nav-dropdown-menu').forEach(function(m) { m.style.display = 'none'; });
+    document.querySelectorAll('.nav-dropdown-toggle').forEach(function(t) { t.classList.remove('active'); });
+    if (!isOpen) {
+      menu.style.display = 'block';
+      toggle.classList.add('active');
+    }
+  });
+});
+document.addEventListener('click', function() {
+  document.querySelectorAll('.nav-dropdown-menu').forEach(function(m) { m.style.display = 'none'; });
+  document.querySelectorAll('.nav-dropdown-toggle').forEach(function(t) { t.classList.remove('active'); });
+});
+</script>
 </body>
 </html>
