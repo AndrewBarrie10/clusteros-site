@@ -188,13 +188,11 @@ body {
   font-style: italic;
   color: #c8f0d0;
 }
-.hero-body {
+.hero-.panel-body p {
   font-size: 16px;
   font-weight: 300;
   color: #a8bdd0;
   line-height: 1.7;
-  max-width: 440px;
-  margin-bottom: 48px;
 }
 .hero-body strong { color: #e8edf5; font-weight: 400; }
 .hero-actions {
@@ -1100,7 +1098,7 @@ revealEls.forEach(el => observer.observe(el));
 </script>
 
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+/* global reset handled by page CSS */
 :root{
   --ink:#09101f;--ink-2:#0f1829;--ink-3:#162035;--ink-4:#1d2a42;
   --slate:#2a3d5c;--slate-2:#3d5478;--slate-3:#5a7299;
@@ -1179,7 +1177,7 @@ revealEls.forEach(el => observer.observe(el));
   font-size:12px;font-weight:300;color:#8ba3c1;line-height:1.4;
 }
 
-.panel-body{padding:24px 28px;overflow-y:auto;flex:1;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}
+.panel-
 
 .panel-stat-row{
   display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;
@@ -1382,15 +1380,7 @@ revealEls.forEach(el => observer.observe(el));
     z-index: 5;
   }
   /* Panel body is the scrollable region */
-  #panel .panel-body {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
-    padding: 8px 16px 24px;
-  }
+  #panel .panel-
   /* Header compact */
   #panel-header {
     padding: 16px 16px 12px !important;
@@ -1432,7 +1422,7 @@ revealEls.forEach(el => observer.observe(el));
 
   /* Panel content padding */
   #panel-header { padding: 12px 16px 10px; }
-  #panel-body { padding: 12px 16px 32px; }
+  #panel-
 }
 
 @media (max-width: 480px) {
@@ -1465,9 +1455,7 @@ revealEls.forEach(el => observer.observe(el));
   }
   /* panel scroll handled by panel-body, not panel itself */
   /* Panel body needs bottom padding for safe area */
-  #panel-body {
-    padding-bottom: env(safe-area-inset-bottom, 32px);
-  }
+  #panel-
   /* Tooltip hidden on mobile (use panel instead) */
   #tooltip { display: none !important; }
 }
@@ -1802,7 +1790,7 @@ function renderPins() {
     if (node.type === 'pin') {
       const c = node.cluster[0];
       const { x, y } = project(c.lat, c.lng);
-      const stage = c._lifecycle_stage || '';
+      const stage = c.regime || c._lifecycle_stage || '';
       const color = getStage(stage).color;
 
       const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
@@ -1937,7 +1925,7 @@ function openPanel(c, pinEl) {
   activePinEl = pinEl;
   pinEl.classList.add('active');
 
-  const stage = getStage(c._lifecycle_stage);
+  const stage = getStage(c.regime || c._lifecycle_stage);
   const stalls = getStalls(c);
   const topStalls = [...stalls].sort((a,b) => b.intensity - a.intensity).slice(0,3);
 
@@ -2232,10 +2220,18 @@ if (window.innerWidth >= 1200) {
   zoom = 1.0; panX = 0; panY = 0;
 }
 applyTransform();
-// Render pins after layout settles
-requestAnimationFrame(() => requestAnimationFrame(() => {
-  renderPins();
-}));
+
+// Render pins — defer until map has real dimensions
+function tryRenderPins(attempts) {
+  const w = mapWrapEl.clientWidth;
+  const h = mapWrapEl.clientHeight;
+  if (w > 0 && h > 0) {
+    renderPins();
+  } else if (attempts > 0) {
+    setTimeout(() => tryRenderPins(attempts - 1), 80);
+  }
+}
+requestAnimationFrame(() => requestAnimationFrame(() => tryRenderPins(10)));
 
 </script>
 </body>
