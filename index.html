@@ -801,6 +801,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 .hero-map #panel { z-index: 500; }
 .hero-map #tooltip { z-index: 600; }
 </style>
+  <!-- World map rendering -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 </head>
 <body>
 <div id="page-wrap" style="background:#09101f;color:#e8edf5;min-height:100vh">
@@ -931,76 +934,12 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 
     <!-- Viewport for pan/zoom -->
     <div id="map-viewport" style="position:absolute;inset:0;transform-origin:0 0;will-change:transform">
-      <!-- World SVG — proper Natural Earth simplified paths -->
+      <!-- World map canvas — rendered by D3 + TopoJSON -->
+      <canvas id="world-canvas" style="pointer-events:none;position:absolute;top:0;left:0;width:100%;height:100%;display:block"></canvas>
+      <!-- Invisible SVG for pin positioning reference only -->
       <svg id="world-svg" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid meet"
         xmlns="http://www.w3.org/2000/svg"
-        style="pointer-events:none;position:absolute;top:0;left:0;width:100%;height:100%">
-        <defs>
-          <radialGradient id="ocean-grad" cx="30%" cy="35%" r="75%">
-            <stop offset="0%" stop-color="#0d1b2e"/>
-            <stop offset="100%" stop-color="#060c18"/>
-          </radialGradient>
-          <linearGradient id="land-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#1a2d48"/>
-            <stop offset="100%" stop-color="#111f35"/>
-          </linearGradient>
-        </defs>
-        <!-- Ocean -->
-        <rect width="1440" height="720" fill="url(#ocean-grad)"/>
-        <!-- Graticule lines -->
-        <g stroke="#0a1928" stroke-width="0.5" opacity="0.8">
-          <!-- Latitude lines every 30° -->
-          <line x1="0" y1="120" x2="1440" y2="120"/>
-          <line x1="0" y1="240" x2="1440" y2="240"/>
-          <line x1="0" y1="360" x2="1440" y2="360"/>
-          <line x1="0" y1="480" x2="1440" y2="480"/>
-          <line x1="0" y1="600" x2="1440" y2="600"/>
-          <!-- Longitude lines every 30° -->
-          <line x1="240" y1="0" x2="240" y2="720"/>
-          <line x1="480" y1="0" x2="480" y2="720"/>
-          <line x1="720" y1="0" x2="720" y2="720"/>
-          <line x1="960" y1="0" x2="960" y2="720"/>
-          <line x1="1200" y1="0" x2="1200" y2="720"/>
-        </g>
-        <!-- Equator slightly brighter -->
-        <line x1="0" y1="360" x2="1440" y2="360" stroke="#0e2540" stroke-width="1"/>
-        <!-- Land masses - proper Natural Earth simplified paths, equirectangular projection 1440x720 -->
-        <!-- Projection: x=(lng+180)/360*1440, y=(90-lat)/180*720 -->
-<path d="M960.0,28.0 L340.0,28.0 L160.0,72.0 L160.0,120.0 L192.0,140.0 L224.0,164.0 L340.0,164.0 L384.0,176.0 L416.0,180.0 L440.0,172.0 L464.0,160.0 L496.0,152.0 L472.0,128.0 L464.0,120.0 L448.0,108.0 L408.0,88.0 L400.0,72.0 L376.0,60.0 L344.0,72.0 L320.0,80.0 L280.0,88.0 L240.0,88.0 L168.0,120.0 L208.0,120.0 L200.0,144.0 L224.0,164.0 L340.0,164.0 L416.0,180.0 L400.0,188.0 L388.0,192.0 L408.0,188.0 L420.0,180.0 L440.0,172.0 L488.0,168.0 L496.0,152.0 L488.0,144.0 L472.0,128.0 L464.0,112.0 L456.0,104.0 L440.0,88.0 L408.0,64.0 L376.0,40.0 L360.0,28.0 L960.0,28.0 Z"/>
-<path d="M224.0,164.0 L340.0,164.0 L364.0,172.0 L388.0,180.0 L416.0,188.0 L428.0,196.0 L440.0,196.0 L440.0,192.0 L456.0,184.0 L452.0,180.0 L448.0,172.0 L440.0,184.0 L432.0,196.0 L424.0,200.0 L424.0,204.0 L416.0,220.0 L396.0,232.0 L396.0,240.0 L396.0,244.0 L400.0,260.0 L396.0,264.0 L392.0,260.0 L392.0,252.0 L380.0,244.0 L376.0,240.0 L360.0,240.0 L364.0,244.0 L360.0,244.0 L344.0,244.0 L332.0,256.0 L324.0,256.0 L320.0,248.0 L320.0,244.0 L304.0,244.0 L296.0,232.0 L288.0,232.0 L280.0,236.0 L264.0,236.0 L252.0,232.0 L240.0,224.0 L232.0,212.0 L228.0,208.0 L224.0,200.0 L224.0,192.0 L224.0,176.0 L224.0,168.0 L224.0,164.0 Z"/>
-<path d="M72.0,140.0 L92.0,128.0 L120.0,120.0 L140.0,120.0 L140.0,112.0 L156.0,100.0 L156.0,88.0 L156.0,80.0 L128.0,76.0 L88.0,76.0 L72.0,88.0 L56.0,104.0 L60.0,112.0 L72.0,120.0 L64.0,128.0 L72.0,140.0 Z"/>
-<path d="M320.0,244.0 L324.0,256.0 L328.0,272.0 L332.0,280.0 L344.0,296.0 L360.0,296.0 L368.0,292.0 L368.0,288.0 L372.0,276.0 L372.0,276.0 L360.0,268.0 L360.0,276.0 L356.0,288.0 L352.0,296.0 L340.0,292.0 L332.0,280.0 L320.0,272.0 L304.0,264.0 L292.0,256.0 L264.0,244.0 L264.0,236.0 L252.0,232.0 L264.0,232.0 L288.0,232.0 L296.0,236.0 L304.0,244.0 L320.0,244.0 Z"/>
-<path d="M368.0,288.0 L368.0,300.0 L384.0,320.0 L408.0,328.0 L412.0,324.0 L384.0,320.0 L368.0,300.0 L368.0,288.0 Z"/>
-<path d="M600.0,28.0 L648.0,28.0 L648.0,52.0 L632.0,72.0 L608.0,84.0 L584.0,88.0 L552.0,80.0 L536.0,64.0 L520.0,56.0 L504.0,48.0 L528.0,32.0 L560.0,28.0 L600.0,28.0 Z"/>
-<path d="M384.0,268.0 L396.0,272.0 L420.0,280.0 L424.0,280.0 L424.0,272.0 L392.0,268.0 L384.0,268.0 Z"/>
-<path d="M432.0,312.0 L472.0,320.0 L472.0,328.0 L480.0,336.0 L504.0,344.0 L520.0,344.0 L520.0,360.0 L580.0,380.0 L580.0,392.0 L568.0,400.0 L564.0,420.0 L560.0,440.0 L548.0,452.0 L508.0,492.0 L488.0,512.0 L468.0,528.0 L456.0,552.0 L448.0,576.0 L452.0,584.0 L460.0,580.0 L488.0,568.0 L472.0,520.0 L488.0,496.0 L520.0,480.0 L528.0,464.0 L548.0,448.0 L560.0,432.0 L568.0,400.0 L580.0,380.0 L520.0,360.0 L512.0,352.0 L504.0,344.0 L480.0,336.0 L472.0,328.0 L472.0,320.0 L432.0,312.0 Z"/>
-<path d="M684.0,216.0 L684.0,208.0 L684.0,200.0 L684.0,192.0 L688.0,184.0 L712.0,184.0 L732.0,188.0 L752.0,184.0 L768.0,184.0 L776.0,184.0 L776.0,192.0 L792.0,200.0 L800.0,200.0 L816.0,196.0 L824.0,200.0 L816.0,208.0 L808.0,212.0 L800.0,208.0 L792.0,200.0 L776.0,184.0 L768.0,184.0 L776.0,176.0 L784.0,168.0 L776.0,160.0 L776.0,152.0 L768.0,144.0 L760.0,136.0 L752.0,128.0 L740.0,120.0 L740.0,112.0 L784.0,104.0 L784.0,88.0 L808.0,80.0 L840.0,80.0 L840.0,96.0 L832.0,112.0 L824.0,120.0 L832.0,128.0 L808.0,136.0 L792.0,144.0 L768.0,144.0 L776.0,152.0 L752.0,160.0 L752.0,168.0 L744.0,176.0 L736.0,184.0 L752.0,184.0 L732.0,192.0 L716.0,200.0 L684.0,208.0 L684.0,216.0 Z"/>
-<path d="M740.0,128.0 L740.0,120.0 L740.0,112.0 L776.0,104.0 L784.0,88.0 L808.0,80.0 L840.0,80.0 L832.0,88.0 L816.0,96.0 L808.0,104.0 L824.0,112.0 L824.0,120.0 L832.0,128.0 L808.0,136.0 L792.0,144.0 L768.0,136.0 L768.0,128.0 L740.0,128.0 Z"/>
-<path d="M700.0,160.0 L716.0,156.0 L724.0,152.0 L720.0,148.0 L716.0,144.0 L720.0,140.0 L708.0,136.0 L712.0,132.0 L708.0,128.0 L700.0,132.0 L700.0,136.0 L700.0,144.0 L704.0,148.0 L704.0,152.0 L704.0,156.0 L700.0,160.0 Z"/>
-<path d="M684.0,152.0 L680.0,144.0 L688.0,140.0 L696.0,144.0 L696.0,152.0 L688.0,156.0 L684.0,152.0 Z"/>
-<path d="M832.0,140.0 L832.0,128.0 L840.0,120.0 L848.0,112.0 L840.0,104.0 L840.0,96.0 L840.0,80.0 L936.0,72.0 L936.0,64.0 L960.0,64.0 L944.0,72.0 L992.0,72.0 L1016.0,64.0 L1040.0,64.0 L1040.0,72.0 L1000.0,72.0 L976.0,88.0 L960.0,112.0 L960.0,128.0 L960.0,136.0 L940.0,140.0 L920.0,140.0 L912.0,152.0 L896.0,168.0 L888.0,176.0 L880.0,184.0 L896.0,192.0 L912.0,192.0 L920.0,184.0 L928.0,180.0 L936.0,160.0 L952.0,152.0 L952.0,144.0 L960.0,136.0 L968.0,128.0 L968.0,112.0 L976.0,96.0 L976.0,88.0 L1000.0,72.0 L1040.0,72.0 L1056.0,80.0 L1048.0,88.0 L1064.0,88.0 L1080.0,80.0 L1128.0,72.0 L1160.0,72.0 L1200.0,80.0 L1240.0,80.0 L1264.0,88.0 L1280.0,96.0 L1288.0,112.0 L1280.0,120.0 L1280.0,128.0 L1260.0,128.0 L1240.0,136.0 L1240.0,152.0 L1240.0,160.0 L1264.0,160.0 L1288.0,152.0 L1288.0,144.0 L1280.0,136.0 L1280.0,128.0 L1288.0,120.0 L1288.0,112.0 L1280.0,96.0 L1240.0,80.0 L1200.0,80.0 L1160.0,72.0 L1128.0,72.0 L1104.0,64.0 L1056.0,64.0 L1040.0,72.0 L1040.0,64.0 L1016.0,64.0 L992.0,72.0 L960.0,64.0 L936.0,64.0 L936.0,72.0 L960.0,80.0 L976.0,88.0 L960.0,104.0 L960.0,120.0 L960.0,136.0 L952.0,152.0 L944.0,168.0 L912.0,176.0 L888.0,184.0 L896.0,192.0 L920.0,192.0 L920.0,184.0 L912.0,176.0 L904.0,168.0 L896.0,160.0 L888.0,152.0 L880.0,144.0 L864.0,144.0 L848.0,136.0 L840.0,128.0 L832.0,128.0 L832.0,140.0 Z"/>
-<path d="M760.0,212.0 L776.0,216.0 L776.0,232.0 L840.0,240.0 L872.0,272.0 L896.0,312.0 L888.0,328.0 L888.0,344.0 L888.0,360.0 L776.0,392.0 L768.0,392.0 L712.0,376.0 L664.0,392.0 L664.0,440.0 L656.0,480.0 L648.0,496.0 L616.0,496.0 L600.0,480.0 L588.0,464.0 L576.0,440.0 L560.0,416.0 L568.0,400.0 L664.0,376.0 L712.0,360.0 L688.0,344.0 L728.0,328.0 L752.0,312.0 L768.0,296.0 L776.0,272.0 L784.0,256.0 L808.0,240.0 L768.0,232.0 L768.0,216.0 L760.0,212.0 Z"/>
-<path d="M912.0,408.0 L912.0,416.0 L896.0,432.0 L896.0,448.0 L896.0,456.0 L904.0,464.0 L912.0,456.0 L912.0,440.0 L920.0,416.0 L912.0,408.0 Z"/>
-<path d="M872.0,272.0 L888.0,288.0 L896.0,312.0 L928.0,312.0 L952.0,272.0 L960.0,256.0 L952.0,248.0 L912.0,240.0 L880.0,240.0 L872.0,256.0 L872.0,272.0 Z"/>
-<path d="M896.0,208.0 L896.0,216.0 L896.0,224.0 L904.0,232.0 L912.0,248.0 L928.0,256.0 L952.0,256.0 L952.0,248.0 L952.0,240.0 L952.0,216.0 L944.0,208.0 L928.0,200.0 L912.0,192.0 L896.0,184.0 L896.0,192.0 L896.0,208.0 Z"/>
-<path d="M920.0,192.0 L936.0,184.0 L944.0,176.0 L952.0,168.0 L952.0,160.0 L960.0,152.0 L960.0,136.0 L968.0,128.0 L984.0,120.0 L984.0,136.0 L984.0,152.0 L960.0,160.0 L944.0,168.0 L944.0,176.0 L936.0,184.0 L920.0,192.0 Z"/>
-<path d="M1016.0,224.0 L1032.0,240.0 L1040.0,256.0 L1064.0,280.0 L1040.0,304.0 L1032.0,320.0 L1032.0,328.0 L1040.0,328.0 L1040.0,320.0 L1040.0,312.0 L1024.0,328.0 L1008.0,328.0 L1000.0,272.0 L992.0,264.0 L976.0,248.0 L1016.0,224.0 Z"/>
-<path d="M1208.0,200.0 L1200.0,208.0 L1208.0,232.0 L1208.0,248.0 L1200.0,264.0 L1176.0,272.0 L1152.0,272.0 L1120.0,264.0 L1104.0,248.0 L1080.0,240.0 L1056.0,232.0 L1040.0,216.0 L1008.0,200.0 L1008.0,192.0 L1040.0,184.0 L1064.0,176.0 L1080.0,168.0 L1072.0,160.0 L1048.0,152.0 L1048.0,136.0 L1080.0,144.0 L1120.0,152.0 L1128.0,160.0 L1152.0,168.0 L1160.0,160.0 L1208.0,160.0 L1200.0,168.0 L1208.0,184.0 L1208.0,200.0 Z"/>
-<path d="M1240.0,236.0 L1240.0,228.0 L1248.0,224.0 L1264.0,220.0 L1272.0,216.0 L1284.0,216.0 L1284.0,208.0 L1284.0,200.0 L1284.0,192.0 L1296.0,184.0 L1304.0,184.0 L1296.0,192.0 L1292.0,200.0 L1288.0,208.0 L1280.0,216.0 L1272.0,216.0 L1264.0,224.0 L1248.0,228.0 L1240.0,236.0 Z"/>
-<path d="M1280.0,192.0 L1296.0,192.0 L1296.0,184.0 L1288.0,184.0 L1280.0,192.0 Z"/>
-<path d="M1224.0,224.0 L1224.0,216.0 L1216.0,208.0 L1232.0,208.0 L1240.0,216.0 L1232.0,224.0 L1224.0,224.0 Z"/>
-<path d="M1136.0,248.0 L1136.0,272.0 L1120.0,280.0 L1120.0,296.0 L1120.0,312.0 L1120.0,328.0 L1128.0,344.0 L1136.0,352.0 L1136.0,360.0 L1152.0,352.0 L1152.0,344.0 L1184.0,336.0 L1192.0,344.0 L1160.0,352.0 L1136.0,360.0 L1152.0,368.0 L1160.0,376.0 L1168.0,368.0 L1176.0,360.0 L1184.0,352.0 L1192.0,344.0 L1184.0,336.0 L1168.0,328.0 L1152.0,320.0 L1152.0,312.0 L1144.0,304.0 L1144.0,296.0 L1144.0,288.0 L1144.0,280.0 L1136.0,264.0 L1144.0,248.0 L1136.0,248.0 Z"/>
-<path d="M1144.0,384.0 L1136.0,376.0 L1128.0,368.0 L1120.0,360.0 L1120.0,352.0 L1112.0,344.0 L1104.0,344.0 L1104.0,352.0 L1120.0,360.0 L1120.0,368.0 L1136.0,376.0 L1144.0,384.0 Z"/>
-<path d="M1152.0,384.0 L1168.0,384.0 L1184.0,392.0 L1176.0,392.0 L1168.0,392.0 L1152.0,392.0 L1152.0,384.0 Z"/>
-<path d="M1184.0,332.0 L1184.0,344.0 L1168.0,352.0 L1160.0,360.0 L1160.0,368.0 L1176.0,376.0 L1184.0,368.0 L1184.0,360.0 L1192.0,352.0 L1192.0,344.0 L1192.0,336.0 L1184.0,332.0 Z"/>
-<path d="M1200.0,288.0 L1208.0,296.0 L1208.0,312.0 L1216.0,320.0 L1216.0,328.0 L1208.0,336.0 L1200.0,328.0 L1192.0,320.0 L1200.0,312.0 L1208.0,304.0 L1200.0,296.0 L1200.0,288.0 Z"/>
-<path d="M1264.0,416.0 L1240.0,416.0 L1208.0,424.0 L1176.0,440.0 L1168.0,464.0 L1184.0,488.0 L1192.0,496.0 L1208.0,496.0 L1264.0,504.0 L1280.0,512.0 L1304.0,512.0 L1312.0,512.0 L1320.0,504.0 L1328.0,496.0 L1336.0,472.0 L1328.0,456.0 L1312.0,440.0 L1304.0,424.0 L1264.0,416.0 Z"/>
-<path d="M1416.0,504.0 L1424.0,512.0 L1424.0,520.0 L1416.0,528.0 L1408.0,520.0 L1416.0,512.0 L1416.0,504.0 Z"/>
-<path d="M1392.0,536.0 L1400.0,544.0 L1392.0,544.0 L1400.0,536.0 L1408.0,544.0 L1392.0,544.0 L1392.0,536.0 Z"/>
-<path d="M1248.0,368.0 L1264.0,376.0 L1304.0,384.0 L1312.0,392.0 L1288.0,392.0 L1280.0,384.0 L1264.0,376.0 L1248.0,368.0 Z"/>
-                </g>
-        <!-- Antarctica hint -->
-        <rect x="0" y="660" width="1440" height="60" fill="#0f1e32" opacity="0.8"/>
+        style="pointer-events:none;position:absolute;top:0;left:0;width:100%;height:100%;opacity:0">
       </svg>
 
       <!-- Pins layer -->
@@ -1665,7 +1604,7 @@ function project(lat, lng) {
 function toPos(x, y) {
   const cw = mapWrapEl.clientWidth  || window.innerWidth;
   const ch = mapWrapEl.clientHeight || window.innerHeight;
-  const svgAspect = 1440 / 810;
+  const svgAspect = 1440 / 720;
   const cAspect = cw / ch;
   let rw, rh, ox, oy;
   if (cAspect > svgAspect) {
@@ -1677,7 +1616,7 @@ function toPos(x, y) {
   }
   return {
     left: (ox + x / 1440 * rw) + 'px',
-    top:  (oy + y / 810  * rh) + 'px'
+    top:  (oy + y / 720  * rh) + 'px'
   };
 }
 function toPercent(x, y) { return toPos(x, y); }
@@ -1797,7 +1736,7 @@ function getSvgRef() {
   
   if (cw === 0 || ch === 0) return null;
   
-  const svgAspect = 1440 / 810;
+  const svgAspect = 1440 / 720;
   const cAspect = cw / ch;
   let rw, rh, ox, oy;
   if (cAspect > svgAspect) {
@@ -1814,7 +1753,7 @@ function svgToScreen(svgX, svgY) {
   const { rw, rh, ox, oy } = ref;
   // Base position (untransformed, zoom=1, pan=0)
   const bx = ox + svgX / 1440 * rw;
-  const by = oy + svgY / 810  * rh;
+  const by = oy + svgY / 720  * rh;
   // Apply transform manually (mirrors the CSS transform on map-viewport)
   return {
     left: (bx * zoom + panX) + 'px',
@@ -1828,7 +1767,7 @@ function getPinScale() {
   const cw = mapWrapEl.clientWidth;
   const ch = mapWrapEl.clientHeight;
   if (!cw || !ch) return 1;
-  const svgAspect = 1440 / 810;
+  const svgAspect = 1440 / 720;
   const cAspect = cw / ch;
   const rw = cAspect > svgAspect ? ch * svgAspect : cw;
   // SVG renders at rw pixels wide for 1440 SVG units
@@ -1925,11 +1864,11 @@ function renderPins() {
         // Convert SVG coords to screen coords for zoomAt
         const ps2 = getPinScale();
         const cw2 = mapWrapEl.clientWidth, ch2 = mapWrapEl.clientHeight;
-        const rw2 = (cw2/ch2 > 1440/810) ? ch2*(1440/810) : cw2;
-        const rh2 = rw2 * (810/1440);
+        const rw2 = (cw2/ch2 > 1440/720) ? ch2*(1440/720) : cw2;
+        const rh2 = rw2 * (720/1440);
         const ox2 = (cw2-rw2)/2, oy2 = (ch2-rh2)/2;
         const bx = ox2 + node.cx/1440*rw2;
-        const by = oy2 + node.cy/810*rh2;
+        const by = oy2 + node.cy/720*rh2;
         zoomAt(bx * zoom + panX, by * zoom + panY, 2.5);
       };
       g.addEventListener('click', doZoom);
@@ -2298,107 +2237,65 @@ document.getElementById('zoom-reset').addEventListener('click', () => {
   applyTransform();
 });
 
-// ── PREVIEW CANVAS — static dot map in hero ──
-(function renderPreview() {
+// ── PREVIEW CANVAS — D3 world map + cluster dots ──
+(function initPreview() {
   const canvas = document.getElementById('map-preview-canvas');
   if (!canvas) return;
 
-  // Simplified land polygons for canvas preview (lat/lng pairs)
-  const lands = [
-    // Canada
-    [[83,60],[83,-95],[72,-140],[60,-140],[49,-124],[49,-95],[45,-76],[47,-70],[52,-56],[58,-62],[63,-68],[72,-80],[83,60]],
-    // USA
-    [[49,-124],[49,-95],[41,-73],[41,-70],[35,-76],[29,-81],[25,-80],[24,-81],[29,-85],[29,-94],[26,-97],[28,-100],[29,-104],[32,-106],[32,-114],[34,-120],[37,-122],[42,-124],[49,-124]],
-    // Alaska
-    [[55,-162],[60,-145],[65,-141],[70,-141],[71,-158],[64,-166],[55,-162]],
-    // Mexico
-    [[29,-100],[22,-98],[16,-90],[17,-88],[21,-87],[23,-90],[18,-91],[17,-95],[20,-97],[22,-100],[26,-107],[29,-114],[32,-117],[32,-108],[29,-104],[29,-100]],
-    // Greenland
-    [[83,-30],[77,-18],[69,-28],[68,-34],[74,-46],[78,-54],[83,-40],[83,-30]],
-    // South America
-    [[12,-72],[8,-62],[4,-52],[0,-50],[-8,-35],[-20,-40],[-34,-58],[-54,-68],[-56,-67],[-42,-63],[-34,-58],[-26,-48],[-22,-43],[-10,-38],[-4,-35],[0,-50],[4,-52],[8,-62],[12,-72]],
-    // W Europe
-    [[36,-9],[44,-8],[44,14],[40,18],[40,26],[38,24],[40,20],[44,14],[48,16],[54,12],[58,8],[60,5],[64,16],[68,16],[70,30],[66,30],[58,28],[54,18],[52,14],[50,8],[46,6],[44,4],[42,3],[40,-1],[38,-9],[36,-9]],
-    // UK
-    [[50,-5],[53,0],[56,-3],[58,-3],[56,-5],[52,-4],[50,-5]],
-    // Russia
-    [[55,28],[62,32],[70,30],[72,54],[74,74],[72,80],[70,84],[72,102],[70,130],[62,142],[56,130],[50,136],[52,142],[56,140],[62,142],[68,136],[70,120],[72,110],[74,84],[74,60],[72,54],[70,30],[64,30],[58,28],[55,28]],
-    // Africa
-    [[37,10],[32,14],[22,38],[12,44],[8,42],[0,42],[-8,14],[-4,-2],[-8,-14],[-20,-14],[-34,-18],[-34,-26],[-26,-33],[-14,-40],[-4,-14],[0,-2],[8,2],[16,12],[26,16],[30,22],[32,12],[37,10]],
-    // Arabia
-    [[22,38],[12,44],[12,52],[22,58],[28,58],[30,48],[30,40],[26,38],[22,38]],
-    // Iran/Iraq
-    [[38,44],[34,44],[30,48],[26,58],[36,58],[42,48],[44,44],[38,44]],
-    // India
-    [[34,74],[26,80],[14,80],[8,78],[8,72],[22,70],[28,64],[34,74]],
-    // China
-    [[40,122],[32,122],[24,120],[22,108],[24,100],[30,90],[36,80],[44,80],[48,90],[52,100],[50,122],[44,122],[40,122]],
-    // Japan
-    [[31,130],[34,132],[36,138],[38,141],[42,141],[44,144],[42,144],[38,142],[36,140],[33,132],[31,130]],
-    // SE Asia
-    [[28,104],[22,104],[16,100],[8,100],[2,104],[0,104],[2,108],[4,118],[8,112],[14,106],[18,106],[24,104],[28,104]],
-    // Sumatra
-    [[2,100],[4,96],[2,96],[0,100],[-4,104],[-6,106],[-4,104],[2,100]],
-    // Borneo
-    [[7,116],[2,112],[0,110],[-4,114],[0,116],[4,118],[7,116]],
-    // Australia
-    [[-14,136],[-16,122],[-26,112],[-34,118],[-36,136],[-38,148],[-28,154],[-14,146],[-14,136]],
-    // New Guinea
-    [[-2,132],[-6,146],[-8,148],[-6,140],[-2,132]],
-    // Madagascar
-    [[-12,48],[-18,44],[-26,46],[-24,48],[-14,50],[-12,48]],
-  ];
+  const stageColors = { emerging: '#7dd3c8', growing: '#c8f0d0', mature: '#f5d97a', transitioning: '#f08080' };
 
-  function draw() {
-    const W = canvas.offsetWidth, H = canvas.offsetHeight;
-    if (W === 0) { requestAnimationFrame(draw); return; }
-    canvas.width = W; canvas.height = H;
-    const ctx = canvas.getContext('2d');
+  function drawPreview(world) {
+    function render() {
+      const W = canvas.offsetWidth, H = canvas.offsetHeight;
+      if (!W || !H) { requestAnimationFrame(render); return; }
+      canvas.width  = W * (window.devicePixelRatio || 1);
+      canvas.height = H * (window.devicePixelRatio || 1);
+      const ctx = canvas.getContext('2d');
+      ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
 
-    // Ocean bg
-    const oceanGrad = ctx.createRadialGradient(W*0.3, H*0.35, 0, W*0.3, H*0.35, W*0.8);
-    oceanGrad.addColorStop(0, '#0d1b2e');
-    oceanGrad.addColorStop(1, '#060c18');
-    ctx.fillStyle = oceanGrad;
-    ctx.fillRect(0, 0, W, H);
+      // Ocean
+      const grad = ctx.createRadialGradient(W*0.3,H*0.35,0,W*0.3,H*0.35,W*0.9);
+      grad.addColorStop(0,'#0d1b2e'); grad.addColorStop(1,'#060c18');
+      ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
 
-    // Draw land masses
-    ctx.fillStyle = '#152035';
-    ctx.strokeStyle = '#0c1a2e';
-    ctx.lineWidth = 0.5;
-    lands.forEach(polygon => {
-      ctx.beginPath();
-      polygon.forEach(([lat, lng], i) => {
-        const px = (lng + 180) / 360 * W;
-        const py = (90 - lat) / 180 * H;
-        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      if (world) {
+        // Land via D3
+        const proj = d3.geoEquirectangular().scale(W/(2*Math.PI)).translate([W/2,H/2]);
+        const path = d3.geoPath(proj, ctx);
+        const land = topojson.feature(world, world.objects.land);
+        ctx.beginPath(); path(land);
+        ctx.fillStyle = '#162840'; ctx.fill();
+      }
+
+      // Cluster dots
+      CLUSTERS.forEach(c => {
+        const px = (c.lng + 180) / 360 * W;
+        const py = (90 - c.lat) / 180 * H;
+        const color = stageColors[c._lifecycle_stage] || '#7dd3c8';
+        const g = ctx.createRadialGradient(px,py,0,px,py,6);
+        g.addColorStop(0, color+'60'); g.addColorStop(1,'transparent');
+        ctx.beginPath(); ctx.arc(px,py,6,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
+        ctx.beginPath(); ctx.arc(px,py,2.2,0,Math.PI*2);
+        ctx.fillStyle=color; ctx.globalAlpha=0.9; ctx.fill();
       });
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
-    });
-
-    // Draw cluster dots on top
-    const stageColors = { emerging: '#7dd3c8', growing: '#c8f0d0', mature: '#f5d97a', transitioning: '#f08080' };
-    CLUSTERS.forEach(c => {
-      const px = (c.lng + 180) / 360 * W;
-      const py = (90 - c.lat) / 180 * H;
-      const color = stageColors[c._lifecycle_stage] || '#7dd3c8';
-      // Glow
-      const grad = ctx.createRadialGradient(px, py, 0, px, py, 6);
-      grad.addColorStop(0, color + '60');
-      grad.addColorStop(1, 'transparent');
-      ctx.beginPath(); ctx.arc(px, py, 6, 0, Math.PI * 2);
-      ctx.fillStyle = grad; ctx.fill();
-      // Dot
-      ctx.beginPath(); ctx.arc(px, py, 2.2, 0, Math.PI * 2);
-      ctx.fillStyle = color; ctx.globalAlpha = 0.9; ctx.fill();
-    });
-    ctx.globalAlpha = 1;
+      ctx.globalAlpha = 1;
+    }
+    render();
+    window.addEventListener('resize', render);
   }
-  requestAnimationFrame(draw);
-  window.addEventListener('resize', draw);
+
+  function tryLoadPreview() {
+    if (typeof d3 === 'undefined' || typeof topojson === 'undefined') {
+      setTimeout(tryLoadPreview, 100); return;
+    }
+    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+      .then(r => r.json())
+      .then(drawPreview)
+      .catch(() => drawPreview(null));
+  }
+  tryLoadPreview();
 })();
+
 
 function tryRenderPins(attempts) {
   const w = mapWrapEl.clientWidth;
@@ -2410,9 +2307,101 @@ function tryRenderPins(attempts) {
   }
 }
 
+// ── D3 WORLD MAP CANVAS RENDERER ──
+(function initWorldMap() {
+  const canvas = document.getElementById('world-canvas');
+  if (!canvas) return;
 
+  function drawMap(world) {
+    const W = canvas.offsetWidth || canvas.parentElement.offsetWidth;
+    const H = canvas.offsetHeight || canvas.parentElement.offsetHeight;
+    if (!W || !H) { setTimeout(() => drawMap(world), 100); return; }
 
+    canvas.width  = W * window.devicePixelRatio;
+    canvas.height = H * window.devicePixelRatio;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
 
+    // Equirectangular projection scaled to canvas
+    const projection = d3.geoEquirectangular()
+      .scale(W / (2 * Math.PI))
+      .translate([W / 2, H / 2]);
+    const path = d3.geoPath(projection, ctx);
+
+    // Ocean gradient
+    const grad = ctx.createRadialGradient(W * 0.3, H * 0.35, 0, W * 0.3, H * 0.35, W * 0.9);
+    grad.addColorStop(0, '#0d1b2e');
+    grad.addColorStop(1, '#060c18');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    // Graticule (subtle grid)
+    const graticule = d3.geoGraticule().step([30, 30]);
+    ctx.beginPath();
+    path(graticule());
+    ctx.strokeStyle = '#0c1e35';
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+
+    // Equator (slightly brighter)
+    ctx.beginPath();
+    path(d3.geoGraticule().step([360, 180])());
+    ctx.beginPath();
+    path({ type: 'LineString', coordinates: [[-180, 0], [180, 0]] });
+    ctx.strokeStyle = '#0f2840';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Land
+    const land = topojson.feature(world, world.objects.land);
+    ctx.beginPath();
+    path(land);
+    ctx.fillStyle = '#162840';
+    ctx.fill();
+    ctx.strokeStyle = '#0d1f35';
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+
+    // Country borders
+    const countries = topojson.mesh(world, world.objects.countries, (a, b) => a !== b);
+    ctx.beginPath();
+    path(countries);
+    ctx.strokeStyle = '#1a3050';
+    ctx.lineWidth = 0.4;
+    ctx.stroke();
+
+    // Antarctica ice hint
+    ctx.fillStyle = '#0f1e32';
+    ctx.globalAlpha = 0.6;
+    ctx.fillRect(0, H * 0.91, W, H * 0.09);
+    ctx.globalAlpha = 1;
+  }
+
+  function tryLoad() {
+    if (typeof d3 === 'undefined' || typeof topojson === 'undefined') {
+      setTimeout(tryLoad, 100);
+      return;
+    }
+    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+      .then(r => r.json())
+      .then(world => {
+        drawMap(world);
+        window.addEventListener('resize', () => drawMap(world));
+      })
+      .catch(() => {
+        // Fallback: plain dark ocean if network unavailable
+        const c = document.getElementById('world-canvas');
+        if (!c) return;
+        const W = c.offsetWidth, H = c.offsetHeight;
+        c.width = W; c.height = H;
+        const ctx = c.getContext('2d');
+        const grad = ctx.createRadialGradient(W*0.3,H*0.35,0,W*0.3,H*0.35,W*0.9);
+        grad.addColorStop(0,'#0d1b2e'); grad.addColorStop(1,'#060c18');
+        ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
+      });
+  }
+  tryLoad();
+})();
 </script>
 <script>
 // Nav dropdown - click to open, click outside to close
