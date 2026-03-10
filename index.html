@@ -218,54 +218,14 @@ body {
   border-left: 1px solid #1e2d42;
 }
 
-/* Map onboarding tooltip */
-#map-onboarding {
-  position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-  background: rgba(30,45,66,0.95);
-  border: 1px solid #2a3a52;
-  border-radius: 8px;
-  padding: 12px 18px;
-  white-space: nowrap;
-  pointer-events: none;
-  transition: opacity 0.5s;
-}
-#map-onboarding.hidden { opacity: 0; }
-.onboarding-text {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  color: #7a9bb5;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.onboarding-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #c8f0d0;
-  animation: pulse-soft 2s ease-in-out infinite;
-}
-@keyframes pulse-soft {
-  0%,100% { opacity:1; transform:scale(1); }
-  50% { opacity:0.5; transform:scale(1.4); }
-}
+/* map-onboarding removed */
 
 /* Map legend bar - now hidden (using inner map legend instead) */
 #map-legend-bar {
   display: none;
 }
 
-/* HUD visible in hero */
-#hero .hero-map #zoom-controls {
-  bottom: auto;
-  top: 50px;
-  right: 14px;
-  flex-direction: column;
-}
+/* zoom controls handled in map CSS block below */
 
 /* ── HOW IT WORKS ── */
 #how {
@@ -569,19 +529,14 @@ footer {
   .hero-copy { padding: 80px 28px 40px; }
   .hero-stats { grid-template-columns: repeat(3,1fr); }
   .hero-map { border-left: none; border-top: 1px solid #1e2d42; }
-  /* On mobile map: hide zoom controls, move legend to top-left small, filters to bottom */
+  /* On mobile map: hide zoom controls, shrink topbar text */
   .hero-map #zoom-controls { display: none !important; }
-  .hero-map #legend { bottom: 60px !important; left: 12px !important; padding: 7px 10px !important; gap: 5px !important; }
-  .hero-map .legend-item { font-size: 8px !important; }
-  .hero-map #hud { display: none; }
-  .hero-map #filters {
-    top: auto !important;
-    bottom: 12px !important;
-    right: auto !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    max-width: calc(100% - 120px);
-  }
+  #map-topbar { height: 36px; padding: 0 10px; }
+  #map-counter { font-size: 8px; }
+  .filter-btn { font-size: 7px; padding: 3px 8px; }
+  #legend { gap: 12px; padding: 0 10px; height: 30px; }
+  .legend-item { font-size: 7px; gap: 5px; }
+  .legend-dot { width: 6px; height: 6px; }
   .pipeline { grid-template-columns: 1fr; gap: 24px; }
   .pipeline::before { display: none; }
   .deliverables { grid-template-columns: 1fr; }
@@ -679,23 +634,18 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
   right: 12px !important;
   transform: translateY(50%);
 }
-/* Filters shown at top-right in hero map */
-.hero-map #filters {
-  top: 16px !important;
-  right: 16px !important;
-  bottom: auto !important;
-  left: auto !important;
-  transform: none !important;
-  max-width: 200px;
-  justify-content: flex-end;
-}
-/* Legend shown in map */
-.hero-map #legend { display: flex !important; }
+/* Filters and legend live inside map-wrap topbar/bottom strip - no overrides needed */
+.hero-map #filters { position:static; } /* filters now inside #map-topbar */
 /* Panel z-index fix for homepage context */
 .hero-map #panel { z-index: 500; }
 .hero-map #tooltip { z-index: 600; }
-/* Map onboarding sits above map */
-#map-onboarding { z-index: 200; }
+/* Zoom controls - above legend strip */
+.hero-map #zoom-controls {
+  bottom: 44px !important;
+  right: 12px !important;
+  top: auto !important;
+  transform: none !important;
+}
 </style>
 </head>
 <body>
@@ -770,39 +720,23 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
   <!-- Right: map -->
   <div class="hero-map" id="hero-map-container">
 
-    <!-- Legend bar -->
-    <!-- legend now shown inside map-wrap -->
-
-    <!-- Onboarding tooltip -->
-    <div id="map-onboarding">
-      <div class="onboarding-text">
-        <span class="onboarding-dot"></span>
-        Each pin is a real cluster diagnostic — tap to explore
-      </div>
-    </div>
-
     <!-- THE MAP (full embedded) -->
 <div id="map-wrap">
 
-  <!-- HUD top-left -->
-  <div id="hud">
-    <a href="#" class="hud-logo"><span class="c">Cluster</span><span class="o">OS</span></a>
-    <div class="hud-counter">
-      <span id="visible-count">75</span> clusters · <span id="active-filter">all sectors</span>
+  <!-- Top bar: counter + filters in one clean strip -->
+  <div id="map-topbar">
+    <div id="map-counter"><span id="visible-count">75</span> clusters · <span id="active-filter">all sectors</span></div>
+    <div id="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="Cyber Security">Cyber</button>
+      <button class="filter-btn" data-filter="Life Sciences">Life Sci</button>
+      <button class="filter-btn" data-filter="Space Technology">Space</button>
+      <button class="filter-btn" data-filter="Scotland">Scotland</button>
+      <button class="filter-btn" data-filter="Orlando">Orlando</button>
     </div>
   </div>
 
-  <!-- Filters top-right -->
-  <div id="filters">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="Cyber Security">Cyber</button>
-    <button class="filter-btn" data-filter="Life Sciences">Life Sci</button>
-    <button class="filter-btn" data-filter="Space Technology">Space</button>
-    <button class="filter-btn" data-filter="Scotland">Scotland</button>
-    <button class="filter-btn" data-filter="Orlando">Orlando</button>
-  </div>
-
-  <!-- Legend bottom-left -->
+  <!-- Legend bottom-left: horizontal -->
   <div id="legend">
     <div class="legend-item"><div class="legend-dot emerging"></div>Emerging</div>
     <div class="legend-item"><div class="legend-dot growing"></div>Growing</div>
@@ -1072,16 +1006,6 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ── ONBOARDING TOOLTIP: hide after 4s or first map interaction ──
-const onboarding = document.getElementById('map-onboarding');
-let onboardingTimer = setTimeout(() => {
-  onboarding.classList.add('hidden');
-}, 4000);
-document.getElementById('hero-map-container').addEventListener('click', () => {
-  clearTimeout(onboardingTimer);
-  onboarding.classList.add('hidden');
-}, { once: true });
-
 // ── SCROLL REVEAL ──
 const revealEls = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver((entries) => {
@@ -1134,12 +1058,13 @@ revealEls.forEach(el => observer.observe(el));
   background:#0f1829;
   border-left:1px solid #1e2d42;
   transform:translateX(100%);
-  transition:transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  transition:transform 0.35s cubic-bezier(0.16,1,0.3,1), visibility 0s linear 0.35s;
   z-index:50;
   display:flex;flex-direction:column;
   overflow:hidden;
+  visibility:hidden;
 }
-#panel.open{transform:translateX(0)}
+#panel.open{transform:translateX(0);transition:transform 0.35s cubic-bezier(0.16,1,0.3,1), visibility 0s linear 0s;visibility:visible}
 
 .panel-header{
   padding:28px 28px 20px;
@@ -1242,63 +1167,63 @@ revealEls.forEach(el => observer.observe(el));
   letter-spacing:0.06em;
 }
 
-/* ── HUD ── */
-#hud{
-  position:absolute;top:24px;left:24px;z-index:20;
-  display:flex;flex-direction:column;gap:8px;pointer-events:none;
-}
-.hud-logo{
-  display:inline-flex;align-items:baseline;
-  background:rgba(9,16,31,0.85);backdrop-filter:blur(12px);
-  padding:8px 14px;border-radius:4px;
-  border:1px solid rgba(42,61,92,0.5);
-  pointer-events:all;text-decoration:none;
-}
-.hud-logo .c{font-family:'Instrument Serif',serif;font-size:18px;font-weight:400;color:#e8edf5;letter-spacing:-0.02em}
-.hud-logo .o{font-family:'Geist Mono',monospace;font-size:18px;font-weight:600;color:#c8f0d0;letter-spacing:-0.03em;position:relative;top:1px}
+/* ── HUD (removed - no longer used) ── */
 
-.hud-counter{
-  background:rgba(9,16,31,0.85);backdrop-filter:blur(12px);
-  padding:8px 14px;border-radius:4px;
-  border:1px solid rgba(42,61,92,0.5);
+/* ── MAP TOP BAR ── */
+#map-topbar{
+  position:absolute;top:0;left:0;right:0;z-index:20;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 14px;height:44px;
+  background:rgba(9,16,31,0.75);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(42,61,92,0.4);
+}
+#map-counter{
   font-family:'Geist Mono',monospace;font-size:9px;
-  color:#8ba3c1;letter-spacing:0.08em;
-  pointer-events:all;
+  color:#7a9bb5;letter-spacing:0.08em;white-space:nowrap;flex-shrink:0;
 }
-.hud-counter span{color:#c8f0d0;font-weight:600}
+#map-counter span{color:#c8f0d0;font-weight:600}
 
-/* ── LEGEND ── */
-#legend{
-  position:absolute;bottom:16px;left:16px;z-index:20;
-  background:rgba(9,16,31,0.9);backdrop-filter:blur(12px);
-  padding:10px 14px;border-radius:6px;
-  border:1px solid rgba(42,61,92,0.6);
-  display:flex;flex-direction:column;gap:6px;
+/* ── FILTER BAR (inside topbar) ── */
+#filters{
+  display:flex;gap:4px;overflow-x:auto;
+  scrollbar-width:none;justify-content:flex-end;
 }
-.legend-item{display:flex;align-items:center;gap:7px;font-family:'Geist Mono',monospace;font-size:9px;color:#8ba3c1;letter-spacing:0.06em;text-transform:uppercase}
-.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+#filters::-webkit-scrollbar{display:none}
+.filter-btn{
+  background:transparent;
+  padding:4px 10px;border-radius:3px;
+  border:1px solid rgba(42,61,92,0.5);
+  font-family:'Geist Mono',monospace;font-size:8px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:#5a7a9a;cursor:pointer;white-space:nowrap;
+  transition:border-color 0.15s,color 0.15s,background 0.15s;
+}
+.filter-btn:hover{border-color:#7a9bb5;color:#c4cdd9}
+.filter-btn.active{border-color:#c8f0d0;color:#09101f;background:#c8f0d0;font-weight:700}
+.filter-btn[data-filter="all"].active{border-color:rgba(42,61,92,0.8);color:#c4cdd9;background:rgba(42,61,92,0.5);font-weight:400}
+
+/* ── LEGEND — horizontal strip at bottom ── */
+#legend{
+  position:absolute;bottom:0;left:0;right:0;z-index:20;
+  display:flex;align-items:center;gap:20px;
+  padding:0 16px;height:36px;
+  background:rgba(9,16,31,0.75);
+  backdrop-filter:blur(10px);
+  border-top:1px solid rgba(42,61,92,0.4);
+}
+.legend-item{display:flex;align-items:center;gap:6px;font-family:'Geist Mono',monospace;font-size:8px;color:#7a9bb5;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap}
+.legend-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .legend-dot.emerging{background:#7dd3c8}
 .legend-dot.growing{background:#c8f0d0}
 .legend-dot.mature{background:#f5d97a}
 .legend-dot.transitioning{background:#f08080}
 
-/* ── FILTER BAR ── */
-#filters{
-  position:absolute;top:16px;right:16px;z-index:20;
-  display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;
-}
-.filter-btn{
-  background:rgba(9,16,31,0.85);backdrop-filter:blur(12px);
-  padding:5px 11px;border-radius:3px;
-  border:1px solid rgba(42,61,92,0.5);
-  font-family:'Geist Mono',monospace;font-size:8px;
-  letter-spacing:0.1em;text-transform:uppercase;
-  color:#7a9bb5;cursor:pointer;
-  transition:border-color 0.18s,color 0.18s,background 0.18s;
-}
-.filter-btn:hover{border-color:#c8f0d0;color:#c8f0d0}
-.filter-btn.active{border-color:#c8f0d0;color:#09101f;background:#c8f0d0;font-weight:600}
-.filter-btn[data-filter="all"].active{border-color:#8ba3c1;color:#e8edf5;background:rgba(42,61,92,0.6)}
+/* ── ZOOM CONTROLS ── */
+#zoom-controls{position:absolute;bottom:52px;right:14px;z-index:20;display:flex;flex-direction:column;gap:3px}
+.zoom-btn{width:28px;height:28px;background:rgba(9,16,31,0.85);backdrop-filter:blur(12px);border:1px solid rgba(42,61,92,0.5);border-radius:3px;color:#8ba3c1;font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:monospace;transition:border-color 0.15s,color 0.15s}
+.zoom-btn:hover{border-color:#c8f0d0;color:#e8edf5}
+#zoom-level{font-family:'Geist Mono',monospace;font-size:7px;color:#7a9bb5;letter-spacing:0.06em;text-align:center;padding:2px 0}
 
 /* ── TOOLTIP ── */
 #tooltip{
@@ -1403,8 +1328,8 @@ revealEls.forEach(el => observer.observe(el));
   .hud-logo { font-size: 15px; }
   .hud-counter { font-size: 9px; }
 
-  /* Legend: hidden on mobile (redundant with filter labels) */
-  #legend { display: none; }
+  /* Legend: show as bottom strip on mobile */
+  #legend { display: flex; }
 
   /* Zoom controls: top right, smaller */
   #zoom-controls {
