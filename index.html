@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="background:#09101f;color:#e8edf5">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -333,8 +333,7 @@ body {
   flex-shrink: 0;
 }
 
-/* ── MAP OVERRIDE — strip HUD logo/counter since nav handles branding ── */
-#hero .hero-map #hud { display: none; }
+/* HUD visible in hero */
 #hero .hero-map #zoom-controls {
   bottom: auto;
   top: 50px;
@@ -701,8 +700,7 @@ footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32p
   width: 100% !important;
   height: 100% !important;
 }
-/* Hide HUD branding - nav handles it */
-.hero-map #hud { display: none !important; }
+/* HUD visible */
 /* Adjust zoom controls for embedded context */
 .hero-map #zoom-controls {
   bottom: auto !important;
@@ -719,17 +717,8 @@ footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32p
 /* Map onboarding sits above map */
 #map-onboarding { z-index: 200; }
 </style>
-<style>
-/* ── PREVIEW SANDBOX BG FIX ── */
-html, body, .page, section, main, article, header,
-.container, .container-narrow, .container-wide,
-.section-inner, .section-wrap, .page-wrap,
-nav, footer { background-color: #09101f !important; }
-section { color: #e8edf5 !important; }
-h1, h2, h3, h4, p, li, span, div { color: inherit; }
-</style>
 </head>
-<body style="background:#09101f;color:#e8edf5">
+<body>
 <div id="page-wrap" style="background:#09101f;color:#e8edf5;min-height:100vh">
 <nav>
   <a href="index.html" class="nav-logo">Cluster<span>OS</span></a>
@@ -1078,7 +1067,7 @@ h1, h2, h3, h4, p, li, span, div { color: inherit; }
       A full ClusterOS diagnostic runs in weeks, not months. Fixed price. Any region. 
       Delivered as structured intelligence you can act on immediately.
     </p>
-    <a href="request.html" class="btn-primary reveal reveal-delay-2">Request a diagnostic →equest a diagnostic →</a>
+    <a href="request.html" class="btn-primary reveal reveal-delay-2">Request a diagnostic →</a>
     <p class="cta-note reveal reveal-delay-3">Full stall analysis · Stabilisation stacks · Leverage hypothesis</p>
   </div>
 </section>
@@ -2118,8 +2107,7 @@ let lastRenderZoom = 1;
 
 // ── INIT ──
 document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
-// Defer renderPins until layout is complete so toPos gets real dimensions
-requestAnimationFrame(() => requestAnimationFrame(renderPins));
+// renderPins called after initial zoom is set (see bottom of script)
 
 function repositionPins() {
   // Update scale on existing SVG pin groups (positions are fixed in SVG space)
@@ -2235,10 +2223,20 @@ document.getElementById('zoom-reset').addEventListener('click', () => {
 });
 
 // Mobile: start slightly zoomed out to see full map
-// Set initial zoom to show the whole world
+// Set initial zoom
 if (window.innerWidth >= 1200) {
-  // Desktop: fit full world in viewport with slight padding
-  const mapW = mapWrapEl.clientWidth || window.innerWidth;
-  const mapH = mapWrapEl.clientHeight || window.innerHeight;
-  // At zoom z, the SVG content (1440x810 but letterboxed) fills screen
-  // Just use 0.75 to show the world comfo
+  zoom = 0.75; panX = 0; panY = 0;
+} else if (window.innerWidth >= 768) {
+  zoom = 0.6; panX = 0; panY = 0;
+} else {
+  zoom = 1.0; panX = 0; panY = 0;
+}
+applyTransform();
+// Render pins after layout settles
+requestAnimationFrame(() => requestAnimationFrame(() => {
+  renderPins();
+}));
+
+</script>
+</body>
+</html>
