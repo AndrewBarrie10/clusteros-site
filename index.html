@@ -58,15 +58,15 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 /* ── RESET & BASE ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; background: #f5f2ec; color: #1a1a18; }
+html { scroll-behavior: smooth; background: #09101f; color: #e8edf5; }
 body {
-  background: #f5f2ec;
-  color: #1a1a18;
+  background: #09101f;
+  color: #e8edf5;
   font-family: 'Geist', sans-serif;
   font-weight: 300;
   line-height: 1.6;
@@ -75,30 +75,17 @@ body {
 
 /* ── VARIABLES ── */
 :root {
-  --page-bg: #f5f2ec;
-  --page-bg-2: #eeeae1;
-  --page-bg-3: #e8e3d7;
-  --ink: #1a1a18;
-  --ink-2: #2c2c28;
-  --ink-3: #3e3e38;
-  --ink-muted: #6b6b62;
-  --ink-faint: #9c9c90;
-  --rule: #d4cfc4;
-  --rule-strong: #b8b3a8;
-  --signal: #1a5c38;
-  --signal-light: #c8edda;
-  --signal-mid: #4a9e6e;
-  --amber: #8a6a1a;
-  --amber-light: #f5e8b8;
-  --crimson: #c0392b;
-  --crimson-light: #fde8e5;
-  --teal: #1a5258;
-  --teal-light: #c8e8ed;
-  --chalk: #f5f2ec;
+  --ink: #09101f;
+  --signal: #c8f0d0;
+  --amber: #f5d97a;
+  --crimson: #f08080;
+  --teal: #7dd3c8;
+  --chalk: #e8edf5;
+  --slate: #1e2d42;
+  --slate-2: #2a3a52;
+  --slate-3: #7a9bb5;
   --mono: 'Geist Mono', monospace;
-  --serif: 'Playfair Display', serif;
-  --card-bg: #eeeae1;
-  --card-border: #d4cfc4;
+  --serif: 'Instrument Serif', serif;
 }
 
 
@@ -115,7 +102,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 100vh;
-  padding-top: 56px;
+  padding-top: 60px;
 }
 
 /* Left: copy */
@@ -123,23 +110,17 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 80px 56px 80px 60px;
+  padding: 80px 60px 80px 60px;
   position: relative;
-  background: #f5f2ec;
 }
-
-#hero::before { display: none; }
-.hero-numeral { display: none; }
-.hero-content, .hero-map-nudge { display: none; }
-
 .hero-eyebrow {
   font-family: 'Geist Mono', monospace;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #1a5c38;
-  margin-bottom: 32px;
+  color: #c8f0d0;
+  margin-bottom: 28px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -149,52 +130,48 @@ body {
   display: inline-block;
   width: 24px;
   height: 1px;
-  background: #1a5c38;
+  background: #c8f0d0;
 }
 .hero-headline {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(34px, 3.2vw, 50px);
-  font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -0.025em;
-  color: #1a1a18;
-  margin-bottom: 32px;
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(36px, 3.5vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #e8edf5;
+  margin-bottom: 28px;
 }
 .hero-headline em {
   font-style: italic;
-  color: #1a5c38;
+  color: #c8f0d0;
 }
-.hero-body {
-  font-size: 15px;
+.hero-body p {
+  font-size: 16px;
   font-weight: 300;
-  color: #6b6b62;
-  line-height: 1.75;
-  margin-bottom: 36px;
-  max-width: 420px;
+  color: #a8bdd0;
+  line-height: 1.7;
 }
-.hero-body strong { color: #1a1a18; font-weight: 400; }
+.hero-body strong { color: #e8edf5; font-weight: 400; }
 .hero-actions {
   display: flex;
   align-items: center;
   gap: 24px;
   flex-wrap: wrap;
-  margin-bottom: 52px;
 }
 .btn-primary {
   font-family: 'Geist Mono', monospace;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   text-decoration: none;
-  color: #f5f2ec;
-  background: #1a5c38;
+  color: #09101f;
+  background: #c8f0d0;
   padding: 14px 28px;
   border-radius: 3px;
   transition: opacity 0.2s, transform 0.2s;
   display: inline-block;
 }
-.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
 .btn-secondary {
   font-family: 'Geist Mono', monospace;
   font-size: 11px;
@@ -202,89 +179,54 @@ body {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   text-decoration: none;
-  color: #9c9c90;
+  color: #7a9bb5;
   transition: color 0.2s;
 }
-.btn-secondary:hover { color: #1a1a18; }
+.btn-secondary:hover { color: #e8edf5; }
 .btn-secondary::after { content: ' →'; }
 
-/* Data strip — editorial, ruled */
-.hero-data-strip {
+.hero-stats {
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid #1e2d42;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border-top: 1px solid #d4cfc4;
-  padding-top: 28px;
+  gap: 24px;
 }
-.hero-datum {
-  padding-right: 24px;
-}
-.hero-datum + .hero-datum {
-  padding-left: 20px;
-  border-left: 1px solid #d4cfc4;
-}
-.hero-datum-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 32px;
-  font-weight: 400;
-  color: #1a1a18;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  display: block;
-}
-.hero-datum-label {
+.hero-stat-num {
   font-family: 'Geist Mono', monospace;
-  font-size: 9px;
+  font-size: 28px;
   font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #9c9c90;
+  color: #e8edf5;
   display: block;
-  margin-top: 5px;
+  letter-spacing: -0.02em;
+}
+.hero-stat-label {
+  font-size: 11px;
+  font-weight: 400;
+  color: #7a9bb5;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  display: block;
 }
 
-/* Right: map — full panel */
+/* ── RIGHT: MAP PREVIEW ── */
 .hero-map {
   position: relative;
   overflow: hidden;
-  border-left: 1px solid #d4cfc4;
-  /* Must have explicit height — absolute children (canvas) need an anchor */
-  min-height: 100vh;
+  border-left: 1px solid #1e2d42;
 }
-
-/* Responsive */
-@media (max-width: 900px) {
-  #hero {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 60vw;
-    min-height: auto;
-  }
-  .hero-copy { padding: 72px 28px 48px; }
-  .hero-map {
-    /* height comes from grid-template-rows above */
-    min-height: 300px;
-    border-left: none;
-    border-top: 1px solid #d4cfc4;
-  }
-  .hero-data-strip { grid-template-columns: 1fr 1fr; gap: 20px; }
-  .hero-datum + .hero-datum:last-child { display: none; }
-  /* On tablet map: hide zoom controls, shrink UI chrome */
-  .hero-map #zoom-controls { display: none !important; }
-}
-
-/* hero-map now replaced by thumbnail nudge — see .hero-map-nudge */
 .map-preview-wrap {
   position: absolute;
   inset: 0;
-  background: #1c1710;
+  background: #060c18;
 }
 #map-preview-canvas {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  display: block;
-  border-radius: 0;
 }
 .map-preview-overlay {
   position: absolute;
@@ -294,29 +236,27 @@ body {
   align-items: center;
   justify-content: flex-end;
   padding-bottom: 40px;
-  background: linear-gradient(to top, rgba(20,14,6,0.88) 0%, transparent 55%);
+  background: linear-gradient(to top, rgba(6,12,24,0.85) 0%, transparent 60%);
 }
 .map-preview-stats {
   text-align: center;
   margin-bottom: 16px;
 }
 .map-preview-count {
-  font-family: 'Playfair Display', serif;
-  font-size: 42px;
-  color: #f0ead8;
+  font-family: 'Instrument Serif', serif;
+  font-size: 36px;
+  color: #c8f0d0;
   display: block;
   line-height: 1;
-  font-weight: 400;
-  letter-spacing: -0.02em;
 }
 .map-preview-label {
   font-family: 'Geist Mono', monospace;
   font-size: 9px;
-  color: #a89e88;
-  letter-spacing: 0.12em;
+  color: #7a9bb5;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   display: block;
-  margin-top: 6px;
+  margin-top: 4px;
 }
 .map-preview-btn {
   display: inline-flex;
@@ -326,8 +266,8 @@ body {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #f5f2ec;
-  background: #1a5c38;
+  color: #09101f;
+  background: #c8f0d0;
   border: none;
   border-radius: 3px;
   padding: 10px 20px;
@@ -362,24 +302,23 @@ body {
   gap: 20px;
   height: 48px;
   padding: 0 20px;
-  background: rgba(28,23,16,0.97);
-  border-bottom: 1px solid rgba(74,63,44,0.9);
+  background: rgba(6,12,24,0.95);
+  border-bottom: 1px solid rgba(30,45,66,0.8);
   flex-shrink: 0;
   z-index: 10;
 }
 #modal-logo {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 15px;
-  font-style: italic;
-  color: #f0ead8;
+  color: #e8edf5;
   white-space: nowrap;
   flex-shrink: 0;
 }
-#modal-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; font-style: normal; color: #8ab870; }
+#modal-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
 #modal-counter {
   font-family: 'Geist Mono', monospace;
   font-size: 9px;
-  color: #a89e88;
+  color: #7a9bb5;
   letter-spacing: 0.08em;
   white-space: nowrap;
   flex-shrink: 0;
@@ -422,7 +361,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #1a5c38;
+  color: #c8f0d0;
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -432,22 +371,21 @@ body {
   content: '';
   width: 24px;
   height: 1px;
-  background: #1a5c38;
+  background: #c8f0d0;
   flex-shrink: 0;
 }
 .section-headline {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Instrument Serif', serif;
   font-size: clamp(28px, 3vw, 44px);
-  font-weight: 400;
   line-height: 1.15;
   letter-spacing: -0.02em;
-  color: #1a1a18;
+  color: #e8edf5;
   margin-bottom: 20px;
   max-width: 640px;
 }
 .section-sub {
   font-size: 16px;
-  color: #6b6b62;
+  color: #a8bdd0;
   max-width: 560px;
   line-height: 1.7;
   margin-bottom: 72px;
@@ -467,7 +405,7 @@ body {
   left: 10%;
   right: 10%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #b8b3a8 20%, #b8b3a8 80%, transparent);
+  background: linear-gradient(90deg, transparent, #2a3a52 20%, #2a3a52 80%, transparent);
 }
 .pipeline-step {
   display: flex;
@@ -481,15 +419,15 @@ body {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  border: 1px solid #b8b3a8;
-  background: #f5f2ec;
+  border: 1px solid #2a3a52;
+  background: #09101f;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Geist Mono', monospace;
   font-size: 11px;
   font-weight: 600;
-  color: #9c9c90;
+  color: #7a9bb5;
   letter-spacing: 0.04em;
   margin-bottom: 20px;
   position: relative;
@@ -497,8 +435,8 @@ body {
   transition: border-color 0.3s, color 0.3s;
 }
 .pipeline-step:hover .step-num {
-  border-color: #1a5c38;
-  color: #1a5c38;
+  border-color: #c8f0d0;
+  color: #c8f0d0;
 }
 .step-name {
   font-family: 'Geist Mono', monospace;
@@ -506,21 +444,19 @@ body {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #1a1a18;
+  color: #e8edf5;
   margin-bottom: 10px;
 }
 .step-desc {
   font-size: 12px;
-  color: #6b6b62;
+  color: #96b0c8;
   line-height: 1.6;
 }
 
 /* ── WHAT YOU GET ── */
 #what {
-  background: #eeeae1;
+  background: #1e2d42;
   padding: 100px 60px;
-  border-top: 1px solid #d4cfc4;
-  border-bottom: 1px solid #d4cfc4;
 }
 .what-inner {
   max-width: 1200px;
@@ -531,20 +467,20 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
   margin-top: 56px;
-  background: #d4cfc4;
+  background: #2a3a52;
 }
 .deliverable {
-  background: #f2efe9;
+  background: #0d1829;
   padding: 40px 36px;
   transition: background 0.2s;
 }
-.deliverable:hover { background: #ece8e0; }
+.deliverable:hover { background: #111f33; }
 .deliv-icon {
   font-family: 'Geist Mono', monospace;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.1em;
-  color: #1a5c38;
+  color: #c8f0d0;
   text-transform: uppercase;
   margin-bottom: 20px;
   display: flex;
@@ -555,19 +491,18 @@ body {
   content: '';
   width: 16px;
   height: 1px;
-  background: #1a5c38;
+  background: #c8f0d0;
 }
 .deliv-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 22px;
-  font-weight: 400;
-  color: #1a1a18;
+  color: #e8edf5;
   margin-bottom: 12px;
   line-height: 1.2;
 }
 .deliv-desc {
   font-size: 14px;
-  color: #6b6b62;
+  color: #96b0c8;
   line-height: 1.7;
 }
 
@@ -584,33 +519,31 @@ body {
   margin-top: 56px;
 }
 .who-card {
-  border: 1px solid #d4cfc4;
+  border: 1px solid #1e2d42;
   border-radius: 4px;
   padding: 36px;
-  transition: border-color 0.2s, background 0.2s;
-  background: #f5f2ec;
+  transition: border-color 0.2s;
 }
-.who-card:hover { border-color: #b8b3a8; background: #f0ece4; }
+.who-card:hover { border-color: #2a3a52; }
 .who-role {
   font-family: 'Geist Mono', monospace;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #1a5258;
+  color: #7dd3c8;
   margin-bottom: 16px;
 }
 .who-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 22px;
-  font-weight: 400;
-  color: #1a1a18;
+  color: #e8edf5;
   margin-bottom: 12px;
   line-height: 1.2;
 }
 .who-desc {
   font-size: 14px;
-  color: #6b6b62;
+  color: #96b0c8;
   line-height: 1.7;
   margin-bottom: 20px;
 }
@@ -622,7 +555,7 @@ body {
 }
 .who-list li {
   font-size: 13px;
-  color: #6b6b62;
+  color: #96b0c8;
   padding-left: 16px;
   position: relative;
 }
@@ -630,31 +563,31 @@ body {
   content: '→';
   position: absolute;
   left: 0;
-  color: #1a5c38;
+  color: #c8f0d0;
   font-size: 11px;
 }
 
 /* ── CTA SECTION ── */
 #cta {
-  background: #1a1a18;
-  border-top: 1px solid #2c2c28;
+  background: #0b1422;
+  border-top: 1px solid #1e2d42;
+  border-bottom: 1px solid #1e2d42;
   padding: 120px 60px;
   text-align: center;
 }
 .cta-inner { max-width: 640px; margin: 0 auto; }
 .cta-headline {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Instrument Serif', serif;
   font-size: clamp(30px, 3vw, 46px);
-  font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  color: #f5f2ec;
+  color: #e8edf5;
   margin-bottom: 20px;
 }
-.cta-headline em { font-style: italic; color: #c8edda; }
+.cta-headline em { font-style: italic; color: #c8f0d0; }
 .cta-sub {
   font-size: 15px;
-  color: #9c9c90;
+  color: #a8bdd0;
   line-height: 1.7;
   margin-bottom: 40px;
 }
@@ -662,15 +595,9 @@ body {
   margin-top: 20px;
   font-family: 'Geist Mono', monospace;
   font-size: 10px;
-  color: #6b6b62;
+  color: #7a9bb5;
   letter-spacing: 0.08em;
 }
-/* CTA btn override for dark section */
-#cta .btn-primary {
-  background: #c8edda;
-  color: #1a1a18;
-}
-#cta .btn-primary:hover { opacity: 0.88; }
 
 /* ── FOOTER ── */
 footer {
@@ -678,17 +605,15 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid #d4cfc4;
-  background: #f5f2ec;
+  border-top: 1px solid #1e2d42;
 }
 .footer-logo {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 16px;
-  font-style: italic;
-  color: #6b6b62;
+  color: #7a9bb5;
   text-decoration: none;
 }
-.footer-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; font-style: normal; color: #1a5c38; opacity: 0.8; }
+.footer-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; opacity: 0.6; }
 .footer-links {
   display: flex;
   gap: 28px;
@@ -696,16 +621,16 @@ footer {
 }
 .footer-links a {
   font-size: 11px;
-  color: #9c9c90;
+  color: #7a9bb5;
   text-decoration: none;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-.footer-links a:hover { color: #1a1a18; }
+.footer-links a:hover { color: #e8edf5; }
 .footer-copy {
   font-size: 11px;
-  color: #9c9c90;
-  opacity: 0.8;
+  color: #7a9bb5;
+  opacity: 0.5;
   font-family: 'Geist Mono', monospace;
 }
 
@@ -719,20 +644,29 @@ footer {
 
 /* ── MOBILE ── */
 @media (max-width: 900px) {
-  /* hero handled in hero CSS block above */
+  #hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 60vh;
+  }
+  .hero-copy { padding: 80px 28px 40px; }
   .hero-stats { grid-template-columns: repeat(3,1fr); }
+  .hero-map { border-left: none; border-top: 1px solid #1e2d42; }
+  /* On mobile map: hide zoom controls, shrink topbar text */
+  .hero-map #zoom-controls { display: none !important; }
+  #map-topbar { height: 36px; padding: 0 10px; }
+  #map-counter { font-size: 8px; }
+  .filter-btn { font-size: 7px; padding: 3px 8px; }
+  #legend { gap: 12px; padding: 0 10px; height: 30px; }
+  .legend-item { font-size: 7px; gap: 5px; }
+  .legend-dot { width: 6px; height: 6px; }
   .pipeline { grid-template-columns: 1fr; gap: 24px; }
   .pipeline::before { display: none; }
   .deliverables { grid-template-columns: 1fr; }
   .who-grid { grid-template-columns: 1fr; }
   #how, #what, #who, #cta { padding: 72px 28px; }
+  
   footer { flex-direction: column; gap: 24px; text-align: center; }
   .footer-links { flex-wrap: wrap; justify-content: center; }
-}
-@media (max-width: 480px) {
-  #hero { grid-template-rows: auto 75vw; }
-  .hero-copy { padding: 64px 20px 40px; }
-  .hero-data-strip { grid-template-columns: 1fr 1fr; }
 }
 
 /* ── SCROLL REVEAL ── */
@@ -751,19 +685,19 @@ footer {
 
 
 /* ── SITE FOOTER ─────────────────────────────────────────────────── */
-footer { border-top: 1px solid #d4cfc4; margin-top: 80px; padding: 48px 32px 32px; background: #f5f2ec; }
+footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32px; }
 .footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; margin-bottom: 40px; }
 .footer-brand { display: flex; flex-direction: column; gap: 12px; }
-.footer-logo { font-family: 'Playfair Display', serif; font-style: italic; font-size: 16px; color: #6b6b62; text-decoration: none; }
-.footer-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; font-style: normal; color: #1a5c38; opacity: 0.8; }
-.footer-tagline { font-size: 13px; color: #9c9c90; line-height: 1.5; margin: 0; }
+.footer-logo { font-family: 'Geist', system-ui, sans-serif; font-weight: 400; font-size: 15px; color: #e8edf5; text-decoration: none; }
+.footer-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+.footer-tagline { font-size: 13px; color: #8ba3c1; line-height: 1.5; margin: 0; }
 .footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .footer-col { display: flex; flex-direction: column; gap: 8px; }
-.footer-col-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #9c9c90; margin-bottom: 4px; }
-.footer-col a { font-size: 13px; color: #6b6b62; text-decoration: none; transition: color .2s; line-height: 1.4; }
-.footer-col a:hover { color: #1a1a18; }
-.footer-base { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; padding-top: 24px; border-top: 1px solid #d4cfc4; flex-wrap: wrap; gap: 8px; }
-.footer-copy { font-size: 12px; color: #9c9c90; }
+.footer-col-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #7a9bb5; margin-bottom: 4px; }
+.footer-col a { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color .2s; line-height: 1.4; }
+.footer-col a:hover { color: #e8edf5; }
+.footer-base { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; padding-top: 24px; border-top: 1px solid #2a3a52; flex-wrap: wrap; gap: 8px; }
+.footer-copy { font-size: 12px; color: #7a9bb5; }
 @media (max-width: 640px) {
   .footer-inner { grid-template-columns: 1fr; gap: 32px; }
   .footer-nav { grid-template-columns: 1fr 1fr; }
@@ -784,22 +718,22 @@ footer { border-top: 1px solid #d4cfc4; margin-top: 80px; padding: 48px 32px 32p
 @media (max-width: 480px) { nav { padding: 0 16px; }   }
 
 /* ── NAV ── */
-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; background: rgba(245,242,236,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(212,207,196,0.8); }
-.nav-logo { font-family: 'Playfair Display', serif; font-size: 18px; text-decoration: none; color: #1a1a18; letter-spacing: -0.01em; flex-shrink: 0; font-style: italic; }
-.nav-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; font-style: normal; color: #1a5c38; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; background: rgba(9,16,31,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(42,61,92,0.6); }
+.nav-logo { font-family: 'Instrument Serif', serif; font-size: 18px; text-decoration: none; color: #e8edf5; letter-spacing: -0.01em; flex-shrink: 0; }
+.nav-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
 .nav-links { display: flex; align-items: center; gap: 8px; list-style: none; margin: 0; padding: 0; }
 .nav-links > li > a,
-.nav-dropdown-toggle { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: #6b6b62; padding: 6px 12px; border-radius: 4px; transition: color 0.2s, background 0.2s; cursor: pointer; white-space: nowrap; }
+.nav-dropdown-toggle { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: #8ba3c1; padding: 6px 12px; border-radius: 4px; transition: color 0.2s, background 0.2s; cursor: pointer; white-space: nowrap; }
 .nav-links > li > a:hover,
 .nav-dropdown-toggle:hover,
-.nav-dropdown-toggle.active { color: #1a1a18; background: rgba(0,0,0,0.04); }
+.nav-dropdown-toggle.active { color: #e8edf5; background: rgba(255,255,255,0.06); }
 .nav-dropdown { position: relative; }
-.nav-dropdown-menu { display: none; position: absolute; top: calc(100% + 8px); left: 0; background: #f5f2ec; border: 1px solid rgba(212,207,196,0.9); border-radius: 6px; padding: 6px; min-width: 200px; list-style: none; margin: 0; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.nav-dropdown-menu { display: none; position: absolute; top: calc(100% + 8px); left: 0; background: #0f1c2e; border: 1px solid rgba(42,61,92,0.8); border-radius: 6px; padding: 6px; min-width: 200px; list-style: none; margin: 0; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
 .nav-dropdown-menu.open { display: block; }
-.nav-dropdown-menu li a { display: block; font-family: 'Geist', system-ui, sans-serif; font-size: 13px; color: #6b6b62; text-decoration: none; padding: 7px 12px; border-radius: 4px; transition: color 0.15s, background 0.15s; white-space: nowrap; }
-.nav-dropdown-menu li a:hover { color: #1a1a18; background: rgba(0,0,0,0.04); }
-.nav-dropdown-divider { height: 1px; background: rgba(212,207,196,0.8); margin: 4px 8px; }
-.nav-cta { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: #f5f2ec; background: #1a5c38; padding: 8px 18px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; transition: opacity 0.2s; }
+.nav-dropdown-menu li a { display: block; font-family: 'Geist', system-ui, sans-serif; font-size: 13px; color: #8ba3c1; text-decoration: none; padding: 7px 12px; border-radius: 4px; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+.nav-dropdown-menu li a:hover { color: #e8edf5; background: rgba(200,240,208,0.08); }
+.nav-dropdown-divider { height: 1px; background: rgba(42,61,92,0.6); margin: 4px 8px; }
+.nav-cta { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: #09101f; background: #c8f0d0; padding: 8px 18px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; transition: opacity 0.2s; }
 .nav-cta:hover { opacity: 0.85; }
 @media (max-width: 900px) { .nav-links { display: none; } }
 @media (max-width: 480px) { nav { padding: 0 16px; } .nav-logo { font-size: 15px; } .nav-cta { font-size: 10px; padding: 6px 12px; } }
@@ -831,9 +765,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
   white-space: nowrap;
   transition: border-color 0.15s, color 0.15s, background 0.15s;
 }
-.filter-btn:hover { border-color: #a89e88; color: #f0ead8; }
-.filter-btn.active { border-color: #8ab870; color: #1c1710; background: #8ab870; font-weight: 700; }
-.filter-btn[data-filter="all"].active { border-color: rgba(120,110,88,0.8); color: #d8d0bc; background: rgba(60,50,32,0.6); font-weight: 400; }
+.filter-btn:hover { border-color: #7a9bb5; color: #c4cdd9; }
+.filter-btn.active { border-color: #c8f0d0; color: #09101f; background: #c8f0d0; font-weight: 700; }
+.filter-btn[data-filter="all"].active { border-color: rgba(42,61,92,0.8); color: #c4cdd9; background: rgba(42,61,92,0.5); font-weight: 400; }
 
 /* Legend bottom strip */
 #legend {
@@ -849,12 +783,12 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
   backdrop-filter: blur(10px);
   border-top: 1px solid rgba(30,45,66,0.5);
 }
-.legend-item { display: flex; align-items: center; gap: 6px; font-family: 'Geist Mono', monospace; font-size: 8px; color: #a89e88; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-family: 'Geist Mono', monospace; font-size: 8px; color: #7a9bb5; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
 .legend-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-.legend-dot.emerging { background: #6aaa98; }
-.legend-dot.growing { background: #8ab870; }
-.legend-dot.mature { background: #d4a840; }
-.legend-dot.transitioning { background: #c05840; }
+.legend-dot.emerging { background: #7dd3c8; }
+.legend-dot.growing { background: #c8f0d0; }
+.legend-dot.mature { background: #f5d97a; }
+.legend-dot.transitioning { background: #f08080; }
 .legend-hint { margin-left: auto; font-family: 'Geist Mono', monospace; font-size: 8px; color: #3a5a7a; letter-spacing: 0.06em; }
 
 /* Zoom controls */
@@ -872,7 +806,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 </head>
 <body>
-<div id="page-wrap" style="background:#f5f2ec;color:#1a1a18;min-height:100vh">
+<div id="page-wrap" style="background:#09101f;color:#e8edf5;min-height:100vh">
 <nav>
   <a href="index.html" class="nav-logo">Cluster<span>OS</span></a>
   <ul class="nav-links">
@@ -906,44 +840,47 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 <!-- NAV -->
 
 
-<!-- HERO — split layout, map as full panel -->
+<!-- HERO -->
 <section id="hero">
 
   <!-- Left: copy -->
   <div class="hero-copy">
     <div class="hero-eyebrow">Cognitive Infrastructure</div>
     <h1 class="hero-headline">
-      Regional economies<br>
-      stall. <em>ClusterOS</em><br>
-      finds out why.
+      Regional economies need infrastructure.<br>
+      <em>Not more strategy.</em>
     </h1>
     <p class="hero-body">
-      A structured diagnostic pipeline — Evidence, Patterns, Stalls, Stacks, Leverage — benchmarked against real runs across 18+ countries. The output is a named set of behavioural blockers and a specific, testable leverage hypothesis.
+      ClusterOS diagnoses why regional economies stall — and identifies the precise points where intervention compounds.<br><br>
+      A <strong>stall</strong> is a behavioural pattern where a locally rational choice prevents a cluster from moving forward — coordinating instead of deciding, narrating instead of testing, scaling activity instead of improving outcomes.<br><br>
+      <strong>75 diagnostic runs.</strong> Every dot on the map is a real cluster, a real economy, a real set of structural blockers identified and mapped.
     </p>
     <div class="hero-actions">
       <a href="request.html" class="btn-primary">Request a diagnostic</a>
       <a href="#how" class="btn-secondary">See how it works</a>
     </div>
-    <div class="hero-data-strip">
-      <div class="hero-datum">
-        <span class="hero-datum-num">9</span>
-        <span class="hero-datum-label">Canonical stalls</span>
+    <div class="hero-stats">
+      <div>
+        <span class="hero-stat-num">75</span>
+        <span class="hero-stat-label">Clusters diagnosed</span>
       </div>
-      <div class="hero-datum">
-        <span class="hero-datum-num">5</span>
-        <span class="hero-datum-label">Stage pipeline</span>
+      <div>
+        <span class="hero-stat-num">5</span>
+        <span class="hero-stat-label">Stage pipeline</span>
       </div>
-      <div class="hero-datum">
-        <span class="hero-datum-num">18+</span>
-        <span class="hero-datum-label">Countries</span>
+      <div>
+        <span class="hero-stat-num">18+</span>
+        <span class="hero-stat-label">Countries</span>
       </div>
     </div>
   </div>
 
-  <!-- Right: map — full panel, interactive -->
+  <!-- Right: map preview -->
   <div class="hero-map" id="hero-map-container">
     <div class="map-preview-wrap" id="map-preview-wrap">
+      <!-- Static mini dots preview - no JS needed -->
       <canvas id="map-preview-canvas"></canvas>
+      <!-- Overlay CTA -->
       <div class="map-preview-overlay">
         <div class="map-preview-stats">
           <span class="map-preview-count">75</span>
@@ -956,7 +893,6 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
       </div>
     </div>
   </div>
-
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════
@@ -1209,64 +1145,64 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 <section id="faq" style="padding:100px 60px;max-width:960px;margin:0 auto;">
   <div class="section-label">Common questions</div>
   <h2 class="section-headline" style="margin-bottom:48px">What people ask before commissioning a diagnostic.</h2>
-  <div style="display:flex;flex-direction:column;gap:0;border-top:1px solid #d4cfc4;">
+  <div style="display:flex;flex-direction:column;gap:0;border-top:1px solid #1e2d42;">
 
-    <details style="border-bottom:1px solid #d4cfc4;padding:28px 0;">
-      <summary style="font-family:'Playfair Display',serif;font-size:20px;color:#1a1a18;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+    <details style="border-bottom:1px solid #1e2d42;padding:28px 0;">
+      <summary style="font-family:'Instrument Serif',serif;font-size:20px;color:#e8edf5;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
         What is a stall?
-        <span style="font-family:'Geist Mono',monospace;font-size:16px;color:#1a5c38;flex-shrink:0;margin-left:16px;">+</span>
+        <span style="font-family:'Geist Mono',monospace;font-size:16px;color:#c8f0d0;flex-shrink:0;margin-left:16px;">+</span>
       </summary>
-      <p style="font-size:15px;color:#6b6b62;line-height:1.7;margin-top:16px;max-width:700px;">
+      <p style="font-size:15px;color:#a8bdd0;line-height:1.7;margin-top:16px;max-width:700px;">
         A stall is a behavioural pattern where a cluster keeps doing something locally rational that prevents it from compounding. ClusterOS identifies nine canonical stalls — including coordinating instead of deciding, mediating instead of coupling, scaling activity instead of improving outcomes, and waiting for permission. Stalls are not failures; they are substitutions that make sense to every actor individually but block the system as a whole.
       </p>
     </details>
 
-    <details style="border-bottom:1px solid #d4cfc4;padding:28px 0;">
-      <summary style="font-family:'Playfair Display',serif;font-size:20px;color:#1a1a18;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+    <details style="border-bottom:1px solid #1e2d42;padding:28px 0;">
+      <summary style="font-family:'Instrument Serif',serif;font-size:20px;color:#e8edf5;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
         What is a stabilisation stack?
-        <span style="font-family:'Geist Mono',monospace;font-size:16px;color:#1a5c38;flex-shrink:0;margin-left:16px;">+</span>
+        <span style="font-family:'Geist Mono',monospace;font-size:16px;color:#c8f0d0;flex-shrink:0;margin-left:16px;">+</span>
       </summary>
-      <p style="font-size:15px;color:#6b6b62;line-height:1.7;margin-top:16px;max-width:700px;">
+      <p style="font-size:15px;color:#a8bdd0;line-height:1.7;margin-top:16px;max-width:700px;">
         A stabilisation stack is two or more stalls that reinforce each other. When stalls combine into a stack, fixing any single one fails — the others compensate and the system restabilises. ClusterOS identifies which stacks are active in your cluster and matches them against verified intervention sets from analogous ecosystems globally.
       </p>
     </details>
 
-    <details style="border-bottom:1px solid #d4cfc4;padding:28px 0;">
-      <summary style="font-family:'Playfair Display',serif;font-size:20px;color:#1a1a18;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+    <details style="border-bottom:1px solid #1e2d42;padding:28px 0;">
+      <summary style="font-family:'Instrument Serif',serif;font-size:20px;color:#e8edf5;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
         What is a leverage hypothesis?
-        <span style="font-family:'Geist Mono',monospace;font-size:16px;color:#1a5c38;flex-shrink:0;margin-left:16px;">+</span>
+        <span style="font-family:'Geist Mono',monospace;font-size:16px;color:#c8f0d0;flex-shrink:0;margin-left:16px;">+</span>
       </summary>
-      <p style="font-size:15px;color:#6b6b62;line-height:1.7;margin-top:16px;max-width:700px;">
+      <p style="font-size:15px;color:#a8bdd0;line-height:1.7;margin-top:16px;max-width:700px;">
         A leverage hypothesis is a specific, testable intervention: a small change that — if it works — shifts the cluster's behavioural regime. Rather than recommending broad strategy, ClusterOS delivers one primary hypothesis per diagnostic: what to change, at which point in the system, with whom, and what observable signal would confirm it's working.
       </p>
     </details>
 
-    <details style="border-bottom:1px solid #d4cfc4;padding:28px 0;">
-      <summary style="font-family:'Playfair Display',serif;font-size:20px;color:#1a1a18;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+    <details style="border-bottom:1px solid #1e2d42;padding:28px 0;">
+      <summary style="font-family:'Instrument Serif',serif;font-size:20px;color:#e8edf5;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
         How is ClusterOS different from a consultancy report?
-        <span style="font-family:'Geist Mono',monospace;font-size:16px;color:#1a5c38;flex-shrink:0;margin-left:16px;">+</span>
+        <span style="font-family:'Geist Mono',monospace;font-size:16px;color:#c8f0d0;flex-shrink:0;margin-left:16px;">+</span>
       </summary>
-      <p style="font-size:15px;color:#6b6b62;line-height:1.7;margin-top:16px;max-width:700px;">
+      <p style="font-size:15px;color:#a8bdd0;line-height:1.7;margin-top:16px;max-width:700px;">
         A consultancy report describes a cluster based on interviews and desk research, then recommends strategy. ClusterOS runs your cluster through a structured 5-stage diagnostic pipeline — Evidence, Patterns, Stalls, Stacks, Leverage — benchmarked against 75 real diagnostic runs across 18+ countries. The output is structured intelligence: named stalls, matched stacks, and a specific leverage hypothesis. It is designed to inform decisions, not fill a shelf.
       </p>
     </details>
 
-    <details style="border-bottom:1px solid #d4cfc4;padding:28px 0;">
-      <summary style="font-family:'Playfair Display',serif;font-size:20px;color:#1a1a18;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+    <details style="border-bottom:1px solid #1e2d42;padding:28px 0;">
+      <summary style="font-family:'Instrument Serif',serif;font-size:20px;color:#e8edf5;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
         How long does a diagnostic take?
-        <span style="font-family:'Geist Mono',monospace;font-size:16px;color:#1a5c38;flex-shrink:0;margin-left:16px;">+</span>
+        <span style="font-family:'Geist Mono',monospace;font-size:16px;color:#c8f0d0;flex-shrink:0;margin-left:16px;">+</span>
       </summary>
-      <p style="font-size:15px;color:#6b6b62;line-height:1.7;margin-top:16px;max-width:700px;">
+      <p style="font-size:15px;color:#a8bdd0;line-height:1.7;margin-top:16px;max-width:700px;">
         A full ClusterOS diagnostic runs in weeks, not months. It is fixed price and can cover any region or sector. The diagnostic does not require extensive interviews or internal access — it works from evidence that already exists.
       </p>
     </details>
 
-    <details style="border-bottom:1px solid #d4cfc4;padding:28px 0;">
-      <summary style="font-family:'Playfair Display',serif;font-size:20px;color:#1a1a18;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+    <details style="border-bottom:1px solid #1e2d42;padding:28px 0;">
+      <summary style="font-family:'Instrument Serif',serif;font-size:20px;color:#e8edf5;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
         Who commissions a ClusterOS diagnostic?
-        <span style="font-family:'Geist Mono',monospace;font-size:16px;color:#1a5c38;flex-shrink:0;margin-left:16px;">+</span>
+        <span style="font-family:'Geist Mono',monospace;font-size:16px;color:#c8f0d0;flex-shrink:0;margin-left:16px;">+</span>
       </summary>
-      <p style="font-size:15px;color:#6b6b62;line-height:1.7;margin-top:16px;max-width:700px;">
+      <p style="font-size:15px;color:#a8bdd0;line-height:1.7;margin-top:16px;max-width:700px;">
         Four actor types commission diagnostics. Anchors — universities and research organisations — use ClusterOS to understand their cluster's stall pattern and build the evidence base for investment. Stewards — development agencies and LEPs — use it to replace generic strategy with evidence-based intervention design. Founders and place-based investors use it to understand ecosystem health before committing capital. Policymakers use it to build comparable intelligence across a portfolio of funded clusters.
       </p>
     </details>
@@ -1393,23 +1329,21 @@ revealEls.forEach(el => observer.observe(el));
 <style>
 /* global reset handled by page CSS */
 :root{
-  --ink:#1c1710;--ink-2:#2a2218;--ink-3:#3a3020;--ink-4:#4a3f2c;
-  --slate:#7a6e58;--slate-2:#8a7e68;--slate-3:#a89e88;
-  --chalk:#f0ead8;--chalk-2:#d8d0bc;--chalk-3:#b8ae9a;
-  --signal:#4a7c5a;--signal-dark:#2a5038;
-  --amber:#c8921a;--crimson:#b84030;--teal:#4a8878;--violet:#8a6a90;
+  --ink:#09101f;--ink-2:#0f1829;--ink-3:#162035;--ink-4:#1d2a42;
+  --slate:#2a3d5c;--slate-2:#3d5478;--slate-3:#5a7299;
+  --chalk:#e8edf5;--chalk-2:#c4cdd9;--chalk-3:#8ba3c1;
+  --signal:#c8f0d0;--signal-dark:#1a6640;
+  --amber:#f5d97a;--crimson:#f08080;--teal:#7dd3c8;--violet:#d4b8f0;
 }
 /* Map-scoped reset — intentionally NOT setting html/body overflow to avoid locking page scroll */
 
 /* ── MAP CONTAINER ── */
-#map-wrap{position:relative;width:100%;height:100vh;overflow:hidden;background:radial-gradient(ellipse at 35% 40%, #2a2218 0%, #1c1710 100%);cursor:grab}
-/* When map preview is inside hero panel, it must fill its container not viewport */
-.hero-map #map-wrap{height:100% !important;min-height:0 !important;}
+#map-wrap{position:relative;width:100%;height:100vh;overflow:hidden;background:radial-gradient(ellipse at 35% 40%, #0c1525 0%, #080e1a 100%);cursor:grab}
 #map-wrap.dragging{cursor:grabbing}
 #zoom-controls{position:absolute;bottom:24px;right:24px;z-index:20;display:flex;flex-direction:column;gap:6px}
-.zoom-btn{width:42px;height:42px;background:rgba(28,23,16,0.92);backdrop-filter:blur(12px);border:1px solid rgba(100,88,64,0.7);border-radius:6px;color:#a89e88;font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:monospace;transition:border-color 0.15s,color 0.15s,background 0.15s;box-shadow:0 2px 8px rgba(0,0,0,0.4)}
-.zoom-btn:hover{border-color:#8ab870;color:#f0ead8;background:rgba(40,32,20,0.97)}
-#zoom-level{font-family:Geist Mono,monospace;font-size:9px;color:#a89e88;letter-spacing:.06em;text-align:center;padding:3px 0}
+.zoom-btn{width:42px;height:42px;background:rgba(9,16,31,0.92);backdrop-filter:blur(12px);border:1px solid rgba(42,61,92,0.6);border-radius:6px;color:#8ba3c1;font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:monospace;transition:border-color 0.15s,color 0.15s,background 0.15s;box-shadow:0 2px 8px rgba(0,0,0,0.4)}
+.zoom-btn:hover{border-color:#c8f0d0;color:#e8edf5;background:rgba(14,26,48,0.95)}
+#zoom-level{font-family:Geist Mono,monospace;font-size:9px;color:#7a9bb5;letter-spacing:.06em;text-align:center;padding:3px 0}
 
 /* SVG world map */
 #world-svg{position:absolute;inset:0;width:100%;height:100%}
@@ -1428,8 +1362,8 @@ revealEls.forEach(el => observer.observe(el));
 #panel{
   position:absolute;top:0;right:0;bottom:0;
   width:380px;
-  background:#f5f0e4;
-  border-left:1px solid #c8bfa8;
+  background:#0f1829;
+  border-left:1px solid #1e2d42;
   transform:translateX(100%);
   transition:transform 0.35s cubic-bezier(0.16,1,0.3,1), visibility 0s linear 0.35s;
   z-index:50;
@@ -1441,18 +1375,18 @@ revealEls.forEach(el => observer.observe(el));
 
 .panel-header{
   padding:28px 28px 20px;
-  border-bottom:1px solid #d4c8b0;
+  border-bottom:1px solid #1e2d42;
   flex-shrink:0;
 }
 .panel-close{
   position:absolute;top:16px;right:16px;
   width:28px;height:28px;border-radius:50%;
-  background:#e8e0cc;border:1px solid #c8bfa8;
+  background:#162035;border:1px solid #1e2d42;
   display:flex;align-items:center;justify-content:center;
-  cursor:pointer;color:#6b6058;font-size:14px;
+  cursor:pointer;color:#8ba3c1;font-size:14px;
   transition:background 0.15s,color 0.15s;
 }
-.panel-close:hover{background:#d8ceb8;color:#1c1710}
+.panel-close:hover{background:#1d2a42;color:#e8edf5}
 .panel-stage-badge{
   display:inline-flex;align-items:center;gap:6px;
   font-family:'Geist Mono',monospace;font-size:9px;
@@ -1461,16 +1395,16 @@ revealEls.forEach(el => observer.observe(el));
   border:1px solid currentColor;margin-bottom:12px;
 }
 .panel-name{
-  font-family:'Playfair Display',serif;font-size:22px;
-  font-weight:400;color:#1c1710;letter-spacing:-0.01em;
+  font-family:'Instrument Serif',serif;font-size:22px;
+  font-weight:400;color:#e8edf5;letter-spacing:-0.01em;
   line-height:1.15;margin-bottom:6px;
 }
 .panel-geo{
   font-family:'Geist Mono',monospace;font-size:10px;
-  color:#8a7e68;letter-spacing:0.06em;margin-bottom:4px;
+  color:#7a9bb5;letter-spacing:0.06em;margin-bottom:4px;
 }
 .panel-sector{
-  font-size:12px;font-weight:300;color:#6b6058;line-height:1.4;
+  font-size:12px;font-weight:300;color:#8ba3c1;line-height:1.4;
 }
 
 .panel-
@@ -1479,28 +1413,28 @@ revealEls.forEach(el => observer.observe(el));
   display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;
 }
 .panel-stat{
-  background:#ede6d2;border:1px solid #c8bfa8;
+  background:#162035;border:1px solid #1e2d42;
   border-radius:6px;padding:14px 16px;
 }
 .stat-label{
   font-family:'Geist Mono',monospace;font-size:8px;
   letter-spacing:0.12em;text-transform:uppercase;
-  color:#8a7e68;margin-bottom:6px;
+  color:#7a9bb5;margin-bottom:6px;
 }
 .stat-value{
-  font-family:'Playfair Display',serif;font-size:22px;
-  font-weight:400;line-height:1;letter-spacing:-0.01em;color:#1c1710;
+  font-family:'Instrument Serif',serif;font-size:22px;
+  font-weight:400;line-height:1;letter-spacing:-0.01em;
 }
 
 .panel-section-label{
   font-family:'Geist Mono',monospace;font-size:9px;
   letter-spacing:0.12em;text-transform:uppercase;
-  color:#8a7e68;margin-bottom:12px;
+  color:#7a9bb5;margin-bottom:12px;
 }
 
 /* Radar */
 .radar-wrap{
-  background:#ede6d2;border:1px solid #c8bfa8;
+  background:#162035;border:1px solid #1e2d42;
   border-radius:8px;padding:20px;margin-bottom:20px;
   display:flex;justify-content:center;
 }
@@ -1510,16 +1444,16 @@ revealEls.forEach(el => observer.observe(el));
 .stall-bar-row{display:flex;align-items:center;gap:10px}
 .stall-bar-label{
   font-family:'Geist Mono',monospace;font-size:9px;
-  color:#6b6058;min-width:110px;letter-spacing:0.03em;
+  color:#8ba3c1;min-width:110px;letter-spacing:0.03em;
 }
 .stall-bar-track{
-  flex:1;height:4px;background:#d4c8b0;
+  flex:1;height:4px;background:#1d2a42;
   border-radius:2px;overflow:hidden;
 }
 .stall-bar-fill{height:100%;border-radius:2px;transition:width 0.6s ease}
 .stall-bar-val{
   font-family:'Geist Mono',monospace;font-size:8px;
-  color:#8a7e68;min-width:24px;text-align:right;
+  color:#7a9bb5;min-width:24px;text-align:right;
 }
 
 /* CTA */
@@ -1528,34 +1462,35 @@ revealEls.forEach(el => observer.observe(el));
 }
 .panel-cta-btn{
   display:block;width:100%;padding:14px;
-  background:#2a5038;color:#f0ead8;
+  background:#c8f0d0;color:#09101f;
   font-family:'Geist',sans-serif;font-size:13px;font-weight:500;
   text-align:center;text-decoration:none;border-radius:4px;
   transition:background 0.18s;
 }
-.panel-cta-btn:hover{background:#3a6848}
+.panel-cta-btn:hover{background:#9ad8aa}
 .panel-cta-note{
   font-family:'Geist Mono',monospace;font-size:9px;
-  color:#8a7e68;text-align:center;margin-top:8px;
+  color:#7a9bb5;text-align:center;margin-top:8px;
   letter-spacing:0.06em;
 }
 
 /* ── HUD (removed - no longer used) ── */
 
 /* ── TOOLTIP ── */
-#tooltip{position:absolute;z-index:30;pointer-events:none;
-  background:rgba(40,32,20,0.97);backdrop-filter:blur(12px);
-  border:1px solid rgba(120,100,60,0.6);border-radius:6px;
+#tooltip{
+  position:absolute;z-index:30;pointer-events:none;
+  background:rgba(9,16,31,0.95);backdrop-filter:blur(12px);
+  border:1px solid #1e2d42;border-radius:6px;
   padding:10px 14px;
   font-family:'Geist Mono',monospace;font-size:10px;
-  color:#c8bfa8;letter-spacing:0.04em;
+  color:#c4cdd9;letter-spacing:0.04em;
   max-width:200px;line-height:1.5;
   opacity:0;transition:opacity 0.15s;
   transform:translate(12px,-50%);
 }
 #tooltip.show{opacity:1}
-.tt-name{color:#f0ead8;font-size:11px;margin-bottom:3px}
-.tt-sector{color:#a89e88;font-size:9px}
+.tt-name{color:#e8edf5;font-size:11px;margin-bottom:3px}
+.tt-sector{color:#7a9bb5;font-size:9px}
 
 /* ── MOBILE ── */
 @media (max-width: 768px) {
@@ -1591,7 +1526,7 @@ revealEls.forEach(el => observer.observe(el));
     height: 85vh;
     max-height: 85vh;
     border-left: none;
-    border-top: 1px solid #c8bfa8;
+    border-top: 1px solid #1e2d42;
     border-radius: 16px 16px 0 0;
     transform: translateY(100%);
     overflow: hidden; /* panel itself does NOT scroll */
@@ -1855,11 +1790,11 @@ function toPercent(x, y) { return toPos(x, y); }
 
 // ── STAGE CONFIG ──
 const STAGE = {
-  emerging:     { color: '#6aaa98', label: 'Emerging' },
-  growing:      { color: '#8ab870', label: 'Growing' },
-  mature:       { color: '#d4a840', label: 'Mature' },
-  transitioning:{ color: '#c05840', label: 'Transitioning' },
-  '':           { color: '#8a7a60', label: 'Unknown' },
+  emerging:     { color: '#7dd3c8', label: 'Emerging' },
+  growing:      { color: '#c8f0d0', label: 'Growing' },
+  mature:       { color: '#f5d97a', label: 'Mature' },
+  transitioning:{ color: '#f08080', label: 'Transitioning' },
+  '':           { color: '#5a7299', label: 'Unknown' },
 };
 
 function getStage(s) { return STAGE[s] || STAGE['']; }
@@ -2036,7 +1971,7 @@ function renderPins() {
       // Pin: outer circle 13px screen, inner dot 4px screen (in local "screen" units)
       const outer = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       outer.setAttribute('r', '6.5');
-      outer.setAttribute('fill', 'rgba(28,22,12,0.82)');
+      outer.setAttribute('fill', 'rgba(9,16,31,0.75)');
       outer.setAttribute('stroke', color);
       outer.setAttribute('stroke-width', '1.5');
       outer.setAttribute('vector-effect', 'non-scaling-stroke');
@@ -2076,7 +2011,7 @@ function renderPins() {
       rect.setAttribute('x', -pw/2); rect.setAttribute('y', -ph/2);
       rect.setAttribute('width', pw); rect.setAttribute('height', ph);
       rect.setAttribute('rx', ph/2);
-      rect.setAttribute('fill', '#1c1610');
+      rect.setAttribute('fill', '#080e1a');
       rect.setAttribute('stroke', color);
       rect.setAttribute('stroke-width', '1.5');
       rect.setAttribute('vector-effect', 'non-scaling-stroke');
@@ -2276,14 +2211,14 @@ function renderRadar(stalls, accentColor) {
   let grid = '';
   for (let l = 1; l <= levels; l++) {
     const pts = Array.from({length: n}, (_, i) => point(2*Math.PI*i/n, r*l/levels).join(',')).join(' ');
-    grid += `<polygon points="${pts}" fill="none" stroke="#4a3e2c" stroke-width="0.5" opacity="0.6"/>`;
+    grid += `<polygon points="${pts}" fill="none" stroke="#2a3d5c" stroke-width="0.5" opacity="0.6"/>`;
   }
 
   // Axis lines
   let axisLines = '';
   for (let i = 0; i < n; i++) {
     const [x2, y2] = point(2*Math.PI*i/n, r);
-    axisLines += `<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="#4a3e2c" stroke-width="0.5" opacity="0.4"/>`;
+    axisLines += `<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="#2a3d5c" stroke-width="0.5" opacity="0.4"/>`;
   }
 
   // Data polygon
@@ -2295,7 +2230,7 @@ function renderRadar(stalls, accentColor) {
     if (!s.name) return;
     const [x, y] = point(2*Math.PI*i/n, r + 16);
     const shortName = s.name.replace(' instead of ', ' / ').replace(' without ', ' / ').replace(' around ', ' / ');
-    labels += `<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="middle" font-family="Geist Mono" font-size="6.5" fill="#8a7e60" letter-spacing="0.3">${shortName.toUpperCase()}</text>`;
+    labels += `<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="middle" font-family="Geist Mono" font-size="6.5" fill="#5a7299" letter-spacing="0.3">${shortName.toUpperCase()}</text>`;
   });
 
   // Dots (only for real stalls)
@@ -2341,8 +2276,6 @@ document.getElementById('open-map-btn').addEventListener('click', () => {
   document.body.style.overflow = 'hidden';
   // Render pins after modal is visible and has dimensions
   requestAnimationFrame(() => requestAnimationFrame(() => {
-    // Redraw world canvas now modal has real dimensions
-    if (window._redrawWorldMap) window._redrawWorldMap();
     zoom = window.innerWidth < 768 ? 0.5 : 0.72;
     panX = 0; panY = 0;
     applyTransform();
@@ -2478,7 +2411,7 @@ document.getElementById('zoom-reset').addEventListener('click', () => {
   const canvas = document.getElementById('map-preview-canvas');
   if (!canvas) return;
 
-  const stageColors = { emerging: '#6aaa98', growing: '#8ab870', mature: '#d4a840', transitioning: '#c05840' };
+  const stageColors = { emerging: '#7dd3c8', growing: '#c8f0d0', mature: '#f5d97a', transitioning: '#f08080' };
 
   function drawPreview(world) {
     function render() {
@@ -2491,7 +2424,7 @@ document.getElementById('zoom-reset').addEventListener('click', () => {
 
       // Ocean
       const grad = ctx.createRadialGradient(W*0.3,H*0.35,0,W*0.3,H*0.35,W*0.9);
-      grad.addColorStop(0,'#231c0e'); grad.addColorStop(1,'#141008');
+      grad.addColorStop(0,'#0d1b2e'); grad.addColorStop(1,'#060c18');
       ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
 
       // Single projection used for BOTH land and dots
@@ -2501,13 +2434,13 @@ document.getElementById('zoom-reset').addEventListener('click', () => {
         const path = d3.geoPath(proj, ctx);
         const land = topojson.feature(world, world.objects.land);
         ctx.beginPath(); path(land);
-        ctx.fillStyle = '#3a3020'; ctx.fill();
+        ctx.fillStyle = '#162840'; ctx.fill();
       }
 
       // Cluster dots — projected with same D3 proj so they sit on land correctly
       CLUSTERS.forEach(c => {
         const [px, py] = proj([c.lng, c.lat]);
-        const color = stageColors[c._lifecycle_stage] || '#6aaa98';
+        const color = stageColors[c._lifecycle_stage] || '#7dd3c8';
         const g = ctx.createRadialGradient(px,py,0,px,py,6);
         g.addColorStop(0, color+'60'); g.addColorStop(1,'transparent');
         ctx.beginPath(); ctx.arc(px,py,6,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
@@ -2548,22 +2481,15 @@ function tryRenderPins(attempts) {
   const canvas = document.getElementById('world-canvas');
   if (!canvas) return;
 
-  let worldData = null;
-
   function drawMap(world) {
-    // Must have dimensions — modal must be visible
     const W = canvas.offsetWidth || canvas.parentElement.offsetWidth;
     const H = canvas.offsetHeight || canvas.parentElement.offsetHeight;
-    if (!W || !H) {
-      // Retry — modal may not be open yet, dimensions not available
-      setTimeout(() => drawMap(world), 120);
-      return;
-    }
+    if (!W || !H) { setTimeout(() => drawMap(world), 100); return; }
 
-    canvas.width  = W * (window.devicePixelRatio || 1);
-    canvas.height = H * (window.devicePixelRatio || 1);
+    canvas.width  = W * window.devicePixelRatio;
+    canvas.height = H * window.devicePixelRatio;
     const ctx = canvas.getContext('2d');
-    ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
 
     // Equirectangular projection scaled to canvas
     const projection = d3.geoEquirectangular()
@@ -2573,25 +2499,25 @@ function tryRenderPins(attempts) {
 
     // Ocean gradient
     const grad = ctx.createRadialGradient(W * 0.3, H * 0.35, 0, W * 0.3, H * 0.35, W * 0.9);
-    grad.addColorStop(0, '#231c0e');
-    grad.addColorStop(1, '#141008');
+    grad.addColorStop(0, '#0d1b2e');
+    grad.addColorStop(1, '#060c18');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, W, H);
-
-    if (!world) return; // fallback — ocean only
 
     // Graticule (subtle grid)
     const graticule = d3.geoGraticule().step([30, 30]);
     ctx.beginPath();
     path(graticule());
-    ctx.strokeStyle = '#2c2418';
+    ctx.strokeStyle = '#0c1e35';
     ctx.lineWidth = 0.5;
     ctx.stroke();
 
-    // Equator
+    // Equator (slightly brighter)
+    ctx.beginPath();
+    path(d3.geoGraticule().step([360, 180])());
     ctx.beginPath();
     path({ type: 'LineString', coordinates: [[-180, 0], [180, 0]] });
-    ctx.strokeStyle = '#3a2e18';
+    ctx.strokeStyle = '#0f2840';
     ctx.lineWidth = 1;
     ctx.stroke();
 
@@ -2599,9 +2525,9 @@ function tryRenderPins(attempts) {
     const land = topojson.feature(world, world.objects.land);
     ctx.beginPath();
     path(land);
-    ctx.fillStyle = '#3d3224';
+    ctx.fillStyle = '#162840';
     ctx.fill();
-    ctx.strokeStyle = '#2a2418';
+    ctx.strokeStyle = '#0d1f35';
     ctx.lineWidth = 0.5;
     ctx.stroke();
 
@@ -2609,21 +2535,16 @@ function tryRenderPins(attempts) {
     const countries = topojson.mesh(world, world.objects.countries, (a, b) => a !== b);
     ctx.beginPath();
     path(countries);
-    ctx.strokeStyle = '#4a3e2a';
+    ctx.strokeStyle = '#1a3050';
     ctx.lineWidth = 0.4;
     ctx.stroke();
 
-    // Antarctica
-    ctx.fillStyle = '#2a2418';
+    // Antarctica ice hint
+    ctx.fillStyle = '#0f1e32';
     ctx.globalAlpha = 0.6;
     ctx.fillRect(0, H * 0.91, W, H * 0.09);
     ctx.globalAlpha = 1;
   }
-
-  // Expose so modal open handler can trigger redraw
-  window._redrawWorldMap = function() {
-    if (worldData) drawMap(worldData);
-  };
 
   function tryLoad() {
     if (typeof d3 === 'undefined' || typeof topojson === 'undefined') {
@@ -2633,13 +2554,19 @@ function tryRenderPins(attempts) {
     fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
       .then(r => r.json())
       .then(world => {
-        worldData = world;
         drawMap(world);
         window.addEventListener('resize', () => drawMap(world));
       })
       .catch(() => {
-        worldData = null;
-        drawMap(null); // draw ocean fallback
+        // Fallback: plain dark ocean if network unavailable
+        const c = document.getElementById('world-canvas');
+        if (!c) return;
+        const W = c.offsetWidth, H = c.offsetHeight;
+        c.width = W; c.height = H;
+        const ctx = c.getContext('2d');
+        const grad = ctx.createRadialGradient(W*0.3,H*0.35,0,W*0.3,H*0.35,W*0.9);
+        grad.addColorStop(0,'#0d1b2e'); grad.addColorStop(1,'#060c18');
+        ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
       });
   }
   tryLoad();
