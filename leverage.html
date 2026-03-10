@@ -81,8 +81,9 @@ body { background: var(--bg); color: #e8edf5; font-family: 'Geist', sans-serif; 
 .hero-p strong { color: #e8edf5; font-weight: 500; }
 
 /* Pipeline position strip */
-.pipeline-strip { display: flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; max-width: 480px; margin: 0 auto; }
-.ps { flex: 1; padding: 12px 10px; border-right: 1px solid var(--border); text-align: center; }
+.pipeline-strip { display: flex; border: 1px solid var(--border); border-radius: 6px; overflow-x: auto; max-width: 480px; margin: 0 auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.pipeline-strip::-webkit-scrollbar { display: none; }
+.ps { flex: 1; min-width: 64px; padding: 12px 10px; border-right: 1px solid var(--border); text-align: center; }
 .ps:last-child { border-right: none; }
 .ps-num { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 3px; }
 .ps-label { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; }
@@ -116,7 +117,7 @@ body { background: var(--bg); color: #e8edf5; font-family: 'Geist', sans-serif; 
 .move:hover { border-color: var(--border2); }
 .move.open { border-color: var(--border2); }
 
-.move-row { display: flex; align-items: stretch; cursor: pointer; background: none; width: 100%; border: none; text-align: left; color: inherit; padding: 0; }
+.move-row { display: flex; align-items: stretch; cursor: pointer; background: none; width: 100%; border: none; text-align: left; color: inherit; padding: 0; min-height: 56px; }
 .move-row:focus { outline: none; }
 
 /* Number strip */
@@ -246,8 +247,6 @@ footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32p
 .nav-links a:hover { color: #e8edf5; }
 
 
-@media (max-width: 900px) {  }
-@media (max-width: 480px) { nav { padding: 0 16px; }   }
 
 /* ── NAV ── */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; background: rgba(9,16,31,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(42,61,92,0.6); }
@@ -579,17 +578,7 @@ renderMoves();
   </div>
 </footer>
 
-<style>
-/* ── UNIVERSAL MOBILE PATCH ── injected ── */
-html { overflow-x: hidden; }
-body { overflow-x: hidden; }
-@media (max-width: 480px) {
-  nav { padding: 0 16px !important; }
-  
-  
-  
-}
-</style>
+
 
 
 <style>
@@ -603,6 +592,10 @@ body { overflow-x: hidden; }
   section, .section { padding: 56px 20px !important; }
   .scenario-grid, .outcomes-grid, .lever-grid { grid-template-columns: 1fr !important; }
   .lever-card { padding: 20px 16px; }
+  .frame, .moves, .caveat, .limits, .pipeline-full { padding-left: 16px; padding-right: 16px; }
+  .move-main { padding: 14px 10px; }
+  .move-num { width: 40px; font-size: 16px; }
+  .move-chevron { width: 32px; }
 }
 </style>
 
