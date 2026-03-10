@@ -39,7 +39,8 @@
       --mono: 'Geist Mono', monospace;
     }
     html { scroll-behavior: smooth; background: #09101f; color: #e8edf5; }
-    body { background: #09101f; color: #e8edf5; font-family: var(--sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; margin: 0; }
+    html { overflow-x: hidden; }
+body { background: #09101f; color: #e8edf5; font-family: var(--sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; margin: 0; }
     
     
     
@@ -155,8 +156,6 @@ footer { border-top: 1px solid #1e2d42; margin-top: 80px; padding: 48px 32px 32p
 .nav-links a:hover { color: #e8edf5; }
 
 
-@media (max-width: 900px) {  }
-@media (max-width: 480px) { nav { padding: 0 16px; }   }
 
 /* ── NAV ── */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; background: rgba(9,16,31,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(42,61,92,0.6); }
@@ -406,7 +405,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
         <a href="about.html">About</a>
         <a href="data.html">Diagnostic Data</a>
         <a href="request.html">Request a Diagnostic</a>
-        <a href="/cdn-cgi/l/email-protection#94f5faf0e6f1e3d4f7fbf9f9e1fafde0edf8f5f6baf5e4e4"><span class="__cf_email__" data-cfemail="7918171d0b1c0e391a1614140c17100d0015181b57180909">[email&#160;protected]</span></a>
+        andrew@communitylab.app
       </div>
     </div>
   </div>
@@ -417,17 +416,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
   </div>
 </footer>
 
-<style>
-/* ── UNIVERSAL MOBILE PATCH ── injected ── */
-html { overflow-x: hidden; }
-body { overflow-x: hidden; }
-@media (max-width: 480px) {
-  nav { padding: 0 16px !important; }
-  
-  
-  
-}
-</style>
+
 
 
 <style>
@@ -452,14 +441,7 @@ body { overflow-x: hidden; }
 </style>
 
 
-<style>
-@media (max-width: 400px) {
-  
-}
-@media (max-width: 480px) {
-  
-}
-</style>
+
 <script>
 // Nav dropdown - click to open, click outside to close
 document.querySelectorAll('.nav-dropdown').forEach(function(dropdown) {
