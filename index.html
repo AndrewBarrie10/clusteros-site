@@ -807,6 +807,11 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
   border-bottom: none !important;
   font-weight: 600 !important;
 }
+.index-principle { padding: 72px 60px 0; max-width: 960px; margin: 0 auto; }
+.index-principle-inner { padding: 32px 36px; border-left: 2px solid #c8f0d0; background: rgba(200,240,208,0.04); border-radius: 0 6px 6px 0; }
+.index-principle-text { font-family: 'Instrument Serif', serif; font-size: clamp(22px, 2.8vw, 30px); line-height: 1.25; color: #e8edf5; font-style: italic; margin-bottom: 16px; }
+.index-principle-sub { font-size: 15px; color: var(--muted); line-height: 1.75; max-width: 640px; margin: 0; }
+@media (max-width: 768px) { .index-principle { padding: 56px 24px 0; } .index-principle-inner { padding: 24px 22px; } }
 </style>
 
 <style>
@@ -1067,6 +1072,14 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
   </div>
 </div>
 
+
+<!-- PRINCIPLE STATEMENT -->
+<div class="index-principle">
+  <div class="index-principle-inner">
+    <div class="index-principle-text">Making complexity cheaper to operate.</div>
+    <p class="index-principle-sub">ClusterOS reframes regional development from building more initiatives to making complexity cheaper to operate. That is its defining purpose — and its enduring value. It is enterprise SaaS built for the infrastructure layer of a regional economy, not a tool bolted on top of one.</p>
+  </div>
+</div>
 
 <!-- HOW IT WORKS -->
 <section id="how">
