@@ -1639,9 +1639,30 @@ revealEls.forEach(el => observer.observe(el));
   }
   /* panel scroll handled by panel-body, not panel itself */
   /* Panel body needs bottom padding for safe area */
-  #panel-
+  #panel-body { padding-bottom: 24px; }
   /* Tooltip hidden on mobile (use panel instead) */
   #tooltip { display: none !important; }
+}
+
+/* Mobile landscape — panel as side sheet instead of bottom sheet */
+@media (max-width: 768px) and (orientation: landscape) {
+  #panel {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    width: 75vw;
+    height: 100%;
+    max-height: 100%;
+    border-top: none;
+    border-left: 1px solid #1e2d42;
+    border-radius: 0;
+    transform: translateX(100%);
+  }
+  #panel.open {
+    transform: translateX(0);
+  }
+  #panel::before { display: none; }
 }
 
 </style>
@@ -2305,6 +2326,28 @@ function closeModal() {
   document.body.style.overflow = '';
   closePanel();
 }
+
+// Handle orientation change on mobile — redraw canvas and refit zoom
+function handleOrientationChange() {
+  if (!mapModal.classList.contains('open')) return;
+  // Wait for browser to finish rotating and resizing viewport
+  setTimeout(() => {
+    drawWorldCanvas();
+    zoom = window.innerWidth < window.innerHeight ? 0.5 : 0.72;
+    panX = 0; panY = 0;
+    applyTransform();
+    tryRenderPins(10);
+  }, 300);
+}
+window.addEventListener('orientationchange', handleOrientationChange);
+// Also catch resize (Android fires resize not orientationchange)
+let _lastW = window.innerWidth;
+window.addEventListener('resize', () => {
+  if (window.innerWidth !== _lastW) {
+    _lastW = window.innerWidth;
+    handleOrientationChange();
+  }
+});
 
 function repositionPins() {
   const ps = getPinScale();
