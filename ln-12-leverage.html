@@ -107,8 +107,69 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 .nav-dropdown-divider { height: 1px; background: rgba(42,61,92,0.6); margin: 4px 8px; }
 .nav-cta { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: #09101f; background: #c8f0d0; padding: 8px 18px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; transition: opacity 0.2s; }
 .nav-cta:hover { opacity: 0.85; }
-@media (max-width: 900px) { .nav-links { display: none; } }
+@media (max-width: 1024px) { .nav-links { display: none; } }
 @media (max-width: 480px) { nav { padding: 0 16px; } .nav-logo { font-size: 15px; } .nav-cta { font-size: 10px; padding: 6px 12px; } }
+</style>
+<style>
+/* Hamburger button */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #8ba3c1;
+  border-radius: 2px;
+  transition: all 0.25s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+@media (max-width: 1024px) { .nav-hamburger { display: flex; } .nav-cta { display: none; } }
+/* Mobile menu panel */
+.nav-mobile-menu {
+  display: none;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: rgba(9,16,31,0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(42,61,92,0.6);
+  padding: 16px 24px 24px;
+  flex-direction: column;
+  gap: 2px;
+}
+.nav-mobile-menu.open { display: flex; }
+.nav-mobile-menu a {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #8ba3c1;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(42,61,92,0.3);
+  transition: color 0.15s;
+}
+.nav-mobile-menu a:hover { color: #e8edf5; }
+.nav-mobile-divider { height: 1px; background: rgba(42,61,92,0.6); margin: 8px 0; }
+.nav-mobile-cta { margin-top: 12px; color: #c8f0d0 !important; border-bottom: none !important; font-weight: 600 !important; }
 </style>
 </head>
 <body>
@@ -140,7 +201,27 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
     <li><a href="about.html">About</a></li>
   </ul>
   <a href="request.html" class="nav-cta">Request a Diagnostic</a>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile nav menu -->
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <a href="substrate.html">The Substrate</a>
+  <a href="diagnostic.html">The Diagnostic</a>
+  <a href="leverage.html">Leverage</a>
+  <a href="findings.html">Findings</a>
+  <a href="pricing.html">Pricing</a>
+  <div class="nav-mobile-divider"></div>
+  <a href="notes.html">Lab Notes</a>
+  <a href="ln-01-coordinating.html">S2 · Coordinating</a>
+  <a href="ln-02-narrating.html">S7 · Narrating</a>
+  <a href="ln-12-leverage.html">What Leverage Looks Like</a>
+  <div class="nav-mobile-divider"></div>
+  <a href="about.html">About</a>
+  <a href="request.html" class="nav-mobile-cta">Request a Diagnostic →</a>
+</div>
 
 <div class="wrap">
   <div class="breadcrumb"><a href="index.html">Home</a> › <a href="notes.html">Lab Notes</a> › Leverage</div>
@@ -271,7 +352,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
         <a href="about.html">About</a>
         <a href="data.html">Diagnostic Data</a>
         <a href="request.html">Request a Diagnostic</a>
-        andrew@communitylab.app
+        <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3f5e515b4d5a487f5c5052524a51564b46535e5d115e4f4f">[email&#160;protected]</a>
       </div>
     </div>
   </div>
@@ -307,7 +388,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 
 
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Nav dropdown - click to open, click outside to close
 document.querySelectorAll('.nav-dropdown').forEach(function(dropdown) {
   var toggle = dropdown.querySelector('.nav-dropdown-toggle');
@@ -329,5 +410,16 @@ document.addEventListener('click', function() {
   document.querySelectorAll('.nav-dropdown-toggle').forEach(function(t) { t.classList.remove('active'); });
 });
 </script>
-</body>
-</html>
+
+<script>
+// Hamburger menu
+const _navHamburger = document.getElementById('nav-hamburger');
+const _navMobileMenu = document.getElementById('nav-mobile-menu');
+if (_navHamburger && _navMobileMenu) {
+  _navHamburger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const isOpen = _navMobileMenu.classList.contains('open');
+    _navMobileMenu.classList.toggle('open', !isOpen);
+    _navHamburger.classList.toggle('open', !isOpen);
+  });
+  document.addEventL

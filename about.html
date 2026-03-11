@@ -89,13 +89,13 @@ p strong { color: #e8edf5; font-weight: 400; }
 p + p { margin-top: 16px; }
 
 /* HERO */
-.hero { padding: 100px 24px 64px; max-width: 640px; margin: 0 auto; }
+.hero { padding: 100px 24px 64px; max-width: 960px; margin: 0 auto; }
 .hero-tag { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
 .hero-h { font-family: 'Instrument Serif', serif; font-size: clamp(36px, 6vw, 56px); line-height: 1.06; letter-spacing: -0.02em; margin-bottom: 24px; }
 .hero-h em { font-style: italic; color: #c8f0d0; }
 
 /* SECTION */
-.section { padding: 56px 24px; max-width: 640px; margin: 0 auto; }
+.section { padding: 56px 24px; max-width: 960px; margin: 0 auto; }
 .sec-tag { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
 .sec-tag::before { content: ''; width: 16px; height: 1px; background: var(--muted); }
 .sec-h { font-family: 'Instrument Serif', serif; font-size: clamp(24px, 3.5vw, 34px); line-height: 1.1; color: #e8edf5; margin-bottom: 20px; }
@@ -239,8 +239,69 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 .nav-dropdown-divider { height: 1px; background: rgba(42,61,92,0.6); margin: 4px 8px; }
 .nav-cta { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: #09101f; background: #c8f0d0; padding: 8px 18px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; transition: opacity 0.2s; }
 .nav-cta:hover { opacity: 0.85; }
-@media (max-width: 900px) { .nav-links { display: none; } }
+@media (max-width: 1024px) { .nav-links { display: none; } }
 @media (max-width: 480px) { nav { padding: 0 16px; } .nav-logo { font-size: 15px; } .nav-cta { font-size: 10px; padding: 6px 12px; } }
+</style>
+<style>
+/* Hamburger button */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #8ba3c1;
+  border-radius: 2px;
+  transition: all 0.25s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+@media (max-width: 1024px) { .nav-hamburger { display: flex; } .nav-cta { display: none; } }
+/* Mobile menu panel */
+.nav-mobile-menu {
+  display: none;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: rgba(9,16,31,0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(42,61,92,0.6);
+  padding: 16px 24px 24px;
+  flex-direction: column;
+  gap: 2px;
+}
+.nav-mobile-menu.open { display: flex; }
+.nav-mobile-menu a {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #8ba3c1;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(42,61,92,0.3);
+  transition: color 0.15s;
+}
+.nav-mobile-menu a:hover { color: #e8edf5; }
+.nav-mobile-divider { height: 1px; background: rgba(42,61,92,0.6); margin: 8px 0; }
+.nav-mobile-cta { margin-top: 12px; color: #c8f0d0 !important; border-bottom: none !important; font-weight: 600 !important; }
 </style>
 </head>
 <body>
@@ -272,7 +333,27 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
     <li><a href="about.html">About</a></li>
   </ul>
   <a href="request.html" class="nav-cta">Request a Diagnostic</a>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile nav menu -->
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <a href="substrate.html">The Substrate</a>
+  <a href="diagnostic.html">The Diagnostic</a>
+  <a href="leverage.html">Leverage</a>
+  <a href="findings.html">Findings</a>
+  <a href="pricing.html">Pricing</a>
+  <div class="nav-mobile-divider"></div>
+  <a href="notes.html">Lab Notes</a>
+  <a href="ln-01-coordinating.html">S2 · Coordinating</a>
+  <a href="ln-02-narrating.html">S7 · Narrating</a>
+  <a href="ln-12-leverage.html">What Leverage Looks Like</a>
+  <div class="nav-mobile-divider"></div>
+  <a href="about.html">About</a>
+  <a href="request.html" class="nav-mobile-cta">Request a Diagnostic →</a>
+</div>
 
 
 
@@ -391,7 +472,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
       </div>
       <div class="profile-links">
         <a href="https://www.communitylab.app" class="profile-link" target="_blank">Community Lab ↗</a>
-        <a href="mailto:andrew@communitylab.app" class="profile-link">andrew@communitylab.app</a>
+        <a href="/cdn-cgi/l/email-protection#670609031502102704080a0a12090e131e0b060549061717" class="profile-link"><span class="__cf_email__" data-cfemail="a2c3ccc6d0c7d5e2c1cdcfcfd7cccbd6dbcec3c08cc3d2d2">[email&#160;protected]</span></a>
       </div>
     </div>
   </div>
@@ -466,7 +547,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
   <h2 class="cta-h">Built in Edinburgh.<br><em>Running everywhere.</em></h2>
   <p class="cta-p">The diagnostic pipeline is live. 75 completed runs. If you steward a regional economy and want to understand what it is actually doing — get in touch.</p>
   <a href="request.html" class="cta-btn">Request a diagnostic</a>
-  <div class="cta-or">or email <a href="mailto:andrew@communitylab.app" style="color:#c8f0d0;text-decoration:none">andrew@communitylab.app</a></div>
+  <div class="cta-or">or email <a href="/cdn-cgi/l/email-protection#52333c3620372512313d3f3f273c3b262b3e33307c332222" style="color:#c8f0d0;text-decoration:none"><span class="__cf_email__" data-cfemail="e889868c9a8d9fa88b8785859d86819c9184898ac6899898">[email&#160;protected]</span></a></div>
 </div>
 <footer>
   <div class="footer-inner">
@@ -497,7 +578,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
         <a href="about.html">About</a>
         <a href="data.html">Diagnostic Data</a>
         <a href="request.html">Request a Diagnostic</a>
-        <a href="mailto:andrew@communitylab.app">andrew@communitylab.app</a>
+        <a href="/cdn-cgi/l/email-protection#7f1e111b0d1a083f1c1012120a11160b06131e1d511e0f0f"><span class="__cf_email__" data-cfemail="f2939c96809785b2919d9f9f879c9b868b9e9390dc938282">[email&#160;protected]</span></a>
       </div>
     </div>
   </div>
@@ -528,7 +609,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 }
 </style>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Nav dropdown - click to open, click outside to close
 document.querySelectorAll('.nav-dropdown').forEach(function(dropdown) {
   var toggle = dropdown.querySelector('.nav-dropdown-toggle');
@@ -550,5 +631,9 @@ document.addEventListener('click', function() {
   document.querySelectorAll('.nav-dropdown-toggle').forEach(function(t) { t.classList.remove('active'); });
 });
 </script>
-</body>
-</html>
+
+<script>
+// Hamburger menu
+const _navHamburger = document.getElementById('nav-hamburger');
+const _navMobileMenu = document.getElementById('nav-mobile-menu');
+if (_navHamb
