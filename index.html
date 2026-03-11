@@ -1051,7 +1051,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 
     <!-- Side panel -->
     <div id="panel">
-      <div style="position:relative;flex-shrink:0">
+      <div class="panel-header-wrap">
         <div class="panel-header" id="panel-header"></div>
         <div class="panel-close" id="panel-close">✕</div>
       </div>
@@ -1464,6 +1464,10 @@ revealEls.forEach(el => observer.observe(el));
 }
 #panel.open{transform:translateX(0);transition:transform 0.35s cubic-bezier(0.16,1,0.3,1), visibility 0s linear 0s;visibility:visible}
 
+.panel-header-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
 .panel-header{
   padding:16px 28px 14px;
   border-bottom:1px solid #1e2d42;
@@ -1848,11 +1852,10 @@ body { overflow-x: hidden; }
 <style>
 /* Mobile map modal adjustments */
 @media (max-width: 900px) {
-  #panel { width: 100%; top: auto; bottom: 0; right: 0; left: 0; height: 65%; border-left: none; border-top: 1px solid #1e2d42; border-radius: 16px 16px 0 0; transform: translateY(100%); }
-  #panel.open { transform: translateY(0); }
   #zoom-controls { bottom: 44px; right: 12px; }
-  #modal-topbar { flex-wrap: wrap; height: auto; padding: 8px 12px; gap: 8px; }
-  #modal-logo { font-size: 13px; }
+  #modal-topbar { flex-wrap: nowrap; height: 44px; padding: 0 10px; gap: 6px; overflow: hidden; }
+  #modal-logo { font-size: 12px; }
+  #modal-counter { display: none; }
   .filter-btn { font-size: 7px; padding: 3px 7px; }
   .legend-hint { display: none; }
 }
