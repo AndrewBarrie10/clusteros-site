@@ -1409,7 +1409,13 @@ revealEls.forEach(el => observer.observe(el));
   font-size:12px;font-weight:300;color:#8ba3c1;line-height:1.4;
 }
 
-.panel-
+.panel-body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  min-height: 0;
+  padding: 20px 28px;
+}
 
 .panel-stat-row{
   display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;
@@ -1558,11 +1564,7 @@ revealEls.forEach(el => observer.observe(el));
   }
   /* Panel body is the scrollable region */
   #panel .panel-body {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 16px;
-    min-height: 0;
+    padding: 12px 16px;
   }
   /* Header compact */
   #panel-header {
