@@ -2274,6 +2274,15 @@ const mapModal = document.getElementById('map-modal');
 document.getElementById('open-map-btn').addEventListener('click', () => {
   mapModal.classList.add('open');
   document.body.style.overflow = 'hidden';
+  // iPad fix: canvas has zero dimensions until modal is visible
+  // Force redraw after modal has real dimensions
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    const canvas = document.getElementById('world-canvas');
+    if (canvas && canvas.offsetWidth === 0) {
+      // Canvas never drew — trigger resize to force redraw
+      window.dispatchEvent(new Event('resize'));
+    }
+  }));
   // Render pins after modal is visible and has dimensions
   requestAnimationFrame(() => requestAnimationFrame(() => {
     zoom = window.innerWidth < 768 ? 0.5 : 0.72;
