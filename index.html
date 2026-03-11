@@ -2284,12 +2284,20 @@ const mapModal = document.getElementById('map-modal');
 document.getElementById('open-map-btn').addEventListener('click', () => {
   mapModal.classList.add('open');
   document.body.style.overflow = 'hidden';
+  // Two rAFs for most browsers; extra 100ms timeout for Safari portrait
+  // which may not have resolved layout dimensions yet
   requestAnimationFrame(() => requestAnimationFrame(() => {
     ensureWorldMap();
     zoom = window.innerWidth < 768 ? 0.5 : 0.72;
     panX = 0; panY = 0;
     applyTransform();
     tryRenderPins(10);
+    // Safari portrait safety net — redraw after layout fully settles
+    setTimeout(() => {
+      ensureWorldMap();
+      tryRenderPins(5);
+    }, 150);
+  }));
   }));
 });
 document.getElementById('modal-close').addEventListener('click', closeModal);
@@ -2494,9 +2502,14 @@ function drawWorldCanvas() {
   const canvas = document.getElementById('world-canvas');
   if (!canvas) return;
 
-  // Use window dimensions as ultimate fallback for iPad
-  const W = canvas.offsetWidth || canvas.parentElement.offsetWidth || window.innerWidth;
-  const H = canvas.offsetHeight || canvas.parentElement.offsetHeight || (window.innerHeight - 48);
+  // In portrait Safari, canvas.offsetWidth can be zero even when modal is open.
+  // Fall back through parent, then window dimensions directly.
+  const mapWrap = document.getElementById('map-wrap');
+  const W = canvas.offsetWidth || (mapWrap && mapWrap.offsetWidth) || window.innerWidth;
+  const topbarH = 48;
+  const H = canvas.offsetHeight || (mapWrap && mapWrap.offsetHeight) || (window.innerHeight - topbarH);
+
+  // If still zero, retry — layout hasn't settled yet
   if (!W || !H) { setTimeout(drawWorldCanvas, 80); return; }
 
   const dpr = window.devicePixelRatio || 1;
