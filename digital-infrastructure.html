@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Infrastructure — ClusterOS</title>
+<meta name="description" content="ClusterOS is built as sovereign, federated infrastructure for regional economies — not a collaboration tool or programme platform. This is the architectural logic.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://clusteros.io/digital-infrastructure.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Digital Infrastructure — ClusterOS">
+<meta property="og:description" content="ClusterOS is built as sovereign, federated infrastructure for regional economies — not a collaboration tool or programme platform.">
+<meta property="og:url" content="https://clusteros.io/digital-infrastructure.html">
+<meta property="og:site_name" content="ClusterOS">
+<meta property="og:image" content="https://clusteros.io/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Digital Infrastructure — ClusterOS">
+<meta name="twitter:description" content="ClusterOS is built as sovereign, federated infrastructure for regional economies — not a collaboration tool or programme platform.">
+<meta name="twitter:image" content="https://clusteros.io/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Digital Infrastructure — ClusterOS",
+  "url": "https://clusteros.io/digital-infrastructure.html",
+  "description": "ClusterOS is built as sovereign, federated infrastructure for regional economies — not a collaboration tool or programme platform.",
+  "isPartOf": {"@type": "WebSite", "url": "https://clusteros.io", "name": "ClusterOS"}
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:      #09101f;
+  --surface: #111c2e;
+  --border:  #1e2f45;
+  --border2: #2a3f5a;
+  --chalk:   #e8edf5;
+  --dim:     #c2cfe0;
+  --muted:   #7a95b0;
+  --signal:  #c8f0d0;
+  --amber:   #f5d97a;
+  --crimson: #f08080;
+  --teal:    #7dd3c8;
+  --serif:   'Instrument Serif', serif;
+  --mono:    'Geist Mono', monospace;
+}
+html { scroll-behavior: smooth; background: #09101f; color: #e8edf5; }
+html, body { overflow-x: hidden; }
+body { background: var(--bg); color: #e8edf5; font-family: 'Geist', sans-serif; font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; background: rgba(9,16,31,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(42,61,92,0.6); }
+.nav-logo { font-family: 'Instrument Serif', serif; font-size: 18px; text-decoration: none; color: #e8edf5; letter-spacing: -0.01em; flex-shrink: 0; }
+.nav-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+.nav-links { display: flex; align-items: center; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.nav-links > li > a,
+.nav-dropdown-toggle { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: #8ba3c1; padding: 6px 12px; border-radius: 4px; transition: color 0.2s, background 0.2s; cursor: pointer; white-space: nowrap; }
+.nav-links > li > a:hover,
+.nav-dropdown-toggle:hover,
+.nav-dropdown-toggle.active { color: #e8edf5; background: rgba(255,255,255,0.06); }
+.nav-dropdown { position: relative; }
+.nav-dropdown-menu { display: none; position: absolute; top: calc(100% + 8px); left: 0; background: #0f1c2e; border: 1px solid rgba(42,61,92,0.8); border-radius: 6px; padding: 6px; min-width: 200px; list-style: none; margin: 0; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.nav-dropdown-menu li a { display: block; font-family: 'Geist', system-ui, sans-serif; font-size: 13px; color: #8ba3c1; text-decoration: none; padding: 7px 12px; border-radius: 4px; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+.nav-dropdown-menu li a:hover { color: #e8edf5; background: rgba(200,240,208,0.08); }
+.nav-dropdown-divider { height: 1px; background: rgba(42,61,92,0.6); margin: 4px 8px; }
+.nav-cta { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: #09101f; background: #c8f0d0; padding: 8px 18px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; transition: opacity 0.2s; }
+.nav-cta:hover { opacity: 0.85; }
+@media (max-width: 900px) { .nav-links { display: none; } }
+@media (max-width: 480px) { nav { padding: 0 16px; } .nav-logo { font-size: 15px; } .nav-cta { font-size: 10px; padding: 6px 12px; } }
+
+/* HAMBURGER */
+.nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; cursor: pointer; padding: 6px; border-radius: 4px; transition: background 0.2s; }
+.nav-hamburger:hover { background: rgba(255,255,255,0.06); }
+.nav-hamburger span { display: block; height: 1.5px; background: #8ba3c1; border-radius: 2px; transition: all 0.25s; transform-origin: center; }
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+@media (max-width: 1024px) { .nav-hamburger { display: flex; } .nav-links { display: none !important; } .nav-cta { display: none; } }
+.nav-mobile-menu { display: none; position: fixed; top: 56px; left: 0; right: 0; background: rgba(9,16,31,0.98); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(42,61,92,0.6); padding: 16px; z-index: 999; flex-direction: column; gap: 2px; }
+.nav-mobile-menu.open { display: flex; }
+.nav-mobile-menu a { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #8ba3c1; text-decoration: none; padding: 10px 12px; border-radius: 4px; transition: color 0.2s, background 0.2s; }
+.nav-mobile-menu a:hover { color: #e8edf5; background: rgba(255,255,255,0.06); }
+.nav-mobile-menu .mobile-divider { height: 1px; background: rgba(42,61,92,0.4); margin: 6px 0; }
+.nav-mobile-menu .mobile-cta { color: #c8f0d0; border: 1px solid rgba(200,240,208,0.3); margin-top: 8px; text-align: center; }
+
+/* COMMON */
+.wrap { max-width: 640px; margin: 0 auto; padding: 0 24px; }
+hr { border: none; border-top: 1px solid var(--border); }
+p { font-size: 15px; color: var(--dim); line-height: 1.75; }
+p strong { color: #e8edf5; font-weight: 400; }
+p + p { margin-top: 16px; }
+
+/* HERO */
+.hero { padding: 100px 24px 64px; max-width: 960px; margin: 0 auto; }
+.hero-tag { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+.hero-h { font-family: 'Instrument Serif', serif; font-size: clamp(36px, 6vw, 56px); line-height: 1.06; letter-spacing: -0.02em; margin-bottom: 24px; }
+.hero-h em { font-style: italic; color: #c8f0d0; }
+.hero-sub { font-size: 17px; color: var(--dim); line-height: 1.7; max-width: 600px; }
+
+/* SECTION */
+.section { padding: 56px 24px; max-width: 960px; margin: 0 auto; }
+.section + .section { border-top: 1px solid var(--border); }
+.sec-tag { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.sec-tag::before { content: ''; width: 16px; height: 1px; background: var(--muted); }
+.sec-h { font-family: 'Instrument Serif', serif; font-size: clamp(24px, 3.5vw, 34px); line-height: 1.1; color: #e8edf5; margin-bottom: 20px; }
+.sec-h em { font-style: italic; color: #f5d97a; }
+
+/* PRINCIPLE STATEMENT */
+.principle { margin: 32px 0; padding: 28px 32px; border-left: 2px solid #c8f0d0; background: rgba(200,240,208,0.04); border-radius: 0 6px 6px 0; }
+.principle-text { font-family: 'Instrument Serif', serif; font-size: clamp(20px, 2.5vw, 26px); line-height: 1.3; color: #e8edf5; font-style: italic; }
+
+/* LAYER CARDS */
+.layers { display: flex; flex-direction: column; gap: 2px; margin: 32px 0; }
+.layer { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 28px 32px; display: grid; grid-template-columns: 80px 1fr; gap: 24px; align-items: start; }
+.layer-num { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; padding-top: 3px; }
+.layer-body {}
+.layer-h { font-size: 15px; color: #e8edf5; font-weight: 400; margin-bottom: 8px; letter-spacing: -0.01em; }
+.layer-p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+@media (max-width: 640px) { .layer { grid-template-columns: 1fr; gap: 8px; } }
+
+/* HIERARCHY DIAGRAM */
+.hierarchy { margin: 32px 0; display: flex; flex-direction: column; gap: 2px; }
+.hier-row { display: flex; align-items: stretch; gap: 0; }
+.hier-indent { width: 24px; flex-shrink: 0; display: flex; align-items: stretch; }
+.hier-indent-line { width: 1px; background: var(--border); margin: 0 auto; }
+.hier-card { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 14px 18px; display: flex; align-items: center; gap: 14px; }
+.hier-card.level-0 { border-color: rgba(200,240,208,0.3); background: rgba(200,240,208,0.04); }
+.hier-card.level-1 { border-color: rgba(245,217,122,0.25); background: rgba(245,217,122,0.03); }
+.hier-card.level-2 { border-color: rgba(125,211,200,0.2); }
+.hier-card.level-3 { border-color: var(--border); }
+.hier-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.level-0 .hier-dot { background: #c8f0d0; }
+.level-1 .hier-dot { background: #f5d97a; }
+.level-2 .hier-dot { background: #7dd3c8; }
+.level-3 .hier-dot { background: var(--muted); }
+.hier-label { font-size: 13px; color: #e8edf5; font-weight: 400; }
+.hier-desc { font-size: 12px; color: var(--muted); margin-left: auto; text-align: right; }
+@media (max-width: 600px) { .hier-desc { display: none; } }
+
+/* DATA SOURCES */
+.sources-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 28px 0; }
+.source-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 18px 20px; }
+.source-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.source-h { font-size: 13px; color: #e8edf5; font-weight: 400; margin-bottom: 6px; line-height: 1.4; }
+.source-p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+@media (max-width: 700px) { .sources-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .sources-grid { grid-template-columns: 1fr; } }
+
+/* CLOSING STATEMENT */
+.closing { margin: 48px 0 0; padding: 48px 24px; border-top: 1px solid var(--border); max-width: 960px; }
+.closing-inner { max-width: 640px; }
+.closing-h { font-family: 'Instrument Serif', serif; font-size: clamp(22px, 3vw, 30px); line-height: 1.2; color: #e8edf5; margin-bottom: 16px; }
+.closing-h em { font-style: italic; color: #c8f0d0; }
+.closing-p { font-size: 15px; color: var(--muted); line-height: 1.75; }
+.closing-cta { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-primary { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: #09101f; background: #c8f0d0; padding: 10px 22px; border-radius: 3px; transition: opacity 0.2s; }
+.btn-primary:hover { opacity: 0.85; }
+.btn-ghost { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: #8ba3c1; border: 1px solid rgba(42,61,92,0.8); padding: 10px 22px; border-radius: 3px; transition: color 0.2s, border-color 0.2s; }
+.btn-ghost:hover { color: #e8edf5; border-color: #8ba3c1; }
+
+/* FOOTER */
+footer { margin-top: 80px; border-top: 1px solid var(--border); padding: 48px 24px 32px; }
+.footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; margin-bottom: 40px; }
+.footer-logo { font-family: 'Instrument Serif', serif; font-size: 18px; text-decoration: none; color: #e8edf5; display: block; margin-bottom: 10px; }
+.footer-logo span { font-family: 'Geist Mono', monospace; font-weight: 600; color: #c8f0d0; }
+.footer-tagline { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.footer-col { display: flex; flex-direction: column; gap: 8px; }
+.footer-col-label { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #7a9bb5; margin-bottom: 4px; }
+.footer-col a { font-size: 13px; color: #8ba3c1; text-decoration: none; transition: color .2s; line-height: 1.4; }
+.footer-col a:hover { color: #e8edf5; }
+.footer-base { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; padding-top: 24px; border-top: 1px solid #2a3a52; flex-wrap: wrap; gap: 8px; }
+.footer-copy { font-size: 12px; color: #7a9bb5; }
+@media (max-width: 640px) { .footer-inner { grid-template-columns: 1fr; gap: 32px; } .footer-nav { grid-template-columns: 1fr 1fr; } }
+
+/* JOURNEY GRAPHIC */
+.journey-section { border-top: 1px solid var(--border); padding: 64px 24px 0; max-width: 960px; margin: 0 auto; }
+.journey-intro { margin-bottom: 36px; }
+.journey-canvas-wrap { border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: #060c16; box-shadow: 0 24px 64px rgba(0,0,0,0.5); }
+.journey-chrome { background: #0d1829; border-bottom: 1px solid var(--border); height: 34px; display: flex; align-items: center; padding: 0 12px; gap: 7px; flex-shrink: 0; }
+.jchrome-dot { width: 11px; height: 11px; border-radius: 50%; }
+.jchrome-dot.r { background: #ff5f57; } .jchrome-dot.a { background: #febc2e; } .jchrome-dot.g { background: #28c840; }
+.jchrome-addr { flex: 1; margin: 0 12px; font-family: var(--mono); font-size: 10px; color: var(--muted); }
+.journey-stage-nav { display: flex; align-items: stretch; border-bottom: 1px solid var(--border); background: #080e1a; overflow-x: auto; scrollbar-width: none; }
+.journey-stage-nav::-webkit-scrollbar { display: none; }
+.jnav-btn { font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: none; border: none; border-right: 1px solid var(--border); border-bottom: 2px solid transparent; cursor: pointer; padding: 10px 18px; transition: color 0.2s, border-color 0.2s, background 0.2s; white-space: nowrap; flex-shrink: 0; }
+.jnav-btn:hover { color: var(--chalk); background: rgba(255,255,255,0.03); }
+.jnav-btn.active { color: var(--signal); border-bottom-color: var(--signal); background: rgba(200,240,208,0.04); }
+.jnav-spacer { flex: 1; }
+#journey-canvas { display: block; width: 100%; height: 440px; }
+@media (max-width: 768px) { #journey-canvas { height: 320px; } }
+.journey-overlay { display: flex; align-items: flex-start; justify-content: space-between; padding: 18px 24px; border-top: 1px solid var(--border); background: #060c16; gap: 24px; flex-wrap: wrap; }
+.journey-text { flex: 1; min-width: 220px; }
+.jov-headline { font-family: var(--serif); font-size: 18px; color: var(--chalk); margin-bottom: 5px; line-height: 1.2; }
+.jov-desc { font-size: 13px; color: var(--muted); line-height: 1.65; max-width: 560px; }
+.journey-controls { display: flex; align-items: center; gap: 10px; flex-shrink: 0; padding-top: 2px; }
+.jprog-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border2); border: 1px solid #3a5070; transition: background 0.3s, border-color 0.3s, transform 0.25s; cursor: pointer; }
+.jprog-dot.active { background: var(--signal); border-color: var(--signal); transform: scale(1.4); }
+.jctrl-btn { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); background: none; border: 1px solid var(--border2); border-radius: 3px; padding: 7px 14px; cursor: pointer; transition: color 0.2s, border-color 0.2s, background 0.2s; }
+.jctrl-btn:hover:not(:disabled) { color: var(--chalk); border-color: #4a6080; background: rgba(255,255,255,0.04); }
+.jctrl-btn:disabled { opacity: 0.25; cursor: default; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Cluster<span>OS</span></a>
+  <ul class="nav-links">
+    <li class="nav-dropdown">
+      <span class="nav-dropdown-toggle">Product ▾</span>
+      <ul class="nav-dropdown-menu">
+        <li><a href="digital-infrastructure.html">Digital Infrastructure</a></li>
+        <li><a href="signals-systems.html">Signals &amp; Systems</a></li>
+        <li><a href="diagnostic.html">The Diagnostic</a></li>
+        <li><a href="leverage.html">Leverage</a></li>
+        <li><a href="findings.html">Findings</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <span class="nav-dropdown-toggle">Lab Notes ▾</span>
+      <ul class="nav-dropdown-menu">
+        <li><a href="notes.html">All Notes</a></li>
+        <li class="nav-dropdown-divider"></li>
+        <li><a href="ln-01-coordinating.html">S2 · Coordinating</a></li>
+        <li><a href="ln-02-narrating.html">S7 · Narrating</a></li>
+        <li><a href="ln-10-narrative-activity-stack.html">Narrative × Activity</a></li>
+        <li><a href="ln-12-leverage.html">What Leverage Looks Like</a></li>
+        <li><a href="ln-13-diagnosis.html">Why Diagnosis Fails</a></li>
+      </ul>
+    </li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <div class="nav-hamburger" id="nav-hamburger">
+    <span></span><span></span><span></span>
+  </div>
+  <a href="request.html" class="nav-cta">Request a Diagnostic</a>
+</nav>
+
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <a href="digital-infrastructure.html">Digital Infrastructure</a>
+  <a href="signals-systems.html">Signals &amp; Systems</a>
+  <a href="diagnostic.html">The Diagnostic</a>
+  <a href="leverage.html">Leverage</a>
+  <a href="findings.html">Findings</a>
+  <a href="pricing.html">Pricing</a>
+  <div class="mobile-divider"></div>
+  <a href="notes.html">Lab Notes</a>
+  <a href="about.html">About</a>
+  <div class="mobile-divider"></div>
+  <a href="request.html" class="mobile-cta">Request a Diagnostic</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Digital Infrastructure</div>
+  <h1 class="hero-h">Coordination carried by<br><em>infrastructure, not people.</em></h1>
+  <p class="hero-sub">ClusterOS is not a collaboration tool, a programme platform, or a community network. It is the shared digital and cognitive infrastructure that allows a regional economy to operate as a system — rather than a collection of projects, organisations, and individuals.</p>
+</div>
+
+<hr>
+
+<!-- THE PROBLEM -->
+<div class="section">
+  <div class="sec-tag">The problem</div>
+  <h2 class="sec-h">Why regional economies<br><em>stall at complexity</em></h2>
+  <p>Modern regional economies are not short of strategy, investment, or intent. They stall because coordination is treated as a social task — something resolved through brokerage, relationships, and goodwill — rather than an infrastructural one.</p>
+  <p>The result is predictable: progress depends on who you know, opportunity is unevenly distributed, learning is slow and siloed, and resilience is fragile. The overhead of coordination rises with scale, while the capacity to manage it stays flat.</p>
+
+  <div class="principle">
+    <div class="principle-text">"Like transport or energy infrastructure, ClusterOS does not dictate outcomes — but shapes what outcomes are possible at scale."</div>
+  </div>
+
+  <p>ClusterOS addresses this directly — not by adding more programmes or mandating new behaviours, but by changing the operating conditions of the system so that participation becomes easier than avoidance, and coordination becomes cheaper than fragmentation.</p>
+</div>
+
+<!-- THE ARCHITECTURE -->
+<div class="section">
+  <div class="sec-tag">The architecture</div>
+  <h2 class="sec-h">A federated hierarchy<br><em>that mirrors how regions actually work</em></h2>
+  <p>ClusterOS is structured as a sovereign, federated system. Each region operates its own dedicated instance — maintaining data residency, jurisdictional control, and alignment with public accountability requirements. Nothing is shared across regions without explicit consent.</p>
+  <p>Within each region, the architecture mirrors the way economies are actually governed and delivered — from system-wide coordination down to individual actors pursuing their own goals.</p>
+
+  <div class="hierarchy">
+    <div class="hier-row">
+      <div class="hier-card level-0">
+        <div class="hier-dot"></div>
+        <div class="hier-label">Supercluster</div>
+        <div class="hier-desc">Regional tenant · sovereign instance · identity &amp; governance</div>
+      </div>
+    </div>
+    <div class="hier-row" style="margin-top:2px;">
+      <div class="hier-indent"><div class="hier-indent-line"></div></div>
+      <div class="hier-card level-1">
+        <div class="hier-dot"></div>
+        <div class="hier-label">Clusters</div>
+        <div class="hier-desc">Sectors, themes, strategic priorities · aggregation layer</div>
+      </div>
+    </div>
+    <div class="hier-row" style="margin-top:2px;">
+      <div class="hier-indent"><div class="hier-indent-line"></div></div>
+      <div class="hier-indent"><div class="hier-indent-line"></div></div>
+      <div class="hier-card level-2">
+        <div class="hier-dot"></div>
+        <div class="hier-label">Groups</div>
+        <div class="hier-desc">Operational units · collaboration · IP generation · access control</div>
+      </div>
+    </div>
+    <div class="hier-row" style="margin-top:2px;">
+      <div class="hier-indent"><div class="hier-indent-line"></div></div>
+      <div class="hier-indent"><div class="hier-indent-line"></div></div>
+      <div class="hier-indent"><div class="hier-indent-line"></div></div>
+      <div class="hier-card level-3">
+        <div class="hier-dot"></div>
+        <div class="hier-label">Actors</div>
+        <div class="hier-desc">Founders, researchers, anchors, stewards, talent · single identity</div>
+      </div>
+    </div>
+  </div>
+
+  <p>Clusters act as logical lenses, not destinations — aggregating activity across sectors and themes without fragmenting the user base or duplicating effort. Groups are where real work happens: collaboration, delivery, sensitive activity, and protected IP generation, with role-based access control so openness and confidentiality coexist without leakage.</p>
+  <p>Each participant holds a single system identity. Permissions are explicit, inherited, and auditable. Trust scales without centralisation.</p>
+</div>
+
+<!-- THE INTELLIGENCE LAYER -->
+<div class="section">
+  <div class="sec-tag">The intelligence layer</div>
+  <h2 class="sec-h">From digital platform<br><em>to cognitive infrastructure</em></h2>
+  <p>With AI, ClusterOS evolves from a digital operating system into cognitive infrastructure for the region. AI does not automate decisions or replace institutions — it augments the system's ability to observe, learn, and adapt.</p>
+  <p>At its core is a live Ecosystem Intelligence Graph — built from consented, role-aware system activity, not scraped or extracted data. The graph represents actors, capabilities, opportunities, interactions, and pathways. It allows the system to see patterns, detect bottlenecks, understand where coordination cost is rising, and identify under-utilised capability.</p>
+
+  <div class="layers">
+    <div class="layer">
+      <div class="layer-num">Layer 01</div>
+      <div class="layer-body">
+        <div class="layer-h">Actor intelligence</div>
+        <div class="layer-p">Every actor type — founders, researchers, anchors, investors, stewards — experiences a different intelligence surface. A founder sees a navigator reducing uncertainty and surfacing credible next steps. A steward sees a system governor providing live insight into coordination load and emerging risk. Same data layer, different lens.</div>
+      </div>
+    </div>
+    <div class="layer">
+      <div class="layer-num">Layer 02</div>
+      <div class="layer-body">
+        <div class="layer-h">Orchestration support</div>
+        <div class="layer-p">AI highlights under-connected actors, flags stalled pathways, suggests consolidation where fragmentation grows, and learns which interventions actually reduce friction. This enables adaptive governance rather than retrospective reporting.</div>
+      </div>
+    </div>
+    <div class="layer">
+      <div class="layer-num">Layer 03</div>
+      <div class="layer-body">
+        <div class="layer-h">Sovereign data accumulation</div>
+        <div class="layer-p">Over time, the region accumulates collective intelligence — foresight, resilience, and learning capacity — without any single actor surrendering control. All data remains within the regional tenant. No cross-region model training occurs without explicit consent. AI learns from patterns, not raw sensitive content.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXTERNAL DATA -->
+<div class="section">
+  <div class="sec-tag">External signal</div>
+  <h2 class="sec-h">The system arrives<br><em>with intelligence already loaded</em></h2>
+  <p>ClusterOS does not start empty. From day one, it ingests structured data from public sources, open APIs, and professional networks — augmenting the intelligence graph before a single actor has onboarded.</p>
+  <p>This solves the cold start problem that undermines most regional platforms: the system is useful immediately, and becomes more valuable as actor participation compounds on top of an existing signal base.</p>
+
+  <div class="sources-grid">
+    <div class="source-card">
+      <div class="source-label">Public Data</div>
+      <div class="source-h">Business &amp; support registers</div>
+      <div class="source-p">Structured intake of publicly available business support, funding, and programme data — refreshed continuously.</div>
+    </div>
+    <div class="source-card">
+      <div class="source-label">Open APIs</div>
+      <div class="source-h">Health, social &amp; civic infrastructure</div>
+      <div class="source-p">Open data sources covering regional services, assets, and civic infrastructure — licensed for integration.</div>
+    </div>
+    <div class="source-card">
+      <div class="source-label">Professional Networks</div>
+      <div class="source-h">Identity &amp; capability enrichment</div>
+      <div class="source-p">Consented integration with professional identity sources to enrich actor profiles without manual data entry.</div>
+    </div>
+    <div class="source-card">
+      <div class="source-label">Research Infrastructure</div>
+      <div class="source-h">Academic identity &amp; output</div>
+      <div class="source-p">Research identity and publication data — connecting academic capability to commercial opportunity.</div>
+    </div>
+    <div class="source-card">
+      <div class="source-label">Diagnostic Intelligence</div>
+      <div class="source-h">75-cluster global baseline</div>
+      <div class="source-p">Every ClusterOS deployment inherits pattern intelligence from 75 diagnosed clusters across 18+ countries.</div>
+    </div>
+    <div class="source-card">
+      <div class="source-label">Behavioural Signal</div>
+      <div class="source-h">System activity inference</div>
+      <div class="source-p">Actor profiles and capability maps built continuously from system behaviour — reducing onboarding friction to near zero.</div>
+    </div>
+  </div>
+</div>
+
+<!-- JOURNEY GRAPHIC -->
+<div class="journey-section">
+  <div class="journey-intro">
+    <div class="sec-tag">Five stages</div>
+    <h2 class="sec-h">From fragmentation<br><em>to resilient infrastructure</em></h2>
+  </div>
+  <div class="journey-canvas-wrap">
+    <div class="journey-chrome">
+      <div class="jchrome-dot r"></div>
+      <div class="jchrome-dot a"></div>
+      <div class="jchrome-dot g"></div>
+      <div class="jchrome-addr">clusteros.io / ecosystem-grid</div>
+    </div>
+    <div class="journey-stage-nav">
+      <button class="jnav-btn active" data-stage="0">01 · Fragmentation</button>
+      <button class="jnav-btn" data-stage="1">02 · Foundation</button>
+      <button class="jnav-btn" data-stage="2">03 · Signal</button>
+      <button class="jnav-btn" data-stage="3">04 · Cognition</button>
+      <button class="jnav-btn" data-stage="4">05 · Maturity</button>
+      <div class="jnav-spacer"></div>
+    </div>
+    <canvas id="journey-canvas"></canvas>
+    <div class="journey-overlay">
+      <div class="journey-text">
+        <div class="jov-headline">Fragmentation</div>
+        <div class="jov-desc">Isolated generators with no shared infrastructure. Each pursues maximum output on its own terms — capital wasted, signals unread, surplus stranded. The outside world is invisible from inside the system.</div>
+      </div>
+      <div class="journey-controls">
+        <div style="display:flex;gap:6px;align-items:center;">
+          <div class="jprog-dot active" data-stage="0"></div>
+          <div class="jprog-dot" data-stage="1"></div>
+          <div class="jprog-dot" data-stage="2"></div>
+          <div class="jprog-dot" data-stage="3"></div>
+          <div class="jprog-dot" data-stage="4"></div>
+        </div>
+        <button class="jctrl-btn" id="jctrl-prev" disabled>← Prev</button>
+        <button class="jctrl-btn" id="jctrl-next">Next →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="closing">
+  <div class="closing-inner">
+    <h2 class="closing-h">Making complexity<br><em>cheaper to operate.</em></h2>
+    <p class="closing-p">ClusterOS reframes regional development from building more initiatives to making complexity cheaper to operate. That is its defining purpose — and its enduring value. It is enterprise SaaS built for the infrastructure layer of a regional economy, not a tool bolted on top of one.</p>
+    <div class="closing-cta">
+      <a href="request.html" class="btn-primary">Request a Diagnostic</a>
+      <a href="signals-systems.html" class="btn-ghost">See the System in Action →</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Cluster<span>OS</span></a>
+      <p class="footer-tagline">Regional economies need infrastructure.<br>Not more strategy.</p>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-col">
+        <div class="footer-col-label">Product</div>
+        <a href="digital-infrastructure.html">Digital Infrastructure</a>
+        <a href="signals-systems.html">Signals &amp; Systems</a>
+        <a href="diagnostic.html">The Diagnostic</a>
+        <a href="leverage.html">Leverage</a>
+        <a href="findings.html">Findings</a>
+        <a href="pricing.html">Pricing</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Lab Notes</div>
+        <a href="notes.html">All Notes</a>
+        <a href="ln-01-coordinating.html">S2 · Coordinating</a>
+        <a href="ln-02-narrating.html">S7 · Narrating</a>
+        <a href="ln-10-narrative-activity-stack.html">Narrative × Activity</a>
+        <a href="ln-12-leverage.html">What Leverage Looks Like</a>
+        <a href="ln-13-diagnosis.html">Why Diagnosis Fails</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-label">Company</div>
+        <a href="about.html">About</a>
+        <a href="data.html">Diagnostic Data</a>
+        <a href="request.html">Request a Diagnostic</a>
+        <a href="/cdn-cgi/l/email-protection#91f0fff5e3f4e6d1f2fefcfce4fff8e5e8fdf0f3bff0e1e1"><span class="__cf_email__" data-cfemail="2948474d5b4c5e694a4644445c47405d5045484b07485959">[email&#160;protected]</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-base">
+    <span class="footer-copy">© 2026 ClusterOS · Community Lab</span>
+    <span class="footer-copy">Built in Edinburgh</span>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function(){
+'use strict';
+
+// roundRect polyfill for older Safari
+if(!CanvasRenderingContext2D.prototype.roundRect){
+  CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,r){
+    r=Math.min(r,w/2,h/2);
+    this.moveTo(x+r,y); this.lineTo(x+w-r,y);
+    this.arcTo(x+w,y,x+w,y+r,r); this.lineTo(x+w,y+h-r);
+    this.arcTo(x+w,y+h,x+w-r,y+h,r); this.lineTo(x+r,y+h);
+    this.arcTo(x,y+h,x,y+h-r,r); this.lineTo(x,y+r);
+    this.arcTo(x,y,x+r,y,r); this.closePath();
+    return this;
+  };
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   ClusterOS — Ecosystem Grid Visualisation
+   Five stages of coordination infrastructure, shown as a live digital
+   system: actors, clusters, signal flows, dynamics (growth, failure,
+   splitting), and the steward's reading panel.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── COLOUR PALETTE ─────────────────────────────────────────────────── */
+var C = {
+  bg:      '#060c16',
+  signal:  '#c8f0d0',   // founder / signal green
+  amber:   '#f5d97a',   // anchor / corporate
+  teal:    '#7dd3c8',   // researcher / steward
+  crimson: '#f08080',   // failure / alert
+  violet:  '#b8a0e8',   // talent
+  muted:   '#3a5570',
+  dim:     '#1e3048',
+  mid:     '#2a4460',
+  chalk:   '#e8edf5',
+  mono:    "'Geist Mono', monospace"
+};
+
+/* ── STAGE METADATA ─────────────────────────────────────────────────── */
+var STAGES = [
+  { name: 'Fragmentation',
+    desc: 'Actors operating in isolation — each pursuing its own goals with no shared infrastructure. Signals go unread. Overlaps go unnoticed. The overhead of coordination rises with every new participant.' },
+  { name: 'Foundation',
+    desc: 'The platform layer appears. Actors register, identity is established, clusters take shape around shared themes. Connections become possible — but signals are thin and the system is not yet reading itself.' },
+  { name: 'Signal',
+    desc: 'The system begins to generate intelligence. Activity produces signal: who is doing what, where demand is forming, which pathways are stalling. The outside world connects — capital, talent, and knowledge begin to flow.' },
+  { name: 'Cognition',
+    desc: 'The steward can read the system. Stalls are visible before they compound. Clusters growing faster than the infrastructure can support flag early. Some actors fail — the system absorbs it rather than treating it as a crisis.' },
+  { name: 'Maturity',
+    desc: 'A self-sustaining coordination layer. New clusters form organically. Actors mature and spawn successors. The outside world is a resource the system actively routes. The steward maintains — does not manage.' }
+];
+
+/* ── OUTSIDE ACTORS ─────────────────────────────────────────────────── */
+var OUTSIDE = [
+  { label: 'Investors',      side: 'L', yf: 0.18, activeFrom: 2 },
+  { label: 'Diaspora',       side: 'L', yf: 0.38, activeFrom: 3 },
+  { label: 'Policy',         side: 'L', yf: 0.60, activeFrom: 1 },
+  { label: 'Supply Chain',   side: 'L', yf: 0.80, activeFrom: 3 },
+  { label: 'Global Clients', side: 'R', yf: 0.22, activeFrom: 2 },
+  { label: 'Knowledge',      side: 'R', yf: 0.46, activeFrom: 2 },
+  { label: 'Talent',         side: 'R', yf: 0.70, activeFrom: 1 }
+];
+
+/* ── ACTOR TYPE SHAPES ──────────────────────────────────────────────── */
+// Types: founder(circle), anchor(square), researcher(diamond), talent(triangle)
+var ACTOR_TYPES = {
+  founder:    { color: C.signal,  label: 'Founder',    shape: 'circle'   },
+  anchor:     { color: C.amber,   label: 'Anchor',     shape: 'square'   },
+  researcher: { color: C.teal,    label: 'Researcher', shape: 'diamond'  },
+  talent:     { color: C.violet,  label: 'Talent',     shape: 'triangle' }
+};
+
+/* ── ACTOR POSITIONS (normalised within inner area) ─────────────────── */
+// Each actor: id, type, xf, yf, name, size multiplier, cluster membership
+var ACTORS = [
+  // Founders
+  { id:'f1', type:'founder',    xf:0.22, yf:0.30, name:'Startup A', sz:1.0, cluster:0 },
+  { id:'f2', type:'founder',    xf:0.34, yf:0.58, name:'Startup B', sz:0.85,cluster:0 },
+  { id:'f3', type:'founder',    xf:0.58, yf:0.70, name:'Startup C', sz:0.9, cluster:1 },
+  { id:'f4', type:'founder',    xf:0.72, yf:0.42, name:'Startup D', sz:0.75,cluster:1 },
+  // Anchors
+  { id:'a1', type:'anchor',     xf:0.28, yf:0.22, name:'Corp A',    sz:1.3, cluster:0 },
+  { id:'a2', type:'anchor',     xf:0.68, yf:0.28, name:'Corp B',    sz:1.2, cluster:1 },
+  // Researchers
+  { id:'r1', type:'researcher', xf:0.44, yf:0.36, name:'Uni Lab',   sz:1.1, cluster:0 },
+  { id:'r2', type:'researcher', xf:0.62, yf:0.56, name:'Research',  sz:1.0, cluster:1 },
+  // Talent
+  { id:'t1', type:'talent',     xf:0.30, yf:0.72, name:'Talent A',  sz:0.8, cluster:0 },
+  { id:'t2', type:'talent',     xf:0.52, yf:0.22, name:'Talent B',  sz:0.8, cluster:1 }
+];
+
+/* ── CLUSTER DEFINITIONS (convex regions) ───────────────────────────── */
+// Each cluster: id, colour, centre, approximate radius, label, stageAppears
+var CLUSTERS = [
+  { id:0, color: C.signal, cx:0.30, cy:0.45, rx:0.22, ry:0.30, label:'Cluster Alpha', stageAppears:1 },
+  { id:1, color: C.amber,  cx:0.65, cy:0.46, rx:0.20, ry:0.28, label:'Cluster Beta',  stageAppears:1 }
+];
+
+/* ── CONNECTIONS (actor pairs) ──────────────────────────────────────── */
+// Defined by actor id pairs; each has a stageAppears and signal color
+var CONNECTIONS = [
+  // intra-cluster: cluster 0
+  { a:'f1',  b:'a1',  stageAppears:1, color:C.signal  },
+  { a:'f1',  b:'r1',  stageAppears:1, color:C.teal    },
+  { a:'f2',  b:'r1',  stageAppears:2, color:C.teal    },
+  { a:'f2',  b:'t1',  stageAppears:2, color:C.violet  },
+  { a:'a1',  b:'r1',  stageAppears:1, color:C.amber   },
+  // intra-cluster: cluster 1
+  { a:'f3',  b:'a2',  stageAppears:1, color:C.signal  },
+  { a:'f4',  b:'r2',  stageAppears:2, color:C.teal    },
+  { a:'a2',  b:'r2',  stageAppears:1, color:C.amber   },
+  { a:'f3',  b:'t2',  stageAppears:2, color:C.violet  },
+  // cross-cluster (bridge)
+  { a:'r1',  b:'r2',  stageAppears:2, color:C.teal    },
+  { a:'a1',  b:'a2',  stageAppears:3, color:C.amber   },
+  { a:'f2',  b:'f3',  stageAppears:3, color:C.signal  }
+];
+
+/* ── STATE ──────────────────────────────────────────────────────────── */
+var stage = 0;
+var animT = 0;
+var lastTime = 0;
+var particles = [];
+var raf = null;
+
+// Per-actor dynamic state (growth, failure)
+var actorState = {};
+ACTORS.forEach(function(a){
+  actorState[a.id] = { scale: 1.0, opacity: 1.0, failing: false, failT: 0, grown: false };
+});
+
+/* ── DOM ────────────────────────────────────────────────────────────── */
+var canvas   = document.getElementById('journey-canvas');
+var prevBtn  = document.getElementById('jctrl-prev');
+var nextBtn  = document.getElementById('jctrl-next');
+var navBtns  = document.querySelectorAll('.jnav-btn');
+var progDots = document.querySelectorAll('.jprog-dot');
+if (!canvas) return;
+var ctx = canvas.getContext('2d');
+
+/* ── SIZING ─────────────────────────────────────────────────────────── */
+var W, H, dpr;
+function resize(){
+  dpr = window.devicePixelRatio || 1;
+  W = canvas.offsetWidth;
+  H = canvas.offsetHeight;
+  canvas.width  = W * dpr;
+  canvas.height = H * dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+resize();
+window.addEventListener('resize', resize);
+
+/* ── COORDINATE HELPERS ─────────────────────────────────────────────── */
+// Inner area: leave margins for outside actor labels
+var M = { l:0.13, r:0.87, t:0.06, b:0.90 };
+function ix(f){ return M.l*W + f*(M.r-M.l)*W; }
+function iy(f){ return M.t*H + f*(M.b-M.t)*H; }
+function fx(px){ return (px - M.l*W)/((M.r-M.l)*W); }
+function fy(py){ return (py - M.t*H)/((M.b-M.t)*H); }
+
+/* ── COLOUR HELPERS ─────────────────────────────────────────────────── */
+function ha(hex,a){
+  var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return 'rgba('+r+','+g+','+b+','+a+')';
+}
+function pulse(t,speed){ return 0.5+0.5*Math.sin(t*(speed||1.8)); }
+
+/* ── ACTOR GEOMETRY ─────────────────────────────────────────────────── */
+var BASE_R = 11; // base actor radius in px
+
+function actorPos(a){
+  return { x: ix(a.xf), y: iy(a.yf) };
+}
+
+function actorRadius(a){
+  var st = actorState[a.id];
+  return BASE_R * a.sz * st.scale;
+}
+
+/* ── DRAW: CLUSTER TERRITORY ────────────────────────────────────────── */
+function drawCluster(cl, stageN, t){
+  if(stageN < cl.stageAppears) return;
+  var alpha = Math.min(1,(stageN - cl.stageAppears + 0.3)*0.9);
+  var cx = ix(cl.cx), cy = iy(cl.cy);
+  var rx = cl.rx*(M.r-M.l)*W, ry = cl.ry*(M.b-M.t)*H;
+
+  // Stage 4: cluster 0 is splitting — shift slightly
+  if(stageN >= 4 && cl.id === 0){
+    // split animation: two lobes
+    ctx.save();
+    ctx.globalAlpha = alpha * 0.08;
+    ctx.fillStyle = cl.color;
+    ctx.beginPath();
+    ctx.ellipse(cx - rx*0.25, cy, rx*0.65, ry*0.75, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(cx + rx*0.30, cy - ry*0.1, rx*0.58, ry*0.68, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.globalAlpha = alpha * 0.18;
+    ctx.strokeStyle = cl.color;
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4,5]);
+    ctx.beginPath();
+    ctx.ellipse(cx - rx*0.25, cy, rx*0.65, ry*0.75, 0, 0, Math.PI*2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.ellipse(cx + rx*0.30, cy - ry*0.1, rx*0.58, ry*0.68, 0, 0, Math.PI*2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // label for new sub-cluster
+    ctx.font = '600 8px '+C.mono;
+    ctx.fillStyle = ha(cl.color,0.5);
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.globalAlpha = alpha*0.8;
+    ctx.fillText('Alpha·1', cx-rx*0.25, cy-ry*0.6);
+    ctx.fillText('Alpha·2', cx+rx*0.30, cy-ry*0.55);
+    ctx.restore();
+    return;
+  }
+
+  // Standard cluster territory
+  ctx.save();
+  // Soft fill
+  var grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(rx,ry));
+  grad.addColorStop(0,   ha(cl.color, alpha*0.10));
+  grad.addColorStop(0.6, ha(cl.color, alpha*0.05));
+  grad.addColorStop(1,   ha(cl.color, 0));
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI*2);
+  ctx.fill();
+  // Dashed border
+  ctx.strokeStyle = ha(cl.color, alpha*0.22);
+  ctx.lineWidth = 1;
+  ctx.setLineDash([5,5]);
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI*2);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  // Label at top of cluster
+  ctx.font = '600 8px '+C.mono;
+  ctx.fillStyle = ha(cl.color, alpha*0.55);
+  ctx.textAlign='center'; ctx.textBaseline='bottom';
+  ctx.fillText(cl.label, cx, cy - ry - 4);
+  ctx.restore();
+}
+
+/* ── DRAW: CONNECTION LINES ─────────────────────────────────────────── */
+function drawConnections(stageN, t){
+  CONNECTIONS.forEach(function(conn){
+    if(stageN < conn.stageAppears) return;
+    var actA = ACTORS.find(function(a){ return a.id===conn.a; });
+    var actB = ACTORS.find(function(a){ return a.id===conn.b; });
+    if(!actA || !actB) return;
+    var stA = actorState[conn.a], stB = actorState[conn.b];
+    if(stA.opacity < 0.1 || stB.opacity < 0.1) return;
+    var posA = actorPos(actA), posB = actorPos(actB);
+    var alpha = Math.min(stA.opacity, stB.opacity);
+    var fadein = Math.min(1,(stageN - conn.stageAppears + 0.5)*1.2);
+    ctx.save();
+    ctx.globalAlpha = fadein * alpha * 0.35;
+    ctx.strokeStyle = conn.color;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(posA.x, posA.y);
+    ctx.lineTo(posB.x, posB.y);
+    ctx.stroke();
+    ctx.restore();
+  });
+}
+
+/* ── DRAW: ACTOR NODE ────────────────────────────────────────────────── */
+function drawActor(a, stageN, t){
+  if(stageN < 1) return; // actors only visible from stage 1+
+  var pos = actorPos(a);
+  var r   = actorRadius(a);
+  var tp  = ACTOR_TYPES[a.type];
+  var st  = actorState[a.id];
+  var op  = st.opacity;
+  if(op <= 0) return;
+
+  ctx.save();
+  ctx.globalAlpha = op;
+
+  // Shape fill
+  ctx.fillStyle = ha(tp.color, 0.14);
+  ctx.strokeStyle = tp.color;
+  ctx.lineWidth = 1.5;
+
+  ctx.beginPath();
+  if(tp.shape === 'circle'){
+    ctx.arc(pos.x, pos.y, r, 0, Math.PI*2);
+  } else if(tp.shape === 'square'){
+    ctx.rect(pos.x-r*0.85, pos.y-r*0.85, r*1.7, r*1.7);
+  } else if(tp.shape === 'diamond'){
+    ctx.moveTo(pos.x,       pos.y - r*1.1);
+    ctx.lineTo(pos.x + r,   pos.y);
+    ctx.lineTo(pos.x,       pos.y + r*1.1);
+    ctx.lineTo(pos.x - r,   pos.y);
+    ctx.closePath();
+  } else if(tp.shape === 'triangle'){
+    ctx.moveTo(pos.x,       pos.y - r);
+    ctx.lineTo(pos.x + r*0.87, pos.y + r*0.5);
+    ctx.lineTo(pos.x - r*0.87, pos.y + r*0.5);
+    ctx.closePath();
+  }
+  ctx.fill();
+  ctx.stroke();
+
+  // Failure: crimson wash + dissolve ring
+  if(st.failing){
+    var ft = st.failT;
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, r*(1 + ft*1.5), 0, Math.PI*2);
+    ctx.strokeStyle = ha(C.crimson, (1-ft)*0.6);
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  }
+
+  // Label below
+  ctx.font = '500 8px '+C.mono;
+  ctx.fillStyle = ha(tp.color, op*0.7);
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  ctx.fillText(a.name, pos.x, pos.y + r + 3);
+
+  ctx.restore();
+}
+
+/* ── DRAW: OUTSIDE ACTORS ────────────────────────────────────────────── */
+function drawOutside(stageN, t){
+  OUTSIDE.forEach(function(o){
+    var active = stageN >= o.activeFrom;
+    var x = o.side==='L' ? M.l*W*0.5 : W - M.l*W*0.5;
+    var y = M.t*H + o.yf*(M.b-M.t)*H;
+    var ww = M.l*W*0.82, hh = 16;
+    var alpha = active ? Math.min(1,(stageN - o.activeFrom + 0.5)) : 0.18;
+    var col = o.side==='L' ? C.teal : C.amber;
+
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = col;
+    ctx.fillStyle = ha(col, 0.07);
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.roundRect(x - ww/2, y - hh/2, ww, hh, 2);
+    ctx.fill(); ctx.stroke();
+    ctx.font = '600 8px '+C.mono;
+    ctx.fillStyle = col;
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(o.label, x, y);
+
+    // Connection line to nearest inner actor
+    if(active){
+      // find closest actor
+      var closest = null, bestD = Infinity;
+      ACTORS.forEach(function(a){
+        if(actorState[a.id].opacity < 0.3) return;
+        var ap = actorPos(a);
+        var d = Math.hypot(ap.x - x, ap.y - y);
+        if(d < bestD){ bestD=d; closest=a; }
+      });
+      if(closest){
+        var ap = actorPos(closest);
+        ctx.globalAlpha = alpha * 0.3;
+        ctx.strokeStyle = col;
+        ctx.lineWidth = 1;
+        ctx.setLineDash([3,4]);
+        ctx.beginPath();
+        ctx.moveTo(x + (o.side==='L'? ww/2: -ww/2), y);
+        ctx.lineTo(ap.x, ap.y);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+    }
+    ctx.restore();
+  });
+}
+
+/* ── DRAW: SIGNAL PARTICLES ─────────────────────────────────────────── */
+function spawnSignal(x1,y1,x2,y2,color,speed){
+  particles.push({ x:x1,y:y1,tx:x2,ty:y2,color:color,
+    speed: (speed||0.5) + Math.random()*0.35,
+    t:0, sz: 2+Math.random()*1.5, alive:true });
+}
+
+function maybeSpawnSignals(stageN){
+  if(stageN < 2) return;
+  if(Math.random() > 0.07) return;
+  // pick a random active connection and send a pulse
+  var active = CONNECTIONS.filter(function(c){ return stageN>=c.stageAppears; });
+  if(!active.length) return;
+  var conn = active[Math.floor(Math.random()*active.length)];
+  var actA = ACTORS.find(function(a){ return a.id===conn.a; });
+  var actB = ACTORS.find(function(a){ return a.id===conn.b; });
+  if(!actA||!actB) return;
+  var posA=actorPos(actA), posB=actorPos(actB);
+  // bidirectional at stage 3+
+  if(Math.random()<0.5 || stageN>=3){
+    spawnSignal(posA.x,posA.y,posB.x,posB.y,conn.color);
+  }
+  if(stageN>=3) spawnSignal(posB.x,posB.y,posA.x,posA.y,conn.color,0.4);
+
+  // Outside flows at stage 2+
+  if(stageN>=2 && Math.random()<0.15){
+    var oa = OUTSIDE.filter(function(o){ return o.activeFrom<=stageN; });
+    if(oa.length){
+      var o = oa[Math.floor(Math.random()*oa.length)];
+      var ox=o.side==='L'? M.l*W*0.5 : W-M.l*W*0.5;
+      var oy=M.t*H+o.yf*(M.b-M.t)*H;
+      var closest=null,bestD=Infinity;
+      ACTORS.forEach(function(a){
+        if(actorState[a.id].opacity<0.3) return;
+        var ap=actorPos(a);
+        var d=Math.hypot(ap.x-ox,ap.y-oy);
+        if(d<bestD){bestD=d;closest=a;}
+      });
+      if(closest){
+        var col=o.side==='L'?C.teal:C.amber;
+        var ap=actorPos(closest);
+        spawnSignal(ox,oy,ap.x,ap.y,col,0.35);
+        if(stageN>=3) spawnSignal(ap.x,ap.y,ox,oy,col,0.35);
+      }
+    }
+  }
+}
+
+function drawParticles(){
+  particles = particles.filter(function(p){ return p.alive; });
+  particles.forEach(function(p){
+    p.t += 0.016 * p.speed;
+    if(p.t>=1){ p.alive=false; return; }
+    var ex = p.x + (p.tx-p.x)*p.t;
+    var ey = p.y + (p.ty-p.y)*p.t;
+    ctx.save();
+    ctx.globalAlpha = Math.sin(p.t*Math.PI)*0.85;
+    ctx.fillStyle = p.color;
+    ctx.shadowBlur = 5; ctx.shadowColor = p.color;
+    ctx.beginPath(); ctx.arc(ex,ey,p.sz,0,Math.PI*2); ctx.fill();
+    ctx.restore();
+  });
+}
+
+/* ── DRAW: STEWARD PANEL ────────────────────────────────────────────── */
+function drawStewardPanel(stageN, t){
+  if(stageN < 2) return;
+  var pw=130, ph=82;
+  var px = W - pw - 6, py = H - ph - 6;
+  var alpha = Math.min(1,(stageN-1)*0.8);
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = 'rgba(6,12,22,0.92)';
+  ctx.strokeStyle = stageN>=3 ? ha(C.teal,0.6) : ha(C.muted,0.4);
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.roundRect(px,py,pw,ph,4); ctx.fill(); ctx.stroke();
+
+  // Header
+  ctx.font = '700 7px '+C.mono;
+  ctx.fillStyle = stageN>=3 ? C.teal : C.muted;
+  ctx.textAlign='left'; ctx.textBaseline='top';
+  ctx.fillText('STEWARD VIEW', px+7, py+6);
+
+  // Metrics row — ecosystem-relevant, not electrical
+  var metrics = [
+    { k:'ACTORS',    v: stageN>=2 ? String(ACTORS.length)+'  ':'—',   c:C.signal  },
+    { k:'CLUSTERS',  v: stageN>=2 ? (stageN>=4?'3':'2'):'—',          c:C.amber   },
+    { k:'STALLS',    v: stageN>=3 ? (stageN>=3?'1':'0'):'—',          c:stageN>=3?C.crimson:C.muted }
+  ];
+  metrics.forEach(function(m,i){
+    var mx=px+7+i*40, my=py+18;
+    ctx.font='500 6px '+C.mono; ctx.fillStyle=C.muted; ctx.textAlign='left';
+    ctx.fillText(m.k, mx, my);
+    ctx.font='700 9px '+C.mono; ctx.fillStyle=m.c;
+    ctx.fillText(m.v, mx, my+8);
+  });
+
+  // Signal density sparkline
+  if(stageN>=2){
+    ctx.font='500 6px '+C.mono; ctx.fillStyle=C.muted; ctx.textAlign='left';
+    ctx.fillText('SIGNAL DENSITY', px+7, py+40);
+    var bars=[0.25,0.45,0.35,0.6,0.5,0.8,0.65,0.9,0.75,1.0];
+    // stage affects visible bars
+    var visible = stageN>=3 ? bars.length : stageN>=2 ? 6 : 3;
+    bars.slice(0,visible).forEach(function(v,i){
+      var bx=px+7+i*11, by=py+60, bh=14*v;
+      var bc = v>0.8?C.signal:(v>0.5?ha(C.signal,0.7):ha(C.signal,0.4));
+      ctx.fillStyle=bc;
+      ctx.beginPath(); ctx.rect(bx,by+14-bh,8,bh); ctx.fill();
+    });
+  }
+
+  // Stage 3+: stall indicator
+  if(stageN>=3){
+    var p2 = pulse(t,2);
+    ctx.font='600 7px '+C.mono; ctx.textAlign='left'; ctx.textBaseline='top';
+    ctx.fillStyle=ha(C.crimson, 0.5 + 0.4*p2);
+    ctx.fillText('▲ STALL · Startup B', px+7, py+74);
+  }
+
+  // Stage 4: intervention annotation
+  if(stageN>=4){
+    ctx.font='600 7px '+C.mono; ctx.fillStyle=ha(C.amber,0.85); ctx.textBaseline='top';
+    ctx.fillText('↗ New cluster forming', px+7, py+74);
+  }
+
+  ctx.restore();
+}
+
+/* ── DRAW: STAGE-SPECIFIC DYNAMICS ─────────────────────────────────── */
+
+// Stage 0: fragmentation — actors scattered, no cluster, no connections, isolation rings
+function drawFragmentation(t){
+  ctx.save();
+  ACTORS.forEach(function(a){
+    var pos=actorPos(a);
+    var tp=ACTOR_TYPES[a.type];
+    // Isolation ring — pulsing faintly
+    var rr = BASE_R*a.sz*2.8 + 6*pulse(t+a.xf*3, 0.8);
+    var grad=ctx.createRadialGradient(pos.x,pos.y,BASE_R*a.sz,pos.x,pos.y,rr);
+    grad.addColorStop(0, ha(tp.color,0.07));
+    grad.addColorStop(1, 'transparent');
+    ctx.fillStyle=grad;
+    ctx.beginPath(); ctx.arc(pos.x,pos.y,rr,0,Math.PI*2); ctx.fill();
+  });
+  ctx.restore();
+}
+
+// Stage 3: stalled actor — Startup B shows a stall pattern
+function drawStall(t){
+  var stalledActor = ACTORS.find(function(a){ return a.id==='f2'; });
+  if(!stalledActor) return;
+  var pos=actorPos(stalledActor);
+  var p2=pulse(t,2.5);
+  ctx.save();
+  // Dashed warning ring
+  ctx.strokeStyle=ha(C.crimson,0.35+0.2*p2);
+  ctx.lineWidth=1.5;
+  ctx.setLineDash([4,4]);
+  ctx.beginPath(); ctx.arc(pos.x,pos.y,BASE_R*stalledActor.sz*1.8,0,Math.PI*2); ctx.stroke();
+  ctx.setLineDash([]);
+  // Annotation
+  ctx.font='600 7px '+C.mono; ctx.fillStyle=ha(C.crimson,0.7); ctx.textAlign='left'; ctx.textBaseline='middle';
+  ctx.fillText('stall', pos.x+BASE_R*stalledActor.sz*1.9+3, pos.y);
+  ctx.restore();
+}
+
+// Stage 3: a small actor (t1) fails — fades out
+function applyFailure(stageN, dt){
+  var failId = 't1';
+  var st = actorState[failId];
+  if(stageN >= 3 && !st.failing && st.opacity > 0.05){
+    // begin failure (one-way once triggered)
+    st.failing = true;
+  }
+  if(st.failing){
+    st.failT = Math.min(1, st.failT + dt*0.35);
+    st.opacity = Math.max(0, 1 - st.failT);
+    if(st.failT>=1){ st.failing=false; st.opacity=0; }
+  }
+  // Reset if stage goes back below 3
+  if(stageN < 3 && st.opacity < 0.99){
+    st.opacity=1; st.failing=false; st.failT=0;
+  }
+}
+
+// Stage 2+: startup growth — f1 grows in size
+function applyGrowth(stageN, dt){
+  var growId = 'f1';
+  var st = actorState[growId];
+  var targetScale = stageN>=2 ? 1.45 : 1.0;
+  var speed = 0.6;
+  if(st.scale < targetScale) st.scale = Math.min(targetScale, st.scale + dt*speed);
+  if(st.scale > targetScale) st.scale = Math.max(targetScale, st.scale - dt*speed);
+}
+
+/* ── MAIN DRAW LOOP ─────────────────────────────────────────────────── */
+function draw(ts){
+  var dt = (ts - lastTime)*0.001; lastTime = ts;
+  if(dt > 0.1) dt = 0.1;
+  animT += dt;
+
+  ctx.clearRect(0,0,W,H);
+
+  // Subtle dot grid
+  ctx.save();
+  ctx.fillStyle='rgba(30,47,69,0.2)';
+  for(var gxi=0;gxi<=W;gxi+=28){
+    for(var gyi=0;gyi<=H;gyi+=28){
+      ctx.beginPath(); ctx.arc(gxi,gyi,0.8,0,Math.PI*2); ctx.fill();
+    }
+  }
+  ctx.restore();
+
+  var s=stage;
+
+  // Apply dynamics
+  applyFailure(s, dt);
+  applyGrowth(s, dt);
+
+  // ── Stage 0: Fragmentation ─────────────────────────────────────────
+  if(s===0){
+    drawFragmentation(animT);
+    // Draw actors in isolation only (no clusters, no connections)
+    ACTORS.forEach(function(a){ drawActor(a,0,animT); });
+    // Redraw with stage=0 override — actors visible but dim, no clusters
+    ctx.save();
+    ACTORS.forEach(function(a){
+      var pos=actorPos(a), tp=ACTOR_TYPES[a.type];
+      var r=BASE_R*a.sz;
+      ctx.globalAlpha=0.55;
+      ctx.fillStyle=ha(tp.color,0.12);
+      ctx.strokeStyle=ha(tp.color,0.4);
+      ctx.lineWidth=1;
+      ctx.beginPath();
+      if(tp.shape==='circle') ctx.arc(pos.x,pos.y,r,0,Math.PI*2);
+      else if(tp.shape==='square') ctx.rect(pos.x-r*0.85,pos.y-r*0.85,r*1.7,r*1.7);
+      else if(tp.shape==='diamond'){
+        ctx.moveTo(pos.x,pos.y-r*1.1); ctx.lineTo(pos.x+r,pos.y);
+        ctx.lineTo(pos.x,pos.y+r*1.1); ctx.lineTo(pos.x-r,pos.y); ctx.closePath();
+      } else {
+        ctx.moveTo(pos.x,pos.y-r); ctx.lineTo(pos.x+r*0.87,pos.y+r*0.5);
+        ctx.lineTo(pos.x-r*0.87,pos.y+r*0.5); ctx.closePath();
+      }
+      ctx.fill(); ctx.stroke();
+      ctx.font='500 7px '+C.mono; ctx.fillStyle=ha(tp.color,0.4);
+      ctx.textAlign='center'; ctx.textBaseline='top';
+      ctx.fillText(a.name,pos.x,pos.y+r+3);
+    });
+    ctx.restore();
+  }
+
+  // ── Stages 1–4 ─────────────────────────────────────────────────────
+  if(s >= 1){
+    // Clusters
+    CLUSTERS.forEach(function(cl){ drawCluster(cl, s, animT); });
+    // Connections
+    drawConnections(s, animT);
+    // Actors
+    ACTORS.forEach(function(a){ drawActor(a, s, animT); });
+    // Outside actors
+    drawOutside(s, animT);
+    // Signal pulses
+    maybeSpawnSignals(s);
+    drawParticles();
+    // Stage-specific dynamics
+    if(s>=3) drawStall(animT);
+  }
+
+  // ── Steward panel ──────────────────────────────────────────────────
+  drawStewardPanel(s, animT);
+
+  raf = requestAnimationFrame(draw);
+}
+
+/* ── STAGE TRANSITION ───────────────────────────────────────────────── */
+function setStage(n){
+  stage = n;
+  particles = [];
+
+  // Update overlay text
+  var ov = document.querySelector('.jov-headline');
+  var od = document.querySelector('.jov-desc');
+  if(ov) ov.textContent = STAGES[n].name;
+  if(od) od.textContent = STAGES[n].desc;
+
+  // Nav buttons
+  navBtns.forEach(function(btn){
+    btn.classList.toggle('active', parseInt(btn.dataset.stage)===n);
+  });
+  progDots.forEach(function(dot){
+    dot.classList.toggle('active', parseInt(dot.dataset.stage)===n);
+  });
+  if(prevBtn) prevBtn.disabled = n===0;
+  if(nextBtn) nextBtn.disabled = n===STAGES.length-1;
+}
+
+/* ── EVENT LISTENERS ────────────────────────────────────────────────── */
+if(prevBtn) prevBtn.addEventListener('click', function(){ if(stage>0) setStage(stage-1); });
+if(nextBtn) nextBtn.addEventListener('click', function(){ if(stage<STAGES.length-1) setStage(stage+1); });
+navBtns.forEach(function(btn){
+  btn.addEventListener('click', function(){ setStage(parseInt(btn.dataset.stage)); });
+});
+progDots.forEach(function(dot){
+  dot.addEventListener('click', function(){ setStage(parseInt(dot.dataset.stage)); });
+});
+
+/* ── BOOT ───────────────────────────────────────────────────────────── */
+raf = requestAnimationFrame(draw);
+
+})();
+</script>
+<script>
+document.querySelectorAll('.nav-dropdown').forEach(function(dropdown) {
+  var toggle = dropdown.querySelector('.nav-dropdown-toggle');
+  var menu = dropdown.querySelector('.nav-dropdown-menu');
+  toggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var isOpen = menu.style.display === 'block';
+    document.querySelectorAll('.nav-dropdown-menu').forEach(function(m) { m.style.display = 'none'; });
+    document.querySelectorAll('.nav-dropdown-toggle').forEach(function(t) { t.classList.remove('active'); });
+    if (!isOpen) { menu.style.display = 'block'; toggle.classList.add('active'); }
+  });
+});
+document.addEventListener('click', function() {
+  document.querySelectorAll('.nav-dropdown-menu').forEach(function(m) { m.style.display = 'none'; });
+  document.querySelectorAll('.nav-dropdown-toggle').forEach(function(t) { t.classList.remove('active'); });
+});
+const navHamburger = document.getElementById('nav-hamburger');
+const navMobileMenu = document.getElementById('nav-mobile-menu');
+if (navHamburger && navMobileMenu) {
+  navHamburger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const isOpen = navMobileMenu.classList.contains('open');
+    navMobileMenu.classList.toggle('open', !isOpen);
+    navHamburger.classList.toggle('open', !isOpen);
+  });
+   document.addEventListener('click', function() {
+    navMobileMenu.classList.remove('open');
+    navHamburger.classList.remove('open');
+  });
+  navMobileMenu.addEventListener('click', function(e){ e.stopPropagation(); });
+}
+</script>
+</body>
+</html>
