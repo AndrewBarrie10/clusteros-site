@@ -2274,15 +2274,6 @@ const mapModal = document.getElementById('map-modal');
 document.getElementById('open-map-btn').addEventListener('click', () => {
   mapModal.classList.add('open');
   document.body.style.overflow = 'hidden';
-  // iPad fix: canvas has zero dimensions until modal is visible
-  // Force redraw after modal has real dimensions
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    const canvas = document.getElementById('world-canvas');
-    if (canvas && canvas.offsetWidth === 0) {
-      // Canvas never drew — trigger resize to force redraw
-      window.dispatchEvent(new Event('resize'));
-    }
-  }));
   // Render pins after modal is visible and has dimensions
   requestAnimationFrame(() => requestAnimationFrame(() => {
     zoom = window.innerWidth < 768 ? 0.5 : 0.72;
@@ -2429,7 +2420,7 @@ document.getElementById('zoom-reset').addEventListener('click', () => {
       canvas.width  = W * (window.devicePixelRatio || 1);
       canvas.height = H * (window.devicePixelRatio || 1);
       const ctx = canvas.getContext('2d');
-      ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+      ctx.setTransform(window.devicePixelRatio || 1, 0, 0, window.devicePixelRatio || 1, 0, 0);
 
       // Ocean
       const grad = ctx.createRadialGradient(W*0.3,H*0.35,0,W*0.3,H*0.35,W*0.9);
@@ -2495,10 +2486,11 @@ function tryRenderPins(attempts) {
     const H = canvas.offsetHeight || canvas.parentElement.offsetHeight;
     if (!W || !H) { setTimeout(() => drawMap(world), 100); return; }
 
-    canvas.width  = W * window.devicePixelRatio;
-    canvas.height = H * window.devicePixelRatio;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
     const ctx = canvas.getContext('2d');
-    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     // Equirectangular projection scaled to canvas
     const projection = d3.geoEquirectangular()
