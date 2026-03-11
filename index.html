@@ -2276,8 +2276,8 @@ const mapModal = document.getElementById('map-modal');
 document.getElementById('open-map-btn').addEventListener('click', () => {
   mapModal.classList.add('open');
   document.body.style.overflow = 'hidden';
-  // Render pins after modal is visible and has dimensions
   requestAnimationFrame(() => requestAnimationFrame(() => {
+    ensureWorldMap();
     zoom = window.innerWidth < 768 ? 0.5 : 0.72;
     panX = 0; panY = 0;
     applyTransform();
@@ -2479,101 +2479,78 @@ function tryRenderPins(attempts) {
 }
 
 // ── D3 WORLD MAP CANVAS RENDERER ──
-(function initWorldMap() {
+// Drawn on modal open (not page load) so canvas always has real dimensions
+window._worldData = null;
+
+function drawWorldCanvas() {
   const canvas = document.getElementById('world-canvas');
   if (!canvas) return;
 
-  function drawMap(world) {
-    const W = canvas.offsetWidth || canvas.parentElement.offsetWidth;
-    const H = canvas.offsetHeight || canvas.parentElement.offsetHeight;
-    if (!W || !H) { setTimeout(() => drawMap(world), 100); return; }
+  // Use window dimensions as ultimate fallback for iPad
+  const W = canvas.offsetWidth || canvas.parentElement.offsetWidth || window.innerWidth;
+  const H = canvas.offsetHeight || canvas.parentElement.offsetHeight || (window.innerHeight - 48);
+  if (!W || !H) { setTimeout(drawWorldCanvas, 80); return; }
 
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width  = W * dpr;
-    canvas.height = H * dpr;
-    const ctx = canvas.getContext('2d');
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width  = W * dpr;
+  canvas.height = H * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    // Equirectangular projection scaled to canvas
-    const projection = d3.geoEquirectangular()
-      .scale(W / (2 * Math.PI))
-      .translate([W / 2, H / 2]);
-    const path = d3.geoPath(projection, ctx);
+  // Ocean — always drawn first so canvas is never blank
+  const grad = ctx.createRadialGradient(W*0.3, H*0.35, 0, W*0.3, H*0.35, W*0.9);
+  grad.addColorStop(0, '#0d1b2e');
+  grad.addColorStop(1, '#060c18');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
 
-    // Ocean gradient
-    const grad = ctx.createRadialGradient(W * 0.3, H * 0.35, 0, W * 0.3, H * 0.35, W * 0.9);
-    grad.addColorStop(0, '#0d1b2e');
-    grad.addColorStop(1, '#060c18');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, W, H);
+  const world = window._worldData;
+  if (!world) return; // ocean-only until data arrives
 
-    // Graticule (subtle grid)
-    const graticule = d3.geoGraticule().step([30, 30]);
-    ctx.beginPath();
-    path(graticule());
-    ctx.strokeStyle = '#0c1e35';
-    ctx.lineWidth = 0.5;
-    ctx.stroke();
+  const proj = d3.geoEquirectangular().scale(W/(2*Math.PI)).translate([W/2, H/2]);
+  const path = d3.geoPath(proj, ctx);
 
-    // Equator (slightly brighter)
-    ctx.beginPath();
-    path(d3.geoGraticule().step([360, 180])());
-    ctx.beginPath();
-    path({ type: 'LineString', coordinates: [[-180, 0], [180, 0]] });
-    ctx.strokeStyle = '#0f2840';
-    ctx.lineWidth = 1;
-    ctx.stroke();
+  ctx.beginPath(); path(d3.geoGraticule().step([30,30])());
+  ctx.strokeStyle = '#0c1e35'; ctx.lineWidth = 0.5; ctx.stroke();
 
-    // Land
-    const land = topojson.feature(world, world.objects.land);
-    ctx.beginPath();
-    path(land);
-    ctx.fillStyle = '#162840';
-    ctx.fill();
-    ctx.strokeStyle = '#0d1f35';
-    ctx.lineWidth = 0.5;
-    ctx.stroke();
+  ctx.beginPath(); path({ type:'LineString', coordinates:[[-180,0],[180,0]] });
+  ctx.strokeStyle = '#0f2840'; ctx.lineWidth = 1; ctx.stroke();
 
-    // Country borders
-    const countries = topojson.mesh(world, world.objects.countries, (a, b) => a !== b);
-    ctx.beginPath();
-    path(countries);
-    ctx.strokeStyle = '#1a3050';
-    ctx.lineWidth = 0.4;
-    ctx.stroke();
+  ctx.beginPath(); path(topojson.feature(world, world.objects.land));
+  ctx.fillStyle = '#162840'; ctx.fill();
+  ctx.strokeStyle = '#0d1f35'; ctx.lineWidth = 0.5; ctx.stroke();
 
-    // Antarctica ice hint
-    ctx.fillStyle = '#0f1e32';
-    ctx.globalAlpha = 0.6;
-    ctx.fillRect(0, H * 0.91, W, H * 0.09);
-    ctx.globalAlpha = 1;
-  }
+  ctx.beginPath(); path(topojson.mesh(world, world.objects.countries, (a,b) => a!==b));
+  ctx.strokeStyle = '#1a3050'; ctx.lineWidth = 0.4; ctx.stroke();
 
-  function tryLoad() {
+  ctx.fillStyle = '#0f1e32'; ctx.globalAlpha = 0.6;
+  ctx.fillRect(0, H*0.91, W, H*0.09);
+  ctx.globalAlpha = 1;
+}
+
+function ensureWorldMap() {
+  // Always attempt to draw immediately (ocean at minimum)
+  drawWorldCanvas();
+
+  // If data already cached, we're done
+  if (window._worldData) return;
+
+  // Wait for d3/topojson then fetch atlas
+  function attemptFetch() {
     if (typeof d3 === 'undefined' || typeof topojson === 'undefined') {
-      setTimeout(tryLoad, 100);
-      return;
+      setTimeout(attemptFetch, 100); return;
     }
     fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
       .then(r => r.json())
       .then(world => {
-        drawMap(world);
-        window.addEventListener('resize', () => drawMap(world));
+        window._worldData = world;
+        drawWorldCanvas();
+        window.addEventListener('resize', drawWorldCanvas);
       })
-      .catch(() => {
-        // Fallback: plain dark ocean if network unavailable
-        const c = document.getElementById('world-canvas');
-        if (!c) return;
-        const W = c.offsetWidth, H = c.offsetHeight;
-        c.width = W; c.height = H;
-        const ctx = c.getContext('2d');
-        const grad = ctx.createRadialGradient(W*0.3,H*0.35,0,W*0.3,H*0.35,W*0.9);
-        grad.addColorStop(0,'#0d1b2e'); grad.addColorStop(1,'#060c18');
-        ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
-      });
+      .catch(() => { /* ocean fallback already visible */ });
   }
-  tryLoad();
-})();
+  attemptFetch();
+}
 </script>
 <script>
 // Nav dropdown - click to open, click outside to close
